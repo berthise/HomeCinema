@@ -16,20 +16,12 @@
                     <path-in-war>/</path-in-war>
                 </library>
                 <library>
-                    <file>${reference.Admin.dist-ear}</file>
+                    <file>${reference.HomeCinemaAdmin-war.dist-ear}</file>
                     <path-in-war>/</path-in-war>
                 </library>
             </web-module-additional-libraries>
         </data>
         <references xmlns="http://www.netbeans.org/ns/ant-project-references/1">
-            <reference>
-                <foreign-project>Admin</foreign-project>
-                <artifact-type>j2ee_ear_archive</artifact-type>
-                <script>build.xml</script>
-                <target>dist-ear</target>
-                <clean-target>clean-ear</clean-target>
-                <id>dist-ear</id>
-            </reference>
             <reference>
                 <foreign-project>HomeCinema-ejb</foreign-project>
                 <artifact-type>j2ee_ear_archive</artifact-type>
@@ -47,12 +39,12 @@
                 <id>dist-ear</id>
             </reference>
             <reference>
-                <foreign-project>ViewToModelInterface</foreign-project>
-                <artifact-type>jar</artifact-type>
+                <foreign-project>HomeCinemaAdmin-war</foreign-project>
+                <artifact-type>j2ee_ear_archive</artifact-type>
                 <script>build.xml</script>
-                <target>jar</target>
-                <clean-target>clean</clean-target>
-                <id>jar</id>
+                <target>dist-ear</target>
+                <clean-target>clean-ear</clean-target>
+                <id>dist-ear</id>
             </reference>
         </references>
     </configuration>

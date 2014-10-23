@@ -1,0 +1,13 @@
+/Admin/build/
+/build/
+/Admin/dist/
+/HomeCinema-ejb/build/
+/HomeCinema-ejb/dist/
+/HomeCinema-war/build/
+/HomeCinema-war/dist/
+/HomeCinema-lib/build/
+/HomeCinema-lib/dist/
+/HomeCinema-lib/nbproject/private/
+/HomeCinemaAdmin-war/nbproject/private/
+/HomeCinemaAdmin-war/build/
+/HomeCinemaAdmin-war/dist/
