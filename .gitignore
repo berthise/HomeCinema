@@ -1,6 +1,5 @@
-/Admin/build/
+/dist/
 /build/
-/Admin/dist/
 /HomeCinema-ejb/build/
 /HomeCinema-ejb/dist/
 /HomeCinema-war/build/
