@@ -41,7 +41,7 @@ public class Film implements Serializable {
   @JoinColumn(name = "PRODUCTS")
   private List<Product> products;
 
-  @Column(name = "MAIN_PRODUCT")
+  @JoinColumn(name = "MAIN_PRODUCT")
   @OneToOne
   private Product main_product;
 
@@ -76,7 +76,7 @@ public class Film implements Serializable {
   private List<Video> videoFile;
 
   @OneToOne
-  @Column(name = "TRAILLER")
+  @JoinColumn(name = "TRAILLER")
   private Video trailler;
 
   @ManyToMany

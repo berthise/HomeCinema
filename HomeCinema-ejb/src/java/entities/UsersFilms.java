@@ -5,7 +5,6 @@
  */
 package entities;
 
-import static entities.Product_.name;
 import enums.UsersFilmsStates;
 import java.io.Serializable;
 import javax.persistence.Column;
@@ -33,7 +32,7 @@ public class UsersFilms implements Serializable {
   @OneToOne
   private Film film;
  
-  @Column(name = "_STATE")
+  @Column(name = "STATE_")
   private UsersFilmsStates state;
  
   @Column(name = "CURRENT_POSITION")

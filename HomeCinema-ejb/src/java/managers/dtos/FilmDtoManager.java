@@ -19,7 +19,9 @@ public  class FilmDtoManager {
         FilmDto fdto = new FilmDto();
         fdto.id = f.getId();
         fdto.title=f.getTitle();
-        //+ autres params
+        fdto.overview=f.getOverview();
+        fdto.release_date=f.getReleaseDate();
+        fdto.cover=f.getCoverId();
         return fdto;
     }
     
@@ -28,7 +30,9 @@ public  class FilmDtoManager {
         Film f = new Film();
         f.setId(fdto.id);
         f.setTitle(fdto.title);
-        //+ autres params
+        f.setOverview(fdto.overview);
+        f.setReleaseDate(fdto.release_date);
+        f.setCoverId(fdto.cover);
         return f;
     }
     

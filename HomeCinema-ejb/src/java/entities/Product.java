@@ -49,7 +49,7 @@ public class Product implements Serializable {
   @Column(name = "NAME")
   private String name;
 
-  @Column(name = "_STATE")
+  @Column(name = "STATE_")
   private ProductStates state;
 
   @Column(name = "NB_SALES")

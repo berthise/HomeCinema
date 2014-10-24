@@ -26,7 +26,7 @@ import javax.validation.constraints.Size;
  * @author titou
  */
 @Entity
-@Table(name = "USER")
+@Table(name = "USER_")
 public class User implements Serializable {
 
   private static final long serialVersionUID = 1L;
@@ -41,7 +41,7 @@ public class User implements Serializable {
   private String nickName;
 
   @Size(max = 255)
-  @Column(name = "LAST_NAME")
+  @Column(name = "FIRST_NAME")
   private String firstName;
 
   @Size(max = 255)
@@ -64,7 +64,7 @@ public class User implements Serializable {
   @Column(name = "ADD_DATE")
   private java.util.Date addDate;
 
-  @Column(name = "_STATE")
+  @Column(name = "STATE_")
   private UserStates state;
 
   @OneToMany
@@ -76,7 +76,7 @@ public class User implements Serializable {
   private List<UsersFilms> films;
 
   @OneToMany(mappedBy = "user")
-  @Column(name = "TRANSACTIONS")
+  @JoinColumn(name = "TRANSACTIONS")
   private List<Transaction> transactions;
 
   public Long getId() {
