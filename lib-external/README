@@ -1,0 +1,5 @@
+add a symbolic links name gf-client.jar that point to your glassfish install gd-client.jar:
+
+glassfish-4.1/glassfish/lib/gf-client.jar
+
+command: ln -s $PATH_TO_JAR

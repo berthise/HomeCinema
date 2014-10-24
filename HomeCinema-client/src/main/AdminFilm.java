@@ -17,6 +17,7 @@ public  class AdminFilm {
     
     public static void createFilm(Long id)
     {
+      System.out.println("Add film: " + id);
         FilmDto fdto = new FilmDto();
                 String urlString = "https://api.themoviedb.org/3/movie/" + id + "?api_key=63d250a5b71c307f7592228c79b729cf";
         try {
@@ -32,6 +33,8 @@ public  class AdminFilm {
         }
         
         HomeCinemaClient.getManageFilmRemote().createFilm(fdto);
+	      System.out.println("Done film: " + id);
+
     }
     
     
