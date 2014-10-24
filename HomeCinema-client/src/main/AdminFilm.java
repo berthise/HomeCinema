@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package fatclientadmin;
+package main;
 
 import UtilsJson.JsonReader;
 import dtos.FilmDto;
 import org.json.JSONObject;
-
+import java.util.Date;
 /**
  *
  * @author titou
@@ -24,13 +24,15 @@ public  class AdminFilm {
             fdto.title = (String) json.get("title");
             fdto.cover = (String) json.get("poster_path");
             fdto.runtime= (int) json.get("runtime");
-            fdto.release_date = (String) json.get("release_date");
+            fdto.release_date = new Date((String) json.get("release_date"));
             fdto.overview = (String) json.get("overview");
 
         } catch (Exception e) {
             
         }
         
-        FatClientAdmin.getManageFilmRemote().createFilm(fdto);
-    }    
+        HomeCinemaClient.getManageFilmRemote().createFilm(fdto);
+    }
+    
+    
 }

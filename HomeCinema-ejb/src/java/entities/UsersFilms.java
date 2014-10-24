@@ -5,35 +5,42 @@
  */
 package entities;
 
+import static entities.Product_.name;
+import enums.UsersFilmsStates;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.Size;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 /**
  *
- * @author titou
+ * @author seb
  */
 @Entity
-public class VideoFile implements Serializable {
-
+@Table(name = "USERS_FILMS")
+public class UsersFilms implements Serializable {
   private static final long serialVersionUID = 1L;
-
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "ID")
   private Long id;
 
-  @Column(name = "RESOLUTION")
-  private Integer resolution;
-
-  @Size(max = 255)
-  @Column(name = "URL")
-  private String url;
-
+  @JoinColumn(name = "FILM")
+  @OneToOne
+  private Film film;
+ 
+  @Column(name = "STATE_")
+  private UsersFilmsStates state;
+ 
+  @Column(name = "CURRENT_POSITION")
+  private Integer currentPsitiono;
+    
+    
   public Long getId() {
     return id;
   }
@@ -42,21 +49,31 @@ public class VideoFile implements Serializable {
     this.id = id;
   }
 
-  public Integer getResolution() {
-    return resolution;
+  public Film getFilm() {
+    return film;
   }
 
-  public void setResolution(Integer resolution) {
-    this.resolution = resolution;
+  public void setFilm(Film film) {
+    this.film = film;
   }
 
-  public String getUrl() {
-    return url;
+  public UsersFilmsStates getState() {
+    return state;
   }
 
-  public void setUrl(String url) {
-    this.url = url;
+  public void setState(UsersFilmsStates state) {
+    this.state = state;
   }
+
+  public Integer getCurrentPsitiono() {
+    return currentPsitiono;
+  }
+
+  public void setCurrentPsitiono(Integer currentPsitiono) {
+    this.currentPsitiono = currentPsitiono;
+  }
+  
+  
 
   @Override
   public int hashCode() {
@@ -68,10 +85,10 @@ public class VideoFile implements Serializable {
   @Override
   public boolean equals(Object object) {
     // TODO: Warning - this method won't work in the case the id fields are not set
-    if (!(object instanceof VideoFile)) {
+    if (!(object instanceof UsersFilms)) {
       return false;
     }
-    VideoFile other = (VideoFile) object;
+    UsersFilms other = (UsersFilms) object;
     if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
       return false;
     }
@@ -80,7 +97,9 @@ public class VideoFile implements Serializable {
 
   @Override
   public String toString() {
-    return "VideoFile{" + "id=" + id + ", resolution=" + resolution + ", url=" + url + '}';
+    return "UsersFilms{" + "id=" + id + ", film=" + film + ", state=" + state + ", currentPsitiono=" + currentPsitiono + '}';
   }
 
+
+  
 }

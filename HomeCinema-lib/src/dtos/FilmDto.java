@@ -5,16 +5,19 @@
  */
 package dtos;
 
+import java.io.Serializable;
+import java.util.Date;
+
 /**
  *
  * @author titou
  */
-public class FilmDto {
+public class FilmDto implements Serializable {
     public Long id;
     public String title;
     public String overview;
     public String cover;
-    public String release_date;
+    public Date release_date;
     public String country;
     public Integer runtime;
 }

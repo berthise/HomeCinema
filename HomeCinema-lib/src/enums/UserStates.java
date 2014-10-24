@@ -9,7 +9,8 @@ package enums;
  *
  * @author seb
  */
-public enum ProductStates {
+public enum UserStates {
   Activated,
-  Unactivated
+  Unactived,
+  Deactivaed
 }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package fatclientadmin;
+package main;
 
 import dtos.FilmDto;
 import ejbs.ManageFilmRemote;
@@ -16,14 +16,15 @@ import javax.naming.NamingException;
  *
  * @author titou
  */
-public class FatClientAdmin {
+public class HomeCinemaClient {
 
     private static InitialContext ic;
     private static ManageFilmRemote mfl = null;
 
     public static void main(String[] args) {
         make_context();
-        AdminFilm.createFilm(new Long(14));
+        
+        //truc a faire
 
     }
 
@@ -38,7 +39,7 @@ public class FatClientAdmin {
             
             ic = new InitialContext();
         } catch (NamingException ex) {
-            Logger.getLogger(FatClientAdmin.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(HomeCinemaClient.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -47,7 +48,7 @@ public class FatClientAdmin {
             try {
                 mfl = (ManageFilmRemote) ic.lookup("java:global/HomeCinema/HomeCinema-ejb/ManageFilm!ejbs.ManageFilmRemote");
             } catch (NamingException ex) {
-                Logger.getLogger(FatClientAdmin.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(HomeCinemaClient.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return mfl;
