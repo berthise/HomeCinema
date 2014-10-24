@@ -13,9 +13,14 @@
 /HomeCinemaAdmin-war/nbproject/private/
 /HomeCinemaAdmin-war/build/
 /HomeCinemaAdmin-war/dist/
-/FatClientAdmin/nbproject/private/
-/FatClientAdmin/build/
 /HomeCinema-client/nbproject/private/
 /HomeCinema-client/build/
 /HomeCinema-client/dist/
+
+/HomeCinema-war/nbproject/project.properties
+/HomeCinema-client/nbproject/project.properties
+/HomeCinema-ejb/nbproject/project.properties
+/HomeCinema-lib/nbproject/project.properties
+/HomeCinemaAdmin-war/nbproject/project.properties
+/nbproject/project.properties
 *~
