@@ -22,6 +22,8 @@ public class VideoFile implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    
+    private Integer resolution;
 
     public Long getId() {
         return id;

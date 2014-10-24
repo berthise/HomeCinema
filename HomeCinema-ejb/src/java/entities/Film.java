@@ -5,7 +5,6 @@
  */
 package entities;
 
-import dtos.FilmDto;
 import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.Entity;
@@ -13,6 +12,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 
 /**
@@ -33,7 +34,22 @@ public class Film implements Serializable {
 
     @Size(max = 255)
     private String title;
+    
+    private String overview;
+    
+    @Size(max = 255)
+    private String coverId;
+    
+    @Temporal(TemporalType.DATE)
+    private java.util.Date releaseDate;
 
+    @Size(max = 255)
+    private String country;
+
+    private Integer rating;
+    
+    
+    
     public Film() {
 
     }
