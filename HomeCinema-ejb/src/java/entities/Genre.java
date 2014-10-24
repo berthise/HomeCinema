@@ -15,24 +15,20 @@ import javax.validation.constraints.Size;
 
 /**
  *
- * @author titou
+ * @author seb
  */
 @Entity
-public class VideoFile implements Serializable {
+public class Genre implements Serializable {
 
   private static final long serialVersionUID = 1L;
-
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "ID")
   private Long id;
 
-  @Column(name = "RESOLUTION")
-  private Integer resolution;
-
   @Size(max = 255)
-  @Column(name = "URL")
-  private String url;
+  @Column(name = "NAME")
+  private String name;
 
   public Long getId() {
     return id;
@@ -42,20 +38,12 @@ public class VideoFile implements Serializable {
     this.id = id;
   }
 
-  public Integer getResolution() {
-    return resolution;
+  public String getName() {
+    return name;
   }
 
-  public void setResolution(Integer resolution) {
-    this.resolution = resolution;
-  }
-
-  public String getUrl() {
-    return url;
-  }
-
-  public void setUrl(String url) {
-    this.url = url;
+  public void setName(String name) {
+    this.name = name;
   }
 
   @Override
@@ -68,10 +56,10 @@ public class VideoFile implements Serializable {
   @Override
   public boolean equals(Object object) {
     // TODO: Warning - this method won't work in the case the id fields are not set
-    if (!(object instanceof VideoFile)) {
+    if (!(object instanceof Genre)) {
       return false;
     }
-    VideoFile other = (VideoFile) object;
+    Genre other = (Genre) object;
     if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
       return false;
     }
@@ -80,7 +68,9 @@ public class VideoFile implements Serializable {
 
   @Override
   public String toString() {
-    return "VideoFile{" + "id=" + id + ", resolution=" + resolution + ", url=" + url + '}';
+    return "Genre{" + "id=" + id + ", name=" + name + '}';
   }
+
+
 
 }
