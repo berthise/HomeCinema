@@ -6,14 +6,14 @@
 package ejbs;
 
 import dtos.FilmDto;
-import javax.ejb.Local;
+import javax.ejb.Remote;
 
 /**
  *
  * @author titou
  */
-@Local
-public interface ManageFilmLocal {
+@Remote
+public interface ManageFilmRemote {
  
     public void createFilm (FilmDto fdto);
     
