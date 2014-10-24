@@ -1,0 +1,118 @@
+$background : -webkit-linear-gradient(left, #111, #666, #666, #666, #111);
+$font: "Helvetica Neue",Helvetica,Arial,sans-serif;
+$font-color: #333;
+body {
+    background: $background;
+    
+    color: #fff;
+    margin: 0;
+    font-family: $font;
+    header {
+        #banner-img, #logo {
+            display: inline-block;
+        }
+        #logo {
+            padding: 0 20px;
+            img {
+                height: 80px;
+            }
+        }
+        #banner {
+            color: #000;
+            background: linear-gradient(to bottom,#fff 0,#eee 100%);
+            //background: #eee;
+            border-bottom: 3px inset #729d47;
+        }
+        .userTools {
+            z-index: 10000;
+            background: -webkit-linear-gradient(left, #111, #666, #666, #666, #111);
+            display: inline-block;
+            position: fixed;
+            right: 0; top: 0;
+            padding: 2px 20px;
+            border-radius: 0 0 0 50px;
+            font-size: 12px;
+            a {
+                color: #fff;
+                text-decoration: none;
+            }
+        }
+        margin-bottom: 20px;
+        margin-top: 0;
+        .navbar-nav>li:hover {
+            background: #ADD881;
+        }
+        .navbar-collapse .pull-right {
+            margin-right: -30px; 
+        }
+    }
+    #search-form {
+        input[type="search"] {
+            padding: 6px 6px;
+        }
+    }
+    section {
+        .well-exclus {
+            margin-top: 5px;
+        }
+        .exclus {
+            .film {
+                position: relative;
+                img {
+                    width: 100%;
+                    border-radius: 5px;
+                    box-shadow: 2px 2px 3px #080808;
+                    &hover {
+                        top: 2px;
+                    }
+                }
+            }
+        }
+        .well {
+            color: $font-color;
+            .well-title {
+                margin: 0 auto 20px 0;
+                padding-bottom: 10px;
+                border-bottom: 1px solid #729d47;
+            }
+        }
+        .film_title {
+            margin-top: 5px;
+            display: inline-block;
+            text-align: center;
+            width: 100%;
+        }
+        .form-signin {
+            padding: 15px;
+            float: none;
+            margin: 0 auto;
+            color: #000;
+            .form-signin-heading, .checkbox {
+                margin-bottom: 10px;
+            }
+            .checkbox {
+                font-weight: normal;
+            }
+            .form-group > label {
+                text-align: right;
+                padding: 2px;
+                line-height: 2;
+            }
+            input[type="date"] {
+                width: 80%;
+            }
+        }
+    }
+    footer {
+        .footer-elem {
+            margin: auto;
+            text-align: center;
+            ul {
+                margin: 0; padding: 0;
+                li {
+                    list-style: none;
+                }
+            }
+        }
+    }
+}
