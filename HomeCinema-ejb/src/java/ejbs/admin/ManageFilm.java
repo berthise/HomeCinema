@@ -10,14 +10,14 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import managers.dtos.FilmDtoManager;
-import ejbs.ManageFilmLocal;
+import ejbs.ManageFilmRemote;
 
 /**
  *
  * @author titou
  */
 @Stateless
-public class ManageFilm implements ManageFilmLocal {
+public class ManageFilm implements ManageFilmRemote {
 
     @PersistenceContext
     public EntityManager em;
