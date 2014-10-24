@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -28,7 +29,7 @@ public class UsersFilms implements Serializable {
   @Column(name = "ID")
   private Long id;
 
-  @Column(name = "FILM")
+  @JoinColumn(name = "FILM")
   @OneToOne
   private Film film;
  
