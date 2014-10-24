@@ -14,7 +14,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -23,6 +25,7 @@ import javax.persistence.TemporalType;
  * @author titou
  */
 @Entity
+@Table(name = "PRODUCTS")
 public class Product implements Serializable {
 
   private static final long serialVersionUID = 1L;
@@ -32,7 +35,7 @@ public class Product implements Serializable {
   @Column(name = "ID")
   private Long id;
 
-  @Column(name = "FILMS")
+  @JoinColumn(name = "FILMS")
   @ManyToMany(mappedBy = "products")
   private List<Film> films;
 

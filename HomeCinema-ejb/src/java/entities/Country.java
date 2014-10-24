@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
 /**
@@ -18,6 +19,7 @@ import javax.validation.constraints.Size;
  * @author seb
  */
 @Entity
+@Table(name = "COUNTRIES")
 public class Country implements Serializable {
   private static final long serialVersionUID = 1L;
   @Id

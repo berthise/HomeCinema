@@ -9,7 +9,8 @@ package enums;
  *
  * @author seb
  */
-public enum ProductStates {
-  Activated,
-  Unactivated
+public enum TransactionStates {
+  Prepared,
+  Done,
+  Canceled
 }

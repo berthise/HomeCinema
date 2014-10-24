@@ -13,9 +13,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
@@ -25,6 +27,7 @@ import javax.validation.constraints.Size;
  * @author titou
  */
 @Entity
+@Table(name = "FILMS")
 public class Film implements Serializable {
 
   private static final long serialVersionUID = 1L;
@@ -35,7 +38,7 @@ public class Film implements Serializable {
   private Long id;
 
   @ManyToMany
-  @Column(name = "PRODUCTS")
+  @JoinColumn(name = "PRODUCTS")
   private List<Product> products;
 
   @Column(name = "MAIN_PRODUCT")
@@ -58,29 +61,33 @@ public class Film implements Serializable {
   private java.util.Date releaseDate;
 
   @Size(max = 255)
-  @Column(name = "COUNTRIES")
+  @JoinColumn(name = "COUNTRIES")
+  @OneToMany
   private List<Country> countries;
 
   @Column(name = "RATING")
   private Integer rating;
+  
+  @Column(name = "RUNTIME")
+  private Integer runtime;
 
   @OneToMany
-  @Column(name = "VIDEO_FILES")
-  private List<VideoFile> videoFile;
+  @JoinColumn(name = "VIDEO_FILES")
+  private List<Video> videoFile;
 
   @OneToOne
   @Column(name = "TRAILLER")
-  private VideoFile trailler;
+  private Video trailler;
 
   @ManyToMany
-  @Column(name = "ACTORS")
+  @JoinColumn(name = "ACTORS")
   private List<Person> actors;
 
   @ManyToMany
-  @Column(name = "DIRECTORS")
+  @JoinColumn(name = "DIRECTORS")
   private List<Person> directors;
 
-  @Column(name = "GENRE")
+  @JoinColumn(name = "GENRE")
   @OneToMany
   private List<Genre> genre;
 
@@ -160,19 +167,19 @@ public class Film implements Serializable {
     this.rating = rating;
   }
 
-  public List<VideoFile> getVideoFile() {
+  public List<Video> getVideoFile() {
     return videoFile;
   }
 
-  public void setVideoFile(List<VideoFile> videoFile) {
+  public void setVideoFile(List<Video> videoFile) {
     this.videoFile = videoFile;
   }
 
-  public VideoFile getTrailler() {
+  public Video getTrailler() {
     return trailler;
   }
 
-  public void setTrailler(VideoFile trailler) {
+  public void setTrailler(Video trailler) {
     this.trailler = trailler;
   }
 
@@ -199,6 +206,16 @@ public class Film implements Serializable {
   public void setGenre(List<Genre> genre) {
     this.genre = genre;
   }
+
+  public Integer getRuntime() {
+    return runtime;
+  }
+
+  public void setRuntime(Integer runtime) {
+    this.runtime = runtime;
+  }
+  
+  
 
   @Override
   public int hashCode() {

@@ -12,7 +12,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
 /**
@@ -20,6 +22,7 @@ import javax.validation.constraints.Size;
  * @author seb
  */
 @Entity
+@Table(name = "PERSONS")
 public class Person implements Serializable {
 
   private static final long serialVersionUID = 1L;
@@ -38,11 +41,11 @@ public class Person implements Serializable {
   private String lastName;
   
   @ManyToMany(mappedBy = "actors")
-  @Column(name = "IS_ACTOR_OF")
+  @JoinColumn(name = "IS_ACTOR_OF")
   private List<Film> is_actor_of;
   
   @ManyToMany(mappedBy = "directors")
-  @Column(name = "IS_DIRECTOR_OF")
+  @JoinColumn(name = "IS_DIRECTOR_OF")
   private List<Film> is_director_of;
 
   public Long getId() {
