@@ -21,15 +21,89 @@
             <f:event type="preRenderView" listener="#{filmManagedBean.setDtoFromId()}"/>
         </f:metadata>
 
+        <style>
+            .info-film {
+                width: 64%;
+                text-align: justify;
+                float: right;
+                padding-left: 18px;
+            }
+
+            .cover-film {
+                width: 36%;
+                float: left;
+                margin-bottom: 18px;
+            }
+
+            .form-liste-film {
+                clear: both;
+                height: 32px;
+            }
+            
+            .b2{
+                margin-left: 15px;
+            }
+            
+            .form-liste-film input {
+                width: 191px;
+            }
+
+            .rating {
+                float: right;
+            }
+
+            .rating p {
+                font-size: 15px;
+                margin-left: 15px;
+                margin-top: 12px;
+                float: right;
+            }
+
+            .rating img {
+                width: 18px;
+                height: 18px;
+                margin-right: -5px;
+            }
+
+        </style>
+
     </head>
     <body>
         <ui:include src="components/header.xhtml" />
         <section>
             <div class="container">
                 <div class="well">
-                    <h2 class="well-title"><h:outputText value="#{filmManagedBean.title} (#{filmManagedBean.year})" /></h2>
-                    <h:graphicImage value="http://image.tmdb.org/t/p/w396/#{filmManagedBean.cover}" />
-                    <p><h:outputText value="#{filmManagedBean.overview}" /></p>
+                    <h2 class="well-title"><h:outputText value="#{filmManagedBean.title} (#{filmManagedBean.year})" />
+
+                        <div class="rating">
+                            <h:outputText value="#{filmManagedBean.getRating()}" escape="false"/>
+                        </div>
+
+                    </h2>
+
+                    <div class="clear">
+                        <div class="cover-film">
+                            <h:graphicImage value="http://image.tmdb.org/t/p/w396/#{filmManagedBean.cover}" />
+                        </div>
+
+                        <div class="info-film">
+                            <h3>Résumé :</h3><p><h:outputText value="#{filmManagedBean.overview}" /></p>
+                            <h3>Date de sortie :</h3><p><h:outputText value="#{filmManagedBean.date}" /></p>
+                            <h3>Durée :</h3><p><h:outputText value="#{filmManagedBean.getRuntime()}" /></p>
+                            <h3>Genre(s) :</h3><p><h:outputText value="#{filmManagedBean.getGenres()}" /></p>
+                            <h3>Réalisateur :</h3><p><h:outputText value="#{filmManagedBean.getDirector()}" /></p>
+                            <h3>Casting :</h3><p><h:outputText value="#{filmManagedBean.getCasting()}" /></p>
+                        </div>
+                    </div>
+
+                    <div class="form-liste-film">
+                        <form action="" method="">
+                            <input class="btn btn-success col-md-3" type="submit" value="Voir en Streaming" />
+                            <input class="btn btn-primary col-md-3 b2" type="submit" value="Télécharger" />
+                        </form>
+                    </div>
+
+
                 </div>
             </div>
         </section>

@@ -7,6 +7,8 @@ package main;
 
 import UtilsJson.JsonReader;
 import dtos.FilmDto;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import org.json.JSONObject;
 import java.util.Date;
 /**
@@ -25,11 +27,11 @@ public  class AdminFilm {
             fdto.title = (String) json.get("title");
             fdto.cover = (String) json.get("poster_path");
             fdto.runtime= (int) json.get("runtime");
-            fdto.release_date = new Date((String) json.get("release_date"));
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            fdto.release_date = dateFormat.parse((String) json.get("release_date"));
             fdto.overview = (String) json.get("overview");
-
         } catch (Exception e) {
-            
+            e.printStackTrace();
         }
         
         HomeCinemaClient.getManageFilmRemote().createFilm(fdto);

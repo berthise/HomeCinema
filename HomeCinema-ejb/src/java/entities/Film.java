@@ -14,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -49,8 +50,9 @@ public class Film implements Serializable {
   @Column(name = "TITLE")
   private String title;
 
+  @Lob
   @Column(name = "OVERVIEW")
-  private String overview;
+  private byte[] overview;
 
   @Size(max = 255)
   @Column(name = "COVER_ID")
@@ -128,11 +130,11 @@ public class Film implements Serializable {
   }
 
   public String getOverview() {
-    return overview;
+    return new String (overview);
   }
 
   public void setOverview(String overview) {
-    this.overview = overview;
+    this.overview = overview.getBytes();
   }
 
   public String getCoverId() {
