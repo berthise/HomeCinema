@@ -20,5 +20,5 @@ public class FilmDto implements Serializable {
     public Date release_date;
     public String country;
     public Integer runtime;
-    public Integer rating;
+    public Double rating;
 }

@@ -67,8 +67,8 @@ public class Film implements Serializable {
   @OneToMany
   private List<Country> countries;
 
-  @Column(name = "RATING")
-  private Integer rating;
+  @Column(name = "RATING", precision = 1, scale = 2)
+  private Double rating;
   
   @Column(name = "RUNTIME")
   private Integer runtime;
@@ -161,11 +161,11 @@ public class Film implements Serializable {
     this.countries = countries;
   }
 
-  public Integer getRating() {
+  public Double getRating() {
     return rating;
   }
 
-  public void setRating(Integer rating) {
+  public void setRating(Double rating) {
     this.rating = rating;
   }
 

@@ -38,16 +38,12 @@ public class FilmManagedBean {
 
     public void setDtoFromId() throws IOException {
         if (fdto.id == null) {
-            ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
-            context.redirect(context.getRequestContextPath());
+            FacesContext.getCurrentInstance().getExternalContext().dispatch("404.xhtml");
         }
-        
         FilmDto f = filmManager.getDtoFromId(fdto.id);
         if (f == null) {
-            ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
-            context.redirect(context.getRequestContextPath() + "/404.xhtml");
+            FacesContext.getCurrentInstance().getExternalContext().dispatch("404.xhtml");
         }
-        
         fdto = f;
     }
 
@@ -96,31 +92,52 @@ public class FilmManagedBean {
     public void setOverview(String s) {
         fdto.overview = s;
     }
-    
-    public String getRating(){
+
+    public String getRating() {
         String toReturn = "";
-        for (int i=0;i<fdto.rating;i++)
-            toReturn += "<img src=\"http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/128/star-full-icon.png\"/>\n";
-        for (int i=0;i<10-fdto.rating;i++)
-            toReturn += "<img src=\"http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/128/star-empty-icon.png\"/>\n";
+        int pe = (int) Math.floor(fdto.rating);
+        int i;
+        for (i = 0; i < pe; i++) {
+            toReturn += "<img src=\"img/star-full-icon.png\"/>\n";
+        }
+        if (fdto.rating - pe > 0.5) {
+            toReturn += "<img src=\"img/star-half-full-icon.png\"/>\n";
+        }
+        for (; i < 10; i++) {
+            toReturn += "<img src=\"img/star-empty-icon.png\"/>\n";
+        }
         return toReturn + "<p>(" + fdto.rating + "/10)</p>\n";
     }
-    
-    public String getRuntime(){
+
+    public String getRuntime() {
         int h = fdto.runtime / 60;
-        int min = fdto.runtime % 60;        
+        int min = fdto.runtime % 60;
         return h + "h " + min + "min";
     }
-    
-    public String getDirector(){
-        return "Inconnu";
+
+    public String getDirector() {
+        // récupérer le director dans la BDD
+        String d = "Inconnu";
+        return "<a href=\"#\" class=\"list-name\">" + d + "</a>";
     }
-    
-    public String getCasting(){
-        return "Inconnu";
+
+    public String getCasting() {
+        // récupérer le vrai casting dans la BDD
+        String[] d = {"Inconnu", "Inconnu", "Inconnu", "Inconnu", "Inconnu", "Inconnu", "Inconnu", "Inconnu"};
+        String toReturn = "";
+        for (String s : d) {
+            toReturn += "<a href=\"#\" class=\"list-name\">" + s + "</a> , ";
+        }
+        return toReturn.substring(0, toReturn.length() - 3);
     }
-    
-    public String getGenres(){
-        return "Inconnu";
+
+    public String getGenres() {
+        // récupérer la vraie liste de genres dans la BDD
+        String[] d = {"Inconnu", "Inconnu", "Inconnu", "Inconnu"};
+        String toReturn = "";
+        for (String s : d) {
+            toReturn += "<a href=\"#\" class=\"list-genre\">" + s + "</a> , ";
+        }
+        return toReturn.substring(0, toReturn.length() - 3);
     }
 }

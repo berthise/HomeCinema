@@ -39,13 +39,21 @@
                 clear: both;
                 height: 32px;
             }
-            
-            .b2{
-                margin-left: 15px;
+
+            .b22 {
+                margin-left: 16px;
+            }
+
+            .b21, .b22 {
+                width: 190px;
+                font-weight: bold;
+                font-size: 18px;
             }
             
-            .form-liste-film input {
-                width: 191px;
+            .b1 {
+                width: 396px;
+                font-weight: bold;
+                font-size: 18px;
             }
 
             .rating {
@@ -65,15 +73,72 @@
                 margin-right: -5px;
             }
 
+            #play {
+                width: 396px;
+                height: 594px;
+                background: url("img/play_icon.png") no-repeat center center;
+                position: relative;
+                top: -594px;
+                margin-bottom: -594px;
+                display: none;
+                cursor:pointer;
+            }
+
+            .cover-film:hover #play {
+                display: block;
+            }
+
+            .bold {
+                font-weight: bold;
+            }
+
+            .italic {
+                font-style: italic;
+            }
+
+            .info-film h3 {
+                font-size: 26px;
+                font-weight: 400;
+            }
+
+            .info-film p {
+                font-size: 18px;
+                padding-left: 10px;
+            }
+
+            .list-genre {
+                background-color: #aaa;
+                border-radius: 5px;
+                padding: 3px 5px 3px 5px;
+                color: #333;
+            }
+
+            .list-genre:hover {
+                background-color: #333;
+                text-decoration: none;
+                color: #eee;
+            }
+            
+            #ba video {
+                border: 2px solid #333;
+                margin-bottom: 5px;
+            }
+            
+            .go-top {
+                float: right;
+                margin-top: -5px;
+                margin-bottom: 5px;
+            }
+
         </style>
 
     </head>
-    <body>
+    <body id="top">
         <ui:include src="components/header.xhtml" />
         <section>
             <div class="container">
                 <div class="well">
-                    <h2 class="well-title"><h:outputText value="#{filmManagedBean.title} (#{filmManagedBean.year})" />
+                    <h2 class="well-title bold"><h:outputText value="#{filmManagedBean.title} (#{filmManagedBean.year})" />
 
                         <div class="rating">
                             <h:outputText value="#{filmManagedBean.getRating()}" escape="false"/>
@@ -84,25 +149,61 @@
                     <div class="clear">
                         <div class="cover-film">
                             <h:graphicImage value="http://image.tmdb.org/t/p/w396/#{filmManagedBean.cover}" />
+                            <a id="play" href="#ba"/>
                         </div>
 
                         <div class="info-film">
-                            <h3>Résumé :</h3><p><h:outputText value="#{filmManagedBean.overview}" /></p>
-                            <h3>Date de sortie :</h3><p><h:outputText value="#{filmManagedBean.date}" /></p>
-                            <h3>Durée :</h3><p><h:outputText value="#{filmManagedBean.getRuntime()}" /></p>
-                            <h3>Genre(s) :</h3><p><h:outputText value="#{filmManagedBean.getGenres()}" /></p>
-                            <h3>Réalisateur :</h3><p><h:outputText value="#{filmManagedBean.getDirector()}" /></p>
-                            <h3>Casting :</h3><p><h:outputText value="#{filmManagedBean.getCasting()}" /></p>
+                            <h3>Résumé :</h3><p class="italic"><h:outputText value="#{filmManagedBean.overview}" escape="false" /></p>
+                            <h3>Date de sortie :</h3><p><h:outputText value="#{filmManagedBean.date}" escape="false" /></p>
+                            <h3>Durée :</h3><p><h:outputText value="#{filmManagedBean.getRuntime()}" escape="false" /></p>
+                            <h3>Genre(s) :</h3><p><h:outputText value="#{filmManagedBean.getGenres()}" escape="false" /></p>
+                            <h3>Réalisateur :</h3><p><h:outputText value="#{filmManagedBean.getDirector()}" escape="false" /></p>
+                            <h3>Casting :</h3><p><h:outputText value="#{filmManagedBean.getCasting()}" escape="false" /></p>
                         </div>
                     </div>
 
+                    <!-- Cas où l'utilisateur est connecté et possède le film -->
+                    
                     <div class="form-liste-film">
-                        <form action="" method="">
-                            <input class="btn btn-success col-md-3" type="submit" value="Voir en Streaming" />
-                            <input class="btn btn-primary col-md-3 b2" type="submit" value="Télécharger" />
+                        <form action="#" method="">
+                            <input class="btn btn-primary col-md-3 b21" type="button" value="Voir en Streaming" />
+                            <input class="btn btn-success col-md-3 b22" type="button" value="Télécharger" />
                         </form>
                     </div>
+                    
+                    
+                    <!-- Cas où l'utilisateur est connecté et ne possède pas le film -->
+                    <!--
+                    <div class="form-liste-film">
+                        <form action="#" method="">
+                            <input class="btn btn-success col-md-3 b1" type="button" value="Ajouter au caddie" />
+                        </form>
+                    </div>
+                    -->
+                    
+                    <!-- Cas où l'utilisateur n'est pas connecté -->
+                    <!--
+                    <div class="form-liste-film">
+                        <form action="#" method="">
+                            <input class="btn btn-primary col-md-3 b21" type="button" value="Inscription" />
+                            <input class="btn btn-success col-md-3 b22" type="button" value="Connexion" />
+                        </form>
+                    </div>
+                    -->
+                </div>
 
+                <div id="ba" class="well">
+                    <h2 class="well-title">Bande-annonce</h2>
+
+                    <video id="myVideo" width="100%" controls="controls">
+                        <source src="http://techslides.com/demos/sample-videos/small.webm" type="video/webm" />
+                        <source src="http://techslides.com/demos/sample-videos/small.ogv" type="video/ogg" />
+                        <source src="http://techslides.com/demos/sample-videos/small.mp4" type="video/mp4" />
+                        <source src="http://techslides.com/demos/sample-videos/small.3gp" type="ideo/3gp" />
+                        Your browser don't support video element.
+                    </video>
+                    
+                    <a class="go-top" href="#top"><img src="img/arrowUp.png" /></a>
 
                 </div>
             </div>
