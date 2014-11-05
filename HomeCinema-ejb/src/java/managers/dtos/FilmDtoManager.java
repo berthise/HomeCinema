@@ -33,6 +33,7 @@ public  class FilmDtoManager {
         f.setOverview(fdto.overview);
         f.setReleaseDate(fdto.release_date);
         f.setCoverId(fdto.cover);
+        f.setRuntime(fdto.runtime);
         return f;
     }
     

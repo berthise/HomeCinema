@@ -6,52 +6,84 @@
 package main;
 
 import dtos.FilmDto;
+import dtos.VideoDto;
 import ejbs.ManageFilmRemote;
+import java.awt.EventQueue;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.text.ParseException;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import org.json.JSONException;
+
 /**
  *
  * @author titou
  */
-public class HomeCinemaClient {
+public class HomeCinemaClient extends JFrame implements ActionListener {
 
-    private static InitialContext ic;
-    private static ManageFilmRemote mfl = null;
 
+    public JTextField inp_id;
+    public JTextField inp_price;
+    public JTextField inp_trailer;
+    public JTextField inp_video;
+    public JButton send;
+    public AdminFilm adFilm;
     public static void main(String[] args) {
-        make_context();
-        
-        //truc a faire
 
-    }
-
-    private static void make_context() {
-        try {
-            Properties props = new Properties();
-            //props.setProperty("java.naming.factory.initial","com.sun.enterprise.naming.SerialInitContextFactory");
-            //props.setProperty("java.naming.factory.url.pkgs","com.sun.enterprise.naming");
-            //props.setProperty("java.naming.factory.state","com.sun.corba.ee.impl.presentation.rmi.JNDIStateFactoryImpl");
-            //props.setProperty("org.omg.CORBA.ORBInitialHost", "localhost");
-            //props.setProperty("org.omg.CORBA.ORBInitialPort", "3700");
-            
-            ic = new InitialContext();
-        } catch (NamingException ex) {
-            Logger.getLogger(HomeCinemaClient.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    public static ManageFilmRemote getManageFilmRemote() {
-        if (mfl == null) {
-            try {
-                mfl = (ManageFilmRemote) ic.lookup("java:global/HomeCinema/HomeCinema-ejb/ManageFilm!ejbs.ManageFilmRemote");
-            } catch (NamingException ex) {
-                Logger.getLogger(HomeCinemaClient.class.getName()).log(Level.SEVERE, null, ex);
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run ()
+            {
+                new HomeCinemaClient().launch();
             }
-        }
-        return mfl;
+        });
+    }
+
+
+            public void launch() {
+                adFilm = new AdminFilm();
+                makeJframe();
+                setVisible(true);
+            }
+    
+    public  void makeJframe() {
+        setTitle("Admin");
+        setSize(600, 600);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.setLayout(new GridLayout(0, 2));
+        this.add(new JLabel("id"));
+        inp_id = new JTextField(20);
+        this.add(inp_id);
+        this.add(new JLabel("prix"));
+        inp_price = new JTextField(20);
+        this.add(inp_price);
+        this.add(new JLabel("trailer"));
+        inp_trailer = new JTextField(100);
+        this.add(inp_trailer);
+        this.add(new JLabel("video"));
+        inp_video = new JTextField(100);
+        this.add(inp_video);
+        send = new JButton("Envoyer");
+        send.addActionListener(this);
+        this.add(send);
+
+    }
+        public void actionPerformed(ActionEvent ae) {
+        adFilm.makeAndSendMovie(new Long(inp_id.getText()), inp_video.getText(), inp_trailer.getText(), new Integer(inp_price.getText()));
     }
 
 }
+
+

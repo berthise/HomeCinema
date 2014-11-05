@@ -49,10 +49,11 @@ public class Film implements Serializable {
   @Column(name = "TITLE")
   private String title;
 
-  @Column(name = "OVERVIEW")
+  @Size(max = 3000)
+  @Column(name = "OVERVIEW", length = 5000)
   private String overview;
 
-  @Size(max = 255)
+  @Size(max = 50)
   @Column(name = "COVER_ID")
   private String coverId;
 

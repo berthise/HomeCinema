@@ -7,6 +7,7 @@ package entities;
 
 import enums.ProductStates;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
@@ -27,6 +28,10 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "PRODUCTS")
 public class Product implements Serializable {
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
 
   private static final long serialVersionUID = 1L;
 
@@ -55,6 +60,24 @@ public class Product implements Serializable {
   @Column(name = "NB_SALES")
   private Integer nbSales;
 
+  
+  public Product(Film f ,Integer p)
+  {
+      List<Film> l =new ArrayList<Film>();
+      l.add(f);
+      setFilms(l);
+      setPrice(p);
+      setName(f.getTitle());
+      setNbSales(0);
+      setState(ProductStates.Activated);
+      setAddDate(new Date());
+  }
+
+  public Product()
+  {
+      
+  }
+  
   public Long getId() {
     return id;
   }
@@ -133,7 +156,7 @@ public class Product implements Serializable {
 
   @Override
   public String toString() {
-    return "Product{" + "id=" + id + ", films=" + films + ", price=" + price + ", addDate=" + addDate + ", name=" + name + ", state=" + state + ", nbSales=" + nbSales + '}';
+    return "Product{" + "id=" + id + ", films= , price=" + price + ", addDate=" + addDate + ", name=" + name + ", state=" + state + ", nbSales=" + nbSales + '}';
   }
   
   
