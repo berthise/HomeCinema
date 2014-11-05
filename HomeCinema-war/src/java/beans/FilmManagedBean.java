@@ -92,6 +92,32 @@ public class FilmManagedBean {
     public void setOverview(String s) {
         fdto.overview = s;
     }
+    
+    public String getLinkToFiche (){
+        return "<a title=\"Voir la fiche du film\" href=\"fiche_film.xhtml?id="+fdto.id+"\"/>"+fdto.title+"</a>";
+    }
+    
+    public String getLinkToVisionneuse (){
+        return "<a class=\"btn btn-success col-md-3 b21\" href=\"visionneuse.xhtml?id="+fdto.id+"\">Voir en Streaming</a>";
+    }
+    
+    public String getLinkToDownload (){
+        // récupérer l'url de la vidéo
+        String url = "Inconnu";
+        return "<a class=\"btn btn-primary col-md-3 b22\" href=\""+url+"\" download=\""+fdto.title.replaceAll(" ", "_")+".mp4"+"\">Téléchargement</a>";
+    }
+    
+    public String getTrailer (){
+        // récupérer l'url du trailer
+        String url = "http://techslides.com/demos/sample-videos/small.webm";
+        return "<source src=\""+url+"\" type=\"video/webm\" />";
+    }
+    
+    public String getVideo (){
+        // récupérer l'url du trailer
+        String url = "http://techslides.com/demos/sample-videos/small.webm";
+        return "<source src=\""+url+"\" type=\"video/webm\" />";
+    }
 
     public String getRating() {
         String toReturn = "";

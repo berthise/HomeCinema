@@ -40,6 +40,12 @@
                 height: 32px;
             }
 
+            .form-download-film {
+                float: right;
+                height: 32px;
+                margin-top: -5px;
+            }
+
             .b22 {
                 margin-left: 16px;
             }
@@ -133,58 +139,36 @@
         </style>
 
     </head>
-    <body id="top">
+    <body id="top" onload="initVideo()">
         <ui:include src="components/header.xhtml" />
         <section>
             <div class="container">
-                <div class="well">
-                    <h2 class="well-title bold"><h:outputText value="#{filmManagedBean.title} (#{filmManagedBean.year})" />
-
-                        <div class="rating">
-                            <h:outputText value="#{filmManagedBean.getRating()}" escape="false"/>
-                        </div>
-
-                    </h2>
-
-                    <div class="clear">
-                        <div class="cover-film">
-                            <h:graphicImage value="http://image.tmdb.org/t/p/w396/#{filmManagedBean.cover}" />
-                            <a id="play" href="#ba"/>
-                        </div>
-
-                        <div class="info-film">
-                            <h3>Résumé :</h3><p class="italic"><h:outputText value="#{filmManagedBean.overview}" escape="false" /></p>
-                            <h3>Date de sortie :</h3><p><h:outputText value="#{filmManagedBean.date}" escape="false" /></p>
-                            <h3>Durée :</h3><p><h:outputText value="#{filmManagedBean.getRuntime()}" escape="false" /></p>
-                            <h3>Genre(s) :</h3><p><h:outputText value="#{filmManagedBean.getGenres()}" escape="false" /></p>
-                            <h3>Réalisateur :</h3><p><h:outputText value="#{filmManagedBean.getDirector()}" escape="false" /></p>
-                            <h3>Casting :</h3><p><h:outputText value="#{filmManagedBean.getCasting()}" escape="false" /></p>
-                        </div>
-                    </div>
-
-                    <!-- Cas où l'utilisateur est connecté et possède le film -->
-                    <div class="form-liste-film">
-                        <h:outputText value="#{filmManagedBean.getLinkToVisionneuse()}" escape="false" />
-                        <h:outputText value="#{filmManagedBean.getLinkToDownload()}" escape="false" />
-                    </div>
-
-                    <!-- Cas où l'utilisateur est connecté et ne possède pas le film :
-                        class="btn btn-success col-md-3 b1" value="Ajouter au caddie"
-                    -->
-                    <!-- Cas où l'utilisateur n'est pas connecté :
-                        class="btn btn-primary col-md-3 b21" value="Inscription"
-                        class="btn btn-success col-md-3 b22" value="Connexion"
-                    -->
-
-                </div>
 
                 <div id="ba" class="well">
-                    <h2 class="well-title">Bande-annonce</h2>
+                    <h2 class="well-title"><strong>Visionneuse : </strong><h:outputText value="#{filmManagedBean.getLinkToFiche()}" escape="false"/>
+                        <div class="form-download-film">
+                            <h:outputText value="#{filmManagedBean.getLinkToDownload()}" escape="false" />
+                        </div>
+                    </h2>
 
                     <video id="myVideo" width="100%" controls="controls">
-                        <h:outputText value="#{filmManagedBean.getTrailer()}" escape="false" />
+                        <h:outputText value="#{filmManagedBean.getVideo()}" escape="false" />
                         Your browser don't support video element.
                     </video>
+
+                    <script>
+                        var vid = document.getElementById("myVideo");
+                        vid.onpause = function () {
+                            // Mise à jour de l'état pause
+                        };
+                        vid.onplay = function () {
+                            // Mise à jour de l'état play
+                        };
+                        function initVideo() {
+                            // Mise à jour de la position de la vidéo selon l'état
+                            //vid.currentTime = 4;
+                        }
+                    </script>
 
                     <a class="go-top" href="#top"><img src="img/arrowUp.png" /></a>
 
