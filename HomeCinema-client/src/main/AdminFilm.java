@@ -31,6 +31,7 @@ public  class AdminFilm {
     
     public  FilmDto createFilm(Long id) throws JSONException, IOException, ParseException
     {
+      System.out.println("Add film: " + id);
         FilmDto fdto = new FilmDto();
                 String urlString = "http://api.themoviedb.org/3/movie/" + id + "?api_key=63d250a5b71c307f7592228c79b729cf";
 
