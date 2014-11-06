@@ -43,20 +43,20 @@ public class ManageProduct implements ManageProductRemote {
 
     //public void createProduct(ProductDto pdto) TODO
     @Override
-    public void addFilmsToProduct(Long pid, List<FilmDto> lfdto) {
+    public void addFilms(Long pid, List<FilmDto> lfdto) {
         for (FilmDto fdto : lfdto) {
-            addFilmToProduct(pid, fdto, false);
+            addFilm(pid, fdto, false);
         }
     }
 
-    public void addExistingFilmsToProduct(Long pid, List<Long> lfid) {
+    public void addExistingFilms(Long pid, List<Long> lfid) {
         for (Long fid : lfid) {
-            addExistingFilmToProduct(pid, fid, false);
+            addExistingFilm(pid, fid, false);
         }
     }
 
     @Override
-    public void addExistingFilmToProduct(Long pid, Long fid, boolean main) {
+    public void addExistingFilm(Long pid, Long fid, boolean main) {
         Product p = em.find(Product.class, pid);
         Film f = em.find(Film.class, fid);
         ManageEntitieProduct.linkProductFilm(f, p);
@@ -66,7 +66,7 @@ public class ManageProduct implements ManageProductRemote {
     }
 
     @Override
-    public void addFilmToProduct(Long pid, FilmDto fdto, boolean main) {
+    public void addFilm(Long pid, FilmDto fdto, boolean main) {
         Product p = em.find(Product.class, pid);
         Film f = ManageEntitieFilm.createFilm(fdto, em);
         ManageEntitieProduct.linkProductFilm(f, p); 

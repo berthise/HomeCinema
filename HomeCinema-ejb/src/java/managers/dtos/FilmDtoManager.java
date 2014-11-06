@@ -13,6 +13,7 @@ import entities.Video;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.EntityManager;
 
 /**
  *
@@ -67,6 +68,26 @@ public class FilmDtoManager {
         f.setRating(fdto.rating);
         f.setRuntime(fdto.runtime);
 
+        return f;
+    }
+    
+    public static Film mergeOrSave(FilmDto fdto,EntityManager em)
+    {
+        Film f = em.find(Film.class,fdto.id);
+        if (f!=null)
+        {
+                    f.setTitle(fdto.title);
+        f.setOverview(fdto.overview);
+        f.setReleaseDate(fdto.release_date);
+        f.setCoverId(fdto.cover);
+        f.setRating(fdto.rating);
+        f.setRuntime(fdto.runtime);
+        }
+        else
+        {
+            f= makeFilm(fdto);
+            em.persist(f);
+        }
         return f;
     }
 

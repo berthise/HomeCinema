@@ -7,6 +7,7 @@ package ejbs;
 
 import dtos.FilmDto;
 import dtos.FilmFicheDto;
+import dtos.GenreDto;
 import dtos.VideoDto;
 import java.util.List;
 import javax.ejb.Remote;
@@ -25,12 +26,16 @@ public interface ManageFilmRemote {
     public void setTrailer(Long fid, VideoDto trailer);
 
     public void setExistingTrailer(Long fid, Long trailer);
-    
-    public void addVideosToFilm(Long fid, List<VideoDto> lvdto);
 
-    public void addVideoToFilm(Long fid, VideoDto vdto);
+    public void addVideos(Long fid, List<VideoDto> lvdto);
 
-    public void addExistingVideosToFilm(Long fid, List<Long> lid);
+    public void addVideo(Long fid, VideoDto vdto);
 
-    public void addExistingVideoToFilm(Long fid, Long vid);
+    public void addExistingVideos(Long fid, List<Long> lid);
+
+    public void addExistingVideo(Long fid, Long vid);
+
+    public void addGenres(Long fid, List<GenreDto> lgdto);
+
+    public void addGenre(Long fid, GenreDto gdto);
 }
