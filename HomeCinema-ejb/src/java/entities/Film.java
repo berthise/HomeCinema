@@ -97,6 +97,7 @@ public class Film implements Serializable {
     public Film() {
         this.videoFile = new ArrayList<Video>();
         this.products =  new ArrayList<Product>();
+        this.genre =  new ArrayList<Genre>();
     }
 
     public Long getId() {
@@ -214,6 +215,11 @@ public class Film implements Serializable {
 
     public List<Genre> getGenre() {
         return genre;
+    }
+    
+    public void addGenre(Genre g)
+    {
+        this.genre.add(g);
     }
 
     public void setGenre(List<Genre> genre) {

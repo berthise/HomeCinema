@@ -19,11 +19,11 @@ public interface ManageProductRemote {
 
     public Long createProductWithFilm(FilmDto fdto, VideoDto trailer, VideoDto vid, Integer price);
 
-    public void addFilmsToProduct(Long pid, List<FilmDto> lfdto);
+    public void addFilms(Long pid, List<FilmDto> lfdto);
 
-    public void addFilmToProduct(Long pid, FilmDto fdto,boolean main);
+    public void addFilm(Long pid, FilmDto fdto,boolean main);
 
-    public void addExistingFilmsToProduct(Long pid, List<Long> lfid);
+    public void addExistingFilms(Long pid, List<Long> lfid);
 
-    public void addExistingFilmToProduct(Long pid, Long fid,boolean main);
+    public void addExistingFilm(Long pid, Long fid,boolean main);
 }
