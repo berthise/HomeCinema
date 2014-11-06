@@ -8,6 +8,7 @@ package managers.entities;
 import dtos.FilmDto;
 import dtos.VideoDto;
 import entities.Film;
+import entities.Product;
 import entities.Video;
 import javax.persistence.EntityManager;
 import managers.dtos.FilmDtoManager;
@@ -31,4 +32,5 @@ public class ManageEntitieFilm {
         em.persist(f);
         return f;
     }
+    
 }
