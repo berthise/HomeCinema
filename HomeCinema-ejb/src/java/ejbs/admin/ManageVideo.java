@@ -5,34 +5,24 @@
  */
 package ejbs.admin;
 
-import dtos.FilmDto;
 import dtos.VideoDto;
+import ejbs.ManageVideoRemote;
+import entities.Video;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import managers.dtos.FilmDtoManager;
-import ejbs.ManageFilmRemote;
-import entities.Film;
-import javax.ejb.EJB;
-import managers.entities.ManageEntitieVideo;
-
+import managers.dtos.VideoDtoManager;
 
 /**
  *
  * @author titou
  */
 @Stateless
-public class ManageFilm implements ManageFilmRemote {
+public class ManageVideo implements ManageVideoRemote {
 
+    
     @PersistenceContext
     public EntityManager em;
-
-    @Override
-    public void createFilm(FilmDto fdto) {
-        Film f = FilmDtoManager.makeFilm(fdto);
-        em.persist(f);
-    }
-
 
 
 }

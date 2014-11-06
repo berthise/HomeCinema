@@ -14,8 +14,7 @@ import javax.ejb.Remote;
  * @author titou
  */
 @Remote
-public interface ManageFilmRemote {
+public interface ManageProductRemote {
  
-    public void createFilm (FilmDto fdto);
-
+    public void createProductWithFilm(FilmDto fdto,VideoDto trailer , VideoDto vid,Integer price);
 }

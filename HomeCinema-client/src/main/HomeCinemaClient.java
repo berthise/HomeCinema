@@ -32,32 +32,30 @@ import org.json.JSONException;
  */
 public class HomeCinemaClient extends JFrame implements ActionListener {
 
-
     public JTextField inp_id;
     public JTextField inp_price;
     public JTextField inp_trailer;
     public JTextField inp_video;
     public JButton send;
     public AdminFilm adFilm;
+
     public static void main(String[] args) {
 
         EventQueue.invokeLater(new Runnable() {
             @Override
-            public void run ()
-            {
+            public void run() {
                 new HomeCinemaClient().launch();
             }
         });
     }
 
+    public void launch() {
+        adFilm = new AdminFilm();
+        makeJframe();
+        setVisible(true);
+    }
 
-            public void launch() {
-                adFilm = new AdminFilm();
-                makeJframe();
-                setVisible(true);
-            }
-    
-    public  void makeJframe() {
+    public void makeJframe() {
         setTitle("Admin");
         setSize(600, 600);
         setLocationRelativeTo(null);
@@ -80,10 +78,17 @@ public class HomeCinemaClient extends JFrame implements ActionListener {
         this.add(send);
 
     }
-        public void actionPerformed(ActionEvent ae) {
-        adFilm.makeAndSendMovie(new Long(inp_id.getText()), inp_video.getText(), inp_trailer.getText(), new Integer(inp_price.getText()));
+
+    public void actionPerformed(ActionEvent ae) {
+        try {
+            adFilm.makeAndSendMovie(new Long(inp_id.getText()), inp_video.getText(), inp_trailer.getText(), new Integer(inp_price.getText()));
+        } catch (JSONException ex) {
+            Logger.getLogger(HomeCinemaClient.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(HomeCinemaClient.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(HomeCinemaClient.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }
-
-

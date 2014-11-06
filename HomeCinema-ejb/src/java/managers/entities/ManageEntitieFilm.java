@@ -3,36 +3,27 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ejbs.admin;
+package managers.entities;
 
 import dtos.FilmDto;
 import dtos.VideoDto;
-import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import managers.dtos.FilmDtoManager;
-import ejbs.ManageFilmRemote;
 import entities.Film;
-import javax.ejb.EJB;
-import managers.entities.ManageEntitieVideo;
-
+import entities.Video;
+import javax.persistence.EntityManager;
+import managers.dtos.FilmDtoManager;
 
 /**
  *
  * @author titou
  */
-@Stateless
-public class ManageFilm implements ManageFilmRemote {
-
-    @PersistenceContext
-    public EntityManager em;
-
-    @Override
-    public void createFilm(FilmDto fdto) {
+public class ManageEntitieFilm {
+    
+    
+        public static Film createFilmWithVideo(FilmDto fdto, VideoDto trailer, VideoDto vid,EntityManager em) {
         Film f = FilmDtoManager.makeFilm(fdto);
+        f.addVideoFile(ManageEntitieVideo.createVideo(vid,em));
+        f.setTrailler(ManageEntitieVideo.createVideo(trailer,em));
         em.persist(f);
+        return f;
     }
-
-
-
 }
