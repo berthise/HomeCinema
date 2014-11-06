@@ -74,9 +74,6 @@ public class Film implements Serializable {
   @Column(name = "RUNTIME")
   private Integer runtime;
 
-    @Column(name = "RUNTIME")
-    private Integer runtime;
-
     @OneToMany
     @JoinColumn(name = "VIDEO_FILES")
     private List<Video> videoFile;
@@ -165,11 +162,11 @@ public class Film implements Serializable {
         this.countries = countries;
     }
 
-    public Integer getRating() {
+    public Double getRating() {
         return rating;
     }
 
-    public void setRating(Integer rating) {
+    public void setRating(Double rating) {
         this.rating = rating;
     }
 
