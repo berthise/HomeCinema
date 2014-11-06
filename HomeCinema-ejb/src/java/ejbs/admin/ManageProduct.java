@@ -6,6 +6,7 @@
 package ejbs.admin;
 
 import dtos.FilmDto;
+import dtos.ProductDto;
 import dtos.VideoDto;
 import ejbs.ManageFilmRemote;
 import ejbs.ManageProductRemote;
@@ -18,6 +19,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import managers.dtos.FilmDtoManager;
+import managers.dtos.ProductDtoManager;
 import managers.dtos.VideoDtoManager;
 import managers.entities.ManageEntitieFilm;
 import managers.entities.ManageEntitieProduct;
@@ -41,7 +43,12 @@ public class ManageProduct implements ManageProductRemote {
         return p.getId();
     }
 
-    //public void createProduct(ProductDto pdto) TODO
+    public Long createProduct(ProductDto pdto)
+    {
+        Product p = ProductDtoManager.makeProduct(pdto);
+        em.persist(p);
+        return p.getId();
+    }
     @Override
     public void addFilms(Long pid, List<FilmDto> lfdto) {
         for (FilmDto fdto : lfdto) {
@@ -49,6 +56,7 @@ public class ManageProduct implements ManageProductRemote {
         }
     }
 
+    @Override
     public void addExistingFilms(Long pid, List<Long> lfid) {
         for (Long fid : lfid) {
             addExistingFilm(pid, fid, false);
