@@ -6,6 +6,7 @@
 package ejbs.admin;
 
 import dtos.FilmDto;
+import dtos.FilmFicheDto;
 import dtos.VideoDto;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -35,9 +36,9 @@ public class ManageFilm implements ManageFilmRemote {
     }
     
     @Override
-    public FilmDto getDtoFromId(Long id) {
+    public FilmFicheDto getDtoFromId(Long id) {
         Film f = em.find(Film.class, id);
-        return FilmDtoManager.getDto(f);
+        return FilmDtoManager.getDtoForFiche(f);
     }
 
 

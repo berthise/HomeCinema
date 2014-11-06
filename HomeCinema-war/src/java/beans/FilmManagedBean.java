@@ -6,6 +6,7 @@
 package beans;
 
 import dtos.FilmDto;
+import dtos.FilmFicheDto;
 import ejbs.ManageFilmRemote;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -29,18 +30,18 @@ public class FilmManagedBean {
 
     private ManageFilmRemote filmManager;
 
-    public FilmDto fdto;
+    public FilmFicheDto fdto;
 
     public FilmManagedBean() throws NamingException {
         filmManager = (ManageFilmRemote) new InitialContext().lookup("java:global/HomeCinema/HomeCinema-ejb/ManageFilm!ejbs.ManageFilmRemote");
-        this.fdto = new FilmDto();
+        this.fdto = new FilmFicheDto();
     }
 
     public void setDtoFromId() throws IOException {
         if (fdto.id == null) {
             FacesContext.getCurrentInstance().getExternalContext().dispatch("404.xhtml");
         }
-        FilmDto f = filmManager.getDtoFromId(fdto.id);
+        FilmFicheDto f = filmManager.getDtoFromId(fdto.id);
         if (f == null) {
             FacesContext.getCurrentInstance().getExternalContext().dispatch("404.xhtml");
         }
@@ -102,35 +103,33 @@ public class FilmManagedBean {
     }
     
     public String getLinkToDownload (){
-        // récupérer l'url de la vidéo
-        String url = "Inconnu";
+        String url = fdto.files.get(0).url;
         return "<a class=\"btn btn-primary col-md-3 b22\" href=\""+url+"\" download=\""+fdto.title.replaceAll(" ", "_")+".mp4"+"\">Téléchargement</a>";
     }
     
-    public String getTrailer (){
-        // récupérer l'url du trailer
-        //String url = "http://techslides.com/demos/sample-videos/small.webm";
-        String url = fdto.trailler.url;
-        return "<source src=\""+url+"\" type=\"video/webm\" />";
+    public String getVideo (){
+        String url = fdto.files.get(0).url;
+        return "<source src=\""+url+"\" type=\"video/mp4\" />";
     }
     
-    public String getVideo (){
-        // récupérer l'url du trailer
-        String url = "http://techslides.com/demos/sample-videos/small.webm";
-        return "<source src=\""+url+"\" type=\"video/webm\" />";
+    public String getTrailer (){
+        String url = fdto.trailler.url;
+        return "<source src=\""+url+"\" type=\"video/mp4\" />";
     }
 
     public String getRating() {
         String toReturn = "";
-        int pe = (int) Math.floor(5.5);
+        int pe = (int) Math.floor(fdto.rating);
         int i;
         for (i = 0; i < pe; i++) {
             toReturn += "<img src=\"img/star-full-icon.png\"/>\n";
         }
+        int m = 0;
         if (fdto.rating - pe > 0.5) {
             toReturn += "<img src=\"img/star-half-full-icon.png\"/>\n";
+            m++;
         }
-        for (; i < 10; i++) {
+        for (; i < 10-m; i++) {
             toReturn += "<img src=\"img/star-empty-icon.png\"/>\n";
         }
         return toReturn + "<p>(" + fdto.rating + "/10)</p>\n";
