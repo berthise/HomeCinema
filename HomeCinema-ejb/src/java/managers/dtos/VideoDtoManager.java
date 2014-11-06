@@ -16,6 +16,7 @@ public class VideoDtoManager {
     public static VideoDto getDto (Video v)
     {
         VideoDto vdto = new VideoDto();
+	vdto.id = v.getId();
         vdto.resolution=v.getResolution();
         vdto.url=v.getUrl();
         return vdto;
@@ -24,6 +25,7 @@ public class VideoDtoManager {
     public static Video makeVideo (VideoDto vdto)
     {
         Video v = new Video();
+	v.setId(vdto.id);
         v.setResolution(vdto.resolution);
         v.setUrl(vdto.url);
         return v;

@@ -11,9 +11,9 @@ import java.io.Serializable;
  *
  * @author titou
  */
-public class VideoDto implements Serializable {
-
-  public Long id;
-  public String url;
-  public Integer resolution;
+public class UserDto implements Serializable {
+    public Long id;
+    public String firstname;
+    public String lastname;
+    public String email;
 }
