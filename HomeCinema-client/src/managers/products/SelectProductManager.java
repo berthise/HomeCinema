@@ -7,27 +7,24 @@ package managers.products;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import main.utils.Manager_if;
 import main.utils.ModuleManager;
-import models.LoggedModel;
 import models.ProductModel;
 
 /**
  *
  * @author seb
  */
-public class SelectProductManager extends ModuleManager implements Manager_if {
+public class SelectProductManager extends ModuleManager {
 
   ProductModel product;
 
-  public SelectProductManager(LoggedModel log, ProductModel p) {
-    super(log);
-    this.product = p;
+  public SelectProductManager(ProductModel p) {
+    this("select product", p);
   }
 
-  @Override
-  public String getMenuEntry() {
-    return "select product";
+  public SelectProductManager(String name, ProductModel p) {
+    super(name);
+    this.product = p;
   }
 
   @Override

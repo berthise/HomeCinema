@@ -5,22 +5,18 @@
  */
 package main.utils;
 
-import models.LoggedModel;
-
 /**
  *
  * @author seb
  */
-public class ExitManager extends ModuleManager implements Manager_if {
+public class ExitManager extends ModuleManager {
 
-  public ExitManager(LoggedModel log) {
-    super(log);
-  }
+
   
-  @Override
-  public String getMenuEntry() {
-    return "exit";
+  public ExitManager() {
+    super("exit");
   }
+
   
   @Override
   public void runMenuEntry() throws ReturnManager.ReturnMenuException { 

@@ -5,16 +5,24 @@
  */
 package main.utils;
 
-import models.LoggedModel;
-
 /**
  *
  * @author seb
  */
-public abstract class ModuleManager {
+public abstract class ModuleManager implements Manager_if {
   
-  protected LoggedModel log;
-  public ModuleManager (LoggedModel log) {
-    this.log = log;
+  String entryName = ""; 
+  ModuleManager() {
   }
+  
+  public ModuleManager(String entryName) {
+    this.entryName = entryName;
+  }
+
+  public String getMenuEntry() {
+    return entryName;
+  }
+
+  
+  
 }

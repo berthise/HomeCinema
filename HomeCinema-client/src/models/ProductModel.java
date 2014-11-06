@@ -109,6 +109,16 @@ public class ProductModel implements Model_if {
     pDto.state = ProductStates.Unactivated;
   }
 
+  public ProductDto getpDto() {
+    return pDto;
+  }
+
+  public void setpDto(ProductDto pDto) {
+    this.pDto = pDto;
+  }
+  
+  
+
   public Boolean notNull() {
     return this.pDto != null;
   }

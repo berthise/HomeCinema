@@ -5,29 +5,28 @@
  */
 package managers.films;
 
+import dtos.FilmDto;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import main.utils.Manager_if;
+import main.HomeCinemaClient;
 import main.utils.ModuleManager;
 import models.FilmModel;
-import models.LoggedModel;
 
 /**
  *
  * @author seb
  */
-public class SelectFilmManager extends ModuleManager implements Manager_if {
+public class SelectFilmManager extends ModuleManager {
 
   FilmModel film;
 
-  public SelectFilmManager(LoggedModel log, FilmModel f) {
-    super(log);
-    this.film = f;
+  public SelectFilmManager(FilmModel f) {
+    this("select a film", f);
   }
 
-  @Override
-  public String getMenuEntry() {
-    return "select film";
+  public SelectFilmManager(String name, FilmModel f) {
+    super(name);
+    this.film = f;
   }
 
   @Override
@@ -39,6 +38,8 @@ public class SelectFilmManager extends ModuleManager implements Manager_if {
       film.initDto();
       // TODO set film from ejb
       //model.setId();
+      FilmDto fdto = HomeCinemaClient.getManageFilmRemote().getDtoFromId(id);
+      film.setfDto(fdto);
     } catch (InputMismatchException e) {
       System.out.println("Error: wrong film selection");
     }

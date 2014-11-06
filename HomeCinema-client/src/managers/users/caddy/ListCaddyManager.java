@@ -5,27 +5,24 @@
  */
 package managers.users.caddy;
 
-import main.utils.Manager_if;
 import main.utils.ModuleManager;
-import models.LoggedModel;
 import models.UserModel;
 
 /**
  *
  * @author seb
  */
-public class ListCaddyManager extends ModuleManager implements Manager_if {
+public class ListCaddyManager extends ModuleManager {
 
-UserModel user = null;
+  UserModel user = null;
 
-  public ListCaddyManager(LoggedModel log, UserModel u) {
-    super(log);
-    this.user = u;
+  public ListCaddyManager(UserModel u) {
+    this("list caddy", u);
   }
 
-  @Override
-  public String getMenuEntry() {
-    return "list caddy";
+  public ListCaddyManager(String name, UserModel u) {
+    super(name);
+    this.user = u;
   }
 
   @Override

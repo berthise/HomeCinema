@@ -6,41 +6,31 @@
 package managers.users.add;
 
 import models.UserModel;
-import dtos.UserDto;
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.Scanner;
-import main.utils.ExitManager;
-import main.utils.Manager_if;
-import main.utils.Menu;
 import main.utils.ModuleManager;
-import main.utils.ReturnManager;
-import models.LoggedModel;
 
 /**
  *
  * @author seb
  */
-public class DefaultUserManager extends ModuleManager implements Manager_if {
+public class DefaultUserManager extends ModuleManager {
 
-  UserModel userModel = null;
+  UserModel user = null;
 
-  public DefaultUserManager(LoggedModel log, UserModel model) {
-    super(log);
-    userModel = model;
+  public DefaultUserManager(UserModel u) {
+    this("default value", u);
   }
 
-  @Override
-  public String getMenuEntry() {
-    return "default value user";
+  public DefaultUserManager(String name, UserModel u) {
+    super(name);
+    user = u;
   }
 
   @Override
   public void runMenuEntry() {
 
-      userModel.setFirstname("Boris");
-      userModel.setLastname("Truchau");
-      userModel.setEmail("boris.truchau@debian.org");
+    user.setFirstname("Boris");
+    user.setLastname("Truchau");
+    user.setEmail("boris.truchau@debian.org");
   }
 
 }

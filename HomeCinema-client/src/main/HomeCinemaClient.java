@@ -5,69 +5,73 @@
  */
 package main;
 
-import main.utils.Manager_if;
-import main.utils.ModuleManager;
-import main.utils.Menu;
-import main.utils.ExitManager;
-import managers.loggin.LogginManager;
-import dtos.FilmDto;
-import dtos.VideoDto;
 import ejbs.ManageFilmRemote;
-import java.awt.EventQueue;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.InputMismatchException;
+import ejbs.ManageProductRemote;
 import java.util.Properties;
-import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import main.utils.ModuleMenuManager;
 import main.utils.ReturnManager.ReturnMenuException;
-import managers.films.FilmManager;
-import managers.products.ProductManager;
-import managers.users.UserManager;
-import models.LoggedModel;
-import org.json.JSONException;
 
 /**
  *
  * @author titou
  */
-public class HomeCinemaClient extends ModuleMenuManager {
+public class HomeCinemaClient {
+
+  private static InitialContext ic;
+  private static ManageProductRemote mpr = null;
+  private static ManageFilmRemote mfr = null;
+
 
   public static void main(String[] args) {
     System.out.println("Application d'administration ++");
-    HomeCinemaClient client = new HomeCinemaClient();
-    client.runMenu();
-  }
-
-  public HomeCinemaClient() {
-    super(new LoggedModel());
-    menu = new Menu(this,log, "Main menu:");
-  }
-
-  public void runMenu() {
-    // TODO: runMenuConsole + runMenuGraphique
+    MainMenu menu = new MainMenu();
     try {
-    menu.addManager((Manager_if) new ExitManager(log));
-    menu.addManager((Manager_if) new FilmManager(log));
-    menu.addManager((Manager_if) new ProductManager(log));
-    menu.addManager((Manager_if) new UserManager(log));
-    //   menu.addManager((Manager_if) new LogginManager(log));
-      menu.runMenuConsole();
+      HomeCinemaClient.makeContext();
+      menu.runMenuEntry();
     } catch (ReturnMenuException e) {
       System.out.println("bye");
     }
   }
+
+  public static void makeContext() {
+    try {
+      Properties props = new Properties();
+      //props.setProperty("java.naming.factory.initial","com.sun.enterprise.naming.SerialInitContextFactory");
+      //props.setProperty("java.naming.factory.url.pkgs","com.sun.enterprise.naming");
+      //props.setProperty("java.naming.factory.state","com.sun.corba.ee.impl.presentation.rmi.JNDIStateFactoryImpl");
+      //props.setProperty("org.omg.CORBA.ORBInitialHost", "localhost");
+      //props.setProperty("org.omg.CORBA.ORBInitialPort", "3700");
+
+      ic = new InitialContext();
+    } catch (NamingException ex) {
+      Logger.getLogger(HomeCinemaClient.class.getName()).log(Level.SEVERE, null, ex);
+    }
+  }
+
+  // TOOD find an other solution.
+  public static ManageProductRemote getManageProductRemote() {
+    if (mpr == null) {
+      try {
+	mpr = (ManageProductRemote) ic.lookup("java:global/HomeCinema/HomeCinema-ejb/ManageProduct!ejbs.ManageProductRemote");
+      } catch (NamingException ex) {
+	Logger.getLogger(HomeCinemaClient.class.getName()).log(Level.SEVERE, null, ex);
+      }
+    }
+    return mpr;
+  }
+  
+    public static ManageFilmRemote getManageFilmRemote() {
+    if (mfr == null) {
+      try {
+	mfr = (ManageFilmRemote) ic.lookup("java:global/HomeCinema/HomeCinema-ejb/ManageFilm!ejbs.ManageFilmRemote");
+      } catch (NamingException ex) {
+	Logger.getLogger(HomeCinemaClient.class.getName()).log(Level.SEVERE, null, ex);
+      }
+    }
+    return mfr;
+  }
+
 }

@@ -5,27 +5,24 @@
  */
 package managers.films;
 
-import main.utils.Manager_if;
 import main.utils.ModuleManager;
 import models.FilmModel;
-import models.LoggedModel;
 
 /**
  *
  * @author seb
  */
-public class ListFilmsManager extends ModuleManager implements Manager_if {
+public class ListFilmsManager extends ModuleManager {
  
   FilmModel film = null;
 
-  public ListFilmsManager(LoggedModel log, FilmModel f) {
-    super(log);
-    this.film = f;
+  public ListFilmsManager(FilmModel f) {
+    this("list des films", f);
   }
-
-  @Override
-  public String getMenuEntry() {
-    return "list films";
+    
+  public ListFilmsManager(String name, FilmModel f) {
+    super(name);
+    this.film = f;
   }
 
   @Override

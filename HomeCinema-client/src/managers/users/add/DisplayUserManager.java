@@ -6,41 +6,28 @@
 package managers.users.add;
 
 import models.UserModel;
-import dtos.UserDto;
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.Scanner;
-import main.utils.ExitManager;
-import main.utils.Manager_if;
-import main.utils.Menu;
 import main.utils.ModuleManager;
-import main.utils.ReturnManager;
-import models.LoggedModel;
 
 /**
  *
  * @author seb
  */
-public class DisplayUserManager extends ModuleManager implements Manager_if {
+public class DisplayUserManager extends ModuleManager {
 
-  UserModel userModel = null;
+  UserModel user = null;
 
-  public DisplayUserManager(LoggedModel log, UserModel model) {
-    super(log);
-    userModel = model;
+  public DisplayUserManager(UserModel u) {
+    this("display user", u);
   }
 
-  @Override
-  public String getMenuEntry() {
-    return "display user";
+  public DisplayUserManager(String name, UserModel u) {
+    super(name);
+    user = u;
   }
 
   @Override
   public void runMenuEntry() {
-
-      System.out.println("Firstname: " + userModel.getFirstname());
-      System.out.println("Lastname: " + userModel.getLastname());
-      System.out.println("Email: " + userModel.getEmail());
+    user.displayConsole();
 
   }
 

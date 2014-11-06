@@ -7,27 +7,24 @@ package managers.users;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import main.utils.Manager_if;
 import main.utils.ModuleManager;
-import models.LoggedModel;
 import models.UserModel;
 
 /**
  *
  * @author seb
  */
-public class SelectUserManager extends ModuleManager implements Manager_if {
+public class SelectUserManager extends ModuleManager {
 
   UserModel user;
 
-  public SelectUserManager(LoggedModel log, UserModel u) {
-    super(log);
-    this.user = u;
+  public SelectUserManager(UserModel u) {
+    this("select user", u);
   }
 
-  @Override
-  public String getMenuEntry() {
-    return "select user";
+  public SelectUserManager(String name, UserModel u) {
+    super(name);
+    this.user = u;
   }
 
   @Override

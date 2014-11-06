@@ -6,33 +6,25 @@
 package managers.users.add;
 
 import models.UserModel;
-import dtos.UserDto;
-import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import main.utils.ExitManager;
-import main.utils.Manager_if;
-import main.utils.Menu;
 import main.utils.ModuleManager;
-import main.utils.ReturnManager;
-import models.LoggedModel;
 
 /**
  *
  * @author seb
  */
-public class EditUserManager extends ModuleManager implements Manager_if {
+public class EditUserManager extends ModuleManager {
 
   UserModel user = null;
 
-  public EditUserManager(LoggedModel log, UserModel model) {
-    super(log);
-    user = model;
+  public EditUserManager(UserModel u) {
+    this("edit user", u);
   }
 
-  @Override
-  public String getMenuEntry() {
-    return "edit user";
+  public EditUserManager(String name, UserModel u) {
+    super(name);
+    user = u;
   }
 
   @Override

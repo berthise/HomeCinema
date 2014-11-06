@@ -6,38 +6,28 @@
 package managers.users.add;
 
 import models.UserModel;
-import dtos.UserDto;
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.Scanner;
-import main.utils.ExitManager;
-import main.utils.Manager_if;
-import main.utils.Menu;
 import main.utils.ModuleManager;
-import main.utils.ReturnManager;
-import models.LoggedModel;
 
 /**
  *
  * @author seb
  */
-public class SaveUserManager extends ModuleManager implements Manager_if {
+public class SaveUserManager extends ModuleManager {
 
-  UserModel userModel = null;
+  UserModel user = null;
 
-  public SaveUserManager(LoggedModel log, UserModel model) {
-    super(log);
-    userModel = model;
+  public SaveUserManager(UserModel u) {
+    this("save user", u);
   }
 
-  @Override
-  public String getMenuEntry() {
-    return "save user";
+  public SaveUserManager(String name, UserModel u) {
+    super(name);
+    user = u;
   }
 
   @Override
   public void runMenuEntry() {
-     System.out.println("Saving is done");
+    System.out.println("Saving is done");
   }
 
 }

@@ -14,19 +14,19 @@ import dtos.VideoDto;
  * @author seb
  */
 public class VideoModel implements Model_if {
-  
+
   private VideoDto vDto;
-  
+
   public VideoModel() {
     vDto = new VideoDto();
 
   }
-  
+
   public VideoModel(VideoDto videoDto) {
     this.vDto = videoDto;
 
   }
-  
+
   public Long getId() {
     return vDto.id;
   }
@@ -53,21 +53,28 @@ public class VideoModel implements Model_if {
 
   @Override
   public void displayConsole() {
-      System.out.println("Video   Id: " + this.getId());
-      System.out.println("        Url: " + this.getUrl());
-      System.out.println("        Resolution: " + this.getResolution());
+    System.out.println("Video   Id: " + this.getId());
+    System.out.println("        Url: " + this.getUrl());
+    System.out.println("        Resolution: " + this.getResolution());
   }
-    
-    public void initDto() {
+
+  public void initDto() {
     this.vDto = new VideoDto();
     vDto.id = new Long(0);
     vDto.resolution = 240;
     vDto.url = "";
   }
 
-  
+  public VideoDto getvDto() {
+    return vDto;
+  }
+
+  public void setvDto(VideoDto vDto) {
+    this.vDto = vDto;
+  }
+
   public Boolean notNull() {
     return this.vDto != null;
   }
-    
+
 }

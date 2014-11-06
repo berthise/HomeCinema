@@ -149,6 +149,15 @@ public class FilmModel implements Model_if {
     fDto.title = "";
   }
 
+  public FilmDto getfDto() {
+    return fDto;
+  }
+
+  public void setfDto(FilmDto fDto) {
+    this.fDto = fDto;
+  }
+
+  
   public Boolean notNull() {
     return this.fDto != null;
   }

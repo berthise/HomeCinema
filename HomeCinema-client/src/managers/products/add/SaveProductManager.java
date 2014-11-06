@@ -5,41 +5,49 @@
  */
 package managers.products.add;
 
-import managers.users.*;
-import models.UserModel;
-import dtos.UserDto;
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.Scanner;
-import main.utils.ExitManager;
-import main.utils.Manager_if;
-import main.utils.Menu;
+import dtos.FilmDto;
+import dtos.VideoDto;
+import ejbs.ManageProductRemote;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.naming.NamingException;
+import main.HomeCinemaClient;
 import main.utils.ModuleManager;
-import main.utils.ReturnManager;
-import models.LoggedModel;
 import models.ProductModel;
 
 /**
  *
  * @author seb
  */
-public class SaveProductManager extends ModuleManager implements Manager_if {
+public class SaveProductManager extends ModuleManager {
 
   ProductModel product = null;
 
-  public SaveProductManager(LoggedModel log, ProductModel product) {
-    super(log);
-    this.product = product;
+  public SaveProductManager(ProductModel p) {
+    this("save product", p);
   }
 
-  @Override
-  public String getMenuEntry() {
-    return "save product";
+  public SaveProductManager(String name, ProductModel p) {
+    super(name);
+    this.product = p;
   }
 
   @Override
   public void runMenuEntry() {
-     System.out.println("Saving is done");
+    System.out.println("Start saving product");
+    try {
+    FilmDto film = product.getFilm().getfDto();
+    VideoDto video = product.getFilm().getVideo().getvDto();
+    VideoDto trailer = product.getFilm().getTrailer().getvDto();
+    Integer price = product.getPrice();
+    
+    HomeCinemaClient.getManageProductRemote().
+	    createProductWithFilm(film , video, trailer, price);
+    } catch (NullPointerException e) {
+      System.out.println("Erreur: produit incomplet.");
+    }
+    System.out.println("Saving done");
+
   }
 
 }

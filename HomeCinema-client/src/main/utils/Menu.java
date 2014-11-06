@@ -9,62 +9,66 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import main.utils.ReturnManager.ReturnMenuException;
-import models.LoggedModel;
 
 /**
  *
  * @author seb
  */
-public class Menu {
+abstract public class Menu extends ModuleManager implements Menu_if {
 
   ArrayList<Manager_if> managers = null;
   String name;
-  LoggedModel log;
-  ModuleMenuManager module;
 
-  public Menu(ModuleMenuManager module, LoggedModel log, String name) {
+  public Menu(String menuName) {
+    this("", menuName);
+  }
+
+  public Menu(String entryName, String menuName) {
+    super(entryName);
     managers = new ArrayList<>();
-    this.name = name;
-    this.log = log;
-    this.module = module;
+    this.name = menuName;
   }
 
   public void addManager(Manager_if m) {
     managers.add(m);
   }
 
-  public void runMenuConsole() throws ReturnMenuException {
-    while (true) {
-      System.out.println("---------------------------------");
-      System.out.println(this.name);
-      System.out.println("---------------------------------");
+  public void runMenuEntry() throws ReturnMenuException {
+    try {
 
-      int i = 0;
-      for (Manager_if m : managers) {
-	System.out.println(i + ": " + m.getMenuEntry());
-	i++;
-      }
+      this.createMenu();
+      while (true) {
+	System.out.println("---------------------------------");
+	System.out.println(this.name);
+	System.out.println("---------------------------------");
 
-      Scanner reader = new Scanner(System.in);
-      System.out.println("Faite votre choix:");
-      try {
-	Integer entre = reader.nextInt();
-	try {
-	  managers.get(entre).runMenuEntry();
-
-	  /* Update menu, it may change */
-	  module.updateMenu();
-	} catch (IndexOutOfBoundsException e) {
-	  System.out.println("Erreur: entré incorrect, valeur non possible.");
+	int i = 0;
+	for (Manager_if m : managers) {
+	  System.out.println(i + ": " + m.getMenuEntry());
+	  i++;
 	}
-      } catch (InputMismatchException e) {
-	System.out.println("Erreur: entré incorrect, caratere non numerique.");
-      }
 
+	Scanner reader = new Scanner(System.in);
+	System.out.println("Faite votre choix:");
+	try {
+	  Integer entre = reader.nextInt();
+	  try {
+	    managers.get(entre).runMenuEntry();
+	    this.updateMenu();
+	    /* Update menu, it may change */
+	  } catch (IndexOutOfBoundsException e) {
+	    System.out.println("Erreur: entré incorrect, valeur non possible.");
+	  }
+	} catch (InputMismatchException e) {
+	  System.out.println("Erreur: entré incorrect, caratere non numerique.");
+	}
+
+      }
+    } catch (ReturnManager.ReturnMenuException e) {
     }
   }
 
-  public void clean() {
+  public void cleanMenu() {
     managers = new ArrayList<>();
   }
 }

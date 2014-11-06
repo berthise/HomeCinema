@@ -75,6 +75,16 @@ public class UserModel implements Model_if {
     uDto.email = "";
   }
 
+  public UserDto getuDto() {
+    return uDto;
+  }
+
+  public void setuDto(UserDto uDto) {
+    this.uDto = uDto;
+  }
+  
+  
+
   public Boolean notNull() {
     return this.uDto != null;
   }

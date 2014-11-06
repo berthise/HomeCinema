@@ -5,23 +5,16 @@
  */
 package main.utils;
 
-import main.utils.ModuleManager;
-import models.LoggedModel;
-
 /**
  *
  * @author seb
  */
-public class ReturnManager extends ModuleManager implements Manager_if {
+public class ReturnManager extends ModuleManager {
 
-  public ReturnManager(LoggedModel log) {
-    super(log);
+  public ReturnManager() {
+    super("return");
   }
-  
-  @Override
-  public String getMenuEntry() {
-    return "return";
-  }
+
   
   @Override
   public void runMenuEntry() throws ReturnMenuException{ 

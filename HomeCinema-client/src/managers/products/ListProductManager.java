@@ -5,27 +5,24 @@
  */
 package managers.products;
 
-import main.utils.Manager_if;
 import main.utils.ModuleManager;
-import models.LoggedModel;
 import models.ProductModel;
 
 /**
  *
  * @author seb
  */
-public class ListProductManager extends ModuleManager implements Manager_if {
+public class ListProductManager extends ModuleManager {
 
-ProductModel product = null;
+  ProductModel product = null;
 
-  public ListProductManager(LoggedModel log, ProductModel product) {
-    super(log);
-    this.product = product;
+  public ListProductManager(ProductModel p) {
+    this("list products", p);
   }
 
-  @Override
-  public String getMenuEntry() {
-    return "list products";
+  public ListProductManager(String name, ProductModel p) {
+    super(name);
+    this.product = p;
   }
 
   @Override

@@ -5,27 +5,24 @@
  */
 package managers.users;
 
-import main.utils.Manager_if;
 import main.utils.ModuleManager;
-import models.LoggedModel;
 import models.UserModel;
 
 /**
  *
  * @author seb
  */
-public class ListUsersManager extends ModuleManager implements Manager_if {
+public class ListUsersManager extends ModuleManager {
 
-UserModel user = null;
+  UserModel user = null;
 
-  public ListUsersManager(LoggedModel log, UserModel u) {
-    super(log);
-    this.user = u;
+  public ListUsersManager(UserModel u) {
+    this("list users", u);
   }
 
-  @Override
-  public String getMenuEntry() {
-    return "list user";
+  public ListUsersManager(String name, UserModel u) {
+    super(name);
+    this.user = u;
   }
 
   @Override
