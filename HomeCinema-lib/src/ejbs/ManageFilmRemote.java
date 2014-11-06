@@ -17,5 +17,7 @@ import javax.ejb.Remote;
 public interface ManageFilmRemote {
  
     public void createFilm (FilmDto fdto);
-
+    
+    public FilmDto getDtoFromId(Long id);
+    
 }

@@ -15,6 +15,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -67,8 +68,11 @@ public class Film implements Serializable {
     @OneToMany
     private List<Country> countries;
 
-    @Column(name = "RATING")
-    private Integer rating;
+  @Column(name = "RATING", precision = 1, scale = 2)
+  private Double rating;
+  
+  @Column(name = "RUNTIME")
+  private Integer runtime;
 
     @Column(name = "RUNTIME")
     private Integer runtime;

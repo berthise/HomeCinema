@@ -7,6 +7,7 @@ package managers.dtos;
 
 import dtos.FilmDto;
 import entities.Film;
+import java.util.Date;
 
 /**
  *
@@ -16,12 +17,17 @@ public  class FilmDtoManager {
     
     public static FilmDto getDto(Film f)
     {
+        if (f == null)
+            return null;
+        
         FilmDto fdto = new FilmDto();
         fdto.id = f.getId();
         fdto.title=f.getTitle();
         fdto.overview=f.getOverview();
-        fdto.release_date=f.getReleaseDate();
+        fdto.release_date=new Date(f.getReleaseDate().getTime());
         fdto.cover=f.getCoverId();
+        fdto.rating=f.getRating();
+        fdto.runtime=f.getRuntime();
         return fdto;
     }
     
@@ -33,8 +39,9 @@ public  class FilmDtoManager {
         f.setOverview(fdto.overview);
         f.setReleaseDate(fdto.release_date);
         f.setCoverId(fdto.cover);
+        f.setRating(fdto.rating);
         f.setRuntime(fdto.runtime);
         return f;
     }
-    
+        
 }

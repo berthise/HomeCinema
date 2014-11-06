@@ -13,6 +13,7 @@ import javax.persistence.PersistenceContext;
 import managers.dtos.FilmDtoManager;
 import ejbs.ManageFilmRemote;
 import entities.Film;
+import javax.persistence.Query;
 import javax.ejb.EJB;
 import managers.entities.ManageEntitieVideo;
 
@@ -23,14 +24,20 @@ import managers.entities.ManageEntitieVideo;
  */
 @Stateless
 public class ManageFilm implements ManageFilmRemote {
-
+    
     @PersistenceContext
     public EntityManager em;
-
+    
     @Override
     public void createFilm(FilmDto fdto) {
         Film f = FilmDtoManager.makeFilm(fdto);
         em.persist(f);
+    }
+    
+    @Override
+    public FilmDto getDtoFromId(Long id) {
+        Film f = em.find(Film.class, id);
+        return FilmDtoManager.getDto(f);
     }
 
 
