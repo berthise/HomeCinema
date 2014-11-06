@@ -6,6 +6,7 @@
 package ejbs;
 
 import dtos.FilmDto;
+import dtos.FilmFicheDto;
 import dtos.VideoDto;
 import javax.ejb.Remote;
 
@@ -18,6 +19,6 @@ public interface ManageFilmRemote {
  
     public void createFilm (FilmDto fdto);
     
-    public FilmDto getDtoFromId(Long id);
+    public FilmFicheDto getDtoFromId(Long id);
     
 }
