@@ -24,5 +24,12 @@ public class ManageVideo implements ManageVideoRemote {
     @PersistenceContext
     public EntityManager em;
 
+    @Override
+    public Long createVideo(VideoDto vdto)
+    {
+        Video v = VideoDtoManager.makeVideo(vdto);
+        em.persist(v);
+        return v.getId();
+    }
 
 }
