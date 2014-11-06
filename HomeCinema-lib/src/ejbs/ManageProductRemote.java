@@ -6,6 +6,7 @@
 package ejbs;
 
 import dtos.FilmDto;
+import dtos.ProductDto;
 import dtos.VideoDto;
 import java.util.List;
 import javax.ejb.Remote;
@@ -17,6 +18,8 @@ import javax.ejb.Remote;
 @Remote
 public interface ManageProductRemote {
 
+    public Long createProduct(ProductDto pdto);
+    
     public Long createProductWithFilm(FilmDto fdto, VideoDto trailer, VideoDto vid, Integer price);
 
     public void addFilms(Long pid, List<FilmDto> lfdto);
