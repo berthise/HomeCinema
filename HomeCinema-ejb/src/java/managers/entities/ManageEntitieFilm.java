@@ -17,12 +17,17 @@ import managers.dtos.FilmDtoManager;
  * @author titou
  */
 public class ManageEntitieFilm {
-    
-    
-        public static Film createFilmWithVideo(FilmDto fdto, VideoDto trailer, VideoDto vid,EntityManager em) {
+
+    public static Film createFilmWithVideo(FilmDto fdto, VideoDto trailer, VideoDto vid, EntityManager em) {
         Film f = FilmDtoManager.makeFilm(fdto);
-        f.addVideoFile(ManageEntitieVideo.createVideo(vid,em));
-        f.setTrailler(ManageEntitieVideo.createVideo(trailer,em));
+        f.addVideoFile(ManageEntitieVideo.createVideo(vid, em));
+        f.setTrailler(ManageEntitieVideo.createVideo(trailer, em));
+        em.persist(f);
+        return f;
+    }
+
+    public static Film createFilm(FilmDto fdto, EntityManager em) {
+        Film f = FilmDtoManager.makeFilm(fdto);
         em.persist(f);
         return f;
     }

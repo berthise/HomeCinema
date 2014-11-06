@@ -6,34 +6,58 @@
 package managers.dtos;
 
 import dtos.FilmDto;
+import dtos.FilmFicheDto;
+import dtos.VideoDto;
 import entities.Film;
+import entities.Video;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
  * @author titou
  */
-public  class FilmDtoManager {
-    
-    public static FilmDto getDto(Film f)
-    {
-        if (f == null)
+public class FilmDtoManager {
+
+    public static FilmDto getDto(Film f) {
+        if (f == null) {
             return null;
-        
+        }
+
         FilmDto fdto = new FilmDto();
         fdto.id = f.getId();
-        fdto.title=f.getTitle();
-        fdto.overview=f.getOverview();
-        fdto.release_date=new Date(f.getReleaseDate().getTime());
-        fdto.cover=f.getCoverId();
-        fdto.rating=f.getRating();
-        fdto.runtime=f.getRuntime();
-       // fdto.trailler=VideoDtoManager.getDto(f.getTrailler());
+        fdto.title = f.getTitle();
+        fdto.overview = f.getOverview();
+        fdto.release_date = new Date(f.getReleaseDate().getTime());
+        fdto.cover = f.getCoverId();
+        fdto.rating = f.getRating();
+        fdto.runtime = f.getRuntime();
         return fdto;
     }
-    
-    public static Film makeFilm(FilmDto fdto)
-    {
+
+    public static FilmFicheDto getDtoForFiche(Film f) {
+        if (f == null) {
+            return null;
+        }
+
+        FilmFicheDto fdto = new FilmFicheDto();
+        fdto.id = f.getId();
+        fdto.title = f.getTitle();
+        fdto.overview = f.getOverview();
+        fdto.release_date = new Date(f.getReleaseDate().getTime());
+        fdto.cover = f.getCoverId();
+        fdto.rating = f.getRating();
+        fdto.runtime = f.getRuntime();
+        fdto.trailler = VideoDtoManager.getDto(f.getTrailler());
+        fdto.files = new ArrayList<>();
+        for (Video v : f.getVideoFile()){
+            fdto.files.add(VideoDtoManager.getDto(v));
+        }
+        return fdto;
+    }
+
+    public static Film makeFilm(FilmDto fdto) {
         Film f = new Film();
         f.setId(fdto.id);
         f.setTitle(fdto.title);
@@ -42,8 +66,8 @@ public  class FilmDtoManager {
         f.setCoverId(fdto.cover);
         f.setRating(fdto.rating);
         f.setRuntime(fdto.runtime);
-       // f.setTrailler(VideoDtoManager.makeVideo(fdto.trailler));
+
         return f;
     }
-        
+
 }

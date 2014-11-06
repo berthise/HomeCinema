@@ -12,6 +12,7 @@ import ejbs.ManageProductRemote;
 import entities.Film;
 import entities.Product;
 import entities.Video;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -19,6 +20,7 @@ import javax.persistence.PersistenceContext;
 import managers.dtos.FilmDtoManager;
 import managers.dtos.VideoDtoManager;
 import managers.entities.ManageEntitieFilm;
+import managers.entities.ManageEntitieProduct;
 
 /**
  *
@@ -37,5 +39,21 @@ public class ManageProduct implements ManageProductRemote {
         f.setMain_product(p);
         em.persist(p);
     }
+    
+    public void addFilmsToProduct(Long pid,List<FilmDto> lfdto)
+    {
+        for (FilmDto fdto : lfdto)
+        {
+            addFilmToProduct(pid,fdto);
+        }
+    }
+    
+    public void addFilmToProduct(Long pid, FilmDto fdto)
+    {
+        Product p = em.find(Product.class, pid);
+        Film f= ManageEntitieFilm.createFilm(fdto, em);
+        ManageEntitieProduct.linkProductFilm(f, p);
+    }
 
+    
 }
