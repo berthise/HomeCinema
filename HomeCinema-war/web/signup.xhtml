@@ -4,8 +4,10 @@
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+    xmlns:jsf="http://java.sun.com/jsf"
     xmlns:f="http://java.sun.com/jsf/core">
-    <head>
+    <h:head>
         <meta charset="utf-8"/>
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
         <title></title>
@@ -18,8 +20,8 @@
 
     
 
-    </head>
-    <body>
+    </h:head>
+    <h:body>
         <ui:include src="components/header.xhtml" />
         <section>
             <div class="container">
@@ -27,7 +29,7 @@
                     <div class="row">
                         <div class="col-lg-5 form-signin">
                             <h2 class="form-signin-heading">Inscription</h2>
-                            <form role="form">
+                            <h:form role="form">
                                 <legend>Informations compte</legend>
                                 <div class="row">
                                     <div class="form-group">
@@ -41,7 +43,7 @@
                                     <div class="form-group">
                                         <label class="col-md-5 form-label" for="login">Pseudo : </label>
                                         <div class="col-md-7">
-                                            <input type="text" id="login" class="form-control" placeholder="Nom d'utilisateur"  />                                
+                                            <h:inputText id="login" class="form-control" p:placeholder="Nom d'utilisateur"  />                                
                                         </div>
                                     </div>
                                 </div>
@@ -49,7 +51,7 @@
                                     <div class="form-group">
                                         <label class="col-md-5 form-label" for="password">Mot de passe : </label>
                                         <div class="col-md-7">
-                                            <input type="password" id="password" class="form-control" placeholder="Mot de passe" />
+                                            <h:inputSecret id="password" class="form-control" p:placeholder="Mot de passe" />
                                         </div>
                                     </div>
                                 </div>
@@ -57,7 +59,7 @@
                                     <div class="form-group">
                                         <label class="col-md-5 form-label" for="conf_pass">Confirmation mot de passe : </label>
                                         <div class="col-md-7">
-                                            <input type="password" id="conf_pass" class="form-control" placeholder="Confirmation mot de passe" />
+                                            <h:inputSecret id="conf_pass" class="form-control" p:placeholder="Confirmation mot de passe" />
                                         </div>
                                     </div>
                                 </div>
@@ -66,7 +68,7 @@
                                     <div class="form-group">
                                         <label class="col-md-5 form-label" for="firstname">Prenom : </label>
                                         <div class="col-md-7">
-                                            <input type="text" id="firstname" class="form-control" placeholder="Prenom" />
+                                            <h:inputText id="firstname" class="form-control" p:placeholder="Prenom" />
                                         </div>
                                     </div>
                                 </div>
@@ -74,7 +76,7 @@
                                     <div class="form-group">
                                         <label class="col-md-5 form-label" for="lastname">Nom : </label>
                                         <div class="col-md-7">
-                                            <input type="text" id="lastname" class="form-control" placeholder="Nom"  />
+                                            <h:inputText id="lastname" class="form-control" p:placeholder="Nom" p:required="required" />
                                         </div>
                                     </div>
                                 </div>
@@ -82,7 +84,7 @@
                                     <div class="form-group">
                                         <label class="col-md-5 form-label" for="birthday">Date de naissance : </label>
                                         <div class="col-md-7">
-                                            <input type="date" id="birthday" class="form-control" placeholder="Date de naissance" />
+                                            <h:inputText p:type="date" id="birthday" class="form-control" p:placeholder="Date de naissance" />
                                         </div>
                                     </div>
                                 </div>
@@ -98,10 +100,10 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-5"></div>
-                                    <input class="btn btn-danger col-md-3" type="reset" />
-                                    <input class="btn btn-primary col-md-3" type="submit" />
+                                    <h:commandButton class="btn btn-danger col-md-3" p:type="reset" value="Réinitialiser" />
+                                    <h:commandButton class="btn btn-primary col-md-3" value="Envoyer" />
                                 </div>
-                            </form>
+                            </h:form>
                         </div>
                     </div>
                 </div>
@@ -131,5 +133,5 @@
             ga('create', 'UA-XXXXX-X');
             ga('send', 'pageview');
         </script>-->
-    </body>
+    </h:body>
 </html>

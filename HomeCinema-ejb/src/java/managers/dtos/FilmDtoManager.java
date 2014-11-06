@@ -12,21 +12,19 @@ import entities.Film;
  *
  * @author titou
  */
-public  class FilmDtoManager {
-    
-    public static FilmDto getDto(Film f)
-    {
+public class FilmDtoManager {
+
+    public static FilmDto getDto(Film f) {
         FilmDto fdto = new FilmDto();
         fdto.id = f.getId();
-        fdto.title=f.getTitle();
-        fdto.overview=f.getOverview();
-        fdto.release_date=f.getReleaseDate();
-        fdto.cover=f.getCoverId();
+        fdto.title = f.getTitle();
+        fdto.overview = f.getOverview();
+        fdto.release_date = f.getReleaseDate();
+        fdto.cover = f.getCoverId();
         return fdto;
     }
-    
-    public static Film makeFilm(FilmDto fdto)
-    {
+
+    public static Film makeFilm(FilmDto fdto) {
         Film f = new Film();
         f.setId(fdto.id);
         f.setTitle(fdto.title);
@@ -35,5 +33,5 @@ public  class FilmDtoManager {
         f.setCoverId(fdto.cover);
         return f;
     }
-    
+
 }
