@@ -23,6 +23,8 @@ public class UserDtoManager {
         u.setFirstName(udto.firstName);
         u.setLastName(udto.lastName);
         u.setBirthDate(udto.birthDate);
+        u.setAddDate(udto.addDate);
+        u.setState(udto.state);
         return u;
     }
 }

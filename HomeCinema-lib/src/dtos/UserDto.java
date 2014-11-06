@@ -5,6 +5,7 @@
  */
 package dtos;
 
+import enums.UserStates;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -20,4 +21,6 @@ public class UserDto implements Serializable {
     public String password;
     public String email;
     public Date birthDate;
+    public Date addDate;
+    public UserStates state;
 }
