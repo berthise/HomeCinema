@@ -35,6 +35,7 @@ import javax.swing.JTextField;
 import main.utils.ModuleMenuManager;
 import main.utils.ReturnManager.ReturnMenuException;
 import managers.films.FilmManager;
+import managers.products.ProductManager;
 import managers.users.UserManager;
 import models.LoggedModel;
 import org.json.JSONException;
@@ -61,6 +62,7 @@ public class HomeCinemaClient extends ModuleMenuManager {
     try {
     menu.addManager((Manager_if) new ExitManager(log));
     menu.addManager((Manager_if) new FilmManager(log));
+    menu.addManager((Manager_if) new ProductManager(log));
     menu.addManager((Manager_if) new UserManager(log));
     //   menu.addManager((Manager_if) new LogginManager(log));
       menu.runMenuConsole();
