@@ -33,19 +33,11 @@ public class ManageFilm implements ManageFilmRemote {
     public void createFilmProduct(FilmDto fdto, VideoDto trailer, VideoDto vid,Integer price) {
         Film f = FilmDtoManager.makeFilm(fdto);
         Video t = VideoDtoManager.makeVideo(trailer);
-        List<Video> lv = new ArrayList<Video>();
         Video v = VideoDtoManager.makeVideo(vid);
-        lv.add(v);
-        f.setVideoFile(lv);
+        f.addVideoFile(v);
         f.setTrailler(t);
         Product p = new Product(f, price);
         f.setMain_product(p);
-        List<Film> lf = new ArrayList<Film>();
-        lf.add(f);
-        p.setFilms(lf);
-        List<Product> lp = new ArrayList<Product>();
-        lp.add(p);
-        f.setProducts(lp);
         em.persist(v);
         em.persist(t);
         em.persist(f);

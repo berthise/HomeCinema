@@ -175,6 +175,10 @@ public class Film implements Serializable {
   public void setVideoFile(List<Video> videoFile) {
     this.videoFile = videoFile;
   }
+  
+  public void addVideoFile(Video videoFile) {
+    this.videoFile.add(videoFile);
+  }
 
   public Video getTrailler() {
     return trailler;
