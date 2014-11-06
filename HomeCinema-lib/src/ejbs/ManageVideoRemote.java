@@ -16,6 +16,6 @@ import javax.ejb.Remote;
 @Remote
 public interface ManageVideoRemote {
  
-    public void createVideo(VideoDto vdto);
+    public Long createVideo(VideoDto vdto);
 
 }

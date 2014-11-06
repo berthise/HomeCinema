@@ -16,8 +16,14 @@ import javax.ejb.Remote;
  */
 @Remote
 public interface ManageProductRemote {
- 
-    public void createProductWithFilm(FilmDto fdto,VideoDto trailer , VideoDto vid,Integer price);
-    public void addFilmsToProduct(Long pid,List<FilmDto> lfdto);
-    public void addFilmToProduct(Long pid,FilmDto fdto);
+
+    public Long createProductWithFilm(FilmDto fdto, VideoDto trailer, VideoDto vid, Integer price);
+
+    public void addFilmsToProduct(Long pid, List<FilmDto> lfdto);
+
+    public void addFilmToProduct(Long pid, FilmDto fdto,boolean main);
+
+    public void addExistingFilmsToProduct(Long pid, List<Long> lfid);
+
+    public void addExistingFilmToProduct(Long pid, Long fid,boolean main);
 }

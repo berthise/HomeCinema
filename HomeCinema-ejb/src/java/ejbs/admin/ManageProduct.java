@@ -33,27 +33,46 @@ public class ManageProduct implements ManageProductRemote {
     public EntityManager em;
 
     @Override
-    public void createProductWithFilm(FilmDto fdto, VideoDto trailer, VideoDto vid, Integer price) {
-        Film f = ManageEntitieFilm.createFilmWithVideo(fdto, trailer, vid,em);
+    public Long createProductWithFilm(FilmDto fdto, VideoDto trailer, VideoDto vid, Integer price) {
+        Film f = ManageEntitieFilm.createFilmWithVideo(fdto, trailer, vid, em);
         Product p = new Product(f, price);
         f.setMain_product(p);
         em.persist(p);
-    }
-    
-    public void addFilmsToProduct(Long pid,List<FilmDto> lfdto)
-    {
-        for (FilmDto fdto : lfdto)
-        {
-            addFilmToProduct(pid,fdto);
-        }
-    }
-    
-    public void addFilmToProduct(Long pid, FilmDto fdto)
-    {
-        Product p = em.find(Product.class, pid);
-        Film f= ManageEntitieFilm.createFilm(fdto, em);
-        ManageEntitieProduct.linkProductFilm(f, p);
+        return p.getId();
     }
 
-    
+    //public void createProduct(ProductDto pdto) TODO
+    @Override
+    public void addFilmsToProduct(Long pid, List<FilmDto> lfdto) {
+        for (FilmDto fdto : lfdto) {
+            addFilmToProduct(pid, fdto, false);
+        }
+    }
+
+    public void addExistingFilmsToProduct(Long pid, List<Long> lfid) {
+        for (Long fid : lfid) {
+            addExistingFilmToProduct(pid, fid, false);
+        }
+    }
+
+    @Override
+    public void addExistingFilmToProduct(Long pid, Long fid, boolean main) {
+        Product p = em.find(Product.class, pid);
+        Film f = em.find(Film.class, fid);
+        ManageEntitieProduct.linkProductFilm(f, p);
+        if (main) {
+            f.setMain_product(p);
+        }
+    }
+
+    @Override
+    public void addFilmToProduct(Long pid, FilmDto fdto, boolean main) {
+        Product p = em.find(Product.class, pid);
+        Film f = ManageEntitieFilm.createFilm(fdto, em);
+        ManageEntitieProduct.linkProductFilm(f, p); 
+        if (main) {
+            f.setMain_product(p);
+        }
+    }
+
 }
