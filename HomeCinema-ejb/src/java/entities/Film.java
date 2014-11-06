@@ -36,7 +36,7 @@ public class Film implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ID")
+    @Column(name = "ID_FILM")
     private Long id;
 
     @ManyToMany
@@ -68,11 +68,11 @@ public class Film implements Serializable {
     @OneToMany
     private List<Country> countries;
 
-  @Column(name = "RATING", precision = 1, scale = 2)
-  private Double rating;
-  
-  @Column(name = "RUNTIME")
-  private Integer runtime;
+    @Column(name = "RATING", precision = 1, scale = 2)
+    private Double rating;
+
+    @Column(name = "RUNTIME")
+    private Integer runtime;
 
     @OneToMany
     @JoinColumn(name = "VIDEO_FILES")

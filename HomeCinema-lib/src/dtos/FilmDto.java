@@ -21,4 +21,5 @@ public class FilmDto implements Serializable {
     public String country;
     public Integer runtime;
     public Double rating;
+    public VideoDto trailler;
 }

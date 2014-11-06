@@ -33,7 +33,7 @@ public class User implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(name = "ID")
+  @Column(name = "ID_USER")
   private Long id;
 
   @Size(max = 255)

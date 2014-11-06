@@ -37,7 +37,7 @@ public class Product implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(name = "ID")
+  @Column(name = "ID_PRODUCT")
   private Long id;
 
   @JoinColumn(name = "FILMS")

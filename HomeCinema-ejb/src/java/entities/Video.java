@@ -26,7 +26,7 @@ public class Video implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(name = "ID")
+  @Column(name = "ID_VIDEO")
   private Long id;
 
   @Column(name = "RESOLUTION")

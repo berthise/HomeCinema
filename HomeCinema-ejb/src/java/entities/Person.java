@@ -29,7 +29,7 @@ public class Person implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(name = "ID")
+  @Column(name = "ID_PERSON")
   private Long id;
 
   @Size(max = 255)

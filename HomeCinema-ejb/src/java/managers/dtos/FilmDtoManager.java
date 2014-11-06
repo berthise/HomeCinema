@@ -28,6 +28,7 @@ public  class FilmDtoManager {
         fdto.cover=f.getCoverId();
         fdto.rating=f.getRating();
         fdto.runtime=f.getRuntime();
+        fdto.trailler=VideoDtoManager.getDto(f.getTrailler());
         return fdto;
     }
     
@@ -41,6 +42,7 @@ public  class FilmDtoManager {
         f.setCoverId(fdto.cover);
         f.setRating(fdto.rating);
         f.setRuntime(fdto.runtime);
+        f.setTrailler(VideoDtoManager.makeVideo(fdto.trailler));
         return f;
     }
         

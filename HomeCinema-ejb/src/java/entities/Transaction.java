@@ -31,7 +31,7 @@ public class Transaction implements Serializable {
   private static final long serialVersionUID = 1L;
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(name = "ID")
+  @Column(name = "ID_TRANSACTION")
   private Long id;
   
   @Temporal(TemporalType.DATE)

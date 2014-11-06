@@ -26,7 +26,7 @@ public class UsersFilms implements Serializable {
   private static final long serialVersionUID = 1L;
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(name = "ID")
+  @Column(name = "ID_USERSFILMS")
   private Long id;
 
   @JoinColumn(name = "FILM")

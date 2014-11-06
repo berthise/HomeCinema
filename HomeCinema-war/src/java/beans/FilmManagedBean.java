@@ -109,7 +109,8 @@ public class FilmManagedBean {
     
     public String getTrailer (){
         // récupérer l'url du trailer
-        String url = "http://techslides.com/demos/sample-videos/small.webm";
+        //String url = "http://techslides.com/demos/sample-videos/small.webm";
+        String url = fdto.trailler.url;
         return "<source src=\""+url+"\" type=\"video/webm\" />";
     }
     
@@ -121,7 +122,7 @@ public class FilmManagedBean {
 
     public String getRating() {
         String toReturn = "";
-        int pe = (int) Math.floor(fdto.rating);
+        int pe = (int) Math.floor(5.5);
         int i;
         for (i = 0; i < pe; i++) {
             toReturn += "<img src=\"img/star-full-icon.png\"/>\n";

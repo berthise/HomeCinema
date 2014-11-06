@@ -45,7 +45,8 @@ public class AdminFilm {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
         fdto.release_date = formatter.parse((String) json.get("release_date"));
         fdto.overview = (String) json.get("overview");
-
+        fdto.rating = (Double) json.get("vote_average");
+        
         return fdto;
 
     }
