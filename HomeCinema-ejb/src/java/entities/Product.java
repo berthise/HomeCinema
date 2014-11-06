@@ -20,6 +20,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import managers.entities.ManageEntitieProduct;
 
 /**
  *
@@ -63,19 +64,18 @@ public class Product implements Serializable {
   
   public Product(Film f ,Integer p)
   {
-      List<Film> l =new ArrayList<Film>();
-      l.add(f);
-      setFilms(l);
+      this();
       setPrice(p);
       setName(f.getTitle());
-      setNbSales(0);
+      ManageEntitieProduct.linkProductFilm(f, this);
       setState(ProductStates.Activated);
       setAddDate(new Date());
   }
 
   public Product()
   {
-      
+      setNbSales(0);
+      setFilms(new ArrayList());
   }
   
   public Long getId() {
@@ -94,6 +94,11 @@ public class Product implements Serializable {
     this.films = films;
   }
 
+  public void addFilm(Film f){
+      this.films.add(f);
+  }
+          
+  
   public Integer getPrice() {
     return price;
   }

@@ -96,6 +96,7 @@ public class Film implements Serializable {
 
     public Film() {
         this.videoFile = new ArrayList<Video>();
+        this.products =  new ArrayList<Product>();
     }
 
     public Long getId() {
@@ -122,6 +123,11 @@ public class Film implements Serializable {
         this.products = products;
     }
 
+    public void addProduct(Product p)
+    {
+        this.products.add(p);
+    }
+    
     public Product getMain_product() {
         return main_product;
     }
