@@ -29,6 +29,14 @@ body {
       body header .userTools a {
         color: #fff;
         text-decoration: none; }
+    body header #form-login {
+      z-index: 10000;
+      display: none;
+      position: absolute;
+      right: 0;
+      top: 30px;
+      background: -webkit-linear-gradient(left, #111, #666, #666, #666, #111);
+      padding: 10px; }
     body header .navbar-nav > li:hover {
       background: #ADD881; }
     body header .navbar-collapse .pull-right {
