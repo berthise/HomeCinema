@@ -9,6 +9,7 @@ import dtos.FilmDto;
 import dtos.FilmFicheDto;
 import dtos.GenreDto;
 import dtos.VideoDto;
+import exception.DuplicateKey;
 import java.util.List;
 import javax.ejb.Remote;
 
