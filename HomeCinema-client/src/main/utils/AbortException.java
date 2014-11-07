@@ -9,17 +9,6 @@ package main.utils;
  *
  * @author seb
  */
-public class ExitManager extends ModuleManager {
-
-
+public class AbortException extends Exception {
   
-  public ExitManager() {
-    super("exit");
-  }
-
-  
-  @Override
-  public void exec() throws ReturnManager.ReturnException { 
-    throw new ReturnManager.ReturnException();
-  }
 }

@@ -28,7 +28,7 @@ public class EditUserManager extends ModuleManager {
   }
 
   @Override
-  public void runMenuEntry() {
+  public void exec() {
     Scanner reader = new Scanner(System.in);
     user.initDto();
     try {

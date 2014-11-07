@@ -27,7 +27,7 @@ public class AddProductMenu extends Menu {
   }
 
   public AddProductMenu(String name, ProductModel p) {
-    super(name, "Add Product menu: ");
+    super(name, "Add Product");
     product = p;
   }
 
@@ -39,7 +39,6 @@ public class AddProductMenu extends Menu {
 
   @Override
   public void createMenu() {
-    this.cleanMenu();
     this.addManager((Manager_if) new ReturnManager());
     this.addManager((Manager_if) new EditProductManager(product));
     if (product.notNull()) {

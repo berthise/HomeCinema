@@ -23,7 +23,7 @@ public class CaddyMenu extends Menu {
   }
 
   public CaddyMenu(String name, UserModel u) {
-    super(name, "Caddy menu:");
+    super(name, "Caddy");
     this.user = u;
 
   }

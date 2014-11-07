@@ -26,7 +26,7 @@ public class ListFilmsManager extends ModuleManager {
   }
 
   @Override
-  public void runMenuEntry() {
+  public void exec() {
     System.out.println("List films .......");
     // if selected film, then add a * to it 
   }

@@ -26,7 +26,7 @@ public class SaveUserManager extends ModuleManager {
   }
 
   @Override
-  public void runMenuEntry() {
+  public void exec() {
     System.out.println("Saving is done");
   }
 

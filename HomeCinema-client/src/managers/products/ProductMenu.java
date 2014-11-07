@@ -23,7 +23,7 @@ public class ProductMenu extends Menu {
   }
 
   public ProductMenu(String name) {
-    super(name, "Product menu:");
+    super(name, "Product");
     product = new ProductModel(null);
   }
 
@@ -31,6 +31,7 @@ public class ProductMenu extends Menu {
   public void createMenu() {
     this.addManager((Manager_if) new ReturnManager());
     this.addManager((Manager_if) new AddProductMenu(product));
+    this.addManager((Manager_if) new AddProductWizard(product));
     this.addManager((Manager_if) new ListProductManager(product));
     this.addManager((Manager_if) new SelectProductManager(product));
   }

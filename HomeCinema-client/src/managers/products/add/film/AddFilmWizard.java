@@ -8,8 +8,8 @@ package managers.products.add.film;
 import managers.films.add.DisplayFilmManager;
 import managers.films.add.EditFilmManager;
 import main.utils.Manager_if;
-import main.utils.Menu;
 import main.utils.ReturnManager;
+import main.utils.Wizard;
 import managers.films.add.AddTrailerManager;
 import managers.films.add.AddVideoManager;
 import models.ProductModel;
@@ -18,36 +18,33 @@ import models.ProductModel;
  *
  * @author seb
  */
-public class AddFilmMenu extends Menu {
+public class AddFilmWizard extends Wizard {
 
   ProductModel product = null;
 
-  public AddFilmMenu(ProductModel p) {
-    this("add film", p);
+  public AddFilmWizard(ProductModel p) {
+    this("add film wizard", p);
 
   }
 
-  public AddFilmMenu(String name, ProductModel p) {
+  public AddFilmWizard(String name, ProductModel p) {
     super(name, "Add Film");
     this.product = p;
 
   }
 
   @Override
-  public void updateMenu() {
-    this.cleanMenu();
-    this.createMenu();
+  public void updateWizard() {
+    this.cleanWizard();
+    this.createWizard();
   }
   
     @Override
-  public void createMenu() {
-    this.addManager((Manager_if) new ReturnManager());
+  public void createWizard() {
     this.addManager((Manager_if) new EditFilmManager(product));
-    if ( product.getFilm() != null && product.getFilm().notNull()) {
-      this.addManager((Manager_if) new DisplayFilmManager(product.getFilm()));
-      this.addManager((Manager_if) new AddVideoManager(product.getFilm()));
-      this.addManager((Manager_if) new AddTrailerManager(product.getFilm()));
-    }
+    this.addManager((Manager_if) new DisplayFilmManager(product.getFilm()));
+    this.addManager((Manager_if) new AddVideoManager(product.getFilm()));
+    this.addManager((Manager_if) new AddTrailerManager(product.getFilm()));
   }
 
 }

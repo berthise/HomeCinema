@@ -24,7 +24,7 @@ public class FilmMenu extends Menu {
   }
 
   public FilmMenu(String name) {
-    super(name, "Films Menu: ");
+    super(name, "Films");
     film = new FilmModel(null);
   }
 

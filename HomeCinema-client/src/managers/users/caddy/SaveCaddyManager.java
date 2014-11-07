@@ -26,7 +26,7 @@ public class SaveCaddyManager extends ModuleManager {
   }
 
   @Override
-  public void runMenuEntry() {
+  public void exec() {
     System.out.println("Saving caddy is done");
   }
 

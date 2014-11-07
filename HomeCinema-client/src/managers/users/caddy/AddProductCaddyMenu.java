@@ -27,7 +27,7 @@ public class AddProductCaddyMenu extends Menu {
   }
 
   public AddProductCaddyMenu(String name, UserModel u) {
-    super(name, "Add film to caddy menu:");
+    super(name, "Add film to caddy");
     user = u;
     product = null;
 

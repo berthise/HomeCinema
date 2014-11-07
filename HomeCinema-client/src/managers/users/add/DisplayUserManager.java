@@ -26,7 +26,7 @@ public class DisplayUserManager extends ModuleManager {
   }
 
   @Override
-  public void runMenuEntry() {
+  public void exec() {
     user.displayConsole();
 
   }

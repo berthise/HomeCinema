@@ -5,6 +5,8 @@
  */
 package main.utils;
 
+import main.utils.ReturnManager.ReturnException;
+
 /**
  *
  * @author seb
@@ -13,5 +15,5 @@ public interface Manager_if {
   
     public String getMenuEntry();
     
-    public void runMenuEntry() throws ReturnManager.ReturnMenuException;
+    public void exec() throws ReturnException, AbortException;
 }

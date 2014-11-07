@@ -8,7 +8,7 @@ package main.utils;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import main.utils.ReturnManager.ReturnMenuException;
+import main.utils.ReturnManager.ReturnException;
 
 /**
  *
@@ -33,13 +33,14 @@ abstract public class Menu extends ModuleManager implements Menu_if {
     managers.add(m);
   }
 
-  public void runMenuEntry() throws ReturnMenuException {
+  @Override
+  public void exec() throws ReturnException, AbortException {
     try {
 
       this.createMenu();
       while (true) {
 	System.out.println("---------------------------------");
-	System.out.println(this.name);
+	System.out.println("Menu: " + this.name);
 	System.out.println("---------------------------------");
 
 	int i = 0;
@@ -53,7 +54,7 @@ abstract public class Menu extends ModuleManager implements Menu_if {
 	try {
 	  Integer entre = reader.nextInt();
 	  try {
-	    managers.get(entre).runMenuEntry();
+	    managers.get(entre).exec();
 	    this.updateMenu();
 	    /* Update menu, it may change */
 	  } catch (IndexOutOfBoundsException e) {
@@ -64,7 +65,7 @@ abstract public class Menu extends ModuleManager implements Menu_if {
 	}
 
       }
-    } catch (ReturnManager.ReturnMenuException e) {
+    } catch (ReturnManager.ReturnException e) {
     }
   }
 

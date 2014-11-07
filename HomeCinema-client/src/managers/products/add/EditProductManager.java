@@ -7,6 +7,7 @@ package managers.products.add;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import main.utils.AbortException;
 import main.utils.ModuleManager;
 import models.ProductModel;
 
@@ -28,16 +29,16 @@ public class EditProductManager extends ModuleManager {
   }
 
   @Override
-  public void runMenuEntry() {
+  public void exec() throws AbortException {
     Scanner reader = new Scanner(System.in);
     product.initDto();
     try {
+      System.out.println("Name:");
+      product.setName(reader.nextLine());
       System.out.println("Price:");
       product.setPrice(reader.nextInt());
-      System.out.println("Name:");
-      product.setName(reader.next());
     } catch (InputMismatchException e) {
-      System.out.println("Error: abording product edition");
+      throw new AbortException();
     }
   }
 }
