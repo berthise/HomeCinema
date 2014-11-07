@@ -37,7 +37,7 @@ public class User implements Serializable {
     private Long id;
 
     @Size(max = 255)
-    @Column(name = "NICK_NAME")
+    @Column(name = "NICK_NAME", unique=true, nullable=false)
     private String nickName;
 
     @Size(max = 255)
@@ -53,7 +53,7 @@ public class User implements Serializable {
     private String password;
 
     @Size(max = 255)
-    @Column(name = "EMAIL")
+    @Column(name = "EMAIL", unique=true, nullable=false)
     private String email;
 
     @Temporal(TemporalType.DATE)

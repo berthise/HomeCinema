@@ -17,4 +17,5 @@ public interface ManageUserRemote {
 
     public void signUp(UserDto user);
     
+    public UserDto login(String email, String password);
 }

@@ -21,16 +21,27 @@ import javax.naming.NamingException;
 @RequestScoped
 public class UserBean {
 
-    public void singUp(UserDto u) {
-        System.out.println("Creating new user...");
-        ManageUserRemote mur = null;
+    private static ManageUserRemote mur = null;
+
+    public UserBean() {
         try {
             InitialContext ic = new InitialContext();
             mur = (ManageUserRemote) ic.lookup("java:global/HomeCinema/HomeCinema-ejb/ManageUser!ejbs.ManageUserRemote");
         } catch (NamingException ex) {
             ex.printStackTrace();
         }
+    }
+
+    public void singUp(UserDto u) {
+        System.out.println("Creating new user...");
         mur.signUp(u);
         System.out.println("User created successfully !");
+    }
+
+    public void login(String email, String password) {
+        UserDto udto = mur.login(email, password);
+        if (udto != null) {
+            System.out.println("Welcome : " + udto.firstName);
+        }
     }
 }

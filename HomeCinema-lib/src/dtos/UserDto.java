@@ -22,5 +22,5 @@ public class UserDto implements Serializable {
     public String email;
     public Date birthDate;
     public Date addDate;
-    public UserStates state;
+    public UserStates state;    
 }

@@ -27,4 +27,18 @@ public class UserDtoManager {
         u.setState(udto.state);
         return u;
     }
+    
+    public static UserDto getUser(User u) {
+        UserDto udto = new UserDto();
+        udto.id = u.getId();
+        udto.email = u.getEmail();
+        udto.nickName = u.getNickName();
+        udto.password = u.getPassword();
+        udto.firstName = u.getFirstName();
+        udto.lastName = u.getLastName();
+        udto.birthDate = u.getBirthDate();
+        udto.addDate = u.getAddDate();
+        udto.state = u.getState();
+        return udto;
+    }
 }

@@ -3,7 +3,7 @@ $font: "Helvetica Neue",Helvetica,Arial,sans-serif;
 $font-color: #333;
 body {
     background: $background;
-    
+
     color: #fff;
     margin: 0;
     font-family: $font;
@@ -36,6 +36,14 @@ body {
                 color: #fff;
                 text-decoration: none;
             }
+        }
+        #form-login {            
+            z-index: 10000;
+            display: none;
+            position: absolute;
+            right: 0; top: 30px;
+            background: $background;
+            padding: 10px;
         }
         margin-bottom: 20px;
         margin-top: 0;
