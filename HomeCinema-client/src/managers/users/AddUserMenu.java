@@ -27,7 +27,7 @@ public class AddUserMenu extends Menu {
   }
 
   public AddUserMenu(String name, UserModel u) {
-    super(name, "Add User menu:");
+    super(name, "Add User");
     user = u;
   }
 

@@ -30,7 +30,7 @@ public class SelectFilmManager extends ModuleManager {
   }
 
   @Override
-  public void runMenuEntry() {
+  public void exec() {
     Scanner reader = new Scanner(System.in);
     try {
       System.out.println("Which film number:");

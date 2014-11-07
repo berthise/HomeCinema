@@ -9,17 +9,9 @@ package main.utils;
  *
  * @author seb
  */
-public class ExitManager extends ModuleManager {
+public interface Wizard_if {
 
+  public void updateWizard();
 
-  
-  public ExitManager() {
-    super("exit");
-  }
-
-  
-  @Override
-  public void exec() throws ReturnManager.ReturnException { 
-    throw new ReturnManager.ReturnException();
-  }
+  public void createWizard();
 }

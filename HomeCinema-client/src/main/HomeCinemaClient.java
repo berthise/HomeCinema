@@ -12,7 +12,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import main.utils.ReturnManager.ReturnMenuException;
+import main.utils.AbortException;
+import main.utils.ReturnManager.ReturnException;
 
 /**
  *
@@ -30,9 +31,11 @@ public class HomeCinemaClient {
     MainMenu menu = new MainMenu();
     try {
       HomeCinemaClient.makeContext();
-      menu.runMenuEntry();
-    } catch (ReturnMenuException e) {
+      menu.exec();
+    } catch (ReturnException e) {
       System.out.println("bye");
+    } catch (AbortException ex) {
+      System.out.println("aborted");
     }
   }
 

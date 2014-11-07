@@ -26,7 +26,7 @@ public class DisplayProductManager extends ModuleManager {
   }
 
   @Override
-  public void runMenuEntry() {
+  public void exec() {
     product.displayConsole();
 
   }

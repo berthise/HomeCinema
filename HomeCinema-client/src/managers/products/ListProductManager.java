@@ -26,7 +26,7 @@ public class ListProductManager extends ModuleManager {
   }
 
   @Override
-  public void runMenuEntry() {
+  public void exec() {
     System.out.println("List products .......");
     // if selected film, then add a * to it 
   }

@@ -26,7 +26,7 @@ public class ListCaddyManager extends ModuleManager {
   }
 
   @Override
-  public void runMenuEntry() {
+  public void exec() {
     System.out.println("List caddy user .......");
     // if selected user, then add a * to it 
   }

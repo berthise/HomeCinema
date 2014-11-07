@@ -33,7 +33,7 @@ public class SaveProductManager extends ModuleManager {
   }
 
   @Override
-  public void runMenuEntry() {
+  public void exec() {
     System.out.println("Start saving product");
     try {
     FilmDto film = product.getFilm().getfDto();

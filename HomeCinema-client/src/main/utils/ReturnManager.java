@@ -17,13 +17,13 @@ public class ReturnManager extends ModuleManager {
 
   
   @Override
-  public void runMenuEntry() throws ReturnMenuException{ 
-    throw new ReturnMenuException();
+  public void exec() throws ReturnException{ 
+    throw new ReturnException();
   }
 
-  public static class ReturnMenuException extends Exception {
+  public static class ReturnException extends Exception {
 
-    public ReturnMenuException() {
+    public ReturnException() {
     }
   }
 }

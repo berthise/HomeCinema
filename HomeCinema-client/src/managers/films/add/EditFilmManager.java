@@ -5,6 +5,7 @@
  */
 package managers.films.add;
 
+import main.utils.AbortException;
 import UtilsJson.JsonReader;
 import java.io.IOException;
 import java.text.ParseException;
@@ -37,7 +38,7 @@ public class EditFilmManager extends ModuleManager {
   }
 
   @Override
-  public void runMenuEntry() {
+  public void exec() throws AbortException {
     Scanner reader = new Scanner(System.in);
     try {
       System.out.println("Id:");
@@ -45,18 +46,16 @@ public class EditFilmManager extends ModuleManager {
       productModel.AddFilm(this.createFilm(id));
 
     } catch (InputMismatchException e) {
-      System.out.println("Error: abording user edition");
-    } catch (JSONException ex) {
+      throw new AbortException();
+    } catch (JSONException | IOException | ParseException ex) {
       Logger.getLogger(EditFilmManager.class.getName()).log(Level.SEVERE, null, ex);
-    } catch (IOException ex) {
-      Logger.getLogger(EditFilmManager.class.getName()).log(Level.SEVERE, null, ex);
-    } catch (ParseException ex) {
-      Logger.getLogger(EditFilmManager.class.getName()).log(Level.SEVERE, null, ex);
+      throw new AbortException();
     }
   }
 
   public FilmModel createFilm(Long id) throws JSONException, IOException, ParseException {
     FilmModel f = new FilmModel();
+    System.out.print("Getting tmdb information... ");
     String urlString = "http://api.themoviedb.org/3/movie/" + id + "?api_key=63d250a5b71c307f7592228c79b729cf";
 
     JSONObject json = JsonReader.readJsonFromUrl(urlString);
@@ -68,6 +67,8 @@ public class EditFilmManager extends ModuleManager {
     f.setRelease_date(formatter.parse((String) json.get("release_date")));
     f.setOverview((String) json.get("overview"));
     f.setRating((Double) json.get("vote_average"));
+
+    System.out.println("done");
 
     return f;
 

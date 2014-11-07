@@ -26,7 +26,7 @@ public class ListUsersManager extends ModuleManager {
   }
 
   @Override
-  public void runMenuEntry() {
+  public void exec() {
     System.out.println("List users .......");
     // if selected user, then add a * to it 
   }

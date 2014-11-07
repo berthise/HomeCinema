@@ -26,7 +26,7 @@ public class DefaultUserManager extends ModuleManager {
   }
 
   @Override
-  public void runMenuEntry() {
+  public void exec() {
 
     user.setFirstname("Boris");
     user.setLastname("Truchau");

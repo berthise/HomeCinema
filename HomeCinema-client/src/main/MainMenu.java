@@ -19,7 +19,7 @@ import managers.users.UserMenu;
 public class MainMenu extends Menu {
 
   public MainMenu() {
-    super("Main menu:");
+    super("Main");
   }
 
   @Override

@@ -26,7 +26,7 @@ public class DisplayFilmManager extends ModuleManager {
   }
 
   @Override
-  public void runMenuEntry() {
+  public void exec() {
 
     film.displayConsole();
 
