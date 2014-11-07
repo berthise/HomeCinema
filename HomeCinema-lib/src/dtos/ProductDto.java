@@ -21,7 +21,7 @@ import javax.persistence.TemporalType;
 public class ProductDto implements Serializable {
 
   public Long id;
-  public Integer price;
+  public Double price;
   public java.util.Date addDate;
   public String name;
   public ProductStates state;

@@ -5,8 +5,11 @@
  */
 package managers.entities;
 
+import dtos.ProductDto;
 import entities.Film;
 import entities.Product;
+import javax.persistence.EntityManager;
+import managers.dtos.ProductDtoManager;
 
 /**
  *
@@ -17,5 +20,12 @@ public class ManageEntitieProduct {
     {
         f.addProduct(p);
         p.addFilm(f);
+    }
+    
+    public static Product createProduct(ProductDto pdto,EntityManager em)
+    {
+        Product p = ProductDtoManager.makeProduct(pdto);
+        em.persist(p);
+        return p;
     }
 }

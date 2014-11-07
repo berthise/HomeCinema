@@ -20,17 +20,14 @@ import managers.entities.ManageEntitieGenre;
  */
 @Stateless
 public class ManageGenre {
-        @PersistenceContext
+
+    @PersistenceContext
     public EntityManager em;
-    
-        public void makeBaseGenre(List<GenreDto> lgdto)
-        {
-            for (GenreDto gdto : lgdto)
-            {
-                ManageEntitieGenre.getGenre(gdto,em);
-            }
+
+    public void makeBaseGenre(List<GenreDto> lgdto) {
+        for (GenreDto gdto : lgdto) {
+            ManageEntitieGenre.getGenre(gdto, em);
         }
-    
-        
+    }
 
 }

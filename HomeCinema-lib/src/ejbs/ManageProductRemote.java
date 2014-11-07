@@ -20,7 +20,7 @@ public interface ManageProductRemote {
 
     public Long createProduct(ProductDto pdto);
     
-    public Long createProductWithFilm(FilmDto fdto, VideoDto trailer, VideoDto vid, Integer price);
+    public Long createProductWithFilm(FilmDto fdto, VideoDto trailer, VideoDto vid, Double price);
 
     public void addFilms(Long pid, List<FilmDto> lfdto);
 

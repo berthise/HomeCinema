@@ -9,6 +9,7 @@ import dtos.FilmDto;
 import dtos.FilmFicheDto;
 import dtos.GenreDto;
 import dtos.VideoDto;
+import exception.DuplicateKey;
 import java.util.List;
 import javax.ejb.Remote;
 
@@ -20,6 +21,8 @@ import javax.ejb.Remote;
 public interface ManageFilmRemote {
 
     public Long createFilm(FilmDto fdto);
+    
+    public List<FilmDto> getAllFilm();
 
     public FilmFicheDto getDtoFromId(Long id);
 

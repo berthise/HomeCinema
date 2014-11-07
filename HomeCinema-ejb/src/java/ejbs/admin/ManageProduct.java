@@ -35,7 +35,7 @@ public class ManageProduct implements ManageProductRemote {
     public EntityManager em;
 
     @Override
-    public Long createProductWithFilm(FilmDto fdto, VideoDto trailer, VideoDto vid, Integer price) {
+    public Long createProductWithFilm(FilmDto fdto, VideoDto trailer, VideoDto vid, Double price) {
         Film f = ManageEntitieFilm.createFilmWithVideo(fdto, trailer, vid, em);
         Product p = new Product(f, price);
         f.setMain_product(p);
@@ -45,9 +45,7 @@ public class ManageProduct implements ManageProductRemote {
 
     public Long createProduct(ProductDto pdto)
     {
-        Product p = ProductDtoManager.makeProduct(pdto);
-        em.persist(p);
-        return p.getId();
+        return ManageEntitieProduct.createProduct(pdto, em).getId();
     }
     @Override
     public void addFilms(Long pid, List<FilmDto> lfdto) {
