@@ -18,6 +18,7 @@ import entities.Film;
 import entities.Genre;
 import entities.Video;
 import exception.DuplicateKey;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Query;
 import javax.ejb.EJB;
@@ -40,6 +41,18 @@ public class ManageFilm implements ManageFilmRemote {
         return ManageEntitieFilm.createFilm(fdto, em).getId();
     }
 
+    public List<FilmDto> getAllFilm()
+    {
+        Query q = em.createQuery("select f from Film");
+        List<Film> lf = q.getResultList();
+        List<FilmDto> lfdto = new ArrayList<FilmDto>();
+        for (Film f : lf)
+        {
+            lfdto.add(FilmDtoManager.getDto(f));
+        }
+        return lfdto;
+    }
+    
     @Override
     public FilmFicheDto getDtoFromId(Long id) {
         Film f = em.find(Film.class, id);

@@ -14,8 +14,11 @@ import ejbs.ManageProductRemote;
 import ejbs.ManageTransactionRemote;
 import entities.Film;
 import entities.Product;
+import entities.Transaction;
 import entities.User;
 import entities.Video;
+import enums.TransactionStates;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -27,6 +30,7 @@ import managers.dtos.ProductDtoManager;
 import managers.dtos.VideoDtoManager;
 import managers.entities.ManageEntitieFilm;
 import managers.entities.ManageEntitieProduct;
+import utils.UtilCaddie;
 
 /**
  *
@@ -42,5 +46,24 @@ public class ManageTransaction implements ManageTransactionRemote {
     public CaddieDto getCaddieDto(Long id_user) {
         User u = em.find(User.class, id_user);
         return CaddieDtoManager.getDto(u.getCaddy());
+    }
+    
+    public CaddieDto addProduct(Long user, Long id)
+    {
+        User u = em.find(User.class, user);
+        //u.addCaddie(em.find(Product.class,id);
+        return CaddieDtoManager.getDto(u.getCaddy());
+    }
+    
+    public void Validate(Long user)
+    {
+        User u = em.find(User.class, user);
+        Transaction t = new Transaction();
+        t.setAddDate(new Date());
+        t.setProducts(u.getCaddy());
+        t.setTotalPrice(UtilCaddie.totalprice(u.getCaddy()));
+        t.setUser(u);
+        t.setState(TransactionStates.Prepared);
+        em.persist(t);
     }
 }

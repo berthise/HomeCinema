@@ -46,7 +46,7 @@ public class Product implements Serializable {
   private List<Film> films;
 
   @Column(name = "PRICE")
-  private Integer price;
+  private Double price;
 
   @Temporal(TemporalType.DATE)
   @Column(name = "ADD_DATE")
@@ -62,7 +62,7 @@ public class Product implements Serializable {
   private Integer nbSales;
 
   
-  public Product(Film f ,Integer p)
+  public Product(Film f ,Double p)
   {
       this();
       setPrice(p);
@@ -99,11 +99,11 @@ public class Product implements Serializable {
   }
           
   
-  public Integer getPrice() {
+  public Double getPrice() {
     return price;
   }
 
-  public void setPrice(Integer price) {
+  public void setPrice(Double price) {
     this.price = price;
   }
 

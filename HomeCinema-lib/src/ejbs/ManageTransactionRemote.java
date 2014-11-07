@@ -17,4 +17,7 @@ public interface ManageTransactionRemote {
 
     public CaddieDto getCaddieDto (Long id_user);
     
+    public CaddieDto addProduct(Long user, Long id);
+    
+    public void Validate(Long user);
 }

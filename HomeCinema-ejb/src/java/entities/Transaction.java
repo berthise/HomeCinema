@@ -53,7 +53,7 @@ public class Transaction implements Serializable {
   private User user;
   
   @Column(name = "TOTAL_PRICE")
-  private Integer totalPrice;
+  private Double totalPrice;
   
   
   public Long getId() {
@@ -104,11 +104,11 @@ public class Transaction implements Serializable {
     this.user = user;
   }
 
-  public Integer getTotalPrice() {
+  public Double getTotalPrice() {
     return totalPrice;
   }
 
-  public void setTotalPrice(Integer totalPrice) {
+  public void setTotalPrice(Double totalPrice) {
     this.totalPrice = totalPrice;
   }
   

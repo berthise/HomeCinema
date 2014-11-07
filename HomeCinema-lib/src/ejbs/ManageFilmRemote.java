@@ -21,6 +21,8 @@ import javax.ejb.Remote;
 public interface ManageFilmRemote {
 
     public Long createFilm(FilmDto fdto);
+    
+    public List<FilmDto> getAllFilm();
 
     public FilmFicheDto getDtoFromId(Long id);
 
