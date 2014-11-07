@@ -18,6 +18,7 @@ import entities.Transaction;
 import entities.User;
 import entities.Video;
 import enums.TransactionStates;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
@@ -60,10 +61,11 @@ public class ManageTransaction implements ManageTransactionRemote {
         User u = em.find(User.class, user);
         Transaction t = new Transaction();
         t.setAddDate(new Date());
-        t.setProducts(u.getCaddy());
+        //t.setProducts(u.getCaddy());
         t.setTotalPrice(UtilCaddie.totalprice(u.getCaddy()));
         t.setUser(u);
         t.setState(TransactionStates.Prepared);
         em.persist(t);
+        u.setCaddy(new ArrayList<Product>());
     }
 }

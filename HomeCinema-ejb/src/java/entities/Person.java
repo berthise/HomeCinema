@@ -7,6 +7,7 @@ package entities;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -42,11 +43,11 @@ public class Person implements Serializable {
   
   @ManyToMany(mappedBy = "actors")
   @JoinColumn(name = "IS_ACTOR_OF")
-  private List<Film> is_actor_of;
+  private Set<Film> is_actor_of;
   
   @ManyToMany(mappedBy = "directors")
   @JoinColumn(name = "IS_DIRECTOR_OF")
-  private List<Film> is_director_of;
+  private Set<Film> is_director_of;
 
   public Long getId() {
     return id;
@@ -72,19 +73,19 @@ public class Person implements Serializable {
     this.lastName = lastName;
   }
 
-  public List<Film> getIs_actor_of() {
+  public Set<Film> getIs_actor_of() {
     return is_actor_of;
   }
 
-  public void setIs_actor_of(List<Film> is_actor_of) {
+  public void setIs_actor_of(Set<Film> is_actor_of) {
     this.is_actor_of = is_actor_of;
   }
 
-  public List<Film> getIs_director_of() {
+  public Set<Film> getIs_director_of() {
     return is_director_of;
   }
 
-  public void setIs_director_of(List<Film> is_director_of) {
+  public void setIs_director_of(Set<Film> is_director_of) {
     this.is_director_of = is_director_of;
   }
 

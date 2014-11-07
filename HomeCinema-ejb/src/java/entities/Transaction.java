@@ -9,6 +9,7 @@ import enums.TransactionStates;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -46,7 +47,7 @@ public class Transaction implements Serializable {
   
   @OneToMany
   @JoinColumn(name = "PRODUCTS")
-  private List<Product> products;
+  private Set<Product> products;
 
   @ManyToOne
   @JoinColumn(name = "USER_")
@@ -88,11 +89,11 @@ public class Transaction implements Serializable {
     this.bankTransNum = bankTransNum;
   }
 
-  public List<Product> getProducts() {
+  public Set<Product> getProducts() {
     return products;
   }
 
-  public void setProducts(List<Product> products) {
+  public void setProducts(Set<Product> products) {
     this.products = products;
   }
 

@@ -8,7 +8,9 @@ package entities;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -64,8 +66,8 @@ public class Film implements Serializable {
 
     @Size(max = 255)
     @JoinColumn(name = "COUNTRIES")
-    @OneToMany
-    private List<Country> countries;
+    @ManyToMany
+    private Set<Country> countries;
 
     @Column(name = "RATING", precision = 1, scale = 2)
     private Double rating;
@@ -75,7 +77,7 @@ public class Film implements Serializable {
 
     @OneToMany
     @JoinColumn(name = "VIDEO_FILES")
-    private List<Video> videoFile;
+    private Set<Video> videoFile;
 
     @OneToOne
     @JoinColumn(name = "TRAILLER")
@@ -90,13 +92,13 @@ public class Film implements Serializable {
     private List<Person> directors;
 
     @JoinColumn(name = "GENRE")
-    @OneToMany
-    private List<Genre> genre;
+    @ManyToMany
+    private Set<Genre> genre;
 
     public Film() {
-        this.videoFile = new ArrayList<Video>();
+        this.videoFile = new HashSet<Video>();
         this.products =  new ArrayList<Product>();
-        this.genre =  new ArrayList<Genre>();
+        this.genre =  new HashSet<Genre>();
     }
 
     public Long getId() {
@@ -160,11 +162,11 @@ public class Film implements Serializable {
         this.releaseDate = releaseDate;
     }
 
-    public List<Country> getCountries() {
+    public Set<Country> getCountries() {
         return countries;
     }
 
-    public void setCountries(List<Country> countries) {
+    public void setCountries(Set<Country> countries) {
         this.countries = countries;
     }
 
@@ -176,11 +178,11 @@ public class Film implements Serializable {
         this.rating = rating;
     }
 
-    public List<Video> getVideoFile() {
+    public Set<Video> getVideoFile() {
         return videoFile;
     }
 
-    public void setVideoFile(List<Video> videoFile) {
+    public void setVideoFile(Set<Video> videoFile) {
         this.videoFile = videoFile;
     }
 
@@ -212,7 +214,7 @@ public class Film implements Serializable {
         this.directors = directors;
     }
 
-    public List<Genre> getGenre() {
+    public Set<Genre> getGenre() {
         return genre;
     }
     
@@ -221,7 +223,7 @@ public class Film implements Serializable {
         this.genre.add(g);
     }
 
-    public void setGenre(List<Genre> genre) {
+    public void setGenre(Set<Genre> genre) {
         this.genre = genre;
     }
 
