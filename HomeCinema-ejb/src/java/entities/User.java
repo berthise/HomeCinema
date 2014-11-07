@@ -9,6 +9,7 @@ import enums.UserStates;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -67,17 +68,17 @@ public class User implements Serializable {
     @Column(name = "STATE_")
     private UserStates state;
 
-    @OneToMany
+  
     @JoinColumn(name = "CADDY")
-    private List<Product> caddy;
+    private Caddy caddy;
 
     @OneToMany
     @JoinColumn(name = "FILMS")
-    private List<UsersFilms> films;
+    private Set<UsersFilms> films;
 
     @OneToMany(mappedBy = "user")
     @JoinColumn(name = "TRANSACTIONS")
-    private List<Transaction> transactions;
+   private Set<Transaction> transactions;
 
     public Long getId() {
         return id;
@@ -151,27 +152,27 @@ public class User implements Serializable {
         this.state = state;
     }
 
-    public List<Product> getCaddy() {
+    public Caddy getCaddy() {
         return caddy;
     }
 
-    public void setCaddy(List<Product> caddy) {
+    public void setCaddy(Caddy caddy) {
         this.caddy = caddy;
     }
 
-    public List<UsersFilms> getFilms() {
+    public Set<UsersFilms> getFilms() {
         return films;
     }
 
-    public void setFilms(List<UsersFilms> films) {
+    public void setFilms(Set<UsersFilms> films) {
         this.films = films;
     }
 
-    public List<Transaction> getTransactions() {
+    public Set<Transaction> getTransactions() {
         return transactions;
     }
 
-    public void setTransactions(List<Transaction> transactions) {
+    public void setTransactions(Set<Transaction> transactions) {
         this.transactions = transactions;
     }
 

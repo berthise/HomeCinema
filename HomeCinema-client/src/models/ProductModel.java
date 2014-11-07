@@ -45,11 +45,11 @@ public class ProductModel implements Model_if {
   }
 
   public Integer getPrice() {
-    return pDto.price;
+    return 0 ;//pDto.price;TODO
   }
 
   public void setPrice(Integer price) {
-    pDto.price = price;
+    pDto.price = 0D; //price;TODO
   }
 
   public Date getAddDate() {
@@ -105,7 +105,7 @@ public class ProductModel implements Model_if {
     pDto.addDate = new Date();
     pDto.name = "";
     pDto.nbSales = 0;
-    pDto.price = 0;
+    pDto.price = 0D;
     pDto.state = ProductStates.Unactivated;
   }
 

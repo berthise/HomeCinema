@@ -12,6 +12,7 @@ import dtos.VideoDto;
 import ejbs.ManageFilmRemote;
 import ejbs.ManageProductRemote;
 import ejbs.ManageTransactionRemote;
+import entities.Caddy;
 import entities.Film;
 import entities.Product;
 import entities.Transaction;
@@ -46,14 +47,16 @@ public class ManageTransaction implements ManageTransactionRemote {
     @Override
     public CaddieDto getCaddieDto(Long id_user) {
         User u = em.find(User.class, id_user);
-        return CaddieDtoManager.getDto(u.getCaddy());
+       // return CaddieDtoManager.getDto(u.getCaddy());
+        return new CaddieDto();
     }
     
     public CaddieDto addProduct(Long user, Long id)
     {
         User u = em.find(User.class, user);
         //u.addCaddie(em.find(Product.class,id);
-        return CaddieDtoManager.getDto(u.getCaddy());
+        //return CaddieDtoManager.getDto(u.getCaddy());
+        return new CaddieDto();
     }
     
     public void Validate(Long user)
@@ -66,6 +69,6 @@ public class ManageTransaction implements ManageTransactionRemote {
         t.setUser(u);
         t.setState(TransactionStates.Prepared);
         em.persist(t);
-        u.setCaddy(new ArrayList<Product>());
+        u.setCaddy(new Caddy());
     }
 }

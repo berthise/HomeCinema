@@ -5,6 +5,7 @@
  */
 package utils;
 
+import entities.Caddy;
 import entities.Product;
 import java.util.List;
 
@@ -14,9 +15,9 @@ import java.util.List;
  */
 public class UtilCaddie {
 
-    public static Double totalprice(List<Product> lp) {
+    public static Double totalprice(Caddy c) {
         Double sum = 0D;
-        for (Product p : lp) {
+        for (Product p : c.getProducts()) {
             sum += p.getPrice();
         }
         return sum;

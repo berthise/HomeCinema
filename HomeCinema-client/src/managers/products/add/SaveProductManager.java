@@ -42,7 +42,7 @@ public class SaveProductManager extends ModuleManager {
     Integer price = product.getPrice();
     
     HomeCinemaClient.getManageProductRemote().
-	    createProductWithFilm(film , video, trailer, price);
+	    createProductWithFilm(film , video, trailer,new Double( price));
     } catch (NullPointerException e) {
       System.out.println("Erreur: produit incomplet.");
     }

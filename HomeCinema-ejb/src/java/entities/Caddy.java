@@ -24,21 +24,19 @@ import javax.persistence.OneToMany;
 @Entity
 public class Caddy implements Serializable {
 
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-      @ManyToMany
-      @JoinColumn(name = "CADDY")
-  private Set<Product> products;
-    
-      public Caddy ()
-      {
-          this.products = new HashSet<Product>();
-      }
-      
+    @ManyToMany
+    @JoinColumn(name = "CADDY")
+    private Set<Product> products;
+
+    public Caddy() {
+        this.products = new HashSet<Product>();
+    }
+
     public Long getId() {
         return id;
     }
@@ -47,19 +45,18 @@ public class Caddy implements Serializable {
         this.id = id;
     }
 
-        public Set<Product> getProducts() {
+    public Set<Product> getProducts() {
         return products;
     }
 
     public void setProducts(Set<Product> caddy) {
         this.products = caddy;
     }
-    
-    public void addCaddy (Product p)
-    {
+
+    public void addCaddy(Product p) {
         this.products.add(p);
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -84,5 +81,5 @@ public class Caddy implements Serializable {
     public String toString() {
         return "entities.Caddy[ id=" + id + " ]";
     }
-    
+
 }

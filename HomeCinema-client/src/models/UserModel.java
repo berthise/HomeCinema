@@ -35,19 +35,19 @@ public class UserModel implements Model_if {
   }
 
   public String getFirstname() {
-    return uDto.firstname;
+    return uDto.firstName;
   }
 
   public void setFirstname(String firstname) {
-    uDto.firstname = firstname;
+    uDto.firstName = " "; //firstname;
   }
 
   public String getLastname() {
-    return uDto.lastname;
+    return uDto.lastName;
   }
 
   public void setLastname(String lastname) {
-    uDto.lastname = lastname;
+    uDto.lastName = lastname;
   }
 
   public String getEmail() {
@@ -70,8 +70,8 @@ public class UserModel implements Model_if {
   public void initDto() {
     this.uDto = new UserDto();
     uDto.id = new Long(0);
-    uDto.firstname = "";
-    uDto.lastname = "";
+    uDto.firstName = "";
+    uDto.lastName = "";
     uDto.email = "";
   }
 

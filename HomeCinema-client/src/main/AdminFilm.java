@@ -94,7 +94,7 @@ public class AdminFilm {
         trailer.url = trailer_url;
         trailer.resolution = 240;
 
-        getManageProductRemote().createProductWithFilm(fdto, trailer, video, price);
+        getManageProductRemote().createProductWithFilm(fdto, trailer, video,new Double( price));
     }
 
 }
