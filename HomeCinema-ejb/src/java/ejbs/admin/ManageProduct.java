@@ -45,9 +45,7 @@ public class ManageProduct implements ManageProductRemote {
 
     public Long createProduct(ProductDto pdto)
     {
-        Product p = ProductDtoManager.makeProduct(pdto);
-        em.persist(p);
-        return p.getId();
+        return ManageEntitieProduct.createProduct(pdto, em).getId();
     }
     @Override
     public void addFilms(Long pid, List<FilmDto> lfdto) {

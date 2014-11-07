@@ -12,6 +12,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import managers.dtos.VideoDtoManager;
+import managers.entities.ManageEntitieVideo;
 
 /**
  *
@@ -27,9 +28,7 @@ public class ManageVideo implements ManageVideoRemote {
     @Override
     public Long createVideo(VideoDto vdto)
     {
-        Video v = VideoDtoManager.makeVideo(vdto);
-        em.persist(v);
-        return v.getId();
+        return ManageEntitieVideo.createVideo(vdto, em).getId();
     }
 
 }
