@@ -52,9 +52,13 @@ public class ManageUser implements ManageUserRemote {
         return UserDtoManager.getUser(user);
     }
 
-    public Set<SimpleUserDto> getAllUser() {
-        Query q = em.createQuery("From User u ",User.class);//TODO ne pas renvoyé utilisateur supprimé
-        List<User> lu = q.getResultList();
+    public Set<SimpleUserDto> getAllUser(boolean rem) {
+        Query q;
+        if (!rem)
+         q = em.createQuery("select u From User u where u.state <> :remove",User.class).setParameter("remove", UserStates.Removed);
+        else
+            q = em.createQuery("select u From User u ",User.class);
+        List<User> lu = q.getResultList(); 
         Set<SimpleUserDto> ludto = new HashSet<>();
         for (User u : lu) {
             ludto.add(UserDtoManager.getSimpleDto(u));
@@ -73,9 +77,9 @@ public class ManageUser implements ManageUserRemote {
         User u = em.find(User.class, id);
         u.setBirthDate(null);
         u.setCaddy(null);
-        u.setEmail(null);
+        //u.setEmail(null);
         u.setLastName(null);
-        u.setNickName(null);
+        //u.setNickName(null);
         u.setFirstName(null);
         u.setPassword(null);
         u.setFilms(null);

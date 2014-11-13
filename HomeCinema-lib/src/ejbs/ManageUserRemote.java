@@ -24,7 +24,7 @@ public interface ManageUserRemote {
     
     public UserDto login(String email, String password);
     
-    public Set<SimpleUserDto> getAllUser();
+    public Set<SimpleUserDto> getAllUser(boolean rem);
     
     public UserDtoNoPw getUser(Long id);
     

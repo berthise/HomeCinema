@@ -10,6 +10,7 @@ import dtos.ProductDto;
 import dtos.SimpleUserDto;
 import dtos.UserDto;
 import dtos.VideoDto;
+import enums.UserStates;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.Date;
@@ -115,11 +116,21 @@ public class JeuDeTest2 {
             u.firstName = "robin";
             u.nickName = "grandchamp";
             u.password = "password";
+            u.state = UserStates.Activated;
 
             a.getManageUserRemote().signUp(u);
             u = a.getManageUserRemote().login(u.email, u.password);
             
-            
+            UserDto u2 = new UserDto();
+            u2.birthDate = new Date();
+            u2.email = "truc2@mail.net";
+            u2.firstName = "robin2";
+            u2.nickName = "grandchamp2";
+            u2.password = "password";
+
+            a.getManageUserRemote().signUp(u2);
+            Long u_id= a.getManageUserRemote().login(u2.email, u2.password).id;
+            a.getManageUserRemote().removeUser(u_id);
             //achat american beauty
             a.getManagetransactionRemote().addProduct(u.id, pdto.id);
             Long trans = a.getManagetransactionRemote().validate(u.id);
@@ -140,7 +151,7 @@ public class JeuDeTest2 {
                 System.out.println(udto.name);
             }
             System.out.println("User");
-            Set<SimpleUserDto> ludto = a.getManageUserRemote().getAllUser();
+            Set<SimpleUserDto> ludto = a.getManageUserRemote().getAllUser(false);
             for (SimpleUserDto udto : ludto) {
                 System.out.println(udto.nickName);
             }
