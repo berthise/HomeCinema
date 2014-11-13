@@ -19,7 +19,7 @@ public class ManageEntitieGenre {
     public static Genre getGenre(GenreDto gdto, EntityManager em) {
         Genre g = em.find(Genre.class, gdto.id);
         if (g == null) {
-            GenreDtoManager.makeGenre(gdto);
+            g= GenreDtoManager.makeGenre(gdto);
             em.persist(g);
         }
         return g;

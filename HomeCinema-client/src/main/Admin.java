@@ -7,6 +7,7 @@ package main;
 
 import UtilsJson.JsonReader;
 import dtos.FilmDto;
+import dtos.GenreDto;
 import java.text.DateFormat;
 import dtos.VideoDto;
 import ejbs.ManageFilmRemote;
@@ -19,11 +20,17 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import org.json.JSONObject;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import org.json.JSONArray;
 import org.json.JSONException;
 
 /**
@@ -38,6 +45,7 @@ public class Admin {
     private ManageUserRemote mur = null;
     private ManageVideoRemote mvr = null;
     private ManageTransactionRemote mtr = null;
+    //private ManageGenreRemote mgr = null;
 
     public FilmDto createFilm(Long id) throws JSONException, IOException, ParseException {
         System.out.println("Add film: " + id);
@@ -53,9 +61,24 @@ public class Admin {
         fdto.release_date = formatter.parse((String) json.get("release_date"));
         fdto.overview = (String) json.get("overview");
         fdto.rating = (Double) json.get("vote_average");
-
         return fdto;
 
+    }
+
+    public Set<GenreDto> getGenre(Long id) throws JSONException, IOException {
+        Set<GenreDto> res = new HashSet<>();
+        String urlString = "http://api.themoviedb.org/3/movie/" + id + "?api_key=63d250a5b71c307f7592228c79b729cf";
+
+        JSONObject json = JsonReader.readJsonFromUrl(urlString);
+        JSONArray lg = json.getJSONArray("genres");
+        for (int i = 0; i < lg.length(); i++) {
+            GenreDto gdto = new GenreDto();
+            gdto.id = lg.getJSONObject(i).getLong("id");
+            gdto.name = lg.getJSONObject(i).getString("name");
+            res.add(gdto);
+        }
+
+        return res;
     }
 
     public Admin() {
@@ -120,8 +143,8 @@ public class Admin {
         }
         return mvr;
     }
-    
-        public ManageTransactionRemote getManagetransactionRemote() {
+
+    public ManageTransactionRemote getManagetransactionRemote() {
         if (mtr == null) {
             try {
                 mtr = (ManageTransactionRemote) ic.lookup("java:global/HomeCinema/HomeCinema-ejb/ManageTransaction!ejbs.ManageTransactionRemote");
@@ -132,19 +155,14 @@ public class Admin {
         return mtr;
     }
 
-    public void makeAndSendMovie(Long id, String video_url, String trailer_url, Integer price) throws JSONException, IOException, ParseException {
-        FilmDto fdto = new FilmDto();
-
-        fdto = createFilm(id);
-
-        VideoDto trailer = new VideoDto();
-        VideoDto video = new VideoDto();
-        video.url = video_url;
-        video.resolution = 240;
-        trailer.url = trailer_url;
-        trailer.resolution = 240;
-
-        getManageProductRemote().createProductWithFilm(fdto, trailer, video, new Double(price));
-    }
-
+    /* public ManageGenreRemote getManageGenreRemote() {
+     if (mgr == null) {
+     try {
+     mgr = (ManageTransactionRemote) ic.lookup("java:global/HomeCinema/HomeCinema-ejb/ManageGenre!ejbs.ManageGenreRemote");
+     } catch (NamingException ex) {
+     Logger.getLogger(HomeCinemaClient.class.getName()).log(Level.SEVERE, null, ex);
+     }
+     }
+     return mgr;
+}*/
 }

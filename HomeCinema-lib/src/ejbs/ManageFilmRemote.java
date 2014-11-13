@@ -11,6 +11,7 @@ import dtos.GenreDto;
 import dtos.VideoDto;
 import exception.DuplicateKey;
 import java.util.List;
+import java.util.Set;
 import javax.ejb.Remote;
 
 /**
@@ -38,7 +39,7 @@ public interface ManageFilmRemote {
 
     public void addExistingVideo(Long fid, Long vid);
 
-    public void addGenres(Long fid, List<GenreDto> lgdto);
+    public void addGenres(Long fid, Set<GenreDto> lgdto);
 
     public void addGenre(Long fid, GenreDto gdto);
 }

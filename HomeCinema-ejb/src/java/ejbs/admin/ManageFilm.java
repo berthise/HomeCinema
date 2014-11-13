@@ -20,6 +20,7 @@ import entities.Video;
 import exception.DuplicateKey;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.Query;
 import javax.ejb.EJB;
 import managers.entities.ManageEntitieFilm;
@@ -103,7 +104,7 @@ public class ManageFilm implements ManageFilmRemote {
         em.merge(f);
     }
 
-    public void addGenres(Long fid, List<GenreDto> lgdto) {
+    public void addGenres(Long fid, Set<GenreDto> lgdto) {
         for (GenreDto gdto : lgdto) {
             addGenre(fid, gdto);
         }

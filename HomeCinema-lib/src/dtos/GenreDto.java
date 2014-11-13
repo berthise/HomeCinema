@@ -5,11 +5,13 @@
  */
 package dtos;
 
+import java.io.Serializable;
+
 /**
  *
  * @author titou
  */
-public class GenreDto {
+public class GenreDto implements Serializable{
     public String name;
     public Long id;
 }

@@ -145,6 +145,10 @@ public class JeuDeTest2 {
                 System.out.println(udto.nickName);
             }
             
+            //test
+            
+            a.getManageFilmRemote().addGenres(14L, a.getGenre(14L));
+            
             
         } catch (JSONException ex) {
             Logger.getLogger(JeuDeTest.class.getName()).log(Level.SEVERE, null, ex);
