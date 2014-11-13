@@ -11,7 +11,9 @@ import dtos.UserDto;
 import dtos.UserDtoNoPw;
 import ejbs.ManageUserRemote;
 import entities.Film;
+import entities.Product;
 import entities.User;
+import entities.UsersFilms;
 import enums.UserStates;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -84,6 +86,17 @@ public class ManageUser implements ManageUserRemote {
     public void mergeOrSave (UserDtoNoPw udto)
     {
         UserDtoManager.mergeOrSave(udto, em);
+    }
+    
+    public List<FilmDto> getFilms(Long id)
+    {
+                User p = em.find(User.class, id);
+        List<FilmDto> lfdto = new ArrayList<>();
+        for ( UsersFilms f : p.getFilms())
+        {
+            lfdto.add(FilmDtoManager.getDto(f.getFilm()));
+        }
+        return lfdto;
     }
     
 }

@@ -5,6 +5,7 @@
  */
 package ejbs;
 
+import dtos.CaddieDto;
 import dtos.FilmDto;
 import dtos.ProductDto;
 import dtos.VideoDto;
@@ -33,4 +34,6 @@ public interface ManageProductRemote {
     public List<ProductDto> getAllProduct();
     
     public List<FilmDto> getFilms(Long pid);
+    
+    
 }

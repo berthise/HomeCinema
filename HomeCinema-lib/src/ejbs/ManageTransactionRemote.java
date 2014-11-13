@@ -22,4 +22,6 @@ public interface ManageTransactionRemote {
     public Long validate(Long user);
     
     public void validatePayement(Long id,Long btn);
+    
+     public CaddieDto removeProduct(Long user ,Long id);
 }
