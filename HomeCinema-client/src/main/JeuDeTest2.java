@@ -35,14 +35,16 @@ public class JeuDeTest2 {
             cree star wars
             cree produit pour les 3
             
+            cree produit fight club + star wars
+            
             cree user robin
+            cree user robin2
+            supprime robin 2
             
             achete american beauty
             
             met fight club dans son panier
-            
-            
-            
+            met produit double dans le panier
             
             */
             
@@ -106,6 +108,12 @@ public class JeuDeTest2 {
             pdto2.id = a.getManageProductRemote().createProduct(pdto2);
             a.getManageProductRemote().addExistingFilm(pdto2.id, f2.id, true);
             
+                        ProductDto pdto4 = new ProductDto();
+            pdto4.name = "Double";
+            pdto4.price = 8D;
+            pdto4.id = a.getManageProductRemote().createProduct(pdto4);
+            a.getManageProductRemote().addExistingFilm(pdto4.id, f2.id, true);
+            a.getManageProductRemote().addExistingFilm(pdto4.id, f3.id, true);
             
             
             
@@ -130,7 +138,11 @@ public class JeuDeTest2 {
 
             a.getManageUserRemote().signUp(u2);
             Long u_id= a.getManageUserRemote().login(u2.email, u2.password).id;
+            
+            //remove u2
             a.getManageUserRemote().removeUser(u_id);
+            
+            
             //achat american beauty
             a.getManagetransactionRemote().addProduct(u.id, pdto.id);
             Long trans = a.getManagetransactionRemote().validate(u.id);
@@ -138,7 +150,7 @@ public class JeuDeTest2 {
             
             //met fight club dans panier
             a.getManagetransactionRemote().addProduct(u.id, pdto2.id);
-            
+            a.getManagetransactionRemote().addProduct(u.id, pdto4.id);
             //print
             System.out.println("Film");
             List<FilmDto> lfdto = a.getManageFilmRemote().getAllFilm();
