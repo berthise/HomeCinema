@@ -5,11 +5,13 @@
  */
 package enums;
 
+import java.io.Serializable;
+
 /**
  *
  * @author seb
  */
-public enum UsersFilmsStates {
+public enum UsersFilmsStates implements Serializable {
   Unviewed,
   Viewed,
   Current,

@@ -5,11 +5,13 @@
  */
 package enums;
 
+import java.io.Serializable;
+
 /**
  *
  * @author seb
  */
-public enum TransactionStates {
+public enum TransactionStates implements Serializable{
   Prepared,
   Done,
   Canceled

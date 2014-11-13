@@ -58,6 +58,7 @@ public class ManageTransaction implements ManageTransactionRemote {
     {
         User u = em.find(User.class, user);
         u.getCaddy().addCaddy(em.find(Product.class,id));
+        em.merge(u.getCaddy());
         return CaddieDtoManager.getDto(u.getCaddy());
     }
     

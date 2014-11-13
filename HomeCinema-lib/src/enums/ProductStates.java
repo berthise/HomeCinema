@@ -5,11 +5,13 @@
  */
 package enums;
 
+import java.io.Serializable;
+
 /**
  *
  * @author seb
  */
-public enum ProductStates {
+public enum ProductStates implements Serializable {
   Activated,
   Unactivated
 }
