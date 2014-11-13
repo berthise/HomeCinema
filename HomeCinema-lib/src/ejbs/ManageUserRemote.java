@@ -5,9 +5,11 @@
  */
 package ejbs;
 
+import dtos.FilmDto;
 import dtos.SimpleUserDto;
 import dtos.UserDto;
 import dtos.UserDtoNoPw;
+import java.util.List;
 import java.util.Set;
 import javax.ejb.Remote;
 
@@ -29,4 +31,6 @@ public interface ManageUserRemote {
     public void removeUser (Long id);
     
     public void mergeOrSave (UserDtoNoPw udto);
+    
+    public List<FilmDto> getFilms(Long id);
 }

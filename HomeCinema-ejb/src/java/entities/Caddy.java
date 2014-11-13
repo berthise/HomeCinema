@@ -56,6 +56,11 @@ public class Caddy implements Serializable {
     public void addCaddy(Product p) {
         this.products.add(p);
     }
+    
+    public void removeCaddy(Product p)
+    {
+        this.products.remove(p);
+    }
 
     @Override
     public int hashCode() {

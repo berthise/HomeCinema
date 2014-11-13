@@ -67,6 +67,21 @@ public class ManageTransaction implements ManageTransactionRemote {
         em.merge(u.getCaddy());
         return CaddieDtoManager.getDto(u.getCaddy());
     }
+
+   public CaddieDto removeProduct(Long user ,Long id)
+   {
+               User u = em.find(User.class, user);
+        if (u.getCaddy()==null)
+        {
+            u.setCaddy(new Caddy());
+            em.persist(u.getCaddy());
+            em.merge(u);
+        }
+        Product p = em.find(Product.class, id);
+        u.getCaddy().removeCaddy(p);
+        em.merge(u.getCaddy());
+        return CaddieDtoManager.getDto(u.getCaddy());
+   }
     
     @Override
     public Long validate(Long user)
