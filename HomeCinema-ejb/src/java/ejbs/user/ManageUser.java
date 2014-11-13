@@ -8,6 +8,7 @@ package ejbs.user;
 import dtos.FilmDto;
 import dtos.SimpleUserDto;
 import dtos.UserDto;
+import dtos.UserDtoNoPw;
 import ejbs.ManageUserRemote;
 import entities.Film;
 import entities.User;
@@ -59,10 +60,10 @@ public class ManageUser implements ManageUserRemote {
         return ludto;
     }
     
-    public UserDto getUser(Long id)
+    public UserDtoNoPw getUser(Long id)
     {
         User u = em.find(User.class, id);
-        return UserDtoManager.getUser(u);
+        return UserDtoManager.getUserNoPw(u);
     }
     
     public void removeUser (Long id)
@@ -80,5 +81,9 @@ public class ManageUser implements ManageUserRemote {
         em.merge(u);
     }
     
+    public void mergeOrSave (UserDtoNoPw udto)
+    {
+        UserDtoManager.mergeOrSave(udto, em);
+    }
     
 }

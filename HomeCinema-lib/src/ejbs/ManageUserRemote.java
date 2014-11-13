@@ -7,6 +7,7 @@ package ejbs;
 
 import dtos.SimpleUserDto;
 import dtos.UserDto;
+import dtos.UserDtoNoPw;
 import java.util.Set;
 import javax.ejb.Remote;
 
@@ -23,7 +24,9 @@ public interface ManageUserRemote {
     
     public Set<SimpleUserDto> getAllUser();
     
-    public UserDto getUser(Long id);
+    public UserDtoNoPw getUser(Long id);
     
     public void removeUser (Long id);
+    
+    public void mergeOrSave (UserDtoNoPw udto);
 }
