@@ -175,7 +175,7 @@ public class FilmManagedBean {
     }
 
     private String printLineFilm(String image, String titre, String date, String id) {
-        return "<tr class=\"tr-hover\" id=\"tr-caddie-" + id + "\"><td><span class=\"affiche\"><img src=\"img/glass.png\" />"
+        return "<tr class=\"tr-hover\"><td><span class=\"affiche\"><img src=\"img/glass.png\" />"
                 + "<span><img src=\"http://image.tmdb.org/t/p/w396/" + image + "\" /></span></span></td>"
                 + "<td><a href=\"fiche_film.xhtml?id=" + id + "\" title=\"Voir la fiche du film\">" + titre + " (" + date + ")</a></td>"
                 + "<td><a href=\"visionneuse.xhtml?id="+ id +"\"><img src=\"img/eye.png\" title=\"Voir le film\" /></a></td></tr>";

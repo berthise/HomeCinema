@@ -18,6 +18,7 @@
 
         <f:metadata>
             <f:viewParam name="box" value="#{caddieManagedBean.initBox}" />
+            <f:event type="preRenderView" listener="#{caddieManagedBean.setDtoFromId(10)}"/>
         </f:metadata>
 
         <style>
@@ -114,22 +115,45 @@
             }
 
             .box-right table, .box-right tr, .box-right td {
-                border: 1px solid #777;
                 padding: 3px;
             }
-
-            .box-right tr:first-of-type {
-                font-weight: bold;
-                font-size: 16px;
-                background: #ddd;
+            
+            .box-right table, .box-right tr, .tr-solo td {
+                border: 1px solid #777;
             }
 
-            #box-caddie tr td:first-of-type {
-                width: 15%;
+            #box-caddie tr td:nth-of-type(1) {
+                width: 5%;
             }
-
+            
             #box-caddie tr td:nth-of-type(2) {
-                width: 65%;
+                width: 9%;
+            }
+            
+            #box-caddie tr td:nth-of-type(3) {
+                width: 70%;
+            }
+            
+            #box-caddie tr td:nth-of-type(4) {
+                width: 8%;
+            }
+            
+            #box-caddie tr td:nth-of-type(5) {
+                width: 8%;
+            }
+            
+            .align-left {
+                text-align: left !important;
+                padding-left: 80px !important;
+            }
+            
+            .title-film-caddie  {
+                text-align: left !important;
+                padding-left: 50px !important;
+            }
+            
+            .td-right {
+                border-right: 1px solid #777;
             }
 
             .b1r {
@@ -172,9 +196,9 @@
             .affiche span img {
                 width: 100px;
             }
-
-            .tr-hover:hover {
-                background: #eee;
+            
+            .no-border-right {
+                border-right: none !important;
             }
         </style>
 
@@ -201,9 +225,18 @@
                             return false;
                         }
 
+
                         function removeFromCaddie(id) {
-                            document.getElementById('tr-caddie-' + id).className = "display-none";
+                            //<![CDATA[                    
+                            var l = document.getElementsByClassName('tr-caddie-' + id);
+                            var j = l.length;
+                            for (var i = 0; i < j; i++) {
+                                document.getElementsByClassName('tr-caddie-' + id)[0].className = " display-none";
+                            }
+                            //]]>
+                            #{caddieManagedBean.deleteFromCaddie(loginManagedBean.id,id)}
                         }
+
                     </script> 
 
                     <div id="nav"> 
@@ -226,9 +259,6 @@
                     <div class="#{caddieManagedBean.getClassDisplay('caddie')}" id="box-caddie">
                         <h3><img src="img/cart-icon.png" title="Caddie"/>Caddie</h3>
                         <table>
-                            <tr>
-                                <td>Affiche</td><td>Nom du produit</td><td>Prix</td><td>Action</td>                                
-                            </tr>
                             <h:outputText value="#{caddieManagedBean.printLinesCaddie()}" escape="false" />
                         </table>
 
