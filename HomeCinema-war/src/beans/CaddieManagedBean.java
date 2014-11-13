@@ -31,7 +31,7 @@ public class CaddieManagedBean {
 
     @EJB
     private ManageProductRemote productManager;
-    
+
     public CaddieDto cdto;
 
     public String initBox = "films";
@@ -92,22 +92,23 @@ public class CaddieManagedBean {
     }
 
     public String printLinesCaddie() {
-        if (cdto.films.isEmpty())
+        if (cdto.films.isEmpty()) {
             return "<tr class=\"empty\"><td colspan=\"6\">Votre caddie est vide ... <a href=\"#\">Trouvez une film dans notre liste !</a></td></tr>";
-        
+        }
+
         String toReturn = "";
         int i = 1;
         SimpleDateFormat formater = new SimpleDateFormat("yyyy");
         for (ProductDto pd : cdto.films) {
             List<FilmDto> list_films = productManager.getFilms(pd.id);
-            if (list_films.size() == 1){
+            if (list_films.size() == 1) {
                 FilmDto f = list_films.get(0);
                 toReturn += printLineCaddieSolo(pd.id, f.id, f.title, pd.price, f.cover, formater.format(f.release_date), i);
-            }
-            else {
+            } else {
                 toReturn += printLineCaddieFirst(pd.id, list_films.size(), pd.name, pd.price, i);
-                for (FilmDto f : list_films)
+                for (FilmDto f : list_films) {
                     toReturn += printLineCaddie(pd.id, f.id, f.cover, f.title, formater.format(f.release_date));
+                }
             }
         }
 

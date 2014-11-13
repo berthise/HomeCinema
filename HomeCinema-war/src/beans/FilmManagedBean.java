@@ -169,6 +169,9 @@ public class FilmManagedBean {
 
     public String printLinesMyFilms(Long iduser) {
         String toReturn = "";
+        
+        
+        
         toReturn += printLineFilm("3UBQGKS8c1dxRnDiu5kUK6ej3pP.jpg", "American Beauty", "1999", "14");
         toReturn += printLineFilm("hpt3aa5i0TrSAnEdl3VJrRrje8C.jpg", "Fight Club", "1999", "550");
         return toReturn;
@@ -180,5 +183,4 @@ public class FilmManagedBean {
                 + "<td><a href=\"fiche_film.xhtml?id=" + id + "\" title=\"Voir la fiche du film\">" + titre + " (" + date + ")</a></td>"
                 + "<td><a href=\"visionneuse.xhtml?id="+ id +"\"><img src=\"img/eye.png\" title=\"Voir le film\" /></a></td></tr>";
     }
-
 }
