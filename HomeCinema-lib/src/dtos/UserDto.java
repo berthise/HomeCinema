@@ -13,14 +13,7 @@ import java.util.Date;
  *
  * @author toure
  */
-public class UserDto implements Serializable {
-    public Long id;
-    public String nickName;
-    public String firstName;
-    public String lastName;
-    public String password;
-    public String email;
-    public Date birthDate;
-    public Date addDate;
-    public UserStates state;    
+public class UserDto extends UserDtoNoPw implements Serializable {
+
+    public String password;  
 }
