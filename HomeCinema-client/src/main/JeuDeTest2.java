@@ -148,7 +148,8 @@ public class JeuDeTest2 {
             //test
             
             a.getManageFilmRemote().addGenres(14L, a.getGenre(14L));
-            
+            a.getManageFilmRemote().addActors(14L, a.getCast(14L));
+            a.getManageFilmRemote().addDirectors(14L, a.getDirectors(14L));
             
         } catch (JSONException ex) {
             Logger.getLogger(JeuDeTest.class.getName()).log(Level.SEVERE, null, ex);
