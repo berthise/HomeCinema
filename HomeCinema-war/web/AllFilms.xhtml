@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" />
+        <title>Display films </title>
+        <meta name="description" content=""/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+        <link rel="stylesheet" href="css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="css/bootstrap-theme.min.css"/>
+        <link rel="stylesheet" href="css/main.css"/>
+        <link rel="stylesheet" href="css/skel.css" />
+        <link rel="stylesheet" href="css/style.css" />
+        <link rel="stylesheet" href="css/style-desktop.css"/>
+
+
+    </head>
+
+    <body>
+        <ui:include src="components/header.xhtml" />
+
+        <aside >
+            <!-- Wrapper -->
+            <div id="wrapper">
+                <!-- Sidebar -->
+                <div id="sidebar">
+                    <!-- Search -->
+                    <header>
+                        <h2 align="center">Chercher un produit</h2>
+                    </header>
+                    <form method="post" action="#">
+                        <input type="text" class="text" name="search" placeholder="Search" />
+                    </form>
+
+                    <!-- Nav -->
+                    <nav id="nav">
+                        <ul>
+                            <li><a href="#">Top 50</a></li>
+                            <li><a href="#">Nouveautés</a></li>
+                            <li><a href="#">Tous les films</a></li>
+
+                        </ul>
+                    </nav>
+
+
+                    <section>
+                        <header>
+                            <h2 align="center">Recherche avancée</h2>
+                        </header>
+                        <ul>
+                            <h3>Acteurs</h3>
+                            <h3>Catégorie</h3>
+                            <h3>Année</h3>
+                            
+                        </ul>
+
+                    </section>
+                </div>
+
+            </div>
+        </aside>
+        <section>
+            <article> 
+
+                <h:dataTable id="FilmTable" value="#{listFilmBean.allFilms}"
+                             var="film" border="1">
+                    <h:column>
+                        <f:facet name="header">
+                            
+                        </f:facet>
+                        <a href="fiche_film.xhtml">
+                            <img title="#{film.title}" class="cover" src="http://image.tmdb.org/t/p/w154/#{film.cover}"/>
+                            <span class="film_title">#{film.title} </span>
+                        </a>
+                    </h:column>
+                    
+
+
+                </h:dataTable>
+
+
+            </article>
+        </section>
+
+    </body>
+
+</html>
