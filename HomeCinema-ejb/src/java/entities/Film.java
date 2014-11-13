@@ -17,6 +17,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
@@ -84,10 +85,12 @@ public class Film implements Serializable {
     private Video trailler;
 
     @ManyToMany
+    @JoinTable(name = "ACTORS")
     @JoinColumn(name = "ACTORS")
     private List<Person> actors;
 
     @ManyToMany
+    @JoinTable(name = "DIRECTORS")
     @JoinColumn(name = "DIRECTORS")
     private List<Person> directors;
 
@@ -96,9 +99,11 @@ public class Film implements Serializable {
     private Set<Genre> genre;
 
     public Film() {
-        this.videoFile = new HashSet<Video>();
-        this.products =  new ArrayList<Product>();
-        this.genre =  new HashSet<Genre>();
+        this.videoFile = new HashSet<>();
+        this.products = new ArrayList<>();
+        this.genre = new HashSet<>();
+        this.actors = new ArrayList<>();
+        this.directors = new ArrayList<>();
     }
 
     public Long getId() {
@@ -125,11 +130,10 @@ public class Film implements Serializable {
         this.products = products;
     }
 
-    public void addProduct(Product p)
-    {
+    public void addProduct(Product p) {
         this.products.add(p);
     }
-    
+
     public Product getMain_product() {
         return main_product;
     }
@@ -206,6 +210,10 @@ public class Film implements Serializable {
         this.actors = actors;
     }
 
+    public void addActor(Person a) {
+        this.actors.add(a);
+    }
+
     public List<Person> getDirectors() {
         return directors;
     }
@@ -214,12 +222,15 @@ public class Film implements Serializable {
         this.directors = directors;
     }
 
+    public void addDirector(Person d) {
+        this.directors.add(d);
+    }
+
     public Set<Genre> getGenre() {
         return genre;
     }
-    
-    public void addGenre(Genre g)
-    {
+
+    public void addGenre(Genre g) {
         this.genre.add(g);
     }
 

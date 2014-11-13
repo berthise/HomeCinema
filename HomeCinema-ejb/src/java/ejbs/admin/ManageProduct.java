@@ -98,5 +98,16 @@ public class ManageProduct implements ManageProductRemote {
         em.merge(f);
         em.merge(p);
     }
+    
+    public List<FilmDto> getFilms(Long pid)
+    {
+        Product p = em.find(Product.class, pid);
+        List<FilmDto> lfdto = new ArrayList<>();
+        for ( Film f : p.getFilms())
+        {
+            lfdto.add(FilmDtoManager.getDto(f));
+        }
+        return lfdto;
+    }
 
 }

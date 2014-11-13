@@ -8,6 +8,7 @@ package ejbs.admin;
 import dtos.FilmDto;
 import dtos.FilmFicheDto;
 import dtos.GenreDto;
+import dtos.PersonDto;
 import dtos.VideoDto;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -16,6 +17,7 @@ import managers.dtos.FilmDtoManager;
 import ejbs.ManageFilmRemote;
 import entities.Film;
 import entities.Genre;
+import entities.Person;
 import entities.Video;
 import exception.DuplicateKey;
 import java.util.ArrayList;
@@ -25,6 +27,7 @@ import javax.persistence.Query;
 import javax.ejb.EJB;
 import managers.entities.ManageEntitieFilm;
 import managers.entities.ManageEntitieGenre;
+import managers.entities.ManageEntitiePerson;
 import managers.entities.ManageEntitieVideo;
 
 /**
@@ -42,18 +45,16 @@ public class ManageFilm implements ManageFilmRemote {
         return ManageEntitieFilm.createFilm(fdto, em).getId();
     }
 
-    public List<FilmDto> getAllFilm()
-    {
-        Query q = em.createQuery("From Film f",Film.class);
+    public List<FilmDto> getAllFilm() {
+        Query q = em.createQuery("From Film f", Film.class);
         List<Film> lf = q.getResultList();
         List<FilmDto> lfdto = new ArrayList<FilmDto>();
-        for (Film f : lf)
-        {
+        for (Film f : lf) {
             lfdto.add(FilmDtoManager.getDto(f));
         }
         return lfdto;
     }
-    
+
     @Override
     public FilmFicheDto getDtoFromId(Long id) {
         Film f = em.find(Film.class, id);
@@ -114,6 +115,34 @@ public class ManageFilm implements ManageFilmRemote {
         Genre g = ManageEntitieGenre.getGenre(gdto, em);
         Film f = em.find(Film.class, fid);
         f.addGenre(g);
+        em.merge(f);
+    }
+
+    public void addActors(Long fid, List<PersonDto> lgdto) {
+        for (PersonDto gdto : lgdto) {
+            addActor(fid, gdto);
+        }
+    }
+
+    public void addActor(Long fid, PersonDto gdto) {
+        Person g = ManageEntitiePerson.getPerson(gdto, em);
+        Film f = em.find(Film.class, fid);
+        g.addIs_actor_of(f);
+        f.addActor(g);
+        em.merge(f);
+    }
+
+    public void addDirectors(Long fid, List<PersonDto> lgdto) {
+        for (PersonDto gdto : lgdto) {
+            addDirector(fid, gdto);
+        }
+    }
+
+    public void addDirector(Long fid, PersonDto gdto) {
+        Person g = ManageEntitiePerson.getPerson(gdto, em);
+        Film f = em.find(Film.class, fid);
+        g.addIs_director_of(f);
+        f.addDirector(g);
         em.merge(f);
     }
 }

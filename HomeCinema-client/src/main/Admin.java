@@ -8,6 +8,7 @@ package main;
 import UtilsJson.JsonReader;
 import dtos.FilmDto;
 import dtos.GenreDto;
+import dtos.PersonDto;
 import java.text.DateFormat;
 import dtos.VideoDto;
 import ejbs.ManageFilmRemote;
@@ -18,6 +19,7 @@ import ejbs.ManageVideoRemote;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import org.json.JSONObject;
 import java.util.Date;
 import java.util.HashMap;
@@ -76,6 +78,41 @@ public class Admin {
             gdto.id = lg.getJSONObject(i).getLong("id");
             gdto.name = lg.getJSONObject(i).getString("name");
             res.add(gdto);
+        }
+
+        return res;
+    }
+    
+    public List<PersonDto> getCast(Long id)  throws JSONException, IOException
+    {
+                List<PersonDto> res = new ArrayList<>();
+        String urlString = "http://api.themoviedb.org/3/movie/" + id + "/credits?api_key=63d250a5b71c307f7592228c79b729cf";
+
+        JSONObject json = JsonReader.readJsonFromUrl(urlString);
+        JSONArray lg = json.getJSONArray("cast");
+        for (int i = 0; i < lg.length(); i++) {
+            PersonDto gdto = new  PersonDto();
+            gdto.id = lg.getJSONObject(i).getLong("id");
+            gdto.name = lg.getJSONObject(i).getString("name");
+            res.add(gdto);
+        }
+
+        return res;
+    }
+    
+        public List<PersonDto> getDirectors(Long id)  throws JSONException, IOException
+    {
+                List<PersonDto> res = new ArrayList<>();
+        String urlString = "http://api.themoviedb.org/3/movie/" + id + "/credits?api_key=63d250a5b71c307f7592228c79b729cf";
+
+        JSONObject json = JsonReader.readJsonFromUrl(urlString);
+        JSONArray lg = json.getJSONArray("crew");
+        for (int i = 0; i < lg.length(); i++) {
+            PersonDto gdto = new  PersonDto();
+            gdto.id = lg.getJSONObject(i).getLong("id");
+            gdto.name = lg.getJSONObject(i).getString("name");
+            if ("Director".equals(lg.getJSONObject(i).getString("job")))
+                res.add(gdto);
         }
 
         return res;
