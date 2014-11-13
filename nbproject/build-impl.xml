@@ -194,6 +194,10 @@ exists or setup the property manually. For example like this:
                 <isset property="build.deploy.on.save"/>
             </not>
         </condition>
+        <ant antfile="${project.HomeCinema-lib}/build.xml" inheritall="false" target="jar">
+            <property location="${build.dir}" name="dist.ear.dir"/>
+            <property name="deploy.on.save" value="false"/>
+        </ant>
     </target>
     <target depends="init" name="deps-j2ee-archive" unless="no.deps">
         <condition property="build.deploy.on.save" value="false">
@@ -228,6 +232,7 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${reference.HomeCinema-ejb.dist-ear}" todir="${build.dir}//"/>
         <copyfiles files="${reference.HomeCinemaAdmin-war.dist-ear}" todir="${build.dir}//"/>
         <copyfiles files="${reference.HomeCinema-war.dist-ear}" todir="${build.dir}//"/>
+        <copyfiles files="${reference.HomeCinema-lib.jar}" todir="${build.dir}//"/>
     </target>
     <target name="post-compile">
         <!-- Empty placeholder for easier customization. -->
@@ -632,6 +637,10 @@ exists or setup the property manually. For example like this:
             </not>
         </condition>
         <ant antfile="${project.HomeCinema-ejb}/build.xml" inheritall="false" target="clean-ear">
+            <property location="${build.dir}" name="dist.ear.dir"/>
+            <property name="deploy.on.save" value="${build.deploy.on.save}"/>
+        </ant>
+        <ant antfile="${project.HomeCinema-lib}/build.xml" inheritall="false" target="clean">
             <property location="${build.dir}" name="dist.ear.dir"/>
             <property name="deploy.on.save" value="${build.deploy.on.save}"/>
         </ant>

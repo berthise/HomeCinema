@@ -28,7 +28,24 @@ public class JeuDeTest2 {
     public static void main(String[] args) {
         try {
             Admin a = new Admin();
-
+/*
+            cree american beauty
+            cree fight club 
+            cree star wars
+            cree produit pour les 3
+            
+            cree user robin
+            
+            achete american beauty
+            
+            met fight club dans son panier
+            
+            
+            
+            
+            */
+            
+            
             //creer american beauty
             FilmDto f = a.createFilm(14L);
             a.getManageFilmRemote().createFilm(f);
@@ -49,6 +66,25 @@ public class JeuDeTest2 {
             pdto.id = a.getManageProductRemote().createProduct(pdto);
             a.getManageProductRemote().addExistingFilm(pdto.id, f.id, true);
 
+                        FilmDto f3 = a.createFilm(11L);
+            a.getManageFilmRemote().createFilm(f3);
+            VideoDto v3 = new VideoDto();
+            v3.resolution = 240;
+            v3.url = "http://geekompagny.ddns.net/ECOM/AmericanBeautyFilm.mp4";
+            v3.id = a.getManageVideoRemote().createVideo(v3);
+            a.getManageFilmRemote().addExistingVideo(f3.id, v3.id);
+            VideoDto t3 = new VideoDto();
+            t3.resolution = 240;
+            t3.url = "http://geekompagny.ddns.net/ECOM/AmericanBeautyTrailer.mp4";
+            a.getManageFilmRemote().setTrailer(f3.id, t3);
+
+            //creer un produit
+            ProductDto pdto3 = new ProductDto();
+            pdto3.name = "star wars";
+            pdto3.price = 10D;
+            pdto3.id = a.getManageProductRemote().createProduct(pdto3);
+            a.getManageProductRemote().addExistingFilm(pdto3.id, f3.id, true);
+            
                         //creer fight club
             FilmDto f2 = a.createFilm(550L);
             a.getManageFilmRemote().createFilm(f2);
@@ -69,6 +105,9 @@ public class JeuDeTest2 {
             pdto2.id = a.getManageProductRemote().createProduct(pdto2);
             a.getManageProductRemote().addExistingFilm(pdto2.id, f2.id, true);
             
+            
+            
+            
             //creer user robin
             UserDto u = new UserDto();
             u.birthDate = new Date();
@@ -79,11 +118,16 @@ public class JeuDeTest2 {
 
             a.getManageUserRemote().signUp(u);
             u = a.getManageUserRemote().login(u.email, u.password);
-
-            //System.out.println(u.id);
-            //System.out.println(pdto.id);
-            //a.getManagetransactionRemote().addProduct(u.id, pdto.id);
-
+            
+            
+            //achat american beauty
+            a.getManagetransactionRemote().addProduct(u.id, pdto.id);
+            Long trans = a.getManagetransactionRemote().validate(u.id);
+            a.getManagetransactionRemote().validatePayement(trans, 42L);
+            
+            //met fight club dans panier
+            a.getManagetransactionRemote().addProduct(u.id, pdto2.id);
+            
             //print
             System.out.println("Film");
             List<FilmDto> lfdto = a.getManageFilmRemote().getAllFilm();
@@ -100,6 +144,8 @@ public class JeuDeTest2 {
             for (SimpleUserDto udto : ludto) {
                 System.out.println(udto.nickName);
             }
+            
+            
         } catch (JSONException ex) {
             Logger.getLogger(JeuDeTest.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
