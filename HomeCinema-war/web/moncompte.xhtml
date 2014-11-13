@@ -117,7 +117,7 @@
             .box-right table, .box-right tr, .box-right td {
                 padding: 3px;
             }
-            
+
             .box-right table, .box-right tr, .tr-solo td {
                 border: 1px solid #777;
             }
@@ -125,33 +125,33 @@
             #box-caddie tr td:nth-of-type(1) {
                 width: 5%;
             }
-            
+
             #box-caddie tr td:nth-of-type(2) {
                 width: 9%;
             }
-            
+
             #box-caddie tr td:nth-of-type(3) {
                 width: 70%;
             }
-            
+
             #box-caddie tr td:nth-of-type(4) {
                 width: 8%;
             }
-            
+
             #box-caddie tr td:nth-of-type(5) {
                 width: 8%;
             }
-            
+
             .align-left {
                 text-align: left !important;
                 padding-left: 80px !important;
             }
-            
+
             .title-film-caddie  {
                 text-align: left !important;
                 padding-left: 50px !important;
             }
-            
+
             .td-right {
                 border-right: 1px solid #777;
             }
@@ -196,7 +196,7 @@
             .affiche span img {
                 width: 100px;
             }
-            
+
             .no-border-right {
                 border-right: none !important;
             }
@@ -225,7 +225,6 @@
                             return false;
                         }
 
-
                         function removeFromCaddie(id) {
                             //<![CDATA[                    
                             var l = document.getElementsByClassName('tr-caddie-' + id);
@@ -236,7 +235,6 @@
                             //]]>
                             #{caddieManagedBean.deleteFromCaddie(loginManagedBean.id,id)}
                         }
-
                     </script> 
 
                     <div id="nav"> 
@@ -249,9 +247,6 @@
                     <div class="#{caddieManagedBean.getClassDisplay('films')}" id="box-films">
                         <h3><img src="img/film-icon.png" title="Caddie"/>Films</h3>
                         <table>
-                            <tr>
-                                <td>Affiche</td><td>Nom du film</td><td>Action</td>                                
-                            </tr>
                             <h:outputText value="#{filmManagedBean.printLinesMyFilms(0)}" escape="false" />
                         </table>
                     </div>
@@ -263,8 +258,6 @@
                         </table>
 
                         <a class="btn btn-success col-md-3 b1r" href="">Valider mon caddie</a>
-
-
                     </div>
 
                     <div class="#{caddieManagedBean.getClassDisplay('historique')}" id="box-historique">

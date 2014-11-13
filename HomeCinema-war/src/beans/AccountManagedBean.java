@@ -8,8 +8,10 @@ package beans;
 import dtos.CaddieDto;
 import dtos.FilmDto;
 import dtos.ProductDto;
+import dtos.UserDto;
 import ejbs.ManageProductRemote;
 import ejbs.ManageTransactionRemote;
+import ejbs.ManageUserRemote;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.List;
@@ -24,7 +26,7 @@ import javax.naming.NamingException;
  */
 @ManagedBean
 @ViewScoped
-public class CaddieManagedBean {
+public class AccountManagedBean {
 
     @EJB
     private ManageTransactionRemote transactionManager;
@@ -32,9 +34,14 @@ public class CaddieManagedBean {
     @EJB
     private ManageProductRemote productManager;
 
+    @EJB
+    private ManageUserRemote userManager;
+
     public CaddieDto cdto;
 
     public String initBox = "films";
+    
+    private Long iduser;
 
     public String getInitBox() {
         return initBox;
@@ -50,10 +57,11 @@ public class CaddieManagedBean {
     }
 
     public void setDtoFromId(Long id) {
-        this.cdto = transactionManager.getCaddieDto(10L);
-    }
+        this.iduser = id;
+        this.cdto = transactionManager.getCaddieDto(id);
+    }    
 
-    public CaddieManagedBean() throws NamingException {
+    public AccountManagedBean() throws NamingException {
         this.cdto = new CaddieDto();
     }
 
@@ -117,5 +125,23 @@ public class CaddieManagedBean {
 
     public void deleteFromCaddie(Long id_user, Long id_film) {
         // Supprimer l'élément du caddie
+    }
+
+    public String printLinesMyFilms() {
+        String toReturn = "";
+        SimpleDateFormat formater = new SimpleDateFormat("yyyy");
+
+        for (FilmDto f : userManager.getFilms(iduser)) {
+            toReturn += printLineFilm(f.cover, f.title, formater.format(f.release_date), f.id);
+        }
+
+        return toReturn;
+    }
+
+    private String printLineFilm(String image, String titre, String date, Long id) {
+        return "<tr class=\"tr-hover\"><td><span class=\"affiche\"><img src=\"img/glass.png\" />"
+                + "<span><img src=\"http://image.tmdb.org/t/p/w396/" + image + "\" /></span></span></td>"
+                + "<td><a href=\"fiche_film.xhtml?id=" + id + "\" title=\"Voir la fiche du film\">" + titre + " (" + date + ")</a></td>"
+                + "<td><a href=\"visionneuse.xhtml?id=" + id + "\"><img src=\"img/eye.png\" title=\"Voir le film\" /></a></td></tr>";
     }
 }
