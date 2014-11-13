@@ -12,5 +12,6 @@ package enums;
 public enum UserStates {
   Activated,
   Unactived,
-  Deactivaed
+  Deactivaed,
+  Removed
 }

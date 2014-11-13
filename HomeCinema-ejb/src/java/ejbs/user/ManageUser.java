@@ -11,6 +11,7 @@ import dtos.UserDto;
 import ejbs.ManageUserRemote;
 import entities.Film;
 import entities.User;
+import enums.UserStates;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -49,7 +50,7 @@ public class ManageUser implements ManageUserRemote {
     }
 
     public Set<SimpleUserDto> getAllUser() {
-        Query q = em.createQuery("select u from User");
+        Query q = em.createQuery("From User u ",User.class);//TODO ne pas renvoyé utilisateur supprimé
         List<User> lu = q.getResultList();
         Set<SimpleUserDto> ludto = new HashSet<>();
         for (User u : lu) {
@@ -63,4 +64,21 @@ public class ManageUser implements ManageUserRemote {
         User u = em.find(User.class, id);
         return UserDtoManager.getUser(u);
     }
+    
+    public void removeUser (Long id)
+    {
+        User u = em.find(User.class, id);
+        u.setBirthDate(null);
+        u.setCaddy(null);
+        u.setEmail(null);
+        u.setLastName(null);
+        u.setNickName(null);
+        u.setFirstName(null);
+        u.setPassword(null);
+        u.setFilms(null);
+        u.setState(UserStates.Removed);
+        em.merge(u);
+    }
+    
+    
 }

@@ -52,7 +52,7 @@ public class FilmDtoManager {
         fdto.runtime = f.getRuntime();
         fdto.trailler = VideoDtoManager.getDto(f.getTrailler());
         fdto.files = new ArrayList<>();
-        for (Video v : f.getVideoFile()){
+        for (Video v : f.getVideoFile()) {
             fdto.files.add(VideoDtoManager.getDto(v));
         }
         return fdto;
@@ -70,22 +70,19 @@ public class FilmDtoManager {
 
         return f;
     }
-    
-    public static Film mergeOrSave(FilmDto fdto,EntityManager em)
-    {
-        Film f = em.find(Film.class,fdto.id);
-        if (f!=null)
-        {
-                    f.setTitle(fdto.title);
-        f.setOverview(fdto.overview);
-        f.setReleaseDate(fdto.release_date);
-        f.setCoverId(fdto.cover);
-        f.setRating(fdto.rating);
-        f.setRuntime(fdto.runtime);
-        }
-        else
-        {
-            f= makeFilm(fdto);
+
+    public static Film mergeOrSave(FilmDto fdto, EntityManager em) {
+        Film f = em.find(Film.class, fdto.id);
+        if (f != null) {
+            f.setTitle(fdto.title);
+            f.setOverview(fdto.overview);
+            f.setReleaseDate(fdto.release_date);
+            f.setCoverId(fdto.cover);
+            f.setRating(fdto.rating);
+            f.setRuntime(fdto.runtime);
+            em.merge(f);
+        } else {
+            f = makeFilm(fdto);
             em.persist(f);
         }
         return f;

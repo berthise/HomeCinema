@@ -7,7 +7,11 @@ package managers.dtos;
 
 import dtos.SimpleUserDto;
 import dtos.UserDto;
+import dtos.VideoDto;
 import entities.User;
+import entities.Video;
+import javax.persistence.EntityManager;
+import static managers.dtos.VideoDtoManager.makeVideo;
 
 /**
  *
@@ -50,5 +54,24 @@ public class UserDtoManager {
         udto.addDate = u.getAddDate();
         udto.state = u.getState();
         return udto;
+    }
+
+    public static User mergeOrSave(UserDto udto, EntityManager em) {
+        User u = em.find(User.class, udto.id);
+        if (u == null) {
+            u = createUser(udto);
+            em.persist(u);
+        } else {
+            u.setEmail(udto.email);
+            u.setNickName(udto.nickName);
+            u.setPassword(udto.password);
+            u.setFirstName(udto.firstName);
+            u.setLastName(udto.lastName);
+            u.setBirthDate(udto.birthDate);
+            u.setAddDate(udto.addDate);
+            u.setState(udto.state);
+            em.merge(u);
+        }
+        return u;
     }
 }

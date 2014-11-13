@@ -39,6 +39,7 @@ public class VideoDtoManager {
         } else {
             v.setResolution(vdto.resolution);
             v.setUrl(vdto.url);
+            em.merge(v);
         }
         return v;
     }

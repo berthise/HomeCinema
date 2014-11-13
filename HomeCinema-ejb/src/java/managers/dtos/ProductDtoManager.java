@@ -55,6 +55,7 @@ public class ProductDtoManager {
             p.setName(pdto.name);
             p.setPrice(pdto.price);
             p.setState(pdto.state);
+            em.merge(p);
         }
         return p;
     }

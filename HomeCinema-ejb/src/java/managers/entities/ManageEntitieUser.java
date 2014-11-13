@@ -34,6 +34,8 @@ public class ManageEntitieUser {
 
     public static void addProduct(User u, Product p, EntityManager em) {
         addFilms(u, p.getFilms(), em);
+        p.setNbSales(p.getNbSales()+1);
+        em.merge(p);
     }
 
     public static void addProducts(User u, Set<Product> lp, EntityManager em) {

@@ -47,7 +47,7 @@ public class ManageProduct implements ManageProductRemote {
     }
 
     public List<ProductDto> getAllProduct() {
-        Query q = em.createQuery("select p from Product");
+        Query q = em.createQuery("From Product p",Product.class);
         List<Product> lp = q.getResultList();
         List<ProductDto> lpdto = new ArrayList<ProductDto>();
         for (Product p : lp) {

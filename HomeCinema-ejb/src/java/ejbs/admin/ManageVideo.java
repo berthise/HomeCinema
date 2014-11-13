@@ -31,7 +31,7 @@ public class ManageVideo implements ManageVideoRemote {
     public EntityManager em;
 
     public List<VideoDto> getAllVideo() {
-        Query q = em.createQuery("select v from Video");
+        Query q = em.createQuery("From Video v",Video.class);
         List<Video> lv = q.getResultList();
         List<VideoDto> lvdto = new ArrayList<VideoDto>();
         for (Video v : lv) {
