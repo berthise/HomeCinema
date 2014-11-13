@@ -11,6 +11,7 @@ import java.text.DateFormat;
 import dtos.VideoDto;
 import ejbs.ManageFilmRemote;
 import ejbs.ManageProductRemote;
+import ejbs.ManageTransactionRemote;
 import ejbs.ManageUserRemote;
 import ejbs.ManageVideoRemote;
 import java.io.IOException;
@@ -36,6 +37,7 @@ public class Admin {
     private ManageFilmRemote mfr = null;
     private ManageUserRemote mur = null;
     private ManageVideoRemote mvr = null;
+    private ManageTransactionRemote mtr = null;
 
     public FilmDto createFilm(Long id) throws JSONException, IOException, ParseException {
         System.out.println("Add film: " + id);
@@ -117,6 +119,17 @@ public class Admin {
             }
         }
         return mvr;
+    }
+    
+        public ManageTransactionRemote getManagetransactionRemote() {
+        if (mtr == null) {
+            try {
+                mtr = (ManageTransactionRemote) ic.lookup("java:global/HomeCinema/HomeCinema-ejb/ManageTransaction!ejbs.ManageTransactionRemote");
+            } catch (NamingException ex) {
+                Logger.getLogger(HomeCinemaClient.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return mtr;
     }
 
     public void makeAndSendMovie(Long id, String video_url, String trailer_url, Integer price) throws JSONException, IOException, ParseException {

@@ -37,9 +37,7 @@ public class ProductDtoManager {
     public static Product makeProduct(ProductDto pdto) {
         Product p = new Product();
         p.setId(pdto.id);
-        p.setAddDate(pdto.addDate);
         p.setName(pdto.name);
-        p.setNbSales(pdto.nbSales);
         p.setPrice(pdto.price);
         p.setState(pdto.state);
 

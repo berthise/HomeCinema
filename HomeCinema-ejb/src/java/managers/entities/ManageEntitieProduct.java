@@ -8,6 +8,7 @@ package managers.entities;
 import dtos.ProductDto;
 import entities.Film;
 import entities.Product;
+import enums.ProductStates;
 import javax.persistence.EntityManager;
 import managers.dtos.ProductDtoManager;
 
@@ -25,6 +26,7 @@ public class ManageEntitieProduct {
     public static Product createProduct(ProductDto pdto,EntityManager em)
     {
         Product p = ProductDtoManager.makeProduct(pdto);
+        p.setState(ProductStates.Activated);
         em.persist(p);
         return p;
     }

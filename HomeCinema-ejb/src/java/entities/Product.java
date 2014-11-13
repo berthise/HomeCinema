@@ -69,12 +69,12 @@ public class Product implements Serializable {
       setName(f.getTitle());
       ManageEntitieProduct.linkProductFilm(f, this);
       setState(ProductStates.Activated);
-      setAddDate(new Date());
   }
 
   public Product()
   {
       setNbSales(0);
+      setAddDate(new Date());
       setFilms(new ArrayList());
   }
   
