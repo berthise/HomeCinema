@@ -6,17 +6,16 @@
 package beans;
 
 import dtos.CaddieDto;
-import dtos.FilmFicheDto;
+import dtos.FilmDto;
 import dtos.ProductDto;
-import ejbs.ManageFilmRemote;
+import ejbs.ManageProductRemote;
 import ejbs.ManageTransactionRemote;
-import ejbs.ManageUserRemote;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 /**
@@ -30,6 +29,9 @@ public class CaddieManagedBean {
     @EJB
     private ManageTransactionRemote transactionManager;
 
+    @EJB
+    private ManageProductRemote productManager;
+    
     public CaddieDto cdto;
 
     public String initBox = "films";
@@ -44,10 +46,10 @@ public class CaddieManagedBean {
         if (!list.contains(b)) {
             b = ref[0];
         }
-        initBox = b;        
+        initBox = b;
     }
-    
-    public void setDtoFromId (Long id){
+
+    public void setDtoFromId(Long id) {
         this.cdto = transactionManager.getCaddieDto(10L);
     }
 
@@ -74,14 +76,14 @@ public class CaddieManagedBean {
                 + "<td class=\"align-left\" colspan=\"3\"><a href=\"fiche_film.xhtml?id=" + id_film + "\" title=\"Voir la fiche du film\">" + titre + " (" + date + ")</a></td></tr>";
     }
 
-    private String printLineCaddieFirst(Long id_product, int nb_films, String product_name, String product_price, int ind_product) {
+    private String printLineCaddieFirst(Long id_product, int nb_films, String product_name, Double product_price, int ind_product) {
         return "<tr class=\"tr-caddie-" + id_product + "\">"
                 + "<td class=\"td-right\" rowspan=\"" + (nb_films + 1) + "\">" + ind_product + "</td><td class=\"td-invisible\"></td>"
                 + "<td class=\"td-right title-film-caddie\"><a href=\"#\"><b>" + product_name + "</b></a></td><td class=\"td-right\">" + product_price + "€</td><td>"
                 + "<a onclick=\"removeFromCaddie('" + id_product + "');return false;\" href=\"\"><img src=\"img/delete.png\" title=\"Retirer du caddie\" /></a></td></tr>";
     }
 
-    private String printLineCaddieSolo(Long id_product, Long id_film, String product_name, String product_price, String image, String date, int ind_product) {
+    private String printLineCaddieSolo(Long id_product, Long id_film, String product_name, Double product_price, String image, String date, int ind_product) {
         return "<tr class=\"tr-solo tr-caddie-" + id_product + "\">"
                 + "<td>" + ind_product + "</td>"
                 + "<td><span class=\"affiche\"><img src=\"img/glass.png\" />"
@@ -90,24 +92,25 @@ public class CaddieManagedBean {
     }
 
     public String printLinesCaddie() {
+        if (cdto.films.isEmpty())
+            return "<tr class=\"empty\"><td colspan=\"6\">Votre caddie est vide ... <a href=\"#\">Trouvez une film dans notre liste !</a></td></tr>";
+        
         String toReturn = "";
-
-        toReturn += printLineCaddieFirst(1L, 2, "Saga Harry Potter", "24", 1);
-        toReturn += printLineCaddie(1L, 14L, "3UBQGKS8c1dxRnDiu5kUK6ej3pP.jpg", "American Beauty", "1999");
-        toReturn += printLineCaddie(1L, 14L, "3UBQGKS8c1dxRnDiu5kUK6ej3pP.jpg", "American Beauty", "1999");
-
-        toReturn += printLineCaddieSolo(2L, 550L, "Fight Club", "9", "hpt3aa5i0TrSAnEdl3VJrRrje8C.jpg", "1999", 2);
-
-        toReturn += printLineCaddieSolo(3L, 550L, "Fight Club", "9", "hpt3aa5i0TrSAnEdl3VJrRrje8C.jpg", "1999", 3);
-
-        toReturn += printLineCaddieSolo(4L, 550L, "Fight Club", "9", "hpt3aa5i0TrSAnEdl3VJrRrje8C.jpg", "1999", 4);
-        
-        /*for (ProductDto pd : cdto.films){
-            pd.
+        int i = 1;
+        SimpleDateFormat formater = new SimpleDateFormat("yyyy");
+        for (ProductDto pd : cdto.films) {
+            List<FilmDto> list_films = productManager.getFilms(pd.id);
+            if (list_films.size() == 1){
+                FilmDto f = list_films.get(0);
+                toReturn += printLineCaddieSolo(pd.id, f.id, f.title, pd.price, f.cover, formater.format(f.release_date), i);
+            }
+            else {
+                toReturn += printLineCaddieFirst(pd.id, list_films.size(), pd.name, pd.price, i);
+                for (FilmDto f : list_films)
+                    toReturn += printLineCaddie(pd.id, f.id, f.cover, f.title, formater.format(f.release_date));
+            }
         }
-        
-        toReturn = "<p>"+cdto.films.get(0)get(0).name+"</p>";*/
-        
+
         return toReturn;
     }
 
