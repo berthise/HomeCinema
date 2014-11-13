@@ -63,6 +63,7 @@ public class ManageFilm implements ManageFilmRemote {
     public void setTrailer(Long fid, VideoDto trailer) {
         Film f = em.find(Film.class, fid);
         f.setTrailler(ManageEntitieVideo.createVideo(trailer, em));
+        em.merge(f);
     }
 
     @Override
@@ -76,6 +77,7 @@ public class ManageFilm implements ManageFilmRemote {
     public void addVideo(Long fid, VideoDto vdto) {
         Film f = em.find(Film.class, fid);
         f.addVideoFile(ManageEntitieVideo.createVideo(vdto, em));
+        em.merge(f);
     }
 
     @Override
@@ -90,6 +92,7 @@ public class ManageFilm implements ManageFilmRemote {
         Film f = em.find(Film.class, fid);
         Video v = em.find(Video.class, vid);
         f.addVideoFile(v);
+        em.merge(f);
     }
 
     @Override
@@ -97,6 +100,7 @@ public class ManageFilm implements ManageFilmRemote {
         Film f = em.find(Film.class, fid);
         Video v = em.find(Video.class, trailer);
         f.setTrailler(v);
+        em.merge(f);
     }
 
     public void addGenres(Long fid, List<GenreDto> lgdto) {
@@ -109,5 +113,6 @@ public class ManageFilm implements ManageFilmRemote {
         Genre g = ManageEntitieGenre.getGenre(gdto, em);
         Film f = em.find(Film.class, fid);
         f.addGenre(g);
+        em.merge(f);
     }
 }

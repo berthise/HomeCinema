@@ -17,6 +17,7 @@ import entities.Film;
 import entities.Product;
 import entities.Transaction;
 import entities.User;
+import entities.UsersFilms;
 import entities.Video;
 import enums.TransactionStates;
 import java.util.ArrayList;
@@ -32,6 +33,7 @@ import managers.dtos.ProductDtoManager;
 import managers.dtos.VideoDtoManager;
 import managers.entities.ManageEntitieFilm;
 import managers.entities.ManageEntitieProduct;
+import managers.entities.ManageEntitieUser;
 import utils.UtilCaddie;
 
 /**
@@ -54,21 +56,34 @@ public class ManageTransaction implements ManageTransactionRemote {
     public CaddieDto addProduct(Long user, Long id)
     {
         User u = em.find(User.class, user);
-        //u.addCaddie(em.find(Product.class,id);
-        //return CaddieDtoManager.getDto(u.getCaddy());
-        return new CaddieDto();
+        u.getCaddy().addCaddy(em.find(Product.class,id));
+        return CaddieDtoManager.getDto(u.getCaddy());
     }
     
-    public void Validate(Long user)
+    public Long validate(Long user)
     {
         User u = em.find(User.class, user);
         Transaction t = new Transaction();
         t.setAddDate(new Date());
-        //t.setProducts(u.getCaddy());
+        t.setProducts(u.getCaddy().getProducts());
         t.setTotalPrice(UtilCaddie.totalprice(u.getCaddy()));
         t.setUser(u);
         t.setState(TransactionStates.Prepared);
         em.persist(t);
         u.setCaddy(new Caddy());
+        u.addTransaction(t);
+        em.merge(u);
+        return t.getId();
     }
+    
+    public void validatePayement(Long id,Long btn)
+    {
+        Transaction t = em.find(Transaction.class, id);
+        ManageEntitieUser.addProducts(t.getUser(),t.getProducts(),em);
+        t.setBankTransNum(btn);
+        t.setState(TransactionStates.Done);
+        em.merge(t.getUser());
+        em.merge(t);
+    }
+
 }

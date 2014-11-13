@@ -10,6 +10,7 @@ import dtos.FilmDto;
 import dtos.FilmFicheDto;
 import dtos.ProductDto;
 import dtos.VideoDto;
+import entities.Caddy;
 import entities.Film;
 import entities.Product;
 import entities.Video;
@@ -24,7 +25,7 @@ import javax.persistence.EntityManager;
  */
 public class CaddieDtoManager {
     
-    public static CaddieDto getDto(List<Product> caddie){
+    public static CaddieDto getDto(Caddy caddie){
         if (caddie == null) {
             return null;
         }
@@ -32,7 +33,7 @@ public class CaddieDtoManager {
         CaddieDto cdto = new CaddieDto();
         cdto.films = new ArrayList<>();
         
-        for (Product p : caddie){
+        for (Product p : caddie.getProducts()){
             cdto.films.add(ProductDtoManager.getDto(p));
         }
         

@@ -8,6 +8,7 @@ package entities;
 import enums.UserStates;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import javax.persistence.Column;
@@ -80,6 +81,12 @@ public class User implements Serializable {
     @JoinColumn(name = "TRANSACTIONS")
    private Set<Transaction> transactions;
 
+    public User()
+    {
+        this.films= new HashSet<UsersFilms>();
+        this.transactions = new HashSet<Transaction>();
+    }
+    
     public Long getId() {
         return id;
     }
@@ -174,6 +181,16 @@ public class User implements Serializable {
 
     public void setTransactions(Set<Transaction> transactions) {
         this.transactions = transactions;
+    }
+    
+    public void addFilm(UsersFilms uf)
+    {
+        this.films.add(uf);
+    }
+    
+    public void addTransaction (Transaction t)
+    {
+        this.transactions.add(t);
     }
 
     @Override

@@ -38,7 +38,13 @@ public class UsersFilms implements Serializable {
     private UsersFilmsStates state;
 
     @Column(name = "CURRENT_POSITION")
-    private Integer currentPsitiono;
+    private Integer currentPosition;
+    
+    public UsersFilms()
+    {
+        this.currentPosition=0;
+        this.state= UsersFilmsStates.Unviewed;
+    }
 
     public Long getId() {
         return id;
@@ -64,12 +70,12 @@ public class UsersFilms implements Serializable {
         this.state = state;
     }
 
-    public Integer getCurrentPsitiono() {
-        return currentPsitiono;
+    public Integer getCurrentPosition() {
+        return currentPosition;
     }
 
-    public void setCurrentPsitiono(Integer currentPsitiono) {
-        this.currentPsitiono = currentPsitiono;
+    public void setCurrentPosition(Integer currentPosition) {
+        this.currentPosition = currentPosition;
     }
 
     @Override
@@ -94,6 +100,6 @@ public class UsersFilms implements Serializable {
 
     @Override
     public String toString() {
-        return "UsersFilms{" + "id=" + id + ", film=" + film + ", state=" + state + ", currentPsitiono=" + currentPsitiono + '}';
+        return "UsersFilms{" + "id=" + id + ", film=" + film + ", state=" + state + ", currentPsitiono=" + currentPosition + '}';
     }
 }

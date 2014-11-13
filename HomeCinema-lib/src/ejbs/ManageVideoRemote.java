@@ -7,6 +7,7 @@ package ejbs;
 
 import dtos.FilmDto;
 import dtos.VideoDto;
+import java.util.List;
 import javax.ejb.Remote;
 
 /**
@@ -15,7 +16,8 @@ import javax.ejb.Remote;
  */
 @Remote
 public interface ManageVideoRemote {
- 
+
     public Long createVideo(VideoDto vdto);
 
+    public List<VideoDto> getAllVideo();
 }

@@ -13,11 +13,13 @@ import ejbs.ManageProductRemote;
 import entities.Film;
 import entities.Product;
 import entities.Video;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import managers.dtos.FilmDtoManager;
 import managers.dtos.ProductDtoManager;
 import managers.dtos.VideoDtoManager;
@@ -39,14 +41,26 @@ public class ManageProduct implements ManageProductRemote {
         Film f = ManageEntitieFilm.createFilmWithVideo(fdto, trailer, vid, em);
         Product p = new Product(f, price);
         f.setMain_product(p);
+        em.merge(f);
         em.persist(p);
         return p.getId();
     }
 
-    public Long createProduct(ProductDto pdto)
-    {
+    public List<ProductDto> getAllProduct() {
+        Query q = em.createQuery("select p from Product");
+        List<Product> lp = q.getResultList();
+        List<ProductDto> lpdto = new ArrayList<ProductDto>();
+        for (Product p : lp) {
+            lpdto.add(ProductDtoManager.getDto(p));
+        }
+        return lpdto;
+    }
+
+    @Override
+    public Long createProduct(ProductDto pdto) {
         return ManageEntitieProduct.createProduct(pdto, em).getId();
     }
+
     @Override
     public void addFilms(Long pid, List<FilmDto> lfdto) {
         for (FilmDto fdto : lfdto) {
@@ -69,16 +83,20 @@ public class ManageProduct implements ManageProductRemote {
         if (main) {
             f.setMain_product(p);
         }
+        em.merge(p);
+        em.merge(f);
     }
 
     @Override
     public void addFilm(Long pid, FilmDto fdto, boolean main) {
         Product p = em.find(Product.class, pid);
         Film f = ManageEntitieFilm.createFilm(fdto, em);
-        ManageEntitieProduct.linkProductFilm(f, p); 
+        ManageEntitieProduct.linkProductFilm(f, p);
         if (main) {
             f.setMain_product(p);
         }
+        em.merge(f);
+        em.merge(p);
     }
 
 }
