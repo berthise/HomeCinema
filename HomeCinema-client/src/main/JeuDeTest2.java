@@ -80,6 +80,8 @@ public class JeuDeTest2 {
             a.getManageUserRemote().signUp(u);
             u = a.getManageUserRemote().login(u.email, u.password);
 
+            //System.out.println(u.id);
+            //System.out.println(pdto.id);
             //a.getManagetransactionRemote().addProduct(u.id, pdto.id);
 
             //print

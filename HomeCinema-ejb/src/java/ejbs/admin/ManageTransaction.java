@@ -57,6 +57,12 @@ public class ManageTransaction implements ManageTransactionRemote {
     public CaddieDto addProduct(Long user, Long id)
     {
         User u = em.find(User.class, user);
+        if (u.getCaddy()==null)
+        {
+            u.setCaddy(new Caddy());
+            em.persist(u.getCaddy());
+            em.merge(u);
+        }
         u.getCaddy().addCaddy(em.find(Product.class,id));
         em.merge(u.getCaddy());
         return CaddieDtoManager.getDto(u.getCaddy());
@@ -73,7 +79,7 @@ public class ManageTransaction implements ManageTransactionRemote {
         t.setUser(u);
         t.setState(TransactionStates.Prepared);
         em.persist(t);
-        u.setCaddy(new Caddy());
+        u.setCaddy(null);
         u.addTransaction(t);
         em.merge(u);
         return t.getId();
