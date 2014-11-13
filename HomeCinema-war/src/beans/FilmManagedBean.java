@@ -93,28 +93,28 @@ public class FilmManagedBean {
     public void setOverview(String s) {
         fdto.overview = s;
     }
-    
-    public String getLinkToFiche (){
-        return "<a title=\"Voir la fiche du film\" href=\"fiche_film.xhtml?id="+fdto.id+"\"/>"+fdto.title+"</a>";
+
+    public String getLinkToFiche() {
+        return "<a title=\"Voir la fiche du film\" href=\"fiche_film.xhtml?id=" + fdto.id + "\"/>" + fdto.title + "</a>";
     }
-    
-    public String getLinkToVisionneuse (){
-        return "<a class=\"btn btn-success col-md-3 b21\" href=\"visionneuse.xhtml?id="+fdto.id+"\">Voir en Streaming</a>";
+
+    public String getLinkToVisionneuse() {
+        return "<a class=\"btn btn-success col-md-3 b21\" href=\"visionneuse.xhtml?id=" + fdto.id + "\">Voir en Streaming</a>";
     }
-    
-    public String getLinkToDownload (){
+
+    public String getLinkToDownload() {
         String url = fdto.files.get(0).url;
-        return "<a class=\"btn btn-primary col-md-3 b22\" href=\""+url+"\" download=\""+fdto.title.replaceAll(" ", "_")+".mp4"+"\">Téléchargement</a>";
+        return "<a class=\"btn btn-primary col-md-3 b22\" href=\"" + url + "\" download=\"" + fdto.title.replaceAll(" ", "_") + ".mp4" + "\">Téléchargement</a>";
     }
-    
-    public String getVideo (){
+
+    public String getVideo() {
         String url = fdto.files.get(0).url;
-        return "<source src=\""+url+"\" type=\"video/mp4\" />";
+        return "<source src=\"" + url + "\" type=\"video/mp4\" />";
     }
-    
-    public String getTrailer (){
+
+    public String getTrailer() {
         String url = fdto.trailler.url;
-        return "<source src=\""+url+"\" type=\"video/mp4\" />";
+        return "<source src=\"" + url + "\" type=\"video/mp4\" />";
     }
 
     public String getRating() {
@@ -129,7 +129,7 @@ public class FilmManagedBean {
             toReturn += "<img src=\"img/star-half-full-icon.png\"/>\n";
             m++;
         }
-        for (; i < 10-m; i++) {
+        for (; i < 10 - m; i++) {
             toReturn += "<img src=\"img/star-empty-icon.png\"/>\n";
         }
         return toReturn + "<p>(" + fdto.rating + "/10)</p>\n";
@@ -166,4 +166,19 @@ public class FilmManagedBean {
         }
         return toReturn.substring(0, toReturn.length() - 3);
     }
+
+    public String printLinesMyFilms(Long iduser) {
+        String toReturn = "";
+        toReturn += printLineFilm("3UBQGKS8c1dxRnDiu5kUK6ej3pP.jpg", "American Beauty", "1999", "14");
+        toReturn += printLineFilm("hpt3aa5i0TrSAnEdl3VJrRrje8C.jpg", "Fight Club", "1999", "550");
+        return toReturn;
+    }
+
+    private String printLineFilm(String image, String titre, String date, String id) {
+        return "<tr class=\"tr-hover\" id=\"tr-caddie-" + id + "\"><td><span class=\"affiche\"><img src=\"img/glass.png\" />"
+                + "<span><img src=\"http://image.tmdb.org/t/p/w396/" + image + "\" /></span></span></td>"
+                + "<td><a href=\"fiche_film.xhtml?id=" + id + "\" title=\"Voir la fiche du film\">" + titre + " (" + date + ")</a></td>"
+                + "<td><a href=\"visionneuse.xhtml?id="+ id +"\"><img src=\"img/eye.png\" title=\"Voir le film\" /></a></td></tr>";
+    }
+
 }
