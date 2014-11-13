@@ -5,6 +5,7 @@
  */
 package managers.dtos;
 
+import dtos.SimpleUserDto;
 import dtos.UserDto;
 import entities.User;
 
@@ -27,7 +28,16 @@ public class UserDtoManager {
         u.setState(udto.state);
         return u;
     }
-    
+
+    public static SimpleUserDto getSimpleDto(User u) {
+        SimpleUserDto udto = new SimpleUserDto();
+        udto.id = u.getId();
+        udto.email = u.getEmail();
+        udto.nickName = u.getNickName();
+        udto.state = u.getState();
+        return udto;
+    }
+
     public static UserDto getUser(User u) {
         UserDto udto = new UserDto();
         udto.id = u.getId();

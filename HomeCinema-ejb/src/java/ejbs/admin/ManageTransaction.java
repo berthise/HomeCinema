@@ -49,10 +49,11 @@ public class ManageTransaction implements ManageTransactionRemote {
     @Override
     public CaddieDto getCaddieDto(Long id_user) {
         User u = em.find(User.class, id_user);
-       // return CaddieDtoManager.getDto(u.getCaddy());
-        return new CaddieDto();
+        return CaddieDtoManager.getDto(u.getCaddy());
+
     }
     
+    @Override
     public CaddieDto addProduct(Long user, Long id)
     {
         User u = em.find(User.class, user);
@@ -60,6 +61,7 @@ public class ManageTransaction implements ManageTransactionRemote {
         return CaddieDtoManager.getDto(u.getCaddy());
     }
     
+    @Override
     public Long validate(Long user)
     {
         User u = em.find(User.class, user);

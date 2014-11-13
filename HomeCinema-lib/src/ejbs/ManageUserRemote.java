@@ -5,7 +5,9 @@
  */
 package ejbs;
 
+import dtos.SimpleUserDto;
 import dtos.UserDto;
+import java.util.Set;
 import javax.ejb.Remote;
 
 /**
@@ -18,4 +20,8 @@ public interface ManageUserRemote {
     public void signUp(UserDto user);
     
     public UserDto login(String email, String password);
+    
+    public Set<SimpleUserDto> getAllUser();
+    
+    public UserDto getUser(Long id);
 }
