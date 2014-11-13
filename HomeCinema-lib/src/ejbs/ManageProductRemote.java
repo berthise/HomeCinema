@@ -31,4 +31,6 @@ public interface ManageProductRemote {
     public void addExistingFilm(Long pid, Long fid,boolean main);
     
     public List<ProductDto> getAllProduct();
+    
+    public List<FilmDto> getFilms(Long pid);
 }
