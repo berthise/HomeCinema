@@ -29,6 +29,7 @@ h3, h4, h5, h6
     width: 15em; 
     background: #364050 ;
     box-shadow: inset -0.1em 0em 2em 0em rgba(0,0,0,0.15);
+    height: auto;
 }
 
 body.left-sidebar #sidebar

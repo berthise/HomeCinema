@@ -9,6 +9,8 @@ import dtos.SimpleUserDto;
 import dtos.UserDto;
 import dtos.UserDtoNoPw;
 import entities.User;
+import enums.UserStates;
+import java.util.Date;
 import javax.persistence.EntityManager;
 
 /**
@@ -39,8 +41,8 @@ public class UserDtoManager {
         u.setFirstName(udto.firstName);
         u.setLastName(udto.lastName);
         u.setBirthDate(udto.birthDate);
-        u.setAddDate(udto.addDate);
-        u.setState(udto.state);
+        u.setAddDate(new Date());
+        u.setState(UserStates.Deactivated);
         return u;
     }
 

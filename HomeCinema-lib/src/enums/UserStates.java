@@ -14,5 +14,5 @@ import java.io.Serializable;
 public enum UserStates implements Serializable {
   Activated,
   Unactived,
-  Deactivaed
+  Deactivated
 }

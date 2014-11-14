@@ -31,49 +31,44 @@ public class ManageListFilms implements ManageListFilmsRemote {
     public List<FilmDto> findAllFilms() {
 
         Query q = em.createQuery("From Film f", Film.class);
-
         int i = 0;
         List<Film> listfilms = q.getResultList();
-    
-        FilmDto fdto = new FilmDto();
         while (i < listfilms.size()) {
+            FilmDto fdto = new FilmDto();
             Film f = listfilms.get(i);
-            
-            fdto.title = f.getTitle();
-           
+            fdto.setId(f.getId());
+            fdto.title = f.getTitle() + listfilms.size();
             fdto.cover = f.getCoverId();
             listFilmDto.add(fdto);
             i++;
         }
+       
 
         return listFilmDto;
     }
 
     @Override
     public List<FilmDto> FindFilmsByActor(String actorName) {
-        Query q = em.createQuery("SELECT * \n"
-                + "FROM APP.FILMS AS T1 \n"
+        Query q = em.createQuery("FROM APP.FILMS AS T1 \n"
                 + "WHERE \n"
                 + "    EXISTS \n"
                 + "    (\n"
                 + "        SELECT * FROM Persons as T2 \n"
                 + "        WHERE T1.ID_Film = T2.ID_PERSON AND  T2.FIRST_NAME='" + actorName + "' \n"
                 + "    ); ");
-        // em.createQuery(
-        //      "select object(o) from Films as o", Film.class);
-        List<FilmDto> listFilmDto = new ArrayList<>();
+      
         int i = 0;
         List<Film> listfilms = q.getResultList();
-
-        FilmDto fdto = new FilmDto();
         while (i < listfilms.size()) {
+            FilmDto fdto = new FilmDto();
             Film f = listfilms.get(i);
-            fdto.id=f.getId();
-            fdto.title = f.getTitle();
-            fdto.overview = f.getOverview();
+            fdto.setId(f.getId());
+            fdto.title = f.getTitle() + listfilms.size();
             fdto.cover = f.getCoverId();
             listFilmDto.add(fdto);
+            i++;
         }
+       
 
         return listFilmDto;
     }
@@ -95,7 +90,7 @@ public class ManageListFilms implements ManageListFilmsRemote {
         FilmDto fdto = new FilmDto();
         while (i < listfilms.size()) {
             Film f = listfilms.get(i);
-            fdto.id=f.getId();
+            fdto.id = f.getId();
             fdto.title = f.getTitle();
             fdto.overview = f.getOverview();
             fdto.cover = f.getCoverId();
@@ -107,24 +102,21 @@ public class ManageListFilms implements ManageListFilmsRemote {
 
     @Override
     public List<FilmDto> FindFilmsByTitle(String title) {
-        Query q = em.createQuery("SELECT * \n"
-                + "FROM APP.FILMS AS T1 \n"
+        Query q;
+        q = em.createQuery("FROM APP.FILMS AS T1 \n"
                 + "WHERE T1.TITLE='" + title + "'; ");
-        // em.createQuery(
-        //      "select object(o) from Films as o", Film.class);
-        List<FilmDto> listFilmDto = new ArrayList<>();
-        int i = 0;
+           int i = 0;
         List<Film> listfilms = q.getResultList();
-
-        FilmDto fdto = new FilmDto();
         while (i < listfilms.size()) {
+            FilmDto fdto = new FilmDto();
             Film f = listfilms.get(i);
-            fdto.id=f.getId();
-            fdto.title = f.getTitle();
-            fdto.overview = f.getOverview();
+            fdto.setId(f.getId());
+            fdto.title = f.getTitle() + listfilms.size();
             fdto.cover = f.getCoverId();
             listFilmDto.add(fdto);
+            i++;
         }
+       
 
         return listFilmDto;
     }
@@ -142,7 +134,7 @@ public class ManageListFilms implements ManageListFilmsRemote {
         FilmDto fdto = new FilmDto();
         while (i < listfilms.size()) {
             Film f = listfilms.get(i);
-            fdto.id=f.getId();
+            fdto.id = f.getId();
             fdto.title = f.getTitle();
             fdto.overview = f.getOverview();
             fdto.cover = f.getCoverId();
