@@ -73,7 +73,7 @@ and open the template in the editor.
         <section>
             <article> 
                 <div class="row exclus"> 
-                    <c:forEach var="row" items="#{listFilmBean.}"  > 
+                    <c:forEach var="row" items="#{listFilmBean.allFilms}"  > 
                         <div class="col-md-2  col-xs-12 film">
                          <a href="fiche_film.xhtml?id= #{row.id}" >  
                                             <img   class="cover" 
