@@ -17,7 +17,7 @@
             <h2 class="well-title">Films Administration</h2>
             <ul>
                 <li><a href="index.xhtml">Accueil</a></li>
-                <li><a href="film.xhtml">Ajouter Film</a></li>
+                <li><a href="film.xhtml">Ajouter un film</a></li>
             </ul>
             <div class="alert alert-success">
                 <h:messages globalOnly="true" infoClass="info" />
@@ -59,9 +59,8 @@
                         </f:facet>
                         <h:outputText value="#{film.rating}" />
                     </h:column>
-
                     <f:facet name="footer">
-                        <h:outputText value="Total: #{usersManagedBean.total}" />
+                        <h:outputText value="Total: #{filmsManagedBean.total}" />
                     </f:facet>
                 </h:dataTable>
             </h:form>

@@ -64,12 +64,12 @@
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="/HomeCinema-war/"><i class="decale-right glyphicon glyphicon-home"></i> Accueil</a></li>
-                        <li><a href="#films"><i class="decale-right glyphicon glyphicon-facetime-video"></i> Films</a></li>
-                        <li><a href="#autres"><i class="decale-right glyphicon glyphicon-info-sign"></i> FAQ</a></li>
-                        <li><a href="#menu3"><i class="decale-right glyphicon glyphicon-wrench"></i> Demo</a></li>
+                        <li class="#{(active == null)? 'active' : ''}"><a href="/HomeCinema-war/"><i class="decale-right glyphicon glyphicon-home"></i> Accueil</a></li>
+                        <li class="#{(active == 'films')? 'active' : ''}"><a href="AllFilms.xhtml"><i class="decale-right glyphicon glyphicon-facetime-video"></i> Films</a></li>
+                        <li class="#{(active == 'faq')? 'active' : ''}"><a href="#autres"><i class="decale-right glyphicon glyphicon-info-sign"></i> FAQ</a></li>
+                        <li class="#{(active == 'demo')? 'active' : ''}"><a href="#menu3"><i class="decale-right glyphicon glyphicon-wrench"></i> Demo</a></li>
                         <h:panelGroup rendered="#{loginManagedBean.id != null}">
-                            <li><a href="moncompte.xhtml"><i class="decale-right glyphicon glyphicon-folder-open"></i> Mon compte</a></li>
+                            <li class="#{(active == 'moncompte')? 'active' : ''}"><a href="moncompte.xhtml"><i class="decale-right glyphicon glyphicon-folder-open"></i> Mon compte</a></li>
                         </h:panelGroup>
                     </ul>
                     <div class="col-sm-3 col-md-3 pull-right">
