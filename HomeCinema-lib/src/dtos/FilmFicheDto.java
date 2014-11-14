@@ -14,4 +14,5 @@ import java.util.List;
 public class FilmFicheDto extends FilmDto {
     public VideoDto trailler;
     public List<VideoDto> files;
+    public Long main_product_id;
 }

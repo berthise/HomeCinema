@@ -11,12 +11,11 @@ import enums.UserStates;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 
 /**
  *
@@ -28,18 +27,11 @@ public class SignUpManagedBean {
 
     private UserDto user;
     private String birthDay;
-
-    private static ManageUserRemote mur = null;
+    
+    @EJB
+    private ManageUserRemote mur = null;
 
     public SignUpManagedBean() {
-        if (mur == null) {
-            try {
-                InitialContext ic = new InitialContext();
-                mur = (ManageUserRemote) ic.lookup("java:global/HomeCinema/HomeCinema-ejb/ManageUser!ejbs.ManageUserRemote");
-            } catch (NamingException ex) {
-                ex.printStackTrace();
-            }
-        }
         user = new UserDto();
     }
 

@@ -356,7 +356,9 @@
 
                         </table>
 
-                        <a class="btn btn-success col-md-3 b1r" href="">Valider mon caddie</a>
+                        <h:panelGroup rendered="#{accountManagedBean.getListCaddie().get(0).get(0) != 'EMPTY' }">
+                            <a class="btn btn-success col-md-3 b1r" href="">Valider mon caddie</a>
+                        </h:panelGroup>
                     </div>
 
                     <div class="#{accountManagedBean.getClassDisplay('historique')}" id="box-historique">

@@ -42,8 +42,8 @@ public class AccountManagedBean {
 
     public CaddieDto cdto;
 
-    public String initBox ;
-    
+    public String initBox;
+
     public Long idUser;
 
     public Long getIdUser() {
@@ -53,11 +53,11 @@ public class AccountManagedBean {
     public void setIdUser(Long idUser) {
         this.idUser = idUser;
     }
-       
-    public String getInitBox (){
+
+    public String getInitBox() {
         return initBox;
     }
-    
+
     public void setInitBox(String b) {
         String[] ref = {"films", "caddie", "historique", "infos"};
         List<String> list = Arrays.asList(ref);
@@ -167,29 +167,47 @@ public class AccountManagedBean {
 
         return toReturn;
     }
-    
-    public boolean isOneOfMyFilm (Long idfilm, Long iduser){
-        if (iduser == null)
+
+    public boolean isOneOfMyFilm(Long idfilm, Long iduser) {
+        if (iduser == null) {
             return false;
-        for (FilmDto l : userManager.getFilms(iduser))
-            if (l.id.equals(idfilm))
-               return true;
+        }
+        for (FilmDto l : userManager.getFilms(iduser)) {
+            if (l.id.equals(idfilm)) {
+                return true;
+            }
+        }
         return false;
     }
-    
-    public boolean isInMyCaddie (Long idfilm, Long iduser){
-        if (iduser == null)
+
+    public boolean isInMyCaddie(Long idfilm, Long iduser) {
+        if (iduser == null) {
             return false;
-        for (ProductDto l : transactionManager.getCaddieDto(iduser).films)
-            for (FilmDto f : productManager.getFilms(l.id))
-            if (f.id.equals(idfilm))
-               return true;
-        return false;        
+        }
+        for (ProductDto l : transactionManager.getCaddieDto(iduser).films) {
+            for (FilmDto f : productManager.getFilms(l.id)) {
+                if (f.id.equals(idfilm)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean isFree(Long idfilm, Long iduser) {
+        if (iduser == null) {
+            return false;
+        }
+        return !isInMyCaddie(idfilm, iduser) && !isOneOfMyFilm(idfilm, iduser);
+    }
+
+    public void addProductFilmToCaddie(Long iduser, Long idproduct, Long idfilm) throws IOException {
+        this.cdto = transactionManager.addProduct(iduser, idproduct);
+        FacesContext.getCurrentInstance().getExternalContext().redirect("fiche_film.xhtml?id="+idfilm);
     }
     
-    public boolean isFree (Long idfilm, Long iduser){
-        if (iduser == null)
-            return false;
-        return !isInMyCaddie(idfilm, iduser) && !isOneOfMyFilm(idfilm, iduser);
+    public void checkIsMyFilm (Long idfilm, Long iduser) throws IOException {
+        if (!isOneOfMyFilm(idfilm, iduser))
+            FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
     }
 }
