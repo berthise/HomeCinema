@@ -8,6 +8,7 @@ package beans;
 import dtos.UserDto;
 import ejbs.ManageUserRemote;
 import enums.UserStates;
+import java.io.IOException;
 import java.util.Date;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -121,5 +122,11 @@ public class LoginManagedBean {
 
     public void setState(UserStates state) {
         user.state = state;
+    }
+    
+    public void checkConnected () throws IOException {
+        if (user.id == null) {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
+        }
     }
 }
