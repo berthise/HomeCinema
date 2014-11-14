@@ -30,7 +30,7 @@ public class UsersManagedBean {
 
   public UsersManagedBean() throws NamingException {
     userManager = (ManageUserRemote) new InitialContext().lookup("java:global/HomeCinema/HomeCinema-ejb/ManageUser!ejbs.ManageUserRemote");
-    this.users = userManager.getAllUser(false);
+    this.users = userManager.getAllUser();
   }
 
   public Set<SimpleUserDto> getUsers() {
