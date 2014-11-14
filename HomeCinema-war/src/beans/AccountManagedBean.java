@@ -172,7 +172,7 @@ public class AccountManagedBean {
         if (iduser == null)
             return false;
         for (FilmDto l : userManager.getFilms(iduser))
-            if (Objects.equals(l.id, idfilm))
+            if (l.id.equals(idfilm))
                return true;
         return false;
     }
@@ -182,7 +182,7 @@ public class AccountManagedBean {
             return false;
         for (ProductDto l : transactionManager.getCaddieDto(iduser).films)
             for (FilmDto f : productManager.getFilms(l.id))
-            if (Objects.equals(f.id, idfilm))
+            if (f.id.equals(idfilm))
                return true;
         return false;        
     }
