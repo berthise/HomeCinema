@@ -8,6 +8,7 @@ package beans;
 import dtos.UserDto;
 import ejbs.ManageUserRemote;
 import enums.UserStates;
+import java.io.IOException;
 import java.util.Date;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -43,7 +44,12 @@ public class LoginManagedBean {
     public void login() {
         user = mur.login(user.email, user.password);
         String message = (user.lastName == null) ? "Identifiants incorrects" : "Vous êtes maintenant connecté";
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(message));
+        FacesContext.getCurrentInstance().addMessage("login", new FacesMessage(message));
+    }
+    
+    public String logout() {
+        user = new UserDto();
+        return "/HomeCinema/?faces-redirect=true";
     }
 
     public Long getId() {
@@ -116,5 +122,11 @@ public class LoginManagedBean {
 
     public void setState(UserStates state) {
         user.state = state;
+    }
+    
+    public void checkConnected () throws IOException {
+        if (user.id == null) {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
+        }
     }
 }

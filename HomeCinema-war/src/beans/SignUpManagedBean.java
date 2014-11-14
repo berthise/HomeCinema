@@ -44,12 +44,10 @@ public class SignUpManagedBean {
     }
 
     public void singUp() {
-        user.addDate = new Date();
         convertDate(birthDay);
-        user.state = UserStates.Unactived;
         mur.signUp(user);
         FacesMessage message = new FacesMessage("Succès de l'inscription !");
-        FacesContext.getCurrentInstance().addMessage(null, message);
+        FacesContext.getCurrentInstance().addMessage("signup-success", message);
     }
 
     public void convertDate(String birthDay) {

@@ -103,7 +103,7 @@ public class JeuDeTestRobin {
             pdto5.name = "dancer in the dark enfin je crois";
             pdto5.price = 3D;
             pdto5.id = a.getManageProductRemote().createProduct(pdto5);
-            a.getManageProductRemote().addExistingFilm(pdto5.id, f3.id, true);
+            a.getManageProductRemote().addExistingFilm(pdto5.id, f4.id, true);
 
             //creer fight club
             FilmDto f2 = a.createFilm(550L);
@@ -129,8 +129,8 @@ public class JeuDeTestRobin {
             pdto4.name = "Double";
             pdto4.price = 8D;
             pdto4.id = a.getManageProductRemote().createProduct(pdto4);
-            a.getManageProductRemote().addExistingFilm(pdto4.id, f2.id, true);
-            a.getManageProductRemote().addExistingFilm(pdto4.id, f3.id, true);
+            a.getManageProductRemote().addExistingFilm(pdto4.id, f2.id, false);
+            a.getManageProductRemote().addExistingFilm(pdto4.id, f3.id, false);
 
             //creer user robin
             UserDto u = new UserDto();
@@ -165,13 +165,23 @@ public class JeuDeTestRobin {
             a.getManagetransactionRemote().validatePayement(trans, 42L);
 
             //met fight club dans panier
-            a.getManagetransactionRemote().addProduct(u.id, pdto2.id);
-            a.getManagetransactionRemote().addProduct(u.id, pdto4.id);
-            
+            System.out.println("add 1");
+            for (ProductDto product : a.getManagetransactionRemote().addProduct(u.id, pdto2.id).films) {
+                System.out.println(product.id);
+            }
+            System.out.println("add 2");
+            for (ProductDto product : a.getManagetransactionRemote().addProduct(u.id, pdto4.id).films) {
+                System.out.println(product.id);
+            }
+                        System.out.println("suppr");
+            for (ProductDto product : a.getManagetransactionRemote().removeProduct(u.id, pdto4.id).films) {
+                System.out.println(product.id);
+            }
+
             //met dancer in the dark (cad citizen kane ) dans le panier puis enleve
             a.getManagetransactionRemote().addProduct(u.id, pdto5.id);
             a.getManagetransactionRemote().removeProduct(u.id, pdto5.id);
-            
+
             //print
             System.out.println("Film");
             List<FilmDto> lfdto = a.getManageFilmRemote().getAllFilm();

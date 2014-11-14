@@ -17,6 +17,12 @@
         <link rel="stylesheet" href="css/bootstrap-theme.min.css"/>
         <link rel="stylesheet" href="css/main.css"/>
 
+        <f:metadata>
+            <f:viewParam name="box" value="#{accountManagedBean.initBox}" />
+            <f:event type="preRenderView" listener="#{loginManagedBean.checkConnected()}"/>
+            <f:event type="preRenderView" listener="#{accountManagedBean.setIdUser(loginManagedBean.id)}"/>
+        </f:metadata>
+
         <style>
             #nav {
                 width: 36%;
@@ -231,10 +237,10 @@
                     </script> 
 
                     <div id="nav">
-                        <h:outputText value="#{accountManagedBean.getHtmlForLink('films', 'Mes films', param['box'])}" escape="false" />
-                        <h:outputText value="#{accountManagedBean.getHtmlForLink('caddie', 'Mon Caddie', param['box'])}" escape="false" />
-                        <h:outputText value="#{accountManagedBean.getHtmlForLink('historique', 'Mon historique', param['box'])}" escape="false" />
-                        <h:outputText value="#{accountManagedBean.getHtmlForLink('infos', 'Mes informations', param['box'])}" escape="false" />
+                        <h:outputText value="#{accountManagedBean.getHtmlForLink('films', 'Mes films')}" escape="false" />
+                        <h:outputText value="#{accountManagedBean.getHtmlForLink('caddie', 'Mon Caddie')}" escape="false" />
+                        <h:outputText value="#{accountManagedBean.getHtmlForLink('historique', 'Mon historique')}" escape="false" />
+                        <h:outputText value="#{accountManagedBean.getHtmlForLink('infos', 'Mes informations')}" escape="false" />
                     </div>
 
                     <div class="#{accountManagedBean.getClassDisplay('films')}" id="box-films">
@@ -242,7 +248,7 @@
 
                         <table>
 
-                            <ui:repeat var="o" value="#{accountManagedBean.getListFilms(11)}" varStatus="status">
+                            <ui:repeat var="o" value="#{accountManagedBean.getListFilms()}" varStatus="status">
 
                                 <c:set var="simple" value="#{o.get(0) eq 'SIMPLE'}" />
                                 <c:set var="vide" value="#{o.get(0) eq 'EMPTY'}" />
@@ -267,7 +273,7 @@
                                         </td>
                                         <td><a href="visionneuse.xhtml?id=#{o.get(4)}"><img src="img/eye.png" title="Voir le film" /></a></td>
                                     </h:panelGroup>
-                                    
+
                                 </tr>
 
                             </ui:repeat>
@@ -280,7 +286,7 @@
 
                         <table>
 
-                            <ui:repeat var="o" value="#{accountManagedBean.getListCaddie(11)}" varStatus="status">
+                            <ui:repeat var="o" value="#{accountManagedBean.getListCaddie()}" varStatus="status">
 
                                 <c:set var="solo" value="#{o.get(0) eq 'SOLO'}" />
                                 <c:set var="first" value="#{o.get(0) eq 'FIRST'}" />
@@ -302,7 +308,7 @@
                                         <td class="td-right">#{o.get(4)}€</td>
                                         <td>
                                             <h:form>
-                                                <h:commandButton class="button-delete" value="" action="#{accountManagedBean.deleteFromCaddie(11, o.get(1))}" />
+                                                <h:commandButton class="button-delete" value="" action="#{accountManagedBean.deleteFromCaddie(o.get(1))}" />
                                             </h:form>
                                         </td>
 
@@ -338,7 +344,7 @@
                                         <td class="td-right">#{o.get(4)}€</td>
                                         <td>
                                             <h:form>
-                                                <h:commandButton class="button-delete" value="" action="#{accountManagedBean.deleteFromCaddie(11, o.get(1))}" />
+                                                <h:commandButton class="button-delete" value="" action="#{accountManagedBean.deleteFromCaddie(o.get(1))}" />
                                             </h:form>
                                         </td>
 

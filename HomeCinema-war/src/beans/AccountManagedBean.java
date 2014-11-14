@@ -16,10 +16,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.naming.NamingException;
 
@@ -42,12 +42,26 @@ public class AccountManagedBean {
 
     public CaddieDto cdto;
 
-    public String initBox = "films";
+    public String initBox ;
+    
+    public Long idUser;
 
+    public Long getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(Long idUser) {
+        this.idUser = idUser;
+    }
+       
+    public String getInitBox (){
+        return initBox;
+    }
+    
     public void setInitBox(String b) {
         String[] ref = {"films", "caddie", "historique", "infos"};
         List<String> list = Arrays.asList(ref);
-        if (!list.contains(b)) {
+        if (!list.contains(b) || b == null) {
             b = ref[0];
         }
         initBox = b;
@@ -55,10 +69,10 @@ public class AccountManagedBean {
 
     public AccountManagedBean() throws NamingException {
         this.cdto = new CaddieDto();
+        this.initBox = "films";
     }
 
-    public String getHtmlForLink(String link, String title, String b) {
-        setInitBox(b);
+    public String getHtmlForLink(String link, String title) {
         return "<p id=\"link-" + link + "\" " + ((link.equals(initBox)) ? "class=\"activated\"" : "") + "><a onclick=\"display('" + link + "'); return false;\" href=\"\">" + title + "</a></p>";
     }
 
@@ -70,9 +84,9 @@ public class AccountManagedBean {
         }
     }
 
-    public List<List<String>> getListCaddie(Long iduser) {
+    public List<List<String>> getListCaddie() {
         List<List<String>> toReturn = new ArrayList<>();
-        this.cdto = transactionManager.getCaddieDto(iduser);
+        this.cdto = transactionManager.getCaddieDto(idUser);
         if (cdto.films.isEmpty()) {
             List<String> toAdd = new ArrayList<>();
             toAdd.add("EMPTY");
@@ -123,21 +137,14 @@ public class AccountManagedBean {
         return toReturn;
     }
 
-    public void deleteFromCaddie(Long id_user, Long id_film) {
-        transactionManager.removeProduct(id_user, id_film);
-        String url = "moncompte.xhtml?box=caddie";
-        FacesContext fc = FacesContext.getCurrentInstance();
-        ExternalContext ec = fc.getExternalContext();
-        try {
-            ec.redirect(url);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+    public void deleteFromCaddie(Long idProduct) throws IOException {
+        transactionManager.removeProduct(idUser, idProduct);
+        FacesContext.getCurrentInstance().getExternalContext().redirect("moncompte.xhtml?box=caddie");
     }
 
-    public List<List<String>> getListFilms(Long iduser) {
+    public List<List<String>> getListFilms() {
         List<List<String>> toReturn = new ArrayList<>();
-        List<FilmDto> list = userManager.getFilms(iduser);
+        List<FilmDto> list = userManager.getFilms(idUser);
 
         if (list.isEmpty()) {
             List<String> toAdd = new ArrayList<>();
@@ -148,7 +155,7 @@ public class AccountManagedBean {
 
         SimpleDateFormat formater = new SimpleDateFormat("yyyy");
 
-        for (FilmDto f : userManager.getFilms(iduser)) {
+        for (FilmDto f : userManager.getFilms(idUser)) {
             List<String> toAdd = new ArrayList<>();
             toAdd.add("SIMPLE");
             toAdd.add(f.cover);
@@ -159,5 +166,30 @@ public class AccountManagedBean {
         }
 
         return toReturn;
+    }
+    
+    public boolean isOneOfMyFilm (Long idfilm, Long iduser){
+        if (iduser == null)
+            return false;
+        for (FilmDto l : userManager.getFilms(iduser))
+            if (l.id.equals(idfilm))
+               return true;
+        return false;
+    }
+    
+    public boolean isInMyCaddie (Long idfilm, Long iduser){
+        if (iduser == null)
+            return false;
+        for (ProductDto l : transactionManager.getCaddieDto(iduser).films)
+            for (FilmDto f : productManager.getFilms(l.id))
+            if (f.id.equals(idfilm))
+               return true;
+        return false;        
+    }
+    
+    public boolean isFree (Long idfilm, Long iduser){
+        if (iduser == null)
+            return false;
+        return !isInMyCaddie(idfilm, iduser) && !isOneOfMyFilm(idfilm, iduser);
     }
 }
