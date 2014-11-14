@@ -57,4 +57,6 @@ public interface ManageFilmRemote {
     public List<PersonDto> getCasting(Long fid);
 
     public Set<GenreDto> getGenre(Long fid);
+
+    public void removeVideo(Long fid, Long vid);
 }

@@ -173,6 +173,16 @@ public class ManageFilm implements ManageFilmRemote {
         }
         return lpdto;
     }
+    
+    @Override
+    public void removeVideo(Long fid,Long vid)
+    {
+        Film f = em.find(Film.class, fid);
+        Video v = em.find(Video.class, vid);
+        f.removeVideo(v);
+        em.merge(f);
+        em.remove(v);
+    }
 
     @Override
     public Set<GenreDto> getGenre(Long fid) {

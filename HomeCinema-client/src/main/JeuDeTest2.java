@@ -10,7 +10,6 @@ import dtos.ProductDto;
 import dtos.SimpleUserDto;
 import dtos.UserDto;
 import dtos.VideoDto;
-import enums.UserStates;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.Date;
