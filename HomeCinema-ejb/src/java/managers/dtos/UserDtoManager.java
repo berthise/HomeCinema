@@ -42,7 +42,7 @@ public class UserDtoManager {
         u.setLastName(udto.lastName);
         u.setBirthDate(udto.birthDate);
         u.setAddDate(new Date());
-        u.setState(UserStates.Deactivated);
+        u.setState(UserStates.Pending);
         return u;
     }
 
