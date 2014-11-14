@@ -4,7 +4,8 @@
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:f="http://java.sun.com/jsf/core">
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <head>
         <meta charset="utf-8"/>
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
@@ -15,11 +16,6 @@
         <link rel="stylesheet" href="css/bootstrap.min.css"/>
         <link rel="stylesheet" href="css/bootstrap-theme.min.css"/>
         <link rel="stylesheet" href="css/main.css"/>
-
-        <f:metadata>
-            <f:viewParam name="box" value="#{caddieManagedBean.initBox}" />
-            <f:event type="preRenderView" listener="#{caddieManagedBean.setDtoFromId(10)}"/>
-        </f:metadata>
 
         <style>
             #nav {
@@ -200,6 +196,14 @@
             .no-border-right {
                 border-right: none !important;
             }
+
+            .button-delete {
+                background: url(img/delete.png) no-repeat;
+                width: 20px;
+                height: 17px;
+                border: none;
+                outline:none;
+            }
         </style>
 
     </head>
@@ -224,47 +228,139 @@
                             document.getElementById('link-' + id).className = "activated";
                             return false;
                         }
-
-                        function removeFromCaddie(id) {
-                            //<![CDATA[                    
-                            var l = document.getElementsByClassName('tr-caddie-' + id);
-                            var j = l.length;
-                            for (var i = 0; i < j; i++) {
-                                document.getElementsByClassName('tr-caddie-' + id)[0].className = " display-none";
-                            }
-                            //]]>
-                            #{caddieManagedBean.deleteFromCaddie(loginManagedBean.id,id)}
-                        }
                     </script> 
 
-                    <div id="nav"> 
-                        <h:outputText value="#{caddieManagedBean.getHtmlForLink('films', 'Mes films')}" escape="false" />
-                        <h:outputText value="#{caddieManagedBean.getHtmlForLink('caddie', 'Mon Caddie')}" escape="false" />
-                        <h:outputText value="#{caddieManagedBean.getHtmlForLink('historique', 'Mon historique')}" escape="false" />
-                        <h:outputText value="#{caddieManagedBean.getHtmlForLink('infos', 'Mes informations')}" escape="false" />
+                    <div id="nav">
+                        <h:outputText value="#{accountManagedBean.getHtmlForLink('films', 'Mes films', param['box'])}" escape="false" />
+                        <h:outputText value="#{accountManagedBean.getHtmlForLink('caddie', 'Mon Caddie', param['box'])}" escape="false" />
+                        <h:outputText value="#{accountManagedBean.getHtmlForLink('historique', 'Mon historique', param['box'])}" escape="false" />
+                        <h:outputText value="#{accountManagedBean.getHtmlForLink('infos', 'Mes informations', param['box'])}" escape="false" />
                     </div>
 
-                    <div class="#{caddieManagedBean.getClassDisplay('films')}" id="box-films">
+                    <div class="#{accountManagedBean.getClassDisplay('films')}" id="box-films">
                         <h3><img src="img/film-icon.png" title="Caddie"/>Films</h3>
+
                         <table>
-                            <h:outputText value="#{filmManagedBean.printLinesMyFilms(0)}" escape="false" />
+
+                            <ui:repeat var="o" value="#{accountManagedBean.getListFilms(11)}" varStatus="status">
+
+                                <c:set var="simple" value="#{o.get(0) eq 'SIMPLE'}" />
+                                <c:set var="vide" value="#{o.get(0) eq 'EMPTY'}" />
+
+                                <tr>
+
+                                    <h:panelGroup rendered="#{vide}">
+                                        <td>Votre liste de films est vide ... <a href="#">Cliquez ici pour trouver des films !</a></td>                                        
+                                    </h:panelGroup>
+
+                                    <h:panelGroup rendered="#{simple}">
+                                        <td>
+                                            <span class="affiche">
+                                                <img src="img/glass.png" />
+                                                <span>
+                                                    <img src="http://image.tmdb.org/t/p/w396/#{o.get(1)}" />
+                                                </span>
+                                            </span>
+                                        </td>
+                                        <td>                 
+                                            <a title="Voir la fiche du film" href="fiche_film.xhtml?id=#{o.get(4)}">#{o.get(2)} (#{o.get(3)})</a>
+                                        </td>
+                                        <td><a href="visionneuse.xhtml?id=#{o.get(4)}"><img src="img/eye.png" title="Voir le film" /></a></td>
+                                    </h:panelGroup>
+                                    
+                                </tr>
+
+                            </ui:repeat>
+
                         </table>
                     </div>
 
-                    <div class="#{caddieManagedBean.getClassDisplay('caddie')}" id="box-caddie">
+                    <div class="#{accountManagedBean.getClassDisplay('caddie')}" id="box-caddie">
                         <h3><img src="img/cart-icon.png" title="Caddie"/>Caddie</h3>
+
                         <table>
-                            <h:outputText value="#{caddieManagedBean.printLinesCaddie()}" escape="false" />
+
+                            <ui:repeat var="o" value="#{accountManagedBean.getListCaddie(11)}" varStatus="status">
+
+                                <c:set var="solo" value="#{o.get(0) eq 'SOLO'}" />
+                                <c:set var="first" value="#{o.get(0) eq 'FIRST'}" />
+                                <c:set var="simple" value="#{o.get(0) eq 'SIMPLE'}" />
+                                <c:set var="vide" value="#{o.get(0) eq 'EMPTY'}" />
+
+                                <tr class="tr-caddie-#{o.get(1)}">
+
+                                    <h:panelGroup rendered="#{vide}">
+                                        <td>Votre caddie est vide ... <a href="#">Cliquez ici pour trouver des films !</a></td>                                        
+                                    </h:panelGroup>
+
+                                    <h:panelGroup rendered="#{first}">
+                                        <td class="td-right" rowspan="#{o.get(2) + 1}">#{o.get(5)}</td>
+                                        <td class="td-invisible"></td>
+                                        <td class="td-right title-film-caddie">                                                
+                                            <a href="#"><b>#{o.get(3)}</b></a>
+                                        </td>
+                                        <td class="td-right">#{o.get(4)}€</td>
+                                        <td>
+                                            <h:form>
+                                                <h:commandButton class="button-delete" value="" action="#{accountManagedBean.deleteFromCaddie(11, o.get(1))}" />
+                                            </h:form>
+                                        </td>
+
+                                    </h:panelGroup>
+
+                                    <h:panelGroup rendered="#{simple}">
+                                        <td class="td-right">
+                                            <span class="affiche">
+                                                <img src="img/glass.png" />
+                                                <span>
+                                                    <img src="http://image.tmdb.org/t/p/w396/#{o.get(3)}" />
+                                                </span>
+                                            </span>
+                                        </td>
+                                        <td class="align-left" colspan="3">                 
+                                            <a title="Voir la fiche du film" href="fiche_film.xhtml?id=#{o.get(2)}">#{o.get(4)} (#{o.get(5)})</a>
+                                        </td>
+                                    </h:panelGroup>
+
+                                    <h:panelGroup rendered="#{solo}">
+                                        <td class="td-right">#{o.get(7)}</td>
+                                        <td class="td-right">
+                                            <span class="affiche">
+                                                <img src="img/glass.png" />
+                                                <span>
+                                                    <img src="http://image.tmdb.org/t/p/w396/#{o.get(5)}" />
+                                                </span>
+                                            </span>
+                                        </td>
+                                        <td class="td-right title-film-caddie">                 
+                                            <b><a title="Voir la fiche du film" href="fiche_film.xhtml?id=#{o.get(2)}">#{o.get(3)} (#{o.get(6)})</a></b>
+                                        </td>
+                                        <td class="td-right">#{o.get(4)}€</td>
+                                        <td>
+                                            <h:form>
+                                                <h:commandButton class="button-delete" value="" action="#{accountManagedBean.deleteFromCaddie(11, o.get(1))}" />
+                                            </h:form>
+                                        </td>
+
+                                    </h:panelGroup>
+
+                                </tr>
+
+                            </ui:repeat>
+
                         </table>
 
                         <a class="btn btn-success col-md-3 b1r" href="">Valider mon caddie</a>
                     </div>
 
-                    <div class="#{caddieManagedBean.getClassDisplay('historique')}" id="box-historique">
+                    <div class="#{accountManagedBean.getClassDisplay('historique')}" id="box-historique">
                         <h3><img src="img/clock-icon.png" title="Caddie"/>Historique</h3>
+
+
+
                     </div>
 
-                    <div class="#{caddieManagedBean.getClassDisplay('infos')}" id="box-infos">
+                    <div class="#{accountManagedBean.getClassDisplay('infos')}" id="box-infos">
                         <h3><img src="img/info-icon.png" title="Caddie"/>Informations</h3>
                     </div>
 
