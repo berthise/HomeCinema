@@ -201,8 +201,9 @@ public class AccountManagedBean {
         return !isInMyCaddie(idfilm, iduser) && !isOneOfMyFilm(idfilm, iduser);
     }
 
-    public void addToCaddie(Long iduser, Long idproduct) {
+    public void addProductFilmToCaddie(Long iduser, Long idproduct, Long idfilm) throws IOException {
         this.cdto = transactionManager.addProduct(iduser, idproduct);
+        FacesContext.getCurrentInstance().getExternalContext().redirect("fiche_film.xhtml?id="+idfilm);
     }
     
     public void checkIsMyFilm (Long idfilm, Long iduser) throws IOException {
