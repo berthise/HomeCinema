@@ -88,6 +88,14 @@ public class FilmManagedBean {
     public void setOverview(String s) {
         fdto.overview = s;
     }
+    
+        public String getCover() {
+        return fdto.cover;
+    }
+
+    public void setCover(String s) {
+        fdto.cover = s;
+    }
 
     public Date getRelease() {
         return fdto.release_date;

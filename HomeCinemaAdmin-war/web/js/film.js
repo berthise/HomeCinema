@@ -19,6 +19,7 @@ function load_tmdb()
       document.getElementById("formFilm:rating").value=res.vote_average;
       document.getElementById("formFilm:overview").value=res.overview;
       document.getElementById("formFilm:runtime").value=res.runtime;
+      document.getElementById("formFilm:cover").value=res.poster_path;
     };
     xhr.open("get", "https://api.themoviedb.org/3/movie/" + id + "?api_key=" + api_key + "", true);
     xhr.send();
