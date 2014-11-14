@@ -35,6 +35,7 @@ body {
             a {
                 color: #fff;
                 text-decoration: none;
+                padding: 0 10px;
             }
         }
         #form-login {            
@@ -97,17 +98,32 @@ body {
             color: #000;
             .form-signin-heading, .checkbox {
                 margin-bottom: 10px;
+                text-align: center;
+            }
+            legend {
+                text-align: center;
             }
             .checkbox {
                 font-weight: normal;
+                input[type="checkbox"] {
+                    float: none;
+                    margin: 0 5px;
+                }
             }
-            .form-group > label {
+            .form-group > .form-label {
+                font-weight: normal;
                 text-align: right;
                 padding: 2px;
                 line-height: 2;
             }
             input[type="date"] {
                 width: 80%;
+            }
+            input[type="reset"] {
+                margin: 0 15px;
+            }
+            i.required {
+                color: red;
             }
         }
     }

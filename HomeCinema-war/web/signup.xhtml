@@ -6,6 +6,7 @@
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
     xmlns:jsf="http://java.sun.com/jsf"
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
     xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
         <meta charset="utf-8"/>
@@ -24,84 +25,90 @@
             <div class="container">
                 <div class="well">
                     <div class="row">
-                        <div class="col-lg-5 form-signin">
-                            <div class="alert alert-success">
-                                <h:messages globalOnly="true" infoClass="info" />
-                            </div>
-                            <h2 class="form-signin-heading">Inscription</h2>
+                        <div class="col-lg-10 form-signin">
+                            <c:if test="#{signUpManagedBean.email != null}" >
+                                <div class="alert alert-success">
+                                    <h:messages for="signup-success" infoClass="info" />
+                                </div>
+                            </c:if>
+                            <h2 class="form-signin-heading">Créez votre compte</h2>
                             <h:form role="form">
-                                <legend>Informations compte</legend>
                                 <div class="row">
-                                    <div class="form-group">
-                                        <h:outputLabel class="col-md-5 form-label" for="email">Email : </h:outputLabel>
-                                        <div class="col-md-7">
-                                            <h:inputText p:type="email" id="email" class="form-control" value="#{signUpManagedBean.email}" p:placeholder="Adresse e-mail" p:required="required" />
+                                    <div class="col-md-6">
+                                        <legend>Informations compte</legend>
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <h:outputLabel class="col-md-5 form-label" for="email">Email <i class="required">*</i> : </h:outputLabel>
+                                                <div class="col-md-7">
+                                                    <h:inputText p:type="email" id="email" class="form-control" value="#{signUpManagedBean.email}" p:placeholder="Adresse e-mail" p:required="required" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <h:outputLabel class="col-md-5 form-label" for="login">Pseudo <i class="required">*</i> : </h:outputLabel>
+                                                <div class="col-md-7">
+                                                    <h:inputText id="login" class="form-control" value="#{signUpManagedBean.nickName}" p:placeholder="Nom d'utilisateur" p:required="required" />                                
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <h:outputLabel class="col-md-5 form-label" for="password">Mot de passe <i class="required">*</i> : </h:outputLabel>
+                                                <div class="col-md-7">
+                                                    <h:inputSecret id="password" class="form-control" value="#{signUpManagedBean.password}" p:placeholder="Mot de passe" 
+                                                                   p:required="required" p:pattern=".{6,}" p:title="6 caractères minimum" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <h:outputLabel class="col-md-5 form-label" for="conf_pass">Confirmation mot de passe <i class="required">*</i> : </h:outputLabel>
+                                                <div class="col-md-7">
+                                                    <h:inputSecret id="conf_pass" class="form-control" p:placeholder="Confirmation mot de passe" p:required="required" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>                                    
+                                    <div class="col-md-6">
+                                        <legend>Informations personnelles</legend>
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <h:outputLabel class="col-md-5 form-label" for="firstname">Prénom <i class="required">*</i> : </h:outputLabel>
+                                                <div class="col-md-7">
+                                                    <h:inputText id="firstname" class="form-control" value="#{signUpManagedBean.firstName}" p:placeholder="Prénom" p:required="required" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <h:outputLabel class="col-md-5 form-label" for="lastname">Nom <i class="required">*</i> : </h:outputLabel>
+                                                <div class="col-md-7">
+                                                    <h:inputText id="lastname" class="form-control" value="#{signUpManagedBean.lastName}" p:placeholder="Nom" p:required="required" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <h:outputLabel class="col-md-5 form-label" for="birthDay">Date de naissance <i class="required">*</i> : </h:outputLabel>
+                                                <div class="col-md-7">
+                                                    <h:inputText p:type="date" id="birthDay" p:id="birthDay" class="form-control" value="#{signUpManagedBean.birthDay}" p:placeholder="Date de naissance" p:required="required" />
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="form-group">
-                                        <h:outputLabel class="col-md-5 form-label" for="login">Pseudo : </h:outputLabel>
-                                        <div class="col-md-7">
-                                            <h:inputText id="login" class="form-control" value="#{signUpManagedBean.nickName}" p:placeholder="Nom d'utilisateur" p:required="required" />                                
-                                        </div>
+                                        <h:outputLabel class="checkbox">
+                                            <h:selectBooleanCheckbox p:required="required" />Je confirme avoir pris connaissance des conditions.. 
+                                        </h:outputLabel>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="form-group">
-                                        <h:outputLabel class="col-md-5 form-label" for="password">Mot de passe : </h:outputLabel>
-                                        <div class="col-md-7">
-                                            <h:inputSecret id="password" class="form-control" value="#{signUpManagedBean.password}" p:placeholder="Mot de passe" p:required="required" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group">
-                                        <h:outputLabel class="col-md-5 form-label" for="conf_pass">Confirmation mot de passe : </h:outputLabel>
-                                        <div class="col-md-7">
-                                            <h:inputSecret id="conf_pass" class="form-control" p:placeholder="Confirmation mot de passe" p:required="required" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <legend>Informations personnelles</legend>
-                                <div class="row">
-                                    <div class="form-group">
-                                        <h:outputLabel class="col-md-5 form-label" for="firstname">Prénom : </h:outputLabel>
-                                        <div class="col-md-7">
-                                            <h:inputText id="firstname" class="form-control" value="#{signUpManagedBean.firstName}" p:placeholder="Prénom" p:required="required" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group">
-                                        <h:outputLabel class="col-md-5 form-label" for="lastname">Nom : </h:outputLabel>
-                                        <div class="col-md-7">
-                                            <h:inputText id="lastname" class="form-control" value="#{signUpManagedBean.lastName}" p:placeholder="Nom" p:required="required" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group">
-                                        <h:outputLabel class="col-md-5 form-label" for="birthDay">Date de naissance : </h:outputLabel>
-                                        <div class="col-md-7">
-                                            <h:inputText p:type="date" id="birthDay" p:id="birthDay" class="form-control" value="#{signUpManagedBean.birthDay}" p:placeholder="Date de naissance" p:required="required" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group">
-                                        <div class="col-md-5"></div>
-                                        <div class="col-md-7">
-                                            <h:outputLabel class="checkbox">
-                                                <h:selectBooleanCheckbox p:required="required" />Je confirme avoir pris connaissance des conditions.. 
-                                            </h:outputLabel>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-5"></div>
-                                    <h:commandButton class="btn btn-danger col-md-3" p:type="reset" value="Réinitialiser" />
-                                    <h:commandButton class="btn btn-primary col-md-3" value="Envoyer" action="#{signUpManagedBean.singUp}" />
+                                    <span class="col-md-3"></span>
+                                    <h:commandButton class="btn btn-primary col-md-3" p:type="reset" value="Réinitialiser" />
+                                    <h:commandButton class="btn btn-success col-md-3" value="Envoyer" action="#{signUpManagedBean.singUp}" />
                                 </div>
                             </h:form>
                         </div>
