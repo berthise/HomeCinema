@@ -7,12 +7,10 @@ package managers.dtos;
 
 import dtos.FilmDto;
 import dtos.FilmFicheDto;
-import dtos.VideoDto;
 import entities.Film;
 import entities.Video;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.EntityManager;
 
 /**

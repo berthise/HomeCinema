@@ -87,6 +87,25 @@ public class JeuDeTest2 {
             pdto3.id = a.getManageProductRemote().createProduct(pdto3);
             a.getManageProductRemote().addExistingFilm(pdto3.id, f3.id, true);
 
+            FilmDto f4 = a.createFilm(15L);
+            a.getManageFilmRemote().createFilm(f4);
+            VideoDto v4 = new VideoDto();
+            v4.resolution = 240;
+            v4.url = "http://geekompagny.ddns.net/ECOM/AmericanBeautyFilm.mp4";
+            v4.id = a.getManageVideoRemote().createVideo(v4);
+            a.getManageFilmRemote().addExistingVideo(f4.id, v4.id);
+            VideoDto t4 = new VideoDto();
+            t4.resolution = 240;
+            t4.url = "http://geekompagny.ddns.net/ECOM/AmericanBeautyTrailer.mp4";
+            a.getManageFilmRemote().setTrailer(f4.id, t4);
+
+            //creer un produit
+            ProductDto pdto5 = new ProductDto();
+            pdto5.name = "dancer in the dark enfin je crois";
+            pdto5.price = 3D;
+            pdto5.id = a.getManageProductRemote().createProduct(pdto5);
+            a.getManageProductRemote().addExistingFilm(pdto5.id, f3.id, true);
+
             //creer fight club
             FilmDto f2 = a.createFilm(550L);
             a.getManageFilmRemote().createFilm(f2);
@@ -149,6 +168,11 @@ public class JeuDeTest2 {
             //met fight club dans panier
             a.getManagetransactionRemote().addProduct(u.id, pdto2.id);
             a.getManagetransactionRemote().addProduct(u.id, pdto4.id);
+            
+            //met dancer in the dark (cad citizen kane ) dans le panier puis enleve
+            a.getManagetransactionRemote().addProduct(u.id, pdto5.id);
+            a.getManagetransactionRemote().removeProduct(u.id, pdto5.id);
+            
             //print
             System.out.println("Film");
             List<FilmDto> lfdto = a.getManageFilmRemote().getAllFilm();
@@ -161,7 +185,7 @@ public class JeuDeTest2 {
                 System.out.println(udto.name);
             }
             System.out.println("User");
-            Set<SimpleUserDto> ludto = a.getManageUserRemote().getAllUser(false);
+            Set<SimpleUserDto> ludto = a.getManageUserRemote().getAllUser();
             for (SimpleUserDto udto : ludto) {
                 System.out.println(udto.nickName);
             }

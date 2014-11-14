@@ -11,12 +11,9 @@ import dtos.TransactionDto;
 import dtos.UserDto;
 import dtos.UserDtoNoPw;
 import ejbs.ManageUserRemote;
-import entities.Film;
-import entities.Product;
 import entities.Transaction;
 import entities.User;
 import entities.UsersFilms;
-import enums.UserStates;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -66,13 +63,10 @@ public class ManageUser implements ManageUserRemote {
     }
 
     @Override
-    public Set<SimpleUserDto> getAllUser(boolean rem) {
+    public Set<SimpleUserDto> getAllUser() {
         Query q;
-        if (!rem) {
-            q = em.createQuery("select u From User u where u.state <> :remove", User.class).setParameter("remove", UserStates.Removed);
-        } else {
-            q = em.createQuery("select u From User u ", User.class);
-        }
+
+        q = em.createQuery("select u From User u ", User.class);
         List<User> lu = q.getResultList();
         Set<SimpleUserDto> ludto = new HashSet<>();
         for (User u : lu) {
@@ -116,6 +110,18 @@ public class ManageUser implements ManageUserRemote {
             lfdto.add(FilmDtoManager.getDto(f.getFilm()));
         }
         return lfdto;
+    }
+
+    @Override
+    public boolean changePassword(Long user, String oldPass, String newPass) {
+        User u = em.find(User.class, user);
+        if (!u.getPassword().equals(oldPass)) {
+            return false;
+        } else {
+            u.setPassword(newPass);
+            em.merge(u);
+            return true;
+        }
     }
 
 }

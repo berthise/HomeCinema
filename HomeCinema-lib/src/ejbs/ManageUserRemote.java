@@ -25,7 +25,7 @@ public interface ManageUserRemote {
     
     public UserDto login(String email, String password);
     
-    public Set<SimpleUserDto> getAllUser(boolean rem);
+    public Set<SimpleUserDto> getAllUser();
     
     public UserDtoNoPw getUser(Long id);
     
@@ -36,4 +36,6 @@ public interface ManageUserRemote {
     public List<FilmDto> getFilms(Long id);
     
       public  Set<TransactionDto> getTransaction (Long user);
+
+    public boolean changePassword(Long user, String oldPass, String newPass);
 }
