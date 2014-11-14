@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+        <title></title>
+        <meta name="description" content=""/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    </head>
+    <body>
+        <section>
+            <h2 class="well-title">Users Administration</h2>
+            <ul>
+                <li><a href="index.xhtml">Accueil</a></li>
+                <li><a href="add_user.xhtml">Ajouter utilisateur</a></li>
+            </ul>
+            <div class="alert alert-success">
+                <h:messages globalOnly="true" infoClass="info" />
+            </div>
+            <h:form>
+                <h:dataTable id="usersTable" value="#{usersManagedBean.users}" var="user" border="1">
+                    <f:facet name="header">
+                        <h:outputText value="Users lists" />
+                    </f:facet>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Id" />
+                        </f:facet>
+                        <h:outputText value="#{user.id}" />
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Nickname" />
+                        </f:facet>
+                        <a href="user.xhtml?id=#{user.id}">
+                            <h:outputText value="#{user.nickName}" />
+                        </a>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Email" />
+                        </f:facet>
+                        <h:outputText value="#{user.email}" />
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="State" />
+                        </f:facet>
+                        <h:outputText value="#{user.state}" />
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Action" />
+                        </f:facet>
+<!--                        <c:choose>
+                            <c:when test="${user.state.status eq 'a' }">
+                                activated
+                            </c:when>
+                            <c:when test="${user.state.status eq 'b' }">
+                                unactivated
+                            </c:when>
+                            <c:when test="${user.state.status eq 'c' }">
+                                deactivated
+                            </c:when>
+                            <c:when test="${user.state.status eq 'd' }">
+                                removed
+                            </c:when>
+                        </c:choose>-->
+                        <h:commandLink onclick="return confirm('Are you sure ?')" action="#{usersManagedBean.delUser(user.id)}" value="delete" />
+                    </h:column>
+                    <f:facet name="footer">
+                        <h:outputText value="Total: #{usersManagedBean.total}" />
+                    </f:facet>
+                </h:dataTable>
+            </h:form>
+        </section>
+        <script src="js/users.js"></script>
+
+    </body>
+</html>

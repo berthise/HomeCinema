@@ -130,7 +130,6 @@ public class JeuDeTest2 {
             u2.email = "truc2@mail.net";
             u2.firstName = "robin2";
             u2.nickName = "grandchamp2";
-            u2.password = "password";
 
             a.getManageUserRemote().signUp(u2);
             Long u_id = a.getManageUserRemote().login(u2.email, u2.password).id;
@@ -179,5 +178,5 @@ public class JeuDeTest2 {
             Logger.getLogger(JeuDeTest.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-    }
+  }
 }

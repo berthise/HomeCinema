@@ -44,6 +44,11 @@ public class ManageUser implements ManageUserRemote {
     public void signUp(UserDto udto) {
         em.persist(UserDtoManager.createUser(udto));
     }
+    
+    @Override
+    public void save(UserDtoNoPw udto) {
+      UserDtoManager.mergeOrSave(udto, em);
+    }
 
     @Override
     public Set<TransactionDto> getTransaction(Long user) {
