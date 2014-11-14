@@ -103,7 +103,7 @@ public class JeuDeTestRobin {
             pdto5.name = "dancer in the dark enfin je crois";
             pdto5.price = 3D;
             pdto5.id = a.getManageProductRemote().createProduct(pdto5);
-            a.getManageProductRemote().addExistingFilm(pdto5.id, f3.id, true);
+            a.getManageProductRemote().addExistingFilm(pdto5.id, f4.id, true);
 
             //creer fight club
             FilmDto f2 = a.createFilm(550L);
