@@ -43,7 +43,12 @@ public class LoginManagedBean {
     public void login() {
         user = mur.login(user.email, user.password);
         String message = (user.lastName == null) ? "Identifiants incorrects" : "Vous êtes maintenant connecté";
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(message));
+        FacesContext.getCurrentInstance().addMessage("login", new FacesMessage(message));
+    }
+    
+    public String logout() {
+        user = new UserDto();
+        return "/HomeCinema/?faces-redirect=true";
     }
 
     public Long getId() {

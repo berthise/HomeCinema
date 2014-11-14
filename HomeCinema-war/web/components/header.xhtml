@@ -26,13 +26,15 @@
                     </c:when>
                     <c:otherwise>
                         #{loginManagedBean.firstName}
-                        <a href="#" id="logout">Deconnexion</a>
+                        <h:form>
+                            <h:commandLink action="#{loginManagedBean.logout}" value="Déconnexion" />
+                        </h:form>
                     </c:otherwise>
                 </c:choose>
             </div>
             <div class="col-md-2" id="form-login">
                 <h:form role="form">
-                    <h:messages globalOnly="true" infoClass="info" />
+                    <h:messages for="login" infoClass="info" />
                     <div class="form-group">
                         <h:inputText p:type="email" id="email" value="#{loginManagedBean.email}" class="form-control input-sm" p:placeholder="Votre adresse mail" />
                     </div>
