@@ -8,21 +8,17 @@ package ejbs.admin;
 import dtos.FilmDto;
 import dtos.ProductDto;
 import dtos.VideoDto;
-import ejbs.ManageFilmRemote;
 import ejbs.ManageProductRemote;
 import entities.Film;
 import entities.Product;
-import entities.Video;
 import java.util.ArrayList;
 import java.util.List;
-import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import managers.dtos.FilmDtoManager;
 import managers.dtos.ProductDtoManager;
-import managers.dtos.VideoDtoManager;
 import managers.entities.ManageEntitieFilm;
 import managers.entities.ManageEntitieProduct;
 
@@ -46,6 +42,7 @@ public class ManageProduct implements ManageProductRemote {
         return p.getId();
     }
 
+    @Override
     public List<ProductDto> getAllProduct() {
         Query q = em.createQuery("From Product p",Product.class);
         List<Product> lp = q.getResultList();
@@ -97,6 +94,18 @@ public class ManageProduct implements ManageProductRemote {
         }
         em.merge(f);
         em.merge(p);
+    }
+    
+    @Override
+    public List<FilmDto> getFilms(Long pid)
+    {
+        Product p = em.find(Product.class, pid);
+        List<FilmDto> lfdto = new ArrayList<>();
+        for ( Film f : p.getFilms())
+        {
+            lfdto.add(FilmDtoManager.getDto(f));
+        }
+        return lfdto;
     }
 
 }

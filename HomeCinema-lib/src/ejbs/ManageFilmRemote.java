@@ -8,6 +8,7 @@ package ejbs;
 import dtos.FilmDto;
 import dtos.FilmFicheDto;
 import dtos.GenreDto;
+import dtos.PersonDto;
 import dtos.VideoDto;
 import exception.DuplicateKey;
 import java.util.List;
@@ -22,7 +23,7 @@ import javax.ejb.Remote;
 public interface ManageFilmRemote {
 
     public Long createFilm(FilmDto fdto);
-    
+
     public List<FilmDto> getAllFilm();
 
     public FilmFicheDto getDtoFromId(Long id);
@@ -42,4 +43,24 @@ public interface ManageFilmRemote {
     public void addGenres(Long fid, Set<GenreDto> lgdto);
 
     public void addGenre(Long fid, GenreDto gdto);
+
+    public void addActors(Long fid, List<PersonDto> lgdto);
+
+    public void addActor(Long fid, PersonDto gdto);
+
+    public void addDirectors(Long fid, List<PersonDto> lgdto);
+
+    public void addDirector(Long fid, PersonDto gdto);
+
+    public List<PersonDto> getDirector(Long fid);
+
+    public List<PersonDto> getCasting(Long fid);
+
+    public Set<GenreDto> getGenre(Long fid);
+
+    public void removeVideo(Long fid, Long vid);
+
+    public FilmDto getFilmFromId(Long id);
+
+    public void mergeOrSave(FilmDto fdto);
 }

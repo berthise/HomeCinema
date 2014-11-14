@@ -6,7 +6,7 @@
 package entities;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
@@ -34,21 +35,26 @@ public class Person implements Serializable {
   private Long id;
 
   @Size(max = 255)
-  @Column(name = "FIRST_NAME")
-  private String firstName;
+  @Column(name = "NAME")
+  private String name;
   
-  @Size(max = 255)
-  @Column(name = "LAST_NAME")
-  private String lastName;
-  
+@JoinTable(name="ACTORS")
   @ManyToMany(mappedBy = "actors")
   @JoinColumn(name = "IS_ACTOR_OF")
   private Set<Film> is_actor_of;
-  
+
+  @JoinTable(name="DIRECTORS")
   @ManyToMany(mappedBy = "directors")
   @JoinColumn(name = "IS_DIRECTOR_OF")
   private Set<Film> is_director_of;
 
+  
+  public Person()
+  {
+      this.is_actor_of=new HashSet<>();
+      this.is_director_of=new HashSet<>();
+  }
+  
   public Long getId() {
     return id;
   }
@@ -57,21 +63,14 @@ public class Person implements Serializable {
     this.id = id;
   }
 
-  public String getFirstName() {
-    return firstName;
+  public String getName() {
+    return name;
   }
 
-  public void setFirstName(String firstName) {
-    this.firstName = firstName;
+  public void setName(String name) {
+    this.name = name;
   }
 
-  public String getLastName() {
-    return lastName;
-  }
-
-  public void setLastName(String lastName) {
-    this.lastName = lastName;
-  }
 
   public Set<Film> getIs_actor_of() {
     return is_actor_of;
@@ -81,12 +80,22 @@ public class Person implements Serializable {
     this.is_actor_of = is_actor_of;
   }
 
+  public void addIs_actor_of(Film f)
+  {
+      this.is_actor_of.add(f);
+  }
+  
   public Set<Film> getIs_director_of() {
     return is_director_of;
   }
 
   public void setIs_director_of(Set<Film> is_director_of) {
     this.is_director_of = is_director_of;
+  }
+  
+    public void addIs_director_of(Film f)
+  {
+      this.is_director_of.add(f);
   }
 
   @Override
@@ -111,7 +120,7 @@ public class Person implements Serializable {
 
   @Override
   public String toString() {
-    return "Person{" + "id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", is_actor_of=" + is_actor_of + ", is_director_of=" + is_director_of + '}';
+    return "Person{" + "id=" + id + ", Name=" + name+ ", is_actor_of=" + is_actor_of + ", is_director_of=" + is_director_of + '}';
   }
 
 

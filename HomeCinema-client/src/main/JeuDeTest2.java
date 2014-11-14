@@ -28,24 +28,25 @@ public class JeuDeTest2 {
     public static void main(String[] args) {
         try {
             Admin a = new Admin();
-/*
-            cree american beauty
-            cree fight club 
-            cree star wars
-            cree produit pour les 3
+            /*
+             cree american beauty
+             cree fight club 
+             cree star wars
+             cree produit pour les 3
             
-            cree user robin
+             cree produit fight club + star wars
             
-            achete american beauty
+             cree user robin
+             cree user robin2
+             supprime robin 2
             
-            met fight club dans son panier
+             achete american beauty
             
+             met fight club dans son panier
+             met produit double dans le panier
             
-            
-            
-            */
-            
-            
+             */
+
             //creer american beauty
             FilmDto f = a.createFilm(14L);
             a.getManageFilmRemote().createFilm(f);
@@ -66,7 +67,7 @@ public class JeuDeTest2 {
             pdto.id = a.getManageProductRemote().createProduct(pdto);
             a.getManageProductRemote().addExistingFilm(pdto.id, f.id, true);
 
-                        FilmDto f3 = a.createFilm(11L);
+            FilmDto f3 = a.createFilm(11L);
             a.getManageFilmRemote().createFilm(f3);
             VideoDto v3 = new VideoDto();
             v3.resolution = 240;
@@ -84,8 +85,27 @@ public class JeuDeTest2 {
             pdto3.price = 10D;
             pdto3.id = a.getManageProductRemote().createProduct(pdto3);
             a.getManageProductRemote().addExistingFilm(pdto3.id, f3.id, true);
-            
-                        //creer fight club
+
+            FilmDto f4 = a.createFilm(15L);
+            a.getManageFilmRemote().createFilm(f4);
+            VideoDto v4 = new VideoDto();
+            v4.resolution = 240;
+            v4.url = "http://geekompagny.ddns.net/ECOM/AmericanBeautyFilm.mp4";
+            v4.id = a.getManageVideoRemote().createVideo(v4);
+            a.getManageFilmRemote().addExistingVideo(f4.id, v4.id);
+            VideoDto t4 = new VideoDto();
+            t4.resolution = 240;
+            t4.url = "http://geekompagny.ddns.net/ECOM/AmericanBeautyTrailer.mp4";
+            a.getManageFilmRemote().setTrailer(f4.id, t4);
+
+            //creer un produit
+            ProductDto pdto5 = new ProductDto();
+            pdto5.name = "dancer in the dark enfin je crois";
+            pdto5.price = 3D;
+            pdto5.id = a.getManageProductRemote().createProduct(pdto5);
+            a.getManageProductRemote().addExistingFilm(pdto5.id, f3.id, true);
+
+            //creer fight club
             FilmDto f2 = a.createFilm(550L);
             a.getManageFilmRemote().createFilm(f2);
             VideoDto v2 = new VideoDto();
@@ -104,10 +124,14 @@ public class JeuDeTest2 {
             pdto2.price = 8D;
             pdto2.id = a.getManageProductRemote().createProduct(pdto2);
             a.getManageProductRemote().addExistingFilm(pdto2.id, f2.id, true);
-            
-            
-            
-            
+
+            ProductDto pdto4 = new ProductDto();
+            pdto4.name = "Double";
+            pdto4.price = 8D;
+            pdto4.id = a.getManageProductRemote().createProduct(pdto4);
+            a.getManageProductRemote().addExistingFilm(pdto4.id, f2.id, true);
+            a.getManageProductRemote().addExistingFilm(pdto4.id, f3.id, true);
+
             //creer user robin
             UserDto u = new UserDto();
             u.birthDate = new Date();
@@ -118,15 +142,34 @@ public class JeuDeTest2 {
 
             a.getManageUserRemote().signUp(u);
             u = a.getManageUserRemote().login(u.email, u.password);
-            
-            
+
+            UserDto u2 = new UserDto();
+            u2.birthDate = new Date();
+            u2.email = "truc2@mail.net";
+            u2.firstName = "robin2";
+            u2.nickName = "grandchamp2";
+
+            a.getManageUserRemote().signUp(u2);
+            Long u_id = a.getManageUserRemote().login(u2.email, u2.password).id;
+
+            //remove u2 apres achat 
+            a.getManagetransactionRemote().addProduct(u_id, pdto.id);
+            Long trans2 = a.getManagetransactionRemote().validate(u_id);
+            a.getManagetransactionRemote().validatePayement(trans2, 42L);
+            a.getManageUserRemote().removeUser(u_id);
+
             //achat american beauty
             a.getManagetransactionRemote().addProduct(u.id, pdto.id);
             Long trans = a.getManagetransactionRemote().validate(u.id);
             a.getManagetransactionRemote().validatePayement(trans, 42L);
-            
+
             //met fight club dans panier
             a.getManagetransactionRemote().addProduct(u.id, pdto2.id);
+            a.getManagetransactionRemote().addProduct(u.id, pdto4.id);
+            
+            //met dancer in the dark (cad citizen kane ) dans le panier puis enleve
+            a.getManagetransactionRemote().addProduct(u.id, pdto5.id);
+            a.getManagetransactionRemote().removeProduct(u.id, pdto5.id);
             
             //print
             System.out.println("Film");
@@ -144,12 +187,12 @@ public class JeuDeTest2 {
             for (SimpleUserDto udto : ludto) {
                 System.out.println(udto.nickName);
             }
-            
+
             //test
-            
             a.getManageFilmRemote().addGenres(14L, a.getGenre(14L));
-            
-            
+            a.getManageFilmRemote().addActors(14L, a.getCast(14L));
+            a.getManageFilmRemote().addDirectors(14L, a.getDirectors(14L));
+
         } catch (JSONException ex) {
             Logger.getLogger(JeuDeTest.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -158,5 +201,5 @@ public class JeuDeTest2 {
             Logger.getLogger(JeuDeTest.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-    }
+  }
 }

@@ -6,33 +6,17 @@
 package ejbs.admin;
 
 import dtos.CaddieDto;
-import dtos.FilmDto;
-import dtos.ProductDto;
-import dtos.VideoDto;
-import ejbs.ManageFilmRemote;
-import ejbs.ManageProductRemote;
 import ejbs.ManageTransactionRemote;
 import entities.Caddy;
-import entities.Film;
 import entities.Product;
 import entities.Transaction;
 import entities.User;
-import entities.UsersFilms;
-import entities.Video;
 import enums.TransactionStates;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import managers.dtos.CaddieDtoManager;
-import managers.dtos.FilmDtoManager;
-import managers.dtos.ProductDtoManager;
-import managers.dtos.VideoDtoManager;
-import managers.entities.ManageEntitieFilm;
-import managers.entities.ManageEntitieProduct;
 import managers.entities.ManageEntitieUser;
 import utils.UtilCaddie;
 
@@ -67,6 +51,22 @@ public class ManageTransaction implements ManageTransactionRemote {
         em.merge(u.getCaddy());
         return CaddieDtoManager.getDto(u.getCaddy());
     }
+
+    @Override
+   public CaddieDto removeProduct(Long user ,Long id)
+   {
+               User u = em.find(User.class, user);
+        if (u.getCaddy()==null)
+        {
+            u.setCaddy(new Caddy());
+            em.persist(u.getCaddy());
+            em.merge(u);
+        }
+        Product p = em.find(Product.class, id);
+        u.getCaddy().removeCaddy(p);
+        em.merge(u.getCaddy());
+        return CaddieDtoManager.getDto(u.getCaddy());
+   }
     
     @Override
     public Long validate(Long user)
@@ -79,12 +79,14 @@ public class ManageTransaction implements ManageTransactionRemote {
         t.setUser(u);
         t.setState(TransactionStates.Prepared);
         em.persist(t);
+        em.remove(u.getCaddy());
         u.setCaddy(null);
         u.addTransaction(t);
         em.merge(u);
         return t.getId();
     }
     
+    @Override
     public void validatePayement(Long id,Long btn)
     {
         Transaction t = em.find(Transaction.class, id);

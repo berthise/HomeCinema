@@ -8,6 +8,7 @@ package main;
 import UtilsJson.JsonReader;
 import dtos.FilmDto;
 import dtos.GenreDto;
+import dtos.PersonDto;
 import java.text.DateFormat;
 import dtos.VideoDto;
 import ejbs.ManageFilmRemote;
@@ -18,6 +19,7 @@ import ejbs.ManageVideoRemote;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import org.json.JSONObject;
 import java.util.Date;
 import java.util.HashMap;
@@ -80,6 +82,41 @@ public class Admin {
 
         return res;
     }
+    
+    public List<PersonDto> getCast(Long id)  throws JSONException, IOException
+    {
+                List<PersonDto> res = new ArrayList<>();
+        String urlString = "http://api.themoviedb.org/3/movie/" + id + "/credits?api_key=63d250a5b71c307f7592228c79b729cf";
+
+        JSONObject json = JsonReader.readJsonFromUrl(urlString);
+        JSONArray lg = json.getJSONArray("cast");
+        for (int i = 0; i < lg.length(); i++) {
+            PersonDto gdto = new  PersonDto();
+            gdto.id = lg.getJSONObject(i).getLong("id");
+            gdto.name = lg.getJSONObject(i).getString("name");
+            res.add(gdto);
+        }
+
+        return res;
+    }
+    
+        public List<PersonDto> getDirectors(Long id)  throws JSONException, IOException
+    {
+                List<PersonDto> res = new ArrayList<>();
+        String urlString = "http://api.themoviedb.org/3/movie/" + id + "/credits?api_key=63d250a5b71c307f7592228c79b729cf";
+
+        JSONObject json = JsonReader.readJsonFromUrl(urlString);
+        JSONArray lg = json.getJSONArray("crew");
+        for (int i = 0; i < lg.length(); i++) {
+            PersonDto gdto = new  PersonDto();
+            gdto.id = lg.getJSONObject(i).getLong("id");
+            gdto.name = lg.getJSONObject(i).getString("name");
+            if ("Director".equals(lg.getJSONObject(i).getString("job")))
+                res.add(gdto);
+        }
+
+        return res;
+    }
 
     public Admin() {
         make_context();
@@ -96,7 +133,7 @@ public class Admin {
 
             ic = new InitialContext();
         } catch (NamingException ex) {
-            Logger.getLogger(HomeCinemaClient.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -105,7 +142,7 @@ public class Admin {
             try {
                 mfr = (ManageFilmRemote) ic.lookup("java:global/HomeCinema/HomeCinema-ejb/ManageFilm!ejbs.ManageFilmRemote");
             } catch (NamingException ex) {
-                Logger.getLogger(HomeCinemaClient.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return mfr;
@@ -116,7 +153,7 @@ public class Admin {
             try {
                 mpr = (ManageProductRemote) ic.lookup("java:global/HomeCinema/HomeCinema-ejb/ManageProduct!ejbs.ManageProductRemote");
             } catch (NamingException ex) {
-                Logger.getLogger(HomeCinemaClient.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return mpr;
@@ -127,7 +164,7 @@ public class Admin {
             try {
                 mur = (ManageUserRemote) ic.lookup("java:global/HomeCinema/HomeCinema-ejb/ManageUser!ejbs.ManageUserRemote");
             } catch (NamingException ex) {
-                Logger.getLogger(HomeCinemaClient.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return mur;
@@ -138,7 +175,7 @@ public class Admin {
             try {
                 mvr = (ManageVideoRemote) ic.lookup("java:global/HomeCinema/HomeCinema-ejb/ManageVideo!ejbs.ManageVideoRemote");
             } catch (NamingException ex) {
-                Logger.getLogger(HomeCinemaClient.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return mvr;
@@ -149,7 +186,7 @@ public class Admin {
             try {
                 mtr = (ManageTransactionRemote) ic.lookup("java:global/HomeCinema/HomeCinema-ejb/ManageTransaction!ejbs.ManageTransactionRemote");
             } catch (NamingException ex) {
-                Logger.getLogger(HomeCinemaClient.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return mtr;

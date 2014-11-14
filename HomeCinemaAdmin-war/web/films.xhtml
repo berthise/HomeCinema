@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+        <title>Films Administration</title>
+        <meta name="description" content=""/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    </head>
+    <body>
+        <section>
+            <h2 class="well-title">Films Administration</h2>
+            <ul>
+                <li><a href="index.xhtml">Accueil</a></li>
+                <li><a href="film.xhtml">Ajouter Film</a></li>
+            </ul>
+            <div class="alert alert-success">
+                <h:messages globalOnly="true" infoClass="info" />
+            </div>
+            <h:form>
+                <h:dataTable id="filmsTable" value="#{filmsManagedBean.films}" var="film" border="1">
+                    <f:facet name="header">
+                        <h:outputText value="Films lists" />
+                    </f:facet>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Id" />
+                        </f:facet>
+                        <h:outputText value="#{film.id}" />
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Title" />
+                        </f:facet>
+                        <a href="film.xhtml?id=#{film.id}">
+                            <h:outputText value="#{film.title}" />
+                        </a>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Release" />
+                        </f:facet>
+                        <h:outputText value="#{film.release_date}" />
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Runtime" />
+                        </f:facet>
+                        <h:outputText value="#{film.runtime}" />
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Rating" />
+                        </f:facet>
+                        <h:outputText value="#{film.rating}" />
+                    </h:column>
+
+                    <f:facet name="footer">
+                        <h:outputText value="Total: #{usersManagedBean.total}" />
+                    </f:facet>
+                </h:dataTable>
+            </h:form>
+        </section>
+
+
+    </body>
+</html>

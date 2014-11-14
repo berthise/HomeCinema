@@ -4,7 +4,8 @@
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:f="http://java.sun.com/jsf/core">
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <head>
         <meta charset="utf-8"/>
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
@@ -161,33 +162,34 @@
                         </div>
                     </div>
 
+                    <c:set var="owned" value="#{accountManagedBean.isOneOfMyFilm(filmManagedBean.id, loginManagedBean.id)}" />
+                    <c:set var="caddie" value="#{accountManagedBean.isInMyCaddie(filmManagedBean.id, loginManagedBean.id)}" />
+                    <c:set var="free" value="#{accountManagedBean.isFree(filmManagedBean.id, loginManagedBean.id)}" />
+                    <c:set var="deco" value="#{loginManagedBean.id eq null}" />
+
                     <!-- Cas où l'utilisateur est connecté et possède le film -->
                     <div class="form-liste-film">
-                        <!--
-                        <h:outputText value="#{filmManagedBean.getLinkToVisionneuse()}" escape="false" />
-                        <h:outputText value="#{filmManagedBean.getLinkToDownload()}" escape="false" />
-                        -->
-                        <!--
-                        <h:form>
-                            <h:commandButton class="btn btn-success col-md-3 b1" value="Ajouter au caddie" type="submit" action="#{filmManagedBean.getLinkToDownload()}" />
-                        </h:form>
-                        -->
-                        
-                        <a class="btn btn-primary col-md-3 b1" href="moncompte.xhtml?box=caddie">Voir le caddie (film déjà ajouté)</a>
-                        
-                        <!--
-                        <a class="btn btn-primary col-md-3 b21" href="signup.xhtml">Inscription</a>
-                        <a class="btn btn-success col-md-3 b22" href="connexion.xhtml">Connexion</a>
-                        -->
-                    </div>
 
-                    <!-- Cas où l'utilisateur est connecté et ne possède pas le film :
-                        class="btn btn-success col-md-3 b1" value="Ajouter au caddie"
-                    -->
-                    <!-- Cas où l'utilisateur n'est pas connecté :
-                        class="btn btn-primary col-md-3 b21" value="Inscription"
-                        class="btn btn-success col-md-3 b22" value="Connexion"
-                    -->
+                        <h:panelGroup rendered="#{owned}">
+                            <h:outputText value="#{filmManagedBean.getLinkToVisionneuse()}" escape="false" />
+                            <h:outputText value="#{filmManagedBean.getLinkToDownload()}" escape="false" />
+                        </h:panelGroup>
+
+                        <h:panelGroup rendered="#{free}">
+                            <h:form>
+                                <h:commandButton class="btn btn-success col-md-3 b1" value="Ajouter au caddie" action="#{accountManagedBean.addProductFilmToCaddie(loginManagedBean.id,filmManagedBean.mainProductId,filmManagedBean.id)}" />
+                            </h:form>
+                        </h:panelGroup>
+
+                        <h:panelGroup rendered="#{caddie}">
+                            <a class="btn btn-primary col-md-3 b1" href="moncompte.xhtml?box=caddie">Voir le caddie (film déjà ajouté)</a>
+                        </h:panelGroup>
+
+                        <h:panelGroup rendered="#{deco}">
+                            <a class="btn btn-primary col-md-3 b21" href="signup.xhtml">Inscription</a>
+                            <a class="btn btn-success col-md-3 b22" href="connexion.xhtml">Connexion</a>
+                        </h:panelGroup>
+                    </div>
 
                 </div>
 

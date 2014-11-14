@@ -8,13 +8,14 @@ package beans;
 import dtos.UserDto;
 import ejbs.ManageUserRemote;
 import enums.UserStates;
+import java.io.IOException;
 import java.util.Date;
+import javax.ejb.EJB;
+import javax.ejb.EJBException;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 
 /**
  *
@@ -25,25 +26,26 @@ import javax.naming.NamingException;
 public class LoginManagedBean {
 
     private UserDto user;
-
-    private static ManageUserRemote mur = null;
+    @EJB
+    private ManageUserRemote mur = null;
 
     public LoginManagedBean() {
-        if (mur == null) {
-            try {
-                InitialContext ic = new InitialContext();
-                mur = (ManageUserRemote) ic.lookup("java:global/HomeCinema/HomeCinema-ejb/ManageUser!ejbs.ManageUserRemote");
-            } catch (NamingException ex) {
-                ex.printStackTrace();
-            }
-        }
         user = new UserDto();
     }
 
     public void login() {
-        user = mur.login(user.email, user.password);
-        String message = (user.lastName == null) ? "Identifiants incorrects" : "Vous êtes maintenant connecté";
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(message));
+        try {
+            user = mur.login(user.email, user.password);
+        } catch (EJBException e) {
+            String message = "Identifiants incorrects !";
+            FacesContext.getCurrentInstance().addMessage("login", new FacesMessage(message));
+        }
+
+    }
+
+    public String logout() {
+        user = new UserDto();
+        return "/HomeCinema/?faces-redirect=true";
     }
 
     public Long getId() {
@@ -116,5 +118,11 @@ public class LoginManagedBean {
 
     public void setState(UserStates state) {
         user.state = state;
+    }
+
+    public void checkConnected() throws IOException {
+        if (user.id == null) {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
+        }
     }
 }

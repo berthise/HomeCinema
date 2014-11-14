@@ -5,10 +5,8 @@
  */
 package ejbs.admin;
 
-import dtos.ProductDto;
 import dtos.VideoDto;
 import ejbs.ManageVideoRemote;
-import entities.Product;
 import entities.Video;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +14,6 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import managers.dtos.ProductDtoManager;
 import managers.dtos.VideoDtoManager;
 import managers.entities.ManageEntitieVideo;
 
@@ -30,6 +27,7 @@ public class ManageVideo implements ManageVideoRemote {
     @PersistenceContext
     public EntityManager em;
 
+    @Override
     public List<VideoDto> getAllVideo() {
         Query q = em.createQuery("From Video v",Video.class);
         List<Video> lv = q.getResultList();

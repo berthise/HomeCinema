@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+        <title>Film Administration</title>
+        <meta name="description" content=""/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <script type="text/javascript" src="js/film.js"></script>
+        <f:metadata>
+            <f:viewParam name="id" value="#{filmManagedBean.id}" />
+            <f:event type="preRenderView" listener="#{filmManagedBean.setDtoFromId()}"/>
+        </f:metadata>
+    </head>
+    <body>
+        <section>
+            <h2 class="well-title">Film Administration</h2>
+            <ul>
+                <li><a href="index.xhtml">Acceuil</a></li>
+                <li><a href="films.xhtml">Films</a></li>
+            </ul>
+            <div class="alert alert-success">
+                <h:messages globalOnly="true" infoClass="info" />
+            </div>
+            <h:form id="formFilm" role="form">
+                <legend>Informations film</legend>
+                <div class="row">
+                    <div class="form-group">
+                        <h:outputLabel class="col-md-5 form-label" for="id">ID : </h:outputLabel>
+                        <div class="col-md-7">
+                            <h:inputText  id="id" class="form-control" value="#{filmManagedBean.id}" p:placeholder="id" p:required="required"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <h:outputLabel class="col-md-5 form-label" for="title">title : </h:outputLabel>
+                        <div class="col-md-7">
+                            <h:inputText id="title" class="form-control" value="#{filmManagedBean.title}" p:placeholder="Titre" p:required="required"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <h:outputLabel class="col-md-5 form-label" for="releaseDate">Release : </h:outputLabel>
+                        <div class="col-md-7">
+                            <h:inputText id="releaseDate" class="form-control" value="#{filmManagedBean.releaseDateString}" p:placeholder="Release" p:required="required"/>                                
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <h:outputLabel class="col-md-5 form-label" for="overview">Overview : </h:outputLabel>
+                        <div class="col-md-7">
+                            <h:inputTextarea cols="80" rows="10"  id="overview" class="form-control" value="#{filmManagedBean.overview}" p:placeholder="Overview" p:required="required"/>                                
+                        </div>
+                    </div>
+                </div>
+                                <div class="row">
+                    <div class="form-group">
+                        <h:outputLabel class="col-md-5 form-label" for="rating">Rating : </h:outputLabel>
+                        <div class="col-md-7">
+                            <h:inputText id="rating" class="form-control" value="#{filmManagedBean.rating}" p:placeholder="Rating" p:required="required"/>                                
+                        </div>
+                    </div>
+                </div>
+                                                <div class="row">
+                    <div class="form-group">
+                        <h:outputLabel class="col-md-5 form-label" for="runtime">Runtime : </h:outputLabel>
+                        <div class="col-md-7">
+                            <h:inputText id="runtime" class="form-control" value="#{filmManagedBean.runtime}" p:placeholder="Runtime" p:required="required"/>                                
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5"></div>
+                    <h:commandButton class="btn btn-danger col-md-3" p:type="reset" value="Réinitialiser" />
+
+                    <h:commandButton class="btn btn-primary col-md-3" value="Envoyer" action="#{filmManagedBean.save}" />
+                </div>
+            </h:form>
+            <button class="btn btn-primary col-md-3"  value="Load TMDB" onclick="load_tmdb()"> Load TMDB</button>
+        </section>
+        <script src="js/users.js"></script>
+
+    </body>
+</html>

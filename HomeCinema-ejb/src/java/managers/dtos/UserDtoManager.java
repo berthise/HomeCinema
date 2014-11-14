@@ -8,11 +8,10 @@ package managers.dtos;
 import dtos.SimpleUserDto;
 import dtos.UserDto;
 import dtos.UserDtoNoPw;
-import dtos.VideoDto;
 import entities.User;
-import entities.Video;
+import enums.UserStates;
+import java.util.Date;
 import javax.persistence.EntityManager;
-import static managers.dtos.VideoDtoManager.makeVideo;
 
 /**
  *
@@ -42,8 +41,8 @@ public class UserDtoManager {
         u.setFirstName(udto.firstName);
         u.setLastName(udto.lastName);
         u.setBirthDate(udto.birthDate);
-        u.setAddDate(udto.addDate);
-        u.setState(udto.state);
+        u.setAddDate(new Date());
+        u.setState(UserStates.Deactivated);
         return u;
     }
 

@@ -9,7 +9,6 @@ import enums.UserStates;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -74,7 +73,7 @@ public class User implements Serializable {
     private Caddy caddy;
 
     @OneToMany
-    @JoinColumn(name = "FILMS")
+    @JoinColumn(name = "USER_")
     private Set<UsersFilms> films;
 
     @OneToMany(mappedBy = "user")
