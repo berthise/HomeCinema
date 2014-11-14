@@ -8,6 +8,10 @@
     xmlns:jsf="http://java.sun.com/jsf"
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
+    <script src="js/vendor/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
     <header>
         <div id="banner">
             <div id="logo">
@@ -22,7 +26,7 @@
                 <c:choose>
                     <c:when test="#{loginManagedBean.firstName == null}" >
                         <a href="#" id="login">Connexion</a>
-                        <a href="#" id="signup">Inscription</a>
+                        <a href="signup.xhtml" id="signup">Inscription</a>
                     </c:when>
                     <c:otherwise>
                         #{loginManagedBean.firstName}
