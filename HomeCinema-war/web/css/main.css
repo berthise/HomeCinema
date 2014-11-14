@@ -6,8 +6,14 @@ body {
   body header {
     margin-bottom: 20px;
     margin-top: 0; }
-    body header #banner-img, body header #logo {
-      display: inline-block; }
+    body header #banner-img {
+      width:664px;
+    margin: auto;
+    margin-top: -89px;
+    }
+    body header #logo {
+        display: inline-block;
+    }
     body header #logo {
       padding: 0 20px; }
       body header #logo img {
@@ -26,9 +32,15 @@ body {
       padding: 2px 20px;
       border-radius: 0 0 0 50px;
       font-size: 12px; }
+      body header .userTools form {
+        display: inline-block; }
       body header .userTools a {
         color: #fff;
-        text-decoration: none; }
+        text-decoration: none;
+        padding: 0 10px; }
+      .decale-right {
+          margin-right: 3px;
+      } 
     body header #form-login {
       z-index: 10000;
       display: none;
@@ -70,15 +82,26 @@ body {
     margin: 0 auto;
     color: #000; }
     body section .form-signin .form-signin-heading, body section .form-signin .checkbox {
-      margin-bottom: 10px; }
+      margin-bottom: 10px;
+      text-align: center; }
+    body section .form-signin legend {
+      text-align: center; }
     body section .form-signin .checkbox {
       font-weight: normal; }
-    body section .form-signin .form-group > label {
+      body section .form-signin .checkbox input[type="checkbox"] {
+        float: none;
+        margin: 0 5px; }
+    body section .form-signin .form-group > .form-label {
+      font-weight: normal;
       text-align: right;
       padding: 2px;
       line-height: 2; }
     body section .form-signin input[type="date"] {
       width: 80%; }
+    body section .form-signin input[type="reset"] {
+      margin: 0 15px; }
+    body section .form-signin i.required {
+      color: red; }
   body footer .footer-elem {
     margin: auto;
     text-align: center; }

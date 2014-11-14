@@ -29,7 +29,7 @@ import javax.naming.NamingException;
 @ViewScoped
 public class FilmManagedBean {
 
-    private ManageFilmRemote filmManager;
+    private final ManageFilmRemote filmManager;
 
     public FilmFicheDto fdto;
 

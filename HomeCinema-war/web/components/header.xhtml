@@ -8,6 +8,10 @@
     xmlns:jsf="http://java.sun.com/jsf"
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
+    <script src="js/vendor/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
     <header>
         <div id="banner">
             <div id="logo">
@@ -22,17 +26,19 @@
                 <c:choose>
                     <c:when test="#{loginManagedBean.firstName == null}" >
                         <a href="#" id="login">Connexion</a>
-                        <a href="#" id="signup">Inscription</a>
+                        <a href="signup.xhtml" id="signup">Inscription</a>
                     </c:when>
                     <c:otherwise>
                         #{loginManagedBean.firstName}
-                        <a href="#" id="logout">Deconnexion</a>
+                        <h:form>
+                            <h:commandLink action="#{loginManagedBean.logout}" value="Déconnexion" />
+                        </h:form>
                     </c:otherwise>
                 </c:choose>
             </div>
             <div class="col-md-2" id="form-login">
                 <h:form role="form">
-                    <h:messages globalOnly="true" infoClass="info" />
+                    <h:messages for="login" infoClass="info" />
                     <div class="form-group">
                         <h:inputText p:type="email" id="email" value="#{loginManagedBean.email}" class="form-control input-sm" p:placeholder="Votre adresse mail" />
                     </div>
@@ -56,10 +62,13 @@
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="/HomeCinema-war/"><i class="glyphicon glyphicon-home"></i> Home</a></li>
-                        <li><a href="#films"><i class="glyphicon glyphicon-facetime-video"></i> Films</a></li>
-                        <li><a href="#autres">FAQ</a></li>
-                        <li><a href="#menu3">Demo</a></li>
+                        <li class="active"><a href="/HomeCinema-war/"><i class="decale-right glyphicon glyphicon-home"></i> Accueil</a></li>
+                        <li><a href="#films"><i class="decale-right glyphicon glyphicon-facetime-video"></i> Films</a></li>
+                        <li><a href="#autres"><i class="decale-right glyphicon glyphicon-info-sign"></i> FAQ</a></li>
+                        <li><a href="#menu3"><i class="decale-right glyphicon glyphicon-wrench"></i> Demo</a></li>
+                        <h:panelGroup rendered="#{loginManagedBean.id != null}">
+                            <li><a href="moncompte.xhtml"><i class="decale-right glyphicon glyphicon-folder-open"></i> Mon compte</a></li>
+                        </h:panelGroup>
                     </ul>
                     <div class="col-sm-3 col-md-3 pull-right">
                         <form class="navbar-form" role="search" id="search-form">
