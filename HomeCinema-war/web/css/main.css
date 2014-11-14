@@ -6,14 +6,8 @@ body {
   body header {
     margin-bottom: 20px;
     margin-top: 0; }
-    body header #banner-img {
-      width:664px;
-    margin: auto;
-    margin-top: -89px;
-    }
-    body header #logo {
-        display: inline-block;
-    }
+    body header #banner-img, body header #logo {
+      display: inline-block; }
     body header #logo {
       padding: 0 20px; }
       body header #logo img {
@@ -38,9 +32,6 @@ body {
         color: #fff;
         text-decoration: none;
         padding: 0 10px; }
-      .decale-right {
-          margin-right: 3px;
-      } 
     body header #form-login {
       z-index: 10000;
       display: none;
