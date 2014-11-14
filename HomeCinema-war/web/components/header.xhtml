@@ -25,11 +25,13 @@
             <div class="userTools">
                 <c:choose>
                     <c:when test="#{loginManagedBean.firstName == null}" >
-                        <a href="#" id="login">Connexion</a>
+                        <a href="#" id="login">Connexion</a> | 
                         <a href="signup.xhtml" id="signup">Inscription</a>
                     </c:when>
                     <c:otherwise>
-                        #{loginManagedBean.firstName}
+                        <span class="decale-right" style="color: white;"> Bienvenue "<b>#{loginManagedBean.firstName}</b>" </span> | 
+                        <a href="moncompte.xhtml" title="Voir mon compte"><i class="glyphicon glyphicon-folder-open"></i></a> |
+                        <a href="moncompte.xhtml?box=caddie" title="Voir mon caddie"><i class="glyphicon glyphicon-shopping-cart"></i></a> |
                         <h:form>
                             <h:commandLink action="#{loginManagedBean.logout}" value="Déconnexion" />
                         </h:form>

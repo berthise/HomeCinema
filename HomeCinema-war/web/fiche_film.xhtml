@@ -177,7 +177,7 @@
 
                         <h:panelGroup rendered="#{free}">
                             <h:form>
-                                <h:commandButton class="btn btn-success col-md-3 b1" value="Ajouter au caddie" type="submit" action="#{filmManagedBean.getLinkToDownload()}" />
+                                <h:commandButton class="btn btn-success col-md-3 b1" value="Ajouter au caddie" action="#{accountManagedBean.addToCaddie(loginManagedBean.id,filmManagedBean.mainProductId)}" />
                             </h:form>
                         </h:panelGroup>
 

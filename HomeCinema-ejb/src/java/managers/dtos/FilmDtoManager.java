@@ -53,6 +53,7 @@ public class FilmDtoManager {
         for (Video v : f.getVideoFile()) {
             fdto.files.add(VideoDtoManager.getDto(v));
         }
+        fdto.main_product_id = f.getMain_product().getId();
         return fdto;
     }
 
