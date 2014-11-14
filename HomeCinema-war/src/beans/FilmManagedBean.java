@@ -64,7 +64,15 @@ public class FilmManagedBean {
     public void setTitle(String s) {
         fdto.title = s;
     }
+    
+    public Long getMainProductId (){
+        return fdto.main_product_id;
+    }
 
+    public void setMainProductId (Long i){
+        fdto.main_product_id = i;
+    }
+    
     public void setCover(String s) {
         fdto.cover = s;
     }
