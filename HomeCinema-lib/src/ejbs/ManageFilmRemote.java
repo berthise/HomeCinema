@@ -59,4 +59,8 @@ public interface ManageFilmRemote {
     public Set<GenreDto> getGenre(Long fid);
 
     public void removeVideo(Long fid, Long vid);
+
+    public FilmDto getFilmFromId(Long id);
+
+    public void mergeOrSave(FilmDto fdto);
 }
