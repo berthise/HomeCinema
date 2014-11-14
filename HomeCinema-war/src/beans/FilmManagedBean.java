@@ -8,14 +8,15 @@ package beans;
 import dtos.FilmDto;
 import dtos.FilmFicheDto;
 import ejbs.ManageFilmRemote;
+import ejbs.ManageUserRemote;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 
 import java.util.Date;
-import javax.faces.bean.SessionScoped;
+import java.util.List;
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -165,22 +166,5 @@ public class FilmManagedBean {
             toReturn += "<a href=\"#\" class=\"list-genre\">" + s + "</a> , ";
         }
         return toReturn.substring(0, toReturn.length() - 3);
-    }
-
-    public String printLinesMyFilms(Long iduser) {
-        String toReturn = "";
-        
-        
-        
-        toReturn += printLineFilm("3UBQGKS8c1dxRnDiu5kUK6ej3pP.jpg", "American Beauty", "1999", "14");
-        toReturn += printLineFilm("hpt3aa5i0TrSAnEdl3VJrRrje8C.jpg", "Fight Club", "1999", "550");
-        return toReturn;
-    }
-
-    private String printLineFilm(String image, String titre, String date, String id) {
-        return "<tr class=\"tr-hover\"><td><span class=\"affiche\"><img src=\"img/glass.png\" />"
-                + "<span><img src=\"http://image.tmdb.org/t/p/w396/" + image + "\" /></span></span></td>"
-                + "<td><a href=\"fiche_film.xhtml?id=" + id + "\" title=\"Voir la fiche du film\">" + titre + " (" + date + ")</a></td>"
-                + "<td><a href=\"visionneuse.xhtml?id="+ id +"\"><img src=\"img/eye.png\" title=\"Voir le film\" /></a></td></tr>";
     }
 }
