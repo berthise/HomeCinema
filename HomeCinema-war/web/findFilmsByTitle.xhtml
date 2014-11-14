@@ -40,7 +40,7 @@ and open the template in the editor.
                         <h2 align="center">Chercher un produit</h2>
                     </header>
                     <form method="post" action="#">
-                        <input id="search_ID" type="text" class="text" name="search" placeholder="Search" />
+                        <input type="text" class="text" name="search" placeholder="Search" />
                     </form>
 
                     <!-- Nav -->
@@ -73,7 +73,7 @@ and open the template in the editor.
         <section>
             <article> 
                 <div class="row exclus"> 
-                    <c:forEach var="row" items="#{listFilmBean.}"  > 
+                    <c:forEach var="row" items="#{listFilmBean.getAllFilmsByTitle('American Beauty')}"  > 
                         <div class="col-md-2  col-xs-12 film">
                          <a href="fiche_film.xhtml?id= #{row.id}" >  
                                             <img   class="cover" 
