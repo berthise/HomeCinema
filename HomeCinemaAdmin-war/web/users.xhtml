@@ -57,20 +57,6 @@
                         <f:facet name="header">
                             <h:outputText value="Action" />
                         </f:facet>
-<!--                        <c:choose>
-                            <c:when test="${user.state.status eq 'a' }">
-                                activated
-                            </c:when>
-                            <c:when test="${user.state.status eq 'b' }">
-                                unactivated
-                            </c:when>
-                            <c:when test="${user.state.status eq 'c' }">
-                                deactivated
-                            </c:when>
-                            <c:when test="${user.state.status eq 'd' }">
-                                removed
-                            </c:when>
-                        </c:choose>-->
                         <h:commandLink onclick="return confirm('Are you sure ?')" action="#{usersManagedBean.delUser(user.id)}" value="delete" />
                     </h:column>
                     <f:facet name="footer">
