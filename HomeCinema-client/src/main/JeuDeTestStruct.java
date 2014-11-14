@@ -134,41 +134,16 @@ public class JeuDeTestStruct {
       /*
        ********************** */
 
-      /* **********************
-       * robin caddy: Star Wars Trilogie + Fight Club
-       * seb caddy: Fight Club
-       */
-      a.getManagetransactionRemote().addProduct(rob_user.id, sw_product.id);
-      a.getManagetransactionRemote().addProduct(rob_user.id, fc_product.id);
-      a.getManagetransactionRemote().addProduct(seb_user.id, fc_product.id);
+     /* **********************
+     * robin caddy: Star Wars Trilogie + Fight Club
+     * seb caddy: Fight Club
+     */
+      userCaddyProduct(a, rob_user, sw_product);
+      userCaddyProduct(a, rob_user, fc_product);
+      userCaddyProduct(a, seb_user, fc_product);
       /*
        ********************** */
-
       
-      /*
-      //print
-      System.out.println("Film");
-      List<FilmDto> lfdto = a.getManageFilmRemote().getAllFilm();
-      for (FilmDto fdto : lfdto) {
-	System.out.println(fdto.title);
-      }
-      System.out.println("Product");
-      List<ProductDto> lpdto = a.getManageProductRemote().getAllProduct();
-      for (ProductDto udto : lpdto) {
-	System.out.println(udto.name);
-      }
-      System.out.println("User");
-      Set<SimpleUserDto> ludto = a.getManageUserRemote().getAllUser();
-      for (SimpleUserDto udto : ludto) {
-	System.out.println(udto.nickName);
-      }
-*/
-      //test
-      /*
-      a.getManageFilmRemote().addGenres(14L, a.getGenre(14L));
-      a.getManageFilmRemote().addActors(14L, a.getCast(14L));
-      a.getManageFilmRemote().addDirectors(14L, a.getDirectors(14L));
-*/
     } catch (JSONException ex) {
       Logger.getLogger(JeuDeTest.class.getName()).log(Level.SEVERE, null, ex);
     } catch (IOException ex) {
@@ -179,15 +154,25 @@ public class JeuDeTestStruct {
 
   }
 
+  private static void userCaddyProduct(Admin a, UserDto rob_user, ProductDto sw_product) {
+
+    System.out.print(rob_user.nickName + " caddy : " + sw_product.name);
+    a.getManagetransactionRemote().addProduct(rob_user.id, sw_product.id);
+    System.out.println(" ...  done");
+  }
+
   private static void userBuyProduct(Admin a, UserDto rob_user, ProductDto ab_product, long btn) {
     //achat american beauty
+    System.out.print(rob_user.nickName + " buy : " + ab_product.name);
     a.getManagetransactionRemote().addProduct(rob_user.id, ab_product.id);
     Long trans = a.getManagetransactionRemote().validate(rob_user.id);
     a.getManagetransactionRemote().validatePayement(trans, btn);
+    System.out.println(" ...  done");
   }
 
   private static UserDto createAndPushUser(Admin a, String nickname, String email, String firstname, String lastname) {
     //creer user robin
+    System.out.print("create user : " + nickname);
     UserDto u = new UserDto();
     u.birthDate = new Date();
     u.email = email;
@@ -197,11 +182,13 @@ public class JeuDeTestStruct {
     u.password = "password";
     a.getManageUserRemote().signUp(u);
     u = a.getManageUserRemote().login(u.email, u.password);
+    System.out.println(" ...  done");
     return u;
   }
 
   private static ProductDto createAndPushProduct(Admin a, List<FilmDto> films, String name, double price) {
     //creer un produit
+    System.out.print("create product : " + name);
     ProductDto pdto = new ProductDto();
     pdto.name = name;
     pdto.price = price;
@@ -209,38 +196,43 @@ public class JeuDeTestStruct {
     for (FilmDto f : films) {
       a.getManageProductRemote().addExistingFilm(pdto.id, f.id, true);
     }
+    System.out.println(" ...  done");
     return pdto;
   }
 
   private static ProductDto createAndPushProduct(Admin a, FilmDto f, String name, double price) {
     //creer un produit
+    System.out.print("create product : " + name);
+
     ProductDto pdto = new ProductDto();
     pdto.name = name;
     pdto.price = price;
     pdto.id = a.getManageProductRemote().createProduct(pdto);
     a.getManageProductRemote().addExistingFilm(pdto.id, f.id, true);
+    System.out.println(" ...  done");
+
     return pdto;
   }
 
   private static FilmDto createAndPushFilm(Admin a, long film_id, long video_id, long trailer_id) throws IOException, ParseException, JSONException {
     //creer american beauty
+    System.out.print("create film : ");
     FilmDto f = a.createFilm(film_id);
+    System.out.print(f.title);
     a.getManageFilmRemote().createFilm(f);
     a.getManageFilmRemote().addExistingVideo(f.id, video_id);
     a.getManageFilmRemote().setExistingTrailer(f.id, trailer_id);
+    System.out.println(" ...  done");
     return f;
   }
 
-  private static VideoDto createVideo(int resolution, String url) {
-    VideoDto t = new VideoDto();
-    t.resolution = resolution;
-    t.url = url;
-    return t;
-  }
-
   private static VideoDto createAndPushVideo(Admin a, int resolution, String url) {
-    VideoDto v = createVideo(resolution, url);
+    System.out.print("create video : " + url);
+    VideoDto v = new VideoDto();
+    v.resolution = resolution;
+    v.url = url;
     v.id = a.getManageVideoRemote().createVideo(v);
+    System.out.println(" ...  done");
     return v;
   }
 }

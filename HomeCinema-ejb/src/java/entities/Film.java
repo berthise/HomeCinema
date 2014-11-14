@@ -39,12 +39,12 @@ public class Film implements Serializable {
     @Column(name = "ID_FILM")
     private Long id;
 
-    @ManyToMany(cascade=CascadeType.ALL)
+    @ManyToMany
     @JoinColumn(name = "PRODUCTS")
     private List<Product> products;
 
     @JoinColumn(name = "MAIN_PRODUCT")
-    @OneToOne(cascade=CascadeType.ALL)
+    @OneToOne
     private Product main_product;
 
     @Size(max = 255)
@@ -65,7 +65,7 @@ public class Film implements Serializable {
 
     @Size(max = 255)
     @JoinColumn(name = "COUNTRIES")
-    @ManyToMany(cascade=CascadeType.REFRESH)
+    @ManyToMany
     private Set<Country> countries;
 
     @Column(name = "RATING", precision = 1, scale = 2)
@@ -74,26 +74,26 @@ public class Film implements Serializable {
     @Column(name = "RUNTIME")
     private Integer runtime;
 
-    @OneToMany(cascade=CascadeType.ALL)
+    @OneToMany
     @JoinColumn(name = "VIDEO_FILES")
     private Set<Video> videoFile;
 
-    @OneToOne(cascade=CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "TRAILLER")
     private Video trailler;
 
-    @ManyToMany(cascade=CascadeType.ALL)
+    @ManyToMany
     @JoinTable(name = "ACTORS")
     @JoinColumn(name = "ACTORS")
     private List<Person> actors;
 
-    @ManyToMany(cascade=CascadeType.ALL)
+    @ManyToMany
     @JoinTable(name = "DIRECTORS")
     @JoinColumn(name = "DIRECTORS")
     private List<Person> directors;
 
     @JoinColumn(name = "GENRE")
-    @ManyToMany(cascade=CascadeType.REFRESH)
+    @ManyToMany
     private Set<Genre> genre;
 
     public Film() {

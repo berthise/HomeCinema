@@ -28,7 +28,7 @@ public class Caddy implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToMany(cascade=CascadeType.ALL)
+    @ManyToMany()
     @JoinColumn(name = "CADDY")
     private Set<Product> products;
 

@@ -43,7 +43,7 @@ public class Product implements Serializable {
   private Long id;
 
   @JoinColumn(name = "FILMS")
-  @ManyToMany(mappedBy = "products",cascade=CascadeType.ALL)
+  @ManyToMany(mappedBy = "products")
   private List<Film> films;
 
   @Column(name = "PRICE")

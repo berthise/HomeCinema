@@ -45,11 +45,11 @@ public class Transaction implements Serializable {
   @Column(name = "BANK_TRANS_NUM")
   private Long bankTransNum;
   
-  @ManyToMany(cascade=CascadeType.ALL)
+  @ManyToMany
   @JoinColumn(name = "PRODUCTS")
   private Set<Product> products;
 
-  @ManyToOne(cascade=CascadeType.ALL)
+  @ManyToOne
   @JoinColumn(name = "USER_")
   private User user;
   

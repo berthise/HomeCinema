@@ -13,13 +13,13 @@ import java.util.Date;
  *
  * @author toure
  */
-public class UserDtoNoPw extends SimpleUserDto  implements Serializable {
+public class UserDtoNoPw extends SimpleUserDto implements Serializable {
 
-    public String firstName;
-    public String lastName;
+  public String firstName;
+  public String lastName;
 
-    public Date birthDate;
-    public Date addDate;
+  public Date birthDate;
+  public Date addDate;
 
   public String getFirstName() {
     return firstName;
@@ -52,7 +52,5 @@ public class UserDtoNoPw extends SimpleUserDto  implements Serializable {
   public void setAddDate(Date addDate) {
     this.addDate = addDate;
   }
-    
-    
-   
+
 }

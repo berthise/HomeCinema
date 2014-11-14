@@ -32,7 +32,7 @@ public class UsersFilms implements Serializable {
     private Long id;
 
     @JoinColumn(name = "FILM")
-    @OneToOne(cascade=CascadeType.ALL)
+    @OneToOne
     private Film film;
 
     @Column(name = "STATE_")

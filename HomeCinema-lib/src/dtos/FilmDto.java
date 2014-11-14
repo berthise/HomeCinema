@@ -14,139 +14,76 @@ import java.util.Date;
  */
 public class FilmDto implements Serializable {
 
-    public Long getId() {
-        return id;
-    }
+  public Long id;
+  public String title;
+  public String overview;
+  public String cover;
+  public Date release_date;
+  public String country;
+  public Integer runtime;
+  public Double rating;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+  public Long getId() {
+    return id;
+  }
 
-    public String getTitle() {
-        return title;
-    }
+  public void setId(Long id) {
+    this.id = id;
+  }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+  public String getTitle() {
+    return title;
+  }
 
-    public String getOverview() {
-        return overview;
-    }
+  public void setTitle(String title) {
+    this.title = title;
+  }
 
-    public void setOverview(String overview) {
-        this.overview = overview;
-    }
+  public String getOverview() {
+    return overview;
+  }
 
-    public String getCover() {
-        return cover;
-    }
+  public void setOverview(String overview) {
+    this.overview = overview;
+  }
 
-    public void setCover(String cover) {
-        this.cover = cover;
-    }
+  public String getCover() {
+    return cover;
+  }
 
-    public Date getRelease_date() {
-        return release_date;
-    }
+  public void setCover(String cover) {
+    this.cover = cover;
+  }
 
-    public void setRelease_date(Date release_date) {
-        this.release_date = release_date;
-    }
+  public Date getRelease_date() {
+    return release_date;
+  }
 
-    public String getCountry() {
-        return country;
-    }
+  public void setRelease_date(Date release_date) {
+    this.release_date = release_date;
+  }
 
-    public void setCountry(String country) {
-        this.country = country;
-    }
+  public String getCountry() {
+    return country;
+  }
 
-    public Integer getRuntime() {
-        return runtime;
-    }
+  public void setCountry(String country) {
+    this.country = country;
+  }
 
-    public void setRuntime(Integer runtime) {
-        this.runtime = runtime;
-    }
+  public Integer getRuntime() {
+    return runtime;
+  }
 
-    public Double getRating() {
-        return rating;
-    }
+  public void setRuntime(Integer runtime) {
+    this.runtime = runtime;
+  }
 
-    public void setRating(Double rating) {
-        this.rating = rating;
-    }
-    public Long id;
-    public String title;
-    public String overview;
-    public String cover;
+  public Double getRating() {
+    return rating;
+  }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getOverview() {
-        return overview;
-    }
-
-    public void setOverview(String overview) {
-        this.overview = overview;
-    }
-
-    public String getCover() {
-        return cover;
-    }
-
-    public void setCover(String cover) {
-        this.cover = cover;
-    }
-
-    public Date getRelease_date() {
-        return release_date;
-    }
-
-    public void setRelease_date(Date release_date) {
-        this.release_date = release_date;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public Integer getRuntime() {
-        return runtime;
-    }
-
-    public void setRuntime(Integer runtime) {
-        this.runtime = runtime;
-    }
-
-    public Double getRating() {
-        return rating;
-    }
-
-    public void setRating(Double rating) {
-        this.rating = rating;
-    }
-    public Date release_date;
-    public String country;
-    public Integer runtime;
-    public Double rating;
+  public void setRating(Double rating) {
+    this.rating = rating;
+  }
 }

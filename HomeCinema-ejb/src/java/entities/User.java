@@ -70,15 +70,15 @@ public class User implements Serializable {
     @Column(name = "STATE_")
     private UserStates state;
 
-    @OneToOne(cascade=CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "CADDY")
     private Caddy caddy;
 
-    @OneToMany(cascade=CascadeType.ALL)
+    @OneToMany
     @JoinColumn(name = "USER_")
     private Set<UsersFilms> films;
 
-    @OneToMany(mappedBy = "user",cascade=CascadeType.ALL)
+    @OneToMany(mappedBy = "user")
     @JoinColumn(name = "TRANSACTIONS")
    private Set<Transaction> transactions;
 
