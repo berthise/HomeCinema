@@ -23,6 +23,9 @@ public interface ManageUserRemote {
 
     public void signUp(UserDto user);
     
+    public void save(UserDtoNoPw user);
+
+    
     public UserDto login(String email, String password);
     
     public Set<SimpleUserDto> getAllUser();
