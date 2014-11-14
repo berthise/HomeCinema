@@ -74,7 +74,7 @@ public class User implements Serializable {
     private Caddy caddy;
 
     @OneToMany
-    @JoinColumn(name = "FILMS")
+    @JoinColumn(name = "USER_")
     private Set<UsersFilms> films;
 
     @OneToMany(mappedBy = "user")

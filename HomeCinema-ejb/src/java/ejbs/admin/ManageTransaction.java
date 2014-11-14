@@ -94,6 +94,7 @@ public class ManageTransaction implements ManageTransactionRemote {
         t.setUser(u);
         t.setState(TransactionStates.Prepared);
         em.persist(t);
+        em.remove(u.getCaddy());
         u.setCaddy(null);
         u.addTransaction(t);
         em.merge(u);

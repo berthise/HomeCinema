@@ -7,11 +7,13 @@ package ejbs.user;
 
 import dtos.FilmDto;
 import dtos.SimpleUserDto;
+import dtos.TransactionDto;
 import dtos.UserDto;
 import dtos.UserDtoNoPw;
 import ejbs.ManageUserRemote;
 import entities.Film;
 import entities.Product;
+import entities.Transaction;
 import entities.User;
 import entities.UsersFilms;
 import enums.UserStates;
@@ -25,6 +27,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import managers.dtos.FilmDtoManager;
+import managers.dtos.TransactionDtoManager;
 import managers.dtos.UserDtoManager;
 
 /**
@@ -43,6 +46,16 @@ public class ManageUser implements ManageUserRemote {
     }
 
     @Override
+    public Set<TransactionDto> getTransaction(Long user) {
+        User u = em.find(User.class, user);
+        Set<TransactionDto> res = new HashSet<>();
+        for (Transaction t : u.getTransactions()) {
+            res.add(TransactionDtoManager.getDto(t));
+        }
+        return res;
+    }
+
+    @Override
     public UserDto login(String email, String password) {
         Long id = 1L;
         TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.email = :email AND u.password = :password", User.class);
@@ -52,55 +65,57 @@ public class ManageUser implements ManageUserRemote {
         return UserDtoManager.getUser(user);
     }
 
+    @Override
     public Set<SimpleUserDto> getAllUser(boolean rem) {
         Query q;
-        if (!rem)
-         q = em.createQuery("select u From User u where u.state <> :remove",User.class).setParameter("remove", UserStates.Removed);
-        else
-            q = em.createQuery("select u From User u ",User.class);
-        List<User> lu = q.getResultList(); 
+        if (!rem) {
+            q = em.createQuery("select u From User u where u.state <> :remove", User.class).setParameter("remove", UserStates.Removed);
+        } else {
+            q = em.createQuery("select u From User u ", User.class);
+        }
+        List<User> lu = q.getResultList();
         Set<SimpleUserDto> ludto = new HashSet<>();
         for (User u : lu) {
             ludto.add(UserDtoManager.getSimpleDto(u));
         }
         return ludto;
     }
-    
-    public UserDtoNoPw getUser(Long id)
-    {
+
+    @Override
+    public UserDtoNoPw getUser(Long id) {
         User u = em.find(User.class, id);
         return UserDtoManager.getUserNoPw(u);
     }
-    
-    public void removeUser (Long id)
-    {
+
+    @Override
+    public void removeUser(Long id) {
         User u = em.find(User.class, id);
-        u.setBirthDate(null);
-        u.setCaddy(null);
-        //u.setEmail(null);
-        u.setLastName(null);
-        //u.setNickName(null);
-        u.setFirstName(null);
-        u.setPassword(null);
-        u.setFilms(null);
-        u.setState(UserStates.Removed);
-        em.merge(u);
+        for (Transaction t : u.getTransactions()) {
+            t.setUser(null);
+            em.merge(t);
+        }
+        for (UsersFilms uf : u.getFilms()) {
+            em.remove(uf);
+        }
+        if (u.getCaddy() != null) {
+            em.remove(u.getCaddy());
+        }
+        em.remove(u);
     }
-    
-    public void mergeOrSave (UserDtoNoPw udto)
-    {
+
+    @Override
+    public void mergeOrSave(UserDtoNoPw udto) {
         UserDtoManager.mergeOrSave(udto, em);
     }
-    
-    public List<FilmDto> getFilms(Long id)
-    {
-                User p = em.find(User.class, id);
+
+    @Override
+    public List<FilmDto> getFilms(Long id) {
+        User p = em.find(User.class, id);
         List<FilmDto> lfdto = new ArrayList<>();
-        for ( UsersFilms f : p.getFilms())
-        {
+        for (UsersFilms f : p.getFilms()) {
             lfdto.add(FilmDtoManager.getDto(f.getFilm()));
         }
         return lfdto;
     }
-    
+
 }
