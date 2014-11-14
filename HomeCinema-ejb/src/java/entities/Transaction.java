@@ -9,6 +9,7 @@ import enums.TransactionStates;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -44,11 +45,11 @@ public class Transaction implements Serializable {
   @Column(name = "BANK_TRANS_NUM")
   private Long bankTransNum;
   
-  @ManyToMany
+  @ManyToMany(cascade=CascadeType.ALL)
   @JoinColumn(name = "PRODUCTS")
   private Set<Product> products;
 
-  @ManyToOne
+  @ManyToOne(cascade=CascadeType.ALL)
   @JoinColumn(name = "USER_")
   private User user;
   

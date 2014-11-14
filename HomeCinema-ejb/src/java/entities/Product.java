@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -42,7 +43,7 @@ public class Product implements Serializable {
   private Long id;
 
   @JoinColumn(name = "FILMS")
-  @ManyToMany(mappedBy = "products")
+  @ManyToMany(mappedBy = "products",cascade=CascadeType.ALL)
   private List<Film> films;
 
   @Column(name = "PRICE")

@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -38,12 +39,12 @@ public class Film implements Serializable {
     @Column(name = "ID_FILM")
     private Long id;
 
-    @ManyToMany
+    @ManyToMany(cascade=CascadeType.ALL)
     @JoinColumn(name = "PRODUCTS")
     private List<Product> products;
 
     @JoinColumn(name = "MAIN_PRODUCT")
-    @OneToOne
+    @OneToOne(cascade=CascadeType.ALL)
     private Product main_product;
 
     @Size(max = 255)
@@ -64,7 +65,7 @@ public class Film implements Serializable {
 
     @Size(max = 255)
     @JoinColumn(name = "COUNTRIES")
-    @ManyToMany
+    @ManyToMany(cascade=CascadeType.REFRESH)
     private Set<Country> countries;
 
     @Column(name = "RATING", precision = 1, scale = 2)
@@ -73,26 +74,26 @@ public class Film implements Serializable {
     @Column(name = "RUNTIME")
     private Integer runtime;
 
-    @OneToMany
+    @OneToMany(cascade=CascadeType.ALL)
     @JoinColumn(name = "VIDEO_FILES")
     private Set<Video> videoFile;
 
-    @OneToOne
+    @OneToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "TRAILLER")
     private Video trailler;
 
-    @ManyToMany
+    @ManyToMany(cascade=CascadeType.ALL)
     @JoinTable(name = "ACTORS")
     @JoinColumn(name = "ACTORS")
     private List<Person> actors;
 
-    @ManyToMany
+    @ManyToMany(cascade=CascadeType.ALL)
     @JoinTable(name = "DIRECTORS")
     @JoinColumn(name = "DIRECTORS")
     private List<Person> directors;
 
     @JoinColumn(name = "GENRE")
-    @ManyToMany
+    @ManyToMany(cascade=CascadeType.REFRESH)
     private Set<Genre> genre;
 
     public Film() {
