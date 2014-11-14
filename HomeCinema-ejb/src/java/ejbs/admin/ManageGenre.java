@@ -6,12 +6,10 @@
 package ejbs.admin;
 
 import dtos.GenreDto;
-import entities.Genre;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import managers.dtos.GenreDtoManager;
 import managers.entities.ManageEntitieGenre;
 
 /**

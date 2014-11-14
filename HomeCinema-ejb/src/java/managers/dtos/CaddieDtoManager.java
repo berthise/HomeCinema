@@ -6,18 +6,9 @@
 package managers.dtos;
 
 import dtos.CaddieDto;
-import dtos.FilmDto;
-import dtos.FilmFicheDto;
-import dtos.ProductDto;
-import dtos.VideoDto;
 import entities.Caddy;
-import entities.Film;
 import entities.Product;
-import entities.Video;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import javax.persistence.EntityManager;
 
 /**
  *

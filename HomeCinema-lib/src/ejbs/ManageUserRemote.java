@@ -7,6 +7,7 @@ package ejbs;
 
 import dtos.FilmDto;
 import dtos.SimpleUserDto;
+import dtos.TransactionDto;
 import dtos.UserDto;
 import dtos.UserDtoNoPw;
 import java.util.List;
@@ -22,9 +23,12 @@ public interface ManageUserRemote {
 
     public void signUp(UserDto user);
     
+    public void save(UserDtoNoPw user);
+
+    
     public UserDto login(String email, String password);
     
-    public Set<SimpleUserDto> getAllUser(boolean rem);
+    public Set<SimpleUserDto> getAllUser();
     
     public UserDtoNoPw getUser(Long id);
     
@@ -33,4 +37,8 @@ public interface ManageUserRemote {
     public void mergeOrSave (UserDtoNoPw udto);
     
     public List<FilmDto> getFilms(Long id);
+    
+      public  Set<TransactionDto> getTransaction (Long user);
+
+    public boolean changePassword(Long user, String oldPass, String newPass);
 }

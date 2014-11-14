@@ -16,4 +16,30 @@ public class VideoDto implements Serializable {
   public Long id;
   public String url;
   public Integer resolution;
+
+  public Long getId() {
+    return id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
+  }
+
+  public String getUrl() {
+    return url;
+  }
+
+  public void setUrl(String url) {
+    this.url = url;
+  }
+
+  public Integer getResolution() {
+    return resolution;
+  }
+
+  public void setResolution(Integer resolution) {
+    this.resolution = resolution;
+  }
+  
+  
 }

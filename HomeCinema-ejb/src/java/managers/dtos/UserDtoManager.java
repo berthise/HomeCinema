@@ -8,11 +8,8 @@ package managers.dtos;
 import dtos.SimpleUserDto;
 import dtos.UserDto;
 import dtos.UserDtoNoPw;
-import dtos.VideoDto;
 import entities.User;
-import entities.Video;
 import javax.persistence.EntityManager;
-import static managers.dtos.VideoDtoManager.makeVideo;
 
 /**
  *

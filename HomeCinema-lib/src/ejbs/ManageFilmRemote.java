@@ -51,4 +51,12 @@ public interface ManageFilmRemote {
     public void addDirectors(Long fid, List<PersonDto> lgdto);
 
     public void addDirector(Long fid, PersonDto gdto);
+
+    public List<PersonDto> getDirector(Long fid);
+
+    public List<PersonDto> getCasting(Long fid);
+
+    public Set<GenreDto> getGenre(Long fid);
+
+    public void removeVideo(Long fid, Long vid);
 }

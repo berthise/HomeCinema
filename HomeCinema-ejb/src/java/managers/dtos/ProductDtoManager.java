@@ -5,11 +5,8 @@
  */
 package managers.dtos;
 
-import dtos.FilmDto;
 import dtos.ProductDto;
-import entities.Film;
 import entities.Product;
-import java.util.Date;
 import javax.persistence.EntityManager;
 
 /**

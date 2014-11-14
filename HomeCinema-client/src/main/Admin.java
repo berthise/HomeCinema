@@ -133,7 +133,7 @@ public class Admin {
 
             ic = new InitialContext();
         } catch (NamingException ex) {
-            Logger.getLogger(HomeCinemaClient.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -142,7 +142,7 @@ public class Admin {
             try {
                 mfr = (ManageFilmRemote) ic.lookup("java:global/HomeCinema/HomeCinema-ejb/ManageFilm!ejbs.ManageFilmRemote");
             } catch (NamingException ex) {
-                Logger.getLogger(HomeCinemaClient.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return mfr;
@@ -153,7 +153,7 @@ public class Admin {
             try {
                 mpr = (ManageProductRemote) ic.lookup("java:global/HomeCinema/HomeCinema-ejb/ManageProduct!ejbs.ManageProductRemote");
             } catch (NamingException ex) {
-                Logger.getLogger(HomeCinemaClient.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return mpr;
@@ -164,7 +164,7 @@ public class Admin {
             try {
                 mur = (ManageUserRemote) ic.lookup("java:global/HomeCinema/HomeCinema-ejb/ManageUser!ejbs.ManageUserRemote");
             } catch (NamingException ex) {
-                Logger.getLogger(HomeCinemaClient.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return mur;
@@ -175,7 +175,7 @@ public class Admin {
             try {
                 mvr = (ManageVideoRemote) ic.lookup("java:global/HomeCinema/HomeCinema-ejb/ManageVideo!ejbs.ManageVideoRemote");
             } catch (NamingException ex) {
-                Logger.getLogger(HomeCinemaClient.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return mvr;
@@ -186,7 +186,7 @@ public class Admin {
             try {
                 mtr = (ManageTransactionRemote) ic.lookup("java:global/HomeCinema/HomeCinema-ejb/ManageTransaction!ejbs.ManageTransactionRemote");
             } catch (NamingException ex) {
-                Logger.getLogger(HomeCinemaClient.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return mtr;

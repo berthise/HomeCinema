@@ -66,7 +66,7 @@ public class AdminFilm {
 
             ic = new InitialContext();
         } catch (NamingException ex) {
-            Logger.getLogger(HomeCinemaClient.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AdminFilm.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -75,7 +75,7 @@ public class AdminFilm {
             try {
                 mpr = (ManageProductRemote) ic.lookup("java:global/HomeCinema/HomeCinema-ejb/ManageProduct!ejbs.ManageProductRemote");
             } catch (NamingException ex) {
-                Logger.getLogger(HomeCinemaClient.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(AdminFilm.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return mpr;

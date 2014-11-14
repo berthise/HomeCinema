@@ -19,12 +19,13 @@ import entities.Film;
 import entities.Genre;
 import entities.Person;
 import entities.Video;
-import exception.DuplicateKey;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import javax.persistence.Query;
-import javax.ejb.EJB;
+import managers.dtos.GenreDtoManager;
+import managers.dtos.PersonDtoManager;
 import managers.entities.ManageEntitieFilm;
 import managers.entities.ManageEntitieGenre;
 import managers.entities.ManageEntitiePerson;
@@ -45,10 +46,11 @@ public class ManageFilm implements ManageFilmRemote {
         return ManageEntitieFilm.createFilm(fdto, em).getId();
     }
 
+    @Override
     public List<FilmDto> getAllFilm() {
         Query q = em.createQuery("From Film f", Film.class);
         List<Film> lf = q.getResultList();
-        List<FilmDto> lfdto = new ArrayList<FilmDto>();
+        List<FilmDto> lfdto = new ArrayList<>();
         for (Film f : lf) {
             lfdto.add(FilmDtoManager.getDto(f));
         }
@@ -105,12 +107,14 @@ public class ManageFilm implements ManageFilmRemote {
         em.merge(f);
     }
 
+    @Override
     public void addGenres(Long fid, Set<GenreDto> lgdto) {
         for (GenreDto gdto : lgdto) {
             addGenre(fid, gdto);
         }
     }
 
+    @Override
     public void addGenre(Long fid, GenreDto gdto) {
         Genre g = ManageEntitieGenre.getGenre(gdto, em);
         Film f = em.find(Film.class, fid);
@@ -118,12 +122,14 @@ public class ManageFilm implements ManageFilmRemote {
         em.merge(f);
     }
 
+    @Override
     public void addActors(Long fid, List<PersonDto> lgdto) {
         for (PersonDto gdto : lgdto) {
             addActor(fid, gdto);
         }
     }
 
+    @Override
     public void addActor(Long fid, PersonDto gdto) {
         Person g = ManageEntitiePerson.getPerson(gdto, em);
         Film f = em.find(Film.class, fid);
@@ -132,17 +138,59 @@ public class ManageFilm implements ManageFilmRemote {
         em.merge(f);
     }
 
+    @Override
     public void addDirectors(Long fid, List<PersonDto> lgdto) {
         for (PersonDto gdto : lgdto) {
             addDirector(fid, gdto);
         }
     }
 
+    @Override
     public void addDirector(Long fid, PersonDto gdto) {
         Person g = ManageEntitiePerson.getPerson(gdto, em);
         Film f = em.find(Film.class, fid);
         g.addIs_director_of(f);
         f.addDirector(g);
         em.merge(f);
+    }
+
+    @Override
+    public List<PersonDto> getDirector(Long fid) {
+        List<PersonDto> lpdto = new ArrayList<>();
+        Film f = em.find(Film.class, fid);
+        for (Person p : f.getDirectors()) {
+            lpdto.add(PersonDtoManager.getDto(p));
+        }
+        return lpdto;
+    }
+
+    @Override
+    public List<PersonDto> getCasting(Long fid) {
+        List<PersonDto> lpdto = new ArrayList<>();
+        Film f = em.find(Film.class, fid);
+        for (Person p : f.getActors()) {
+            lpdto.add(PersonDtoManager.getDto(p));
+        }
+        return lpdto;
+    }
+    
+    @Override
+    public void removeVideo(Long fid,Long vid)
+    {
+        Film f = em.find(Film.class, fid);
+        Video v = em.find(Video.class, vid);
+        f.removeVideo(v);
+        em.merge(f);
+        em.remove(v);
+    }
+
+    @Override
+    public Set<GenreDto> getGenre(Long fid) {
+        Set<GenreDto> lgdto = new HashSet<>();
+        Film f = em.find(Film.class, fid);
+        for (Genre g : f.getGenre()) {
+            lgdto.add(GenreDtoManager.getDto(g));
+        }
+        return lgdto;
     }
 }
