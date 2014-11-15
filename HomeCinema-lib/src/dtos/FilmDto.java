@@ -6,7 +6,11 @@
 package dtos;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -61,6 +65,21 @@ public class FilmDto implements Serializable {
 
   public void setRelease_date(Date release_date) {
     this.release_date = release_date;
+  }
+  
+    public String getReleaseDatetring(String formater) {
+    SimpleDateFormat df = new SimpleDateFormat(formater);
+    return df.format(this.release_date);
+  }
+
+  public void setReleaseDateString(String s, String formater) {
+    SimpleDateFormat df = new SimpleDateFormat(formater);
+    try {
+      this.release_date = df.parse(s);
+    } catch (ParseException ex) {
+      this.release_date = new Date();
+      Logger.getLogger(FilmDto.class.getName()).log(Level.SEVERE, null, ex);
+    }
   }
 
   public String getCountry() {

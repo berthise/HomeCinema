@@ -5,20 +5,15 @@
  */
 package beans;
 
-import dtos.FilmDto;
+import ejbs.Ejbs;
 import dtos.FilmFicheDto;
-import ejbs.ManageFilmRemote;
-import ejbs.ManageUserRemote;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 
 import java.util.Date;
-import java.util.List;
-import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 /**
@@ -29,12 +24,9 @@ import javax.naming.NamingException;
 @ViewScoped
 public class FilmManagedBean {
 
-    private final ManageFilmRemote filmManager;
-
     public FilmFicheDto fdto;
 
     public FilmManagedBean() throws NamingException {
-        filmManager = (ManageFilmRemote) new InitialContext().lookup("java:global/HomeCinema/HomeCinema-ejb/ManageFilm!ejbs.ManageFilmRemote");
         this.fdto = new FilmFicheDto();
     }
 
@@ -42,7 +34,7 @@ public class FilmManagedBean {
         if (fdto.id == null) {
             FacesContext.getCurrentInstance().getExternalContext().dispatch("404.xhtml");
         }
-        FilmFicheDto f = filmManager.getDtoFromId(fdto.id);
+        FilmFicheDto f = Ejbs.film().getDtoFromId(fdto.id);
         if (f == null) {
             FacesContext.getCurrentInstance().getExternalContext().dispatch("404.xhtml");
         }

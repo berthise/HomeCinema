@@ -1,205 +1,211 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html
-    xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:f="http://java.sun.com/jsf/core">
-    <head>
-        <meta charset="utf-8"/>
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-        <title></title>
-        <meta name="description" content=""/>
-        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core">
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title></title>
+    <meta name="description" content=""/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-        <link rel="stylesheet" href="css/bootstrap.min.css"/>
-        <link rel="stylesheet" href="css/bootstrap-theme.min.css"/>
-        <link rel="stylesheet" href="css/main.css"/>
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" href="css/main.css"/>
 
-        <f:metadata>
-            <f:viewParam name="id" value="#{filmManagedBean.id}" />
-            <f:event type="preRenderView" listener="#{filmManagedBean.setDtoFromId()}"/>
-            <f:event type="preRenderView" listener="#{loginManagedBean.checkConnected()}"/>
-            <f:event type="preRenderView" listener="#{accountManagedBean.checkIsMyFilm(filmManagedBean.id, loginManagedBean.id)}"/>
-        </f:metadata>
+    <f:metadata>
+      <f:viewParam name="id" value="#{filmManagedBean.id}" />
+      <f:event type="preRenderView" listener="#{filmManagedBean.setDtoFromId()}"/>
+      <f:event type="preRenderView" listener="#{loginManagedBean.checkConnected()}"/>
+      <f:event type="preRenderView" listener="#{accountManagedBean.checkIsMyFilm(filmManagedBean.id, loginManagedBean.id)}"/>
+    </f:metadata>
 
-        <style>
-            .info-film {
-                width: 64%;
-                text-align: justify;
-                float: right;
-                padding-left: 18px;
-            }
+    <style>
+      .info-film {
+	width: 64%;
+	text-align: justify;
+	float: right;
+	padding-left: 18px;
+      }
 
-            .cover-film {
-                width: 36%;
-                float: left;
-                margin-bottom: 18px;
-            }
+      .cover-film {
+	width: 36%;
+	float: left;
+	margin-bottom: 18px;
+      }
 
-            .form-liste-film {
-                clear: both;
-                height: 32px;
-            }
+      .form-liste-film {
+	clear: both;
+	height: 32px;
+      }
 
-            .form-download-film {
-                float: right;
-                height: 32px;
-                margin-top: -5px;
-            }
+      .form-download-film {
+	float: right;
+	height: 32px;
+	margin-top: -5px;
+      }
 
-            .b22 {
-                margin-left: 16px;
-            }
+      .b22 {
+	margin-left: 16px;
+      }
 
-            .b21, .b22 {
-                width: 190px;
-                font-weight: bold;
-                font-size: 18px;
-            }
+      .b21, .b22 {
+	width: 190px;
+	font-weight: bold;
+	font-size: 18px;
+      }
 
-            .b1 {
-                width: 396px;
-                font-weight: bold;
-                font-size: 18px;
-            }
+      .b1 {
+	width: 396px;
+	font-weight: bold;
+	font-size: 18px;
+      }
 
-            .rating {
-                float: right;
-            }
+      .rating {
+	float: right;
+      }
 
-            .rating p {
-                font-size: 15px;
-                margin-left: 15px;
-                margin-top: 12px;
-                float: right;
-            }
+      .rating p {
+	font-size: 15px;
+	margin-left: 15px;
+	margin-top: 12px;
+	float: right;
+      }
 
-            .rating img {
-                width: 18px;
-                height: 18px;
-                margin-right: -5px;
-            }
+      .rating img {
+	width: 18px;
+	height: 18px;
+	margin-right: -5px;
+      }
 
-            #play {
-                width: 396px;
-                height: 594px;
-                background: url("img/play_icon.png") no-repeat center center;
-                position: relative;
-                top: -594px;
-                margin-bottom: -594px;
-                display: none;
-                cursor:pointer;
-            }
+      #play {
+	width: 396px;
+	height: 594px;
+	background: url("img/play_icon.png") no-repeat center center;
+	position: relative;
+	top: -594px;
+	margin-bottom: -594px;
+	display: none;
+	cursor:pointer;
+      }
 
-            .cover-film:hover #play {
-                display: block;
-            }
+      .cover-film:hover #play {
+	display: block;
+      }
 
-            .bold {
-                font-weight: bold;
-            }
+      .bold {
+	font-weight: bold;
+      }
 
-            .italic {
-                font-style: italic;
-            }
+      .italic {
+	font-style: italic;
+      }
 
-            .info-film h3 {
-                font-size: 26px;
-                font-weight: 400;
-            }
+      .info-film h3 {
+	font-size: 26px;
+	font-weight: 400;
+      }
 
-            .info-film p {
-                font-size: 18px;
-                padding-left: 10px;
-            }
+      .info-film p {
+	font-size: 18px;
+	padding-left: 10px;
+      }
 
-            .list-genre {
-                background-color: #aaa;
-                border-radius: 5px;
-                padding: 3px 5px 3px 5px;
-                color: #333;
-            }
+      .list-genre {
+	background-color: #aaa;
+	border-radius: 5px;
+	padding: 3px 5px 3px 5px;
+	color: #333;
+      }
 
-            .list-genre:hover {
-                background-color: #333;
-                text-decoration: none;
-                color: #eee;
-            }
+      .list-genre:hover {
+	background-color: #333;
+	text-decoration: none;
+	color: #eee;
+      }
 
-            #ba video {
-                border: 2px solid #333;
-                margin-bottom: 5px;
-            }
+      #ba video {
+	border: 2px solid #333;
+	margin-bottom: 5px;
+      }
 
-            .go-top {
-                float: right;
-                margin-top: -5px;
-                margin-bottom: 5px;
-            }
+      .go-top {
+	float: right;
+	margin-top: -5px;
+	margin-bottom: 5px;
+      }
 
-        </style>
+    </style>
 
-    </head>
-    <body id="top" onload="initVideo()">
-        <ui:include src="components/header.xhtml" />
-        <section>
-            <div class="container">
+  </head>
+  <h:body id="top" onload="initVideo()">
+    <ui:insert name="header" >
+      <ui:include src="components/header.xhtml" />
+    </ui:insert>
+    <section>
+      <div class="container">
 
-                <div id="ba" class="well">
-                    <h2 class="well-title"><strong>Visionneuse : </strong><h:outputText value="#{filmManagedBean.getLinkToFiche()}" escape="false"/>
-                        <div class="form-download-film">
-                            <h:outputText value="#{filmManagedBean.getLinkToDownload()}" escape="false" />
-                        </div>
-                    </h2>
+	<div id="ba" class="well">
+	  <h2 class="well-title"><strong>Visionneuse : </strong><h:outputText value="#{filmManagedBean.getLinkToFiche()}" escape="false"/>
+	    <div class="form-download-film">
+	      <h:outputText value="#{filmManagedBean.getLinkToDownload()}" escape="false" />
+	    </div>
+	  </h2>
 
-                    <video id="myVideo" width="100%" controls="controls">
-                        <h:outputText value="#{filmManagedBean.getVideo()}" escape="false" />
-                        Your browser don't support video element.
-                    </video>
+	  <video id="myVideo" width="100%" controls="controls">
+	    <h:outputText value="#{filmManagedBean.getVideo()}" escape="false" />
+	    Your browser don't support video element.
+	  </video>
 
-                    <script>
-                        var vid = document.getElementById("myVideo");
-                        vid.onpause = function () {
-                            // Mise à jour de l'état pause
-                        };
-                        vid.onplay = function () {
-                            // Mise à jour de l'état play
-                        };
-                        function initVideo() {
-                            // Mise à jour de la position de la vidéo selon l'état
-                            //vid.currentTime = 4;
-                        }
-                    </script>
+	  <script>
+	    var vid = document.getElementById("myVideo");
+	    vid.onpause = function () {
+	      // Mise à jour de l'état pause
+	    };
+	    vid.onplay = function () {
+	      // Mise à jour de l'état play
+	    };
+	    function initVideo() {
+	      // Mise à jour de la position de la vidéo selon l'état
+	      //vid.currentTime = 4;
+	    }
+	  </script>
 
-                    <a class="go-top" href="#top"><img src="img/arrowUp.png" /></a>
+	  <a class="go-top" href="#top"><img src="img/arrowUp.png" /></a>
 
-                </div>
-            </div>
-        </section>
-        <!--  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
-          <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.1.js"><\/script>')</script>
+	</div>
+      </div>
+    </section>
+    <!--  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
+      <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.1.js"><\/script>')</script>
+
+      <script src="js/vendor/bootstrap.min.js"></script>
+
+      <script src="js/main.js"></script>
+
   
-          <script src="js/vendor/bootstrap.min.js"></script>
-  
-          <script src="js/main.js"></script>
-  
-      
-          <script>
-              (function (b, o, i, l, e, r) {
-                  b.GoogleAnalyticsObject = l;
-                  b[l] || (b[l] =
-                          function () {
-                              (b[l].q = b[l].q || []).push(arguments)
-                          });
-                  b[l].l = +new Date;
-                  e = o.createElement(i);
-                  r = o.getElementsByTagName(i)[0];
-                  e.src = '//www.google-analytics.com/analytics.js';
-                  r.parentNode.insertBefore(e, r)
-              }(window, document, 'script', 'ga'));
-              ga('create', 'UA-XXXXX-X');
-              ga('send', 'pageview');
-          </script>-->
-    </body>
+      <script>
+	  (function (b, o, i, l, e, r) {
+	      b.GoogleAnalyticsObject = l;
+	      b[l] || (b[l] =
+		      function () {
+			  (b[l].q = b[l].q || []).push(arguments)
+		      });
+	      b[l].l = +new Date;
+	      e = o.createElement(i);
+	      r = o.getElementsByTagName(i)[0];
+	      e.src = '//www.google-analytics.com/analytics.js';
+	      r.parentNode.insertBefore(e, r)
+	  }(window, document, 'script', 'ga'));
+	  ga('create', 'UA-XXXXX-X');
+	  ga('send', 'pageview');
+      </script>-->
+    <ui:insert name="footer" >
+      <ui:include src="components/footer.xhtml" />
+    </ui:insert>
+  </h:body>
+
 </html>

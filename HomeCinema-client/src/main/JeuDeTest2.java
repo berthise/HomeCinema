@@ -153,23 +153,23 @@ public class JeuDeTest2 {
             Long u_id = a.getManageUserRemote().login(u2.email, u2.password).id;
 
             //remove u2 apres achat 
-            a.getManagetransactionRemote().addProduct(u_id, pdto.id);
-            Long trans2 = a.getManagetransactionRemote().validate(u_id);
-            a.getManagetransactionRemote().validatePayement(trans2, 42L);
+            a.getManageTransactionRemote().addProduct(u_id, pdto.id);
+            Long trans2 = a.getManageTransactionRemote().validate(u_id);
+            a.getManageTransactionRemote().validatePayement(trans2, 42L);
             a.getManageUserRemote().removeUser(u_id);
 
             //achat american beauty
-            a.getManagetransactionRemote().addProduct(u.id, pdto.id);
-            Long trans = a.getManagetransactionRemote().validate(u.id);
-            a.getManagetransactionRemote().validatePayement(trans, 42L);
+            a.getManageTransactionRemote().addProduct(u.id, pdto.id);
+            Long trans = a.getManageTransactionRemote().validate(u.id);
+            a.getManageTransactionRemote().validatePayement(trans, 42L);
 
             //met fight club dans panier
-            a.getManagetransactionRemote().addProduct(u.id, pdto2.id);
-            a.getManagetransactionRemote().addProduct(u.id, pdto4.id);
+            a.getManageTransactionRemote().addProduct(u.id, pdto2.id);
+            a.getManageTransactionRemote().addProduct(u.id, pdto4.id);
             
             //met dancer in the dark (cad citizen kane ) dans le panier puis enleve
-            a.getManagetransactionRemote().addProduct(u.id, pdto5.id);
-            a.getManagetransactionRemote().removeProduct(u.id, pdto5.id);
+            a.getManageTransactionRemote().addProduct(u.id, pdto5.id);
+            a.getManageTransactionRemote().removeProduct(u.id, pdto5.id);
             
             //print
             System.out.println("Film");

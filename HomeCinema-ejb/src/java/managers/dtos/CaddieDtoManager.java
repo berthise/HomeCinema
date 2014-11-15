@@ -15,19 +15,22 @@ import java.util.ArrayList;
  * @author titou
  */
 public class CaddieDtoManager {
-    
-    public static CaddieDto getDto(Caddy caddie){
-        if (caddie == null) {
-            return null;
-        }
-        
-        CaddieDto cdto = new CaddieDto();
-        cdto.films = new ArrayList<>();
-        
-        for (Product p : caddie.getProducts()){
-            cdto.films.add(ProductDtoManager.getDto(p));
-        }
-        
-        return cdto;        
+
+  /*
+  return caddie vide si caddie null
+  */
+  public static CaddieDto getDto(Caddy caddie) {
+
+    CaddieDto cdto = new CaddieDto();
+    cdto.films = new ArrayList<>();
+    if (caddie == null) {
+      return cdto;
     }
+
+    for (Product p : caddie.getProducts()) {
+      cdto.films.add(ProductDtoManager.getDto(p));
+    }
+
+    return cdto;
+  }
 }

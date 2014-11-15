@@ -5,13 +5,15 @@
  */
 package beans;
 
+import ejbs.Ejbs;
 import dtos.UserDto;
-import ejbs.ManageUserRemote;
 import enums.UserStates;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import javax.ejb.EJB;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -25,110 +27,114 @@ import javax.faces.context.FacesContext;
 @RequestScoped
 public class SignUpManagedBean {
 
-    private UserDto user;
-    private String birthDay;
-    
-    @EJB
-    private ManageUserRemote mur = null;
+  private UserDto user;
+  private String birthDay;
 
-    public SignUpManagedBean() {
-        user = new UserDto();
-    }
+  public SignUpManagedBean() {
+    user = new UserDto();
+  }
 
-    public void singUp() {
-        convertDate(birthDay);
-        mur.signUp(user);
-        FacesMessage message = new FacesMessage("Succès de l'inscription !");
-        FacesContext.getCurrentInstance().addMessage("signup-success", message);
+  public void singUp() {
+    convertDate(birthDay);
+    Ejbs.user().signUp(user);
+    FacesMessage message = new FacesMessage("Succès de l'inscription !");
+    message.setSeverity(FacesMessage.SEVERITY_INFO);
+    FacesContext.getCurrentInstance().addMessage(null, message);
+    FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
+    try {
+      FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
+    } catch (IOException ex) {
+      Logger.getLogger(SignUpManagedBean.class.getName()).log(Level.SEVERE, null, ex);
     }
+  }
 
-    public void convertDate(String birthDay) {
-        try {
-            SimpleDateFormat df = new SimpleDateFormat("yy-MM-dd");
-            user.birthDate = df.parse(birthDay);
-        } catch (ParseException ex) {
-            ex.printStackTrace();
-        }
+  public void convertDate(String birthDay) {
+    try {
+      SimpleDateFormat df = new SimpleDateFormat("yy-MM-dd");
+      user.birthDate = df.parse(birthDay);
+    } catch (ParseException ex) {
+      ex.printStackTrace();
     }
+  }
 
-    public Long getId() {
-        return user.id;
-    }
+  public Long getId() {
+    return user.id;
+  }
 
-    public void setId(Long id) {
-        user.id = id;
-    }
+  public void setId(Long id) {
+    user.id = id;
+  }
 
-    public String getNickName() {
-        return user.nickName;
-    }
+  public String getNickName() {
+    return user.nickName;
+  }
 
-    public void setNickName(String nickName) {
-        user.nickName = nickName.trim();
-    }
+  public void setNickName(String nickName) {
+    user.nickName = nickName.trim();
+  }
 
-    public String getFirstName() {
-        return user.firstName;
-    }
+  public String getFirstName() {
+    return user.firstName;
+  }
 
-    public void setFirstName(String firstName) {
-        user.firstName = firstName.trim();
-    }
+  public void setFirstName(String firstName) {
+    user.firstName = firstName.trim();
+  }
 
-    public String getLastName() {
-        return user.lastName;
-    }
+  public String getLastName() {
+    return user.lastName;
+  }
 
-    public void setLastName(String lastName) {
-        user.lastName = lastName.trim();
-    }
+  public void setLastName(String lastName) {
+    user.lastName = lastName.trim();
+  }
 
-    public String getPassword() {
-        return user.password;
-    }
+  public String getPassword() {
+    return user.password;
+  }
 
-    public void setPassword(String password) {
-        user.password = password;
-    }
+  public void setPassword(String password) {
+    user.password = password;
+  }
 
-    public String getEmail() {
-        return user.email;
-    }
+  public String getEmail() {
+    return user.email;
+  }
 
-    public void setEmail(String email) {
-        user.email = email.trim();
-    }
+  public void setEmail(String email) {
+    user.email = email.trim();
+  }
 
-    public Date getBirthDate() {
-        return user.birthDate;
-    }
+  public Date getBirthDate() {
+    return user.birthDate;
+  }
 
-    public void setBirthDate(Date birthDate) {
-        user.birthDate = birthDate;
-    }
+  public void setBirthDate(Date birthDate) {
+    user.birthDate = birthDate;
+  }
 
-    public String getBirthDay() {
-        return birthDay;
-    }
+  public String getBirthDay() {
+    return birthDay;
+  }
 
-    public void setBirthDay(String birthDay) {
-        this.birthDay = birthDay;
-    }
+  public void setBirthDay(String birthDay) {
+    this.birthDay = birthDay;
+  }
 
-    public Date getAddDate() {
-        return user.addDate;
-    }
+  public Date getAddDate() {
+    return user.addDate;
+  }
 
-    public void setAddDate(Date addDate) {
-        user.addDate = addDate;
-    }
+  public void setAddDate(Date addDate) {
+    user.addDate = addDate;
+  }
 
-    public UserStates getState() {
-        return user.state;
-    }
+  public UserStates getState() {
+    return user.state;
+  }
 
-    public void setState(UserStates state) {
-        user.state = state;
-    }
+  public void setState(UserStates state) {
+    user.state = state;
+  }
 
 }

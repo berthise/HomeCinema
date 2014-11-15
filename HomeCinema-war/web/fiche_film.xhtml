@@ -6,7 +6,7 @@
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
-    <head>
+    <h:head>
         <meta charset="utf-8"/>
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
         <title></title>
@@ -132,10 +132,13 @@
             }
         </style>
 
-    </head>
-    <body id="top">
-        <ui:include src="components/header.xhtml" />
+    </h:head>
+    <h:body id="top">
+    <ui:insert name="header" >
+      <ui:include src="components/header.xhtml" />
+    </ui:insert>
         <section>
+
             <div class="container">
                 <div class="well">
                     <h2 class="well-title bold"><h:outputText value="#{filmManagedBean.title} (#{filmManagedBean.year})" />
@@ -177,12 +180,15 @@
 
                         <h:panelGroup rendered="#{free}">
                             <h:form>
-                                <h:commandButton class="btn btn-success col-md-3 b1" value="Ajouter au caddie" action="#{accountManagedBean.addProductFilmToCaddie(loginManagedBean.id,filmManagedBean.mainProductId,filmManagedBean.id)}" />
+                                <h:commandButton class="btn btn-success col-md-3 b1" value="Ajouter au caddie" action="#{caddieManagedBean.addProductFilmToCaddie(loginManagedBean.id,filmManagedBean.mainProductId,filmManagedBean.id)}" />
                             </h:form>
                         </h:panelGroup>
 
                         <h:panelGroup rendered="#{caddie}">
-                            <a class="btn btn-primary col-md-3 b1" href="moncompte.xhtml?box=caddie">Voir le caddie (film déjà ajouté)</a>
+                            <a class="btn btn-primary col-md-3 b21" href="moncompte.xhtml?box=caddie">Voir le caddie</a>
+			    <h:form>
+			      <h:commandButton action="#{caddieManagedBean.deleteFromCaddie(loginManagedBean.id, filmManagedBean.mainProductId)}" value="Enlever du caddie" class="btn btn-primary col-md-3 b22" />
+			    </h:form>
                         </h:panelGroup>
 
                         <h:panelGroup rendered="#{deco}">
@@ -206,5 +212,8 @@
                 </div>
             </div>
         </section>
-    </body>
+	    <ui:insert name="footer" >
+      <ui:include src="components/footer.xhtml" />
+    </ui:insert>
+    </h:body>
 </html>
