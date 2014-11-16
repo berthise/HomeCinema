@@ -17,7 +17,6 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.naming.NamingException;
 
 /**
  *
@@ -100,91 +99,10 @@ public class AccountManagedBean {
 	return toReturn;
     }
 
-    /*public boolean isOneOfMyFilm(Long idfilm, Long iduser) {
-	if (iduser == null) {
-	    return false;
-	}
-	for (FilmDto l : userManager.getFilms(iduser)) {
-	    if (l.id.equals(idfilm)) {
-		return true;
-	    }
-	}
-	return false;
-    }
-
-    public boolean isInMyCaddie(Long idfilm, Long iduser) {
-	if (iduser == null) {
-	    return false;
-	}
-	for (ProductDto l : transactionManager.getCaddieDto(iduser).films) {
-	    for (FilmDto f : productManager.getFilms(l.id)) {
-		if (f.id.equals(idfilm)) {
-		    return true;
-		}
-	    }
-	}
-	return false;
-    }
-
-    public boolean isAllMyFilms(Long idproduct, Long iduser) {
-	if (iduser == null) {
-	    return false;
-	}
-
-	List<FilmDto> list_films = userManager.getFilms(iduser);
-	for (FilmDto lp : productManager.getFilms(idproduct)) {
-	    if (!list_films.contains(lp)) {
-		return false;
-	    }
-	}
-	return true;
-    }
-
-    public boolean isPartOfMyFilms(Long idproduct, Long iduser) {
-	if (iduser == null) {
-	    return false;
-	}
-
-	int i = 0;
-	List<FilmDto> list_films = userManager.getFilms(iduser);
-	for (FilmDto lp : productManager.getFilms(idproduct)) {
-	    if (list_films.contains(lp)) {
-		i++;
-	    }
-	}
-	return (i > 0);
-    }
-
-    public boolean isProductInMyCaddie(Long idproduct, Long iduser) {
-	if (iduser == null) {
-	    return false;
-	}
-	for (ProductDto l : transactionManager.getCaddieDto(iduser).films) {
-	    if (l.id.equals(idproduct)) {
-		return true;
-	    }
-	}
-	return false;
-    }
-
-    public boolean isFree(Long idfilm, Long iduser) {
-	if (iduser == null) {
-	    return false;
-	}
-	return !isInMyCaddie(idfilm, iduser) && !isOneOfMyFilm(idfilm, iduser);
-    }
-
-    public boolean isProductFree(Long idfilm, Long iduser) {
-	if (iduser == null) {
-	    return false;
-	}
-	return !is && !isOneOfMyFilm(idfilm, iduser);
-    }*/
-
     private int isInMyFilms(List<Long> ids, Long iduser) {
 	int toReturn = 0;
 	for (Long i : ids) {
-	    for (FilmDto l : userManager.getFilms(iduser)) {
+	    for (FilmDto l : Ejbs.user().getFilms(iduser)) {
 		if (l.id.equals(i)) {
 		    toReturn++;
 		}
@@ -196,8 +114,8 @@ public class AccountManagedBean {
     private int isInMyCaddie(List<Long> ids, Long iduser) {
 	int toReturn = 0;
 	for (Long i : ids) {
-	    for (ProductDto l : transactionManager.getCaddieDto(iduser).films) {
-		for (FilmDto f : productManager.getFilms(l.id)) {
+	    for (ProductDto l : Ejbs.transaction().getCaddieDto(iduser).films) {
+		for (FilmDto f : Ejbs.product().getFilms(l.id)) {
 		    if (f.id.equals(i)) {
 			toReturn++;
 		    }
@@ -221,10 +139,10 @@ public class AccountManagedBean {
     
     public String getCodeButtonsProduct(Long idproduct, Long iduser) {	
 	List<Long> l = new ArrayList<>();
-	for (FilmDto f : productManager.getFilms(idproduct))
+	for (FilmDto f : Ejbs.product().getFilms(idproduct))
 	    l.add(f.id);
 	
-	int n = productManager.getFilms(idproduct).size();
+	int n = Ejbs.product().getFilms(idproduct).size();
 	
 	int caddie = isInMyCaddie(l, iduser);
 	int films = isInMyFilms(l, iduser);
@@ -242,17 +160,17 @@ public class AccountManagedBean {
     }
 
     public void addProductFilmToCaddie(Long iduser, Long idproduct, Long idfilm) throws IOException {
-	this.cdto = transactionManager.addProduct(iduser, idproduct);
+	this.cdto = Ejbs.transaction().addProduct(iduser, idproduct);
 	FacesContext.getCurrentInstance().getExternalContext().redirect("fiche_film.xhtml?id=" + idfilm);
     }
     
     public void addProductToCaddie(Long iduser, Long idproduct) throws IOException {
 	if (getCodeButtonsProduct(idproduct, iduser).compareTo("FREE") == 0)
-	    this.cdto = transactionManager.addProduct(iduser, idproduct);
+	    this.cdto = Ejbs.transaction().addProduct(iduser, idproduct);
 	else{
-	    for (FilmDto f : productManager.getFilms(idproduct))
+	    for (FilmDto f : Ejbs.product().getFilms(idproduct))
 		if (isInMyFilms(Arrays.asList(f.id), iduser) == 0)
-		    this.cdto = transactionManager.addProduct(iduser, f.main_product_id);
+		    this.cdto = Ejbs.transaction().addProduct(iduser, f.main_product_id);
 	}
 	FacesContext.getCurrentInstance().getExternalContext().redirect("fiche_product.xhtml?id=" + idproduct);
     }

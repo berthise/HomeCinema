@@ -22,121 +22,11 @@
             <f:event type="preRenderView" listener="#{filmManagedBean.setDtoFromId()}"/>
         </f:metadata>
 
-        <style>
-            .info-film {
-                width: 64%;
-                text-align: justify;
-                float: right;
-                padding-left: 18px;
-            }
-
-            .cover-film {
-                width: 36%;
-                float: left;
-                margin-bottom: 18px;
-            }
-
-            .form-liste-film {
-                clear: both;
-                height: 32px;
-            }
-
-            .b22 {
-                margin-left: 16px;
-            }
-
-            .b21, .b22 {
-                width: 190px;
-                font-weight: bold;
-                font-size: 18px;
-            }
-
-            .b1 {
-                width: 396px;
-                font-weight: bold;
-                font-size: 18px;
-            }
-
-            .rating {
-                float: right;
-            }
-
-            .rating p {
-                font-size: 15px;
-                margin-left: 15px;
-                margin-top: 12px;
-                float: right;
-            }
-
-            .rating img {
-                width: 18px;
-                height: 18px;
-                margin-right: -5px;
-            }
-
-            #play {
-                width: 396px;
-                height: 594px;
-                background: url("img/play_icon.png") no-repeat center center;
-                position: relative;
-                top: -594px;
-                margin-bottom: -594px;
-                display: none;
-                cursor:pointer;
-            }
-
-            .cover-film:hover #play {
-                display: block;
-            }
-
-            .bold {
-                font-weight: bold;
-            }
-
-            .italic {
-                font-style: italic;
-            }
-
-            .info-film h3 {
-                font-size: 26px;
-                font-weight: 400;
-            }
-
-            .info-film p {
-                font-size: 18px;
-                padding-left: 10px;
-            }
-
-            .list-genre {
-                background-color: #aaa;
-                border-radius: 5px;
-                padding: 3px 5px 3px 5px;
-                color: #333;
-            }
-
-            .list-genre:hover {
-                background-color: #333;
-                text-decoration: none;
-                color: #eee;
-            }
-
-            #ba video {
-                border: 2px solid #333;
-                margin-bottom: 5px;
-            }
-
-            .go-top {
-                float: right;
-                margin-top: -5px;
-                margin-bottom: 5px;
-            }
-        </style>
-
     </h:head>
     <h:body id="top">
-    <ui:insert name="header" >
-      <ui:include src="components/header.xhtml" />
-    </ui:insert>
+	<ui:insert name="header" >
+	    <ui:include src="components/header.xhtml" />
+	</ui:insert>
         <section>
 
             <div class="container">
@@ -217,8 +107,8 @@
                 </div>
             </div>
         </section>
-	    <ui:insert name="footer" >
-      <ui:include src="components/footer.xhtml" />
-    </ui:insert>
+	<ui:insert name="footer" >
+	    <ui:include src="components/footer.xhtml" />
+	</ui:insert>
     </h:body>
 </html>

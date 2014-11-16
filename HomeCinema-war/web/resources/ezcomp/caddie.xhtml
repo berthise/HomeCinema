@@ -45,7 +45,7 @@
 		<td class="td-right" rowspan="#{product.nbRows}">#{status.index +1}</td>
 		<td class="td-invisible"></td>
 		<td class="td-right title-film-caddie">                                                
-		  <a href="#"><b>#{product.product.name}</b></a>
+		    <a href="fiche_product.xhtml?id=#{product.product.id}"><b>#{product.product.name}</b></a>
 		</td>
 		<c:if test="#{!cc.attrs.recap}" >
 		  <td class="td-right" >
@@ -68,7 +68,7 @@
 		    </span>
 		  </td>
 		  <td class="align-left" colspan="${colspan_film}">   
-		    <a title="Voir la fiche du film" href="fiche_film.xhtml?id=#{film.id}">#{film.title} (#{film.getReleaseDatetring("yyyy")})</a>
+		    <a title="Voir la fiche du film" href="fiche_film.xhtml?id=#{film.id}">#{film.title} (#{film.getReleaseDateString("yyyy")})</a>
 		  </td>
 		</tr>
 	      </ui:repeat>

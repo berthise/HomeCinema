@@ -5,11 +5,11 @@
  */
 package beans;
 
+import dtos.FilmDto;
 import ejbs.Ejbs;
 import dtos.FilmFicheDto;
 import dtos.GenreDto;
 import dtos.PersonDto;
-import ejbs.ManageFilmRemote;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 
@@ -159,7 +159,7 @@ public class FilmManagedBean {
     }
 
     public String getDirector() {
-	List<PersonDto> list = filmManager.getDirector(fdto.id);
+	List<PersonDto> list = Ejbs.film().getDirector(fdto.id);
 	String toReturn = "";
 	for (PersonDto s : list) {
 	    toReturn += "<a href=\"#\" class=\"list-genres-crew\">" + s.name + "</a> , ";
@@ -167,11 +167,11 @@ public class FilmManagedBean {
 	if (toReturn.length() > 0)
 	    return toReturn.substring(0, toReturn.length() - 3);
 	else
-	    return "<p class=\"list-genres-crew\">Inconnu</p>";
+	    return "<span class=\"list-genres-crew\">Inconnu</span>";
     }
 
     public String getCasting() {
-	List<PersonDto> list = filmManager.getCasting(fdto.id);
+	List<PersonDto> list = Ejbs.film().getCasting(fdto.id);
 	String toReturn = "";
 	for (PersonDto s : list) {
 	    toReturn += "<a href=\"#\" class=\"list-genres-crew\">" + s.name + "</a> , ";
@@ -179,11 +179,11 @@ public class FilmManagedBean {
 	if (toReturn.length() > 0)
 	    return toReturn.substring(0, toReturn.length() - 3);
 	else
-	    return "<p class=\"list-genres-crew\">Inconnu</p>";
+	    return "<span class=\"list-genres-crew\">Inconnu</span>";
     }
 
     public String getGenres() {
-	Set<GenreDto> set = filmManager.getGenre(fdto.id);
+	Set<GenreDto> set = Ejbs.film().getGenre(fdto.id);
 	String toReturn = "";
 	for (GenreDto s : set) {
 	    toReturn += "<a href=\"#\" class=\"list-genres-crew\">" + s.name + "</a> , ";
@@ -191,6 +191,6 @@ public class FilmManagedBean {
 	if (toReturn.length() > 0)
 	    return toReturn.substring(0, toReturn.length() - 3);
 	else
-	    return "<p class=\"list-genres-crew\">Inconnu</p>";
+	    return "<span class=\"list-genres-crew\">Inconnu</span>";
     }
 }

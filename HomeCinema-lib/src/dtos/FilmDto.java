@@ -68,7 +68,7 @@ public class FilmDto implements Serializable {
     this.release_date = release_date;
   }
   
-    public String getReleaseDatetring(String formater) {
+    public String getReleaseDateString(String formater) {
     SimpleDateFormat df = new SimpleDateFormat(formater);
     return df.format(this.release_date);
   }
@@ -85,10 +85,6 @@ public class FilmDto implements Serializable {
 
     public Date getRelease_date() {
 	return release_date;
-    }
-
-    public void setRelease_date(Date release_date) {
-	this.release_date = release_date;
     }
 
     public String getCountry() {
