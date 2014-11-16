@@ -1,196 +1,359 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html
-    xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
-    <head>
-        <meta charset="utf-8"/>
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-        <title></title>
-        <meta name="description" content=""/>
-        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+  xmlns:ez="http://xmlns.jcp.org/jsf/composite/ezcomp">
+  <h:head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title></title>
+    <meta name="description" content=""/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-        <link rel="stylesheet" href="css/bootstrap.min.css"/>
-        <link rel="stylesheet" href="css/bootstrap-theme.min.css"/>
-        <link rel="stylesheet" href="css/main.css"/>
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" href="css/main.css"/>
 
-        <f:metadata>
-            <f:viewParam name="box" value="#{accountManagedBean.initBox}" />
-            <f:event type="preRenderView" listener="#{loginManagedBean.checkConnected()}"/>
-            <f:event type="preRenderView" listener="#{accountManagedBean.setIdUser(loginManagedBean.id)}"/>
-        </f:metadata>
+    <f:metadata>
+      <f:viewParam name="box" value="#{accountManagedBean.initBox}" />
+      <f:event type="preRenderView" listener="#{loginManagedBean.checkConnected()}"/>
+      <f:event type="preRenderView" listener="#{accountManagedBean.setIdUser(loginManagedBean.id)}"/>
+    </f:metadata>
 
-    </head>
-    <body id="top">
-        <ui:include src="components/header.xhtml" >
-            <ui:param name="active" value="moncompte" />
-        </ui:include>
-        <section>
-            <div class="container">
-                <div class="well">
-                    <h2 class="well-title">Mon compte</h2>
+    <style>
+      #nav {
+	width: 36%;
+	float: left;
+	border-radius: 5px;
+	border: 1px solid grey;
+	background: -moz-linear-gradient(left, #cccccc 0%, #eeeeee 100%);
+	background: -webkit-gradient(linear, left top, right top, color-stop(0%,#cccccc), color-stop(100%,#eeeeee));
+	background: -webkit-linear-gradient(left, #cccccc 0%,#eeeeee 100%);
+      }
 
-                    <script>
-                        function display(id) {
-                            document.getElementById('box-films').className = "display-none";
-                            document.getElementById('link-films').className = "";
-                            document.getElementById('box-caddie').className = "display-none";
-                            document.getElementById('link-caddie').className = "";
-                            document.getElementById('box-historique').className = "display-none";
-                            document.getElementById('link-historique').className = "";
-                            document.getElementById('box-infos').className = "display-none";
-                            document.getElementById('link-infos').className = "";
-                            document.getElementById('box-' + id).className = "box-right";
-                            document.getElementById('link-' + id).className = "activated";
-                            return false;
-                        }
-                    </script> 
+      #nav p:first-of-type {
+	border-radius: 4px 4px 0px 0px;
+      }
 
-                    <div id="nav">
-                        <h:outputText value="#{accountManagedBean.getHtmlForLink('films', 'Mes films')}" escape="false" />
-                        <h:outputText value="#{accountManagedBean.getHtmlForLink('caddie', 'Mon Caddie')}" escape="false" />
-                        <h:outputText value="#{accountManagedBean.getHtmlForLink('historique', 'Mon historique')}" escape="false" />
-                        <h:outputText value="#{accountManagedBean.getHtmlForLink('infos', 'Mes informations')}" escape="false" />
-                    </div>
+      #nav p:last-of-type {
+	border-radius: 0px 0px 4px 4px;
+      }
 
-                    <div class="#{accountManagedBean.getClassDisplay('films')}" id="box-films">
-                        <h3><img src="img/film-icon.png" title="Caddie"/>Films</h3>
+      #nav a {
+	display: block;
+	padding: 10px 10px 10px 35px;
+	font-weight: bold;
+	font-size: 16px;
+	color: #333;
+      }
 
-                        <table>
+      #nav p {
+	margin: 0;
+	padding: 0;
+      }
 
-                            <ui:repeat var="o" value="#{accountManagedBean.getListFilms()}" varStatus="status">
+      #nav a {
+	background-image: url("https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-ios7-arrow-forward-128.png");
+	background-repeat: no-repeat;
+	background-size: 16px;
+	background-position: 12px 12px; 
+      }
 
-                                <c:set var="simple" value="#{o.get(0) eq 'SIMPLE'}" />
-                                <c:set var="vide" value="#{o.get(0) eq 'EMPTY'}" />
+      #nav p:hover {
+	background: -moz-linear-gradient(left, #a5a5a5 0%, #c6c6c6 100%);
+	background: -webkit-gradient(linear, left top, right top, color-stop(0%,#a5a5a5), color-stop(100%,#c6c6c6));
+	background: -webkit-linear-gradient(left, #a5a5a5 0%,#c6c6c6 100%);
+      }
 
-                                <tr>
+      .activated, .activated:hover {
+	background: -moz-linear-gradient(left, #62a53c 0%, #95c640 100%) !important;
+	background: -webkit-gradient(linear, left top, right top, color-stop(0%,#62a53c), color-stop(100%,#95c640)) !important;
+	background: -webkit-linear-gradient(left, #62a53c 0%,#95c640 100%) !important;
+      }
 
-                                    <h:panelGroup rendered="#{vide}">
-                                        <td>Votre liste de films est vide ... <a href="#">Cliquez ici pour trouver des films !</a></td>                                        
-                                    </h:panelGroup>
+      .box-right {
+	width: 62%;
+	border: 1px solid grey;
+	float: right;
+	border-radius: 5px;
+	padding: 15px;
+	background: #fafafa;
+      }
 
-                                    <h:panelGroup rendered="#{simple}">
-                                        <td>
-                                            <span class="affiche">
-                                                <img src="img/glass.png" />
-                                                <span>
-                                                    <img src="http://image.tmdb.org/t/p/w396/#{o.get(1)}" />
-                                                </span>
-                                            </span>
-                                        </td>
-                                        <td>                 
-                                            <a title="Voir la fiche du film" href="fiche_film.xhtml?id=#{o.get(4)}">#{o.get(2)} (#{o.get(3)})</a>
-                                        </td>
-                                        <td><a href="visionneuse.xhtml?id=#{o.get(4)}"><img src="img/eye.png" title="Voir le film" /></a></td>
-                                    </h:panelGroup>
+      .box-right h3 {
+	padding: 0 0 10px 0;
+	margin: 0 0 15px 0;
+	font-size: 30px;
+	border-bottom: 1px solid #ccc;
+      }
 
-                                </tr>
+      .box-right h3 img {
+	margin-right: 10px;
+	margin-top: -5px;
+      }
 
-                            </ui:repeat>
+      #bottom {
+	padding-top: 11px;
+	clear: both;
+      }
 
-                        </table>
-                    </div>
+      .go-top {
+	float: right;
+	margin-top: -5px;
+	margin-bottom: 5px;
+      }
 
-                    <div class="#{accountManagedBean.getClassDisplay('caddie')}" id="box-caddie">
-                        <h3><img src="img/cart-icon.png" title="Caddie"/>Caddie</h3>
+      .display-none {
+	display: none;
+      }
 
-                        <table>
+      .box-right table {
+	width: 100%;
+	text-align: center;
+	margin-bottom : 15px;
+      }
 
-                            <ui:repeat var="o" value="#{accountManagedBean.getListCaddie()}" varStatus="status">
+      .box-right table, .box-right tr, .box-right td {
+	padding: 3px;
+      }
 
-                                <c:set var="solo" value="#{o.get(0) eq 'SOLO'}" />
-                                <c:set var="first" value="#{o.get(0) eq 'FIRST'}" />
-                                <c:set var="simple" value="#{o.get(0) eq 'SIMPLE'}" />
-                                <c:set var="vide" value="#{o.get(0) eq 'EMPTY'}" />
-
-                                <tr class="tr-caddie-#{o.get(1)}">
-
-                                    <h:panelGroup rendered="#{vide}">
-                                        <td>Votre caddie est vide ... <a href="#">Cliquez ici pour trouver des films !</a></td>                                        
-                                    </h:panelGroup>
-
-                                    <h:panelGroup rendered="#{first}">
-                                        <td class="td-right" rowspan="#{o.get(2) + 1}">#{o.get(5)}</td>
-                                        <td class="td-invisible"></td>
-                                        <td class="td-right title-film-caddie">                                                
-                                            <a href="#"><b>#{o.get(3)}</b></a>
-                                        </td>
-                                        <td class="td-right">#{o.get(4)}€</td>
-                                        <td>
-                                            <h:form>
-                                                <h:commandButton class="button-delete" value="" action="#{accountManagedBean.deleteFromCaddie(o.get(1))}" />
-                                            </h:form>
-                                        </td>
-
-                                    </h:panelGroup>
-
-                                    <h:panelGroup rendered="#{simple}">
-                                        <td class="td-right">
-                                            <span class="affiche">
-                                                <img src="img/glass.png" />
-                                                <span>
-                                                    <img src="http://image.tmdb.org/t/p/w396/#{o.get(3)}" />
-                                                </span>
-                                            </span>
-                                        </td>
-                                        <td class="align-left" colspan="3">                 
-                                            <a title="Voir la fiche du film" href="fiche_film.xhtml?id=#{o.get(2)}">#{o.get(4)} (#{o.get(5)})</a>
-                                        </td>
-                                    </h:panelGroup>
-
-                                    <h:panelGroup rendered="#{solo}">
-                                        <td class="td-right">#{o.get(7)}</td>
-                                        <td class="td-right">
-                                            <span class="affiche">
-                                                <img src="img/glass.png" />
-                                                <span>
-                                                    <img src="http://image.tmdb.org/t/p/w396/#{o.get(5)}" />
-                                                </span>
-                                            </span>
-                                        </td>
-                                        <td class="td-right title-film-caddie">                 
-                                            <b><a title="Voir la fiche du film" href="fiche_film.xhtml?id=#{o.get(2)}">#{o.get(3)} (#{o.get(6)})</a></b>
-                                        </td>
-                                        <td class="td-right">#{o.get(4)}€</td>
-                                        <td>
-                                            <h:form>
-                                                <h:commandButton class="button-delete" value="" action="#{accountManagedBean.deleteFromCaddie(o.get(1))}" />
-                                            </h:form>
-                                        </td>
-
-                                    </h:panelGroup>
-
-                                </tr>
-
-                            </ui:repeat>
-
-                        </table>
-
-                        <h:panelGroup rendered="#{accountManagedBean.getListCaddie().get(0).get(0) != 'EMPTY' }">
-                            <a class="btn btn-success col-md-3 b1r" href="">Valider mon caddie</a>
-                        </h:panelGroup>
-                    </div>
-
-                    <div class="#{accountManagedBean.getClassDisplay('historique')}" id="box-historique">
-                        <h3><img src="img/clock-icon.png" title="Caddie"/>Historique</h3>
+      .box-right table, .box-right tr, .tr-solo td {
+	border: 1px solid #777;
+      }
 
 
+      .callout {
+	z-index: 20;
+	position: absolute;
+	border: 0;
+	top: -14px;
+	left: 120px;
+      }
 
-                    </div>
 
-                    <div class="#{accountManagedBean.getClassDisplay('infos')}" id="box-infos">
-                        <h3><img src="img/info-icon.png" title="Caddie"/>Informations</h3>
-                    </div>
+      .no-border-right {
+	border-right: none !important;
+      }
 
-                    <div id="bottom">
-                        <a class="go-top" href="#top" title="Vers le haut"><img src="img/arrowUp.png" /></a>                        
-                    </div>                        
-                </div>
+      span.affiche {
+	outline:none;
+      }
 
-            </div>
-        </section>
-    </body>
+      span.affiche:hover {
+	text-decoration: none;
+      } 
+
+      span.affiche span {
+	z-index:  10;
+	display:none;
+      }
+
+      span.affiche:hover span{
+	display: inline;
+	position: absolute; 
+	border: 2px solid #FFF;
+	background: #333;
+      }
+
+      .callout {
+	z-index: 20;
+	position: absolute;
+	border: 0;
+	top: -14px;
+	left: 120px;
+      }
+
+      span.affiche span {
+	border-radius: 2px;        
+	box-shadow: 0px 0px 1px 1px #666;
+      }
+
+      .affiche span img {
+	width: 100px;
+      }
+
+    </style>
+
+  </h:head>
+  <h:body id="top">
+    <ui:insert name="header" >
+      <ui:include src="components/header.xhtml" />
+    </ui:insert>
+    <ui:param name="active" value="moncompte" />
+    <section>
+      <div class="container">
+	<div class="well">
+	  <h2 class="well-title">Mon compte</h2>
+
+	  <script>
+	    function display(id) {
+	      document.getElementById('box-films').className = "display-none";
+	      document.getElementById('link-films').className = "";
+	      document.getElementById('box-caddie').className = "display-none";
+	      document.getElementById('link-caddie').className = "";
+	      document.getElementById('box-historique').className = "display-none";
+	      document.getElementById('link-historique').className = "";
+	      document.getElementById('box-infos').className = "display-none";
+	      document.getElementById('link-infos').className = "";
+	      document.getElementById('box-' + id).className = "box-right";
+	      document.getElementById('link-' + id).className = "activated";
+	      return false;
+	    }
+	  </script> 
+
+	  <div id="nav">
+	    <h:outputText value="#{accountManagedBean.getHtmlForLink('films', 'Mes films')}" escape="false" />
+	    <h:outputText value="#{accountManagedBean.getHtmlForLink('caddie', 'Mon Caddie')}" escape="false" />
+	    <h:outputText value="#{accountManagedBean.getHtmlForLink('historique', 'Mon historique')}" escape="false" />
+	    <h:outputText value="#{accountManagedBean.getHtmlForLink('infos', 'Mes informations')}" escape="false" />
+	  </div>
+
+	  <div class="#{accountManagedBean.getClassDisplay('films')}" id="box-films">
+	    <h3><img src="img/film-icon.png" title="Caddie"/>Films</h3>
+
+	    <table>
+
+	      <ui:repeat var="o" value="#{accountManagedBean.getListFilms()}" varStatus="status">
+
+		<c:set var="simple" value="#{o.get(0) eq 'SIMPLE'}" />
+		<c:set var="vide" value="#{o.get(0) eq 'EMPTY'}" />
+
+		<tr>
+
+		  <h:panelGroup rendered="#{vide}">
+		    <td>Votre liste de films est vide ... <a href="#">Cliquez ici pour trouver des films !</a></td>                                        
+		  </h:panelGroup>
+
+		  <h:panelGroup rendered="#{simple}">
+		    <td>
+		      <span class="affiche">
+			<img src="img/glass.png" />
+			<span>
+			  <img src="http://image.tmdb.org/t/p/w396/#{o.get(1)}" />
+			</span>
+		      </span>
+		    </td>
+		    <td>                 
+		      <a title="Voir la fiche du film" href="fiche_film.xhtml?id=#{o.get(4)}">#{o.get(2)} (#{o.get(3)})</a>
+		    </td>
+		    <td><a href="visionneuse.xhtml?id=#{o.get(4)}"><img src="img/eye.png" title="Voir le film" /></a></td>
+		  </h:panelGroup>
+
+		</tr>
+
+	      </ui:repeat>
+
+	    </table>
+	  </div>
+
+	  <div class="#{accountManagedBean.getClassDisplay('caddie')}" id="box-caddie">
+	    <ez:caddie title="Caddie" userId="#{loginManagedBean.id}" recap="false"/>
+	  </div>
+
+<!--	  <div class="#{accountManagedBean.getClassDisplay('caddie')}" id="box-caddie">
+	    <h3><img src="img/cart-icon.png" title="Caddie"/>Caddie</h3>
+
+	    <table>
+
+	      <ui:repeat var="o" value="#{accountManagedBean.getListCaddie()}" varStatus="status">
+
+		<c:set var="solo" value="#{o.get(0) eq 'SOLO'}" />
+		<c:set var="first" value="#{o.get(0) eq 'FIRST'}" />
+		<c:set var="simple" value="#{o.get(0) eq 'SIMPLE'}" />
+		<c:set var="vide" value="#{o.get(0) eq 'EMPTY'}" />
+
+		<tr class="tr-caddie-#{o.get(1)}">
+
+		  <h:panelGroup rendered="#{vide}">
+		    <td>Votre caddie est vide ... <a href="#">Cliquez ici pour trouver des films !</a></td>                                        
+		  </h:panelGroup>
+
+		  <h:panelGroup rendered="#{first}">
+		    <td class="td-right" rowspan="#{o.get(2) + 1}">#{o.get(5)}</td>
+		    <td class="td-invisible"></td>
+		    <td class="td-right title-film-caddie">                                                
+		      <a href="#"><b>#{o.get(3)}</b></a>
+		    </td>
+		    <td class="td-right">#{o.get(4)}€</td>
+		    <td>
+		      <h:form>
+			<h:commandButton class="button-delete" value="" action="#{accountManagedBean.deleteFromCaddie(o.get(1))}" />
+		      </h:form>
+		    </td>
+
+		  </h:panelGroup>
+
+		  <h:panelGroup rendered="#{simple}">
+		    <td class="td-right">
+		      <span class="affiche">
+			<img src="img/glass.png" />
+			<span>
+			  <img src="http://image.tmdb.org/t/p/w396/#{o.get(3)}" />
+			</span>
+		      </span>
+		    </td>
+		    <td class="align-left" colspan="3">                 
+		      <a title="Voir la fiche du film" href="fiche_film.xhtml?id=#{o.get(2)}">#{o.get(4)} (#{o.get(5)})</a>
+		    </td>
+		  </h:panelGroup>
+
+		  <h:panelGroup rendered="#{solo}">
+		    <td class="td-right">#{o.get(7)}</td>
+		    <td class="td-right">
+		      <span class="affiche">
+			<img src="img/glass.png" />
+			<span>
+			  <img src="http://image.tmdb.org/t/p/w396/#{o.get(5)}" />
+			</span>
+		      </span>
+		    </td>
+		    <td class="td-right title-film-caddie">                 
+		      <b><a title="Voir la fiche du film" href="fiche_film.xhtml?id=#{o.get(2)}">#{o.get(3)} (#{o.get(6)})</a></b>
+		    </td>
+		    <td class="td-right">#{o.get(4)}€</td>
+		    <td>
+		      <h:form>
+			<h:commandButton class="button-delete" value="" action="#{accountManagedBean.deleteFromCaddie(o.get(1))}" />
+		      </h:form>
+		    </td>
+
+		  </h:panelGroup>
+
+		</tr>
+
+	      </ui:repeat>
+
+	    </table>
+
+	    <h:panelGroup rendered="#{accountManagedBean.getListCaddie().get(0).get(0) != 'EMPTY' }">
+	      <a class="btn btn-success col-md-3 b1r" href="paiement.xhtml">Valider mon caddie</a>
+	    </h:panelGroup>
+	  </div>-->
+
+	  <div class="#{accountManagedBean.getClassDisplay('historique')}" id="box-historique">
+	    <h3><img src="img/clock-icon.png" title="Caddie"/>Historique</h3>
+
+
+
+	  </div>
+
+	  <div class="#{accountManagedBean.getClassDisplay('infos')}" id="box-infos">
+	    <h3><img src="img/info-icon.png" title="Caddie"/>Informations</h3>
+	  </div>
+
+	  <div id="bottom">
+	    <a class="go-top" href="#top" title="Vers le haut"><img src="img/arrowUp.png" /></a>                        
+	  </div>                        
+	</div>
+
+      </div>
+    </section>
+    <ui:insert name="footer" >
+      <ui:include src="components/footer.xhtml" />
+    </ui:insert>
+  </h:body>
 </html>

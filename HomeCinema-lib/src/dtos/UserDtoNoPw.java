@@ -7,7 +7,11 @@ package dtos;
 
 import enums.UserStates;
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -43,6 +47,21 @@ public class UserDtoNoPw extends SimpleUserDto implements Serializable {
 
   public void setBirthDate(Date birthDate) {
     this.birthDate = birthDate;
+  }
+
+  public String getBirthDateString(String formater) {
+    SimpleDateFormat df = new SimpleDateFormat(formater);
+    return df.format(this.birthDate);
+  }
+
+  public void setBirthDateString(String s, String formater) {
+    SimpleDateFormat df = new SimpleDateFormat(formater);
+    try {
+      this.birthDate = df.parse(s);
+    } catch (ParseException ex) {
+      this.birthDate = new Date();
+      Logger.getLogger(UserDtoNoPw.class.getName()).log(Level.SEVERE, null, ex);
+    }
   }
 
   public Date getAddDate() {

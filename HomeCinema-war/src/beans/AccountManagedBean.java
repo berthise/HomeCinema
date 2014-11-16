@@ -5,19 +5,15 @@
  */
 package beans;
 
+import ejbs.Ejbs;
 import dtos.CaddieDto;
 import dtos.FilmDto;
 import dtos.ProductDto;
-import ejbs.ManageProductRemote;
-import ejbs.ManageTransactionRemote;
-import ejbs.ManageUserRemote;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
-import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -31,14 +27,6 @@ import javax.naming.NamingException;
 @ViewScoped
 public class AccountManagedBean {
 
-    @EJB
-    private ManageTransactionRemote transactionManager;
-
-    @EJB
-    private ManageProductRemote productManager;
-
-    @EJB
-    private ManageUserRemote userManager;
 
     public CaddieDto cdto;
 
@@ -84,67 +72,11 @@ public class AccountManagedBean {
 	}
     }
 
-    public List<List<String>> getListCaddie() {
-	List<List<String>> toReturn = new ArrayList<>();
-	this.cdto = transactionManager.getCaddieDto(idUser);
-	if (cdto.films.isEmpty()) {
-	    List<String> toAdd = new ArrayList<>();
-	    toAdd.add("EMPTY");
-	    toAdd.add("");
-	    toReturn.add(toAdd);
-	    return toReturn;
-	}
 
-	int i = 1;
-	SimpleDateFormat formater = new SimpleDateFormat("yyyy");
-
-	for (ProductDto pd : cdto.films) {
-	    List<String> toAdd = new ArrayList<>();
-	    List<FilmDto> list_films = productManager.getFilms(pd.id);
-	    if (list_films.size() == 1) {
-		FilmDto f = list_films.get(0);
-		toAdd.add("SOLO");
-		toAdd.add(pd.id.toString());
-		toAdd.add(f.id.toString());
-		toAdd.add(f.title);
-		toAdd.add(pd.price.toString());
-		toAdd.add(f.cover);
-		toAdd.add(formater.format(f.release_date));
-		toAdd.add(i + "");
-		toReturn.add(toAdd);
-	    } else {
-		toAdd.add("FIRST");
-		toAdd.add(pd.id.toString());
-		toAdd.add(list_films.size() + "");
-		toAdd.add(pd.name);
-		toAdd.add(pd.price.toString());
-		toAdd.add(i + "");
-		toReturn.add(toAdd);
-		for (FilmDto f : list_films) {
-		    List<String> toAdd2 = new ArrayList<>();
-		    toAdd2.add("SIMPLE");
-		    toAdd2.add(pd.id.toString());
-		    toAdd2.add(f.id.toString());
-		    toAdd2.add(f.cover);
-		    toAdd2.add(f.title);
-		    toAdd2.add(formater.format(f.release_date));
-		    toAdd2.add(i + "");
-		    toReturn.add(toAdd2);
-		}
-	    }
-	    i++;
-	}
-	return toReturn;
-    }
-
-    public void deleteFromCaddie(Long idProduct) throws IOException {
-	transactionManager.removeProduct(idUser, idProduct);
-	FacesContext.getCurrentInstance().getExternalContext().redirect("moncompte.xhtml?box=caddie");
-    }
 
     public List<List<String>> getListFilms() {
-	List<List<String>> toReturn = new ArrayList<>();
-	List<FilmDto> list = userManager.getFilms(idUser);
+        List<List<String>> toReturn = new ArrayList<>();
+        List<FilmDto> list = Ejbs.user().getFilms(idUser);
 
 	if (list.isEmpty()) {
 	    List<String> toAdd = new ArrayList<>();
@@ -155,15 +87,15 @@ public class AccountManagedBean {
 
 	SimpleDateFormat formater = new SimpleDateFormat("yyyy");
 
-	for (FilmDto f : userManager.getFilms(idUser)) {
-	    List<String> toAdd = new ArrayList<>();
-	    toAdd.add("SIMPLE");
-	    toAdd.add(f.cover);
-	    toAdd.add(f.title);
-	    toAdd.add(formater.format(f.release_date));
-	    toAdd.add(f.id.toString());
-	    toReturn.add(toAdd);
-	}
+        for (FilmDto f : Ejbs.user().getFilms(idUser)) {
+            List<String> toAdd = new ArrayList<>();
+            toAdd.add("SIMPLE");
+            toAdd.add(f.cover);
+            toAdd.add(f.title);
+            toAdd.add(formater.format(f.release_date));
+            toAdd.add(f.id.toString());
+            toReturn.add(toAdd);
+        }
 
 	return toReturn;
     }

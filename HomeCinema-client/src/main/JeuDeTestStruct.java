@@ -38,7 +38,7 @@ public class JeuDeTestStruct {
       VideoDto ab_trailer = createAndPushVideo(a, 240,
 	      "http://geekompagny.ddns.net/ECOM/AmericanBeautyTrailer.mp4");
       FilmDto ab_film = createAndPushFilm(a, 14L, ab_video.id, ab_trailer.id);
-      ProductDto ab_product = createAndPushProduct(a, ab_film, "American beauty", 10.0);
+      ProductDto ab_product = createAndPushProduct(a, ab_film, "American beauty", 10.0, true);
       /*
        ********************** */
 
@@ -50,7 +50,7 @@ public class JeuDeTestStruct {
       VideoDto sw4_trailer = createAndPushVideo(a, 240,
 	      "http://geekompagny.ddns.net/ECOM/AmericanBeautyTrailer.mp4");
       FilmDto sw4_film = createAndPushFilm(a, 11L, sw4_video.id, sw4_trailer.id);
-      ProductDto sw4_product = createAndPushProduct(a, sw4_film, "Star Wars 4", 10.0);
+      ProductDto sw4_product = createAndPushProduct(a, sw4_film, "Star Wars 4", 10.0, true);
       /*
        ********************** */
 
@@ -62,7 +62,7 @@ public class JeuDeTestStruct {
       VideoDto sw5_trailer = createAndPushVideo(a, 240,
 	      "http://geekompagny.ddns.net/ECOM/AmericanBeautyTrailer.mp4");
       FilmDto sw5_film = createAndPushFilm(a, 1891L, sw5_video.id, sw5_trailer.id);
-      ProductDto sw5_product = createAndPushProduct(a, sw5_film, "Star Wars 5", 10.0);
+      ProductDto sw5_product = createAndPushProduct(a, sw5_film, "Star Wars 5", 10.0, true);
       /*
        ********************** */
 
@@ -74,7 +74,7 @@ public class JeuDeTestStruct {
       VideoDto sw6_trailer = createAndPushVideo(a, 240,
 	      "http://geekompagny.ddns.net/ECOM/AmericanBeautyTrailer.mp4");
       FilmDto sw6_film = createAndPushFilm(a, 1892L, sw6_video.id, sw6_trailer.id);
-      ProductDto sw6_product = createAndPushProduct(a, sw6_film, "Star Wars 6", 10.0);
+      ProductDto sw6_product = createAndPushProduct(a, sw6_film, "Star Wars 6", 10.0, true);
       /*
        ********************** */
 
@@ -85,7 +85,7 @@ public class JeuDeTestStruct {
       sw_films.add(sw4_film);
       sw_films.add(sw5_film);
       sw_films.add(sw6_film);
-      ProductDto sw_product = createAndPushProduct(a, sw_films, "Star Wars Trilogie", 25.0);
+      ProductDto sw_product = createAndPushProduct(a, sw_films, "Star Wars Trilogie", 25.0, false);
       /*
        ********************** */
 
@@ -97,7 +97,7 @@ public class JeuDeTestStruct {
       VideoDto ck_trailer = createAndPushVideo(a, 240,
 	      "http://geekompagny.ddns.net/ECOM/AmericanBeautyTrailer.mp4");
       FilmDto ck_film = createAndPushFilm(a, 15L, ck_video.id, ck_trailer.id);
-      ProductDto ck_product = createAndPushProduct(a, ck_film, "Citizen Kane", 10.0);
+      ProductDto ck_product = createAndPushProduct(a, ck_film, "Citizen Kane", 10.0, true);
       /*
        ********************** */
 
@@ -109,7 +109,7 @@ public class JeuDeTestStruct {
       VideoDto fc_trailer = createAndPushVideo(a, 240,
 	      "http://geekompagny.ddns.net/ECOM/FightClubTrailer.mp4");
       FilmDto fc_film = createAndPushFilm(a, 550L, fc_video.id, fc_trailer.id);
-      ProductDto fc_product = createAndPushProduct(a, fc_film, "Fight Club", 10.0);
+      ProductDto fc_product = createAndPushProduct(a, fc_film, "Fight Club", 10.0, true);
       /*
        ********************** */
 
@@ -157,16 +157,16 @@ public class JeuDeTestStruct {
   private static void userCaddyProduct(Admin a, UserDto rob_user, ProductDto sw_product) {
 
     System.out.print(rob_user.nickName + " caddy : " + sw_product.name);
-    a.getManagetransactionRemote().addProduct(rob_user.id, sw_product.id);
+    a.getManageTransactionRemote().addProduct(rob_user.id, sw_product.id);
     System.out.println(" ...  done");
   }
 
   private static void userBuyProduct(Admin a, UserDto rob_user, ProductDto ab_product, long btn) {
     //achat american beauty
     System.out.print(rob_user.nickName + " buy : " + ab_product.name);
-    a.getManagetransactionRemote().addProduct(rob_user.id, ab_product.id);
-    Long trans = a.getManagetransactionRemote().validate(rob_user.id);
-    a.getManagetransactionRemote().validatePayement(trans, btn);
+    a.getManageTransactionRemote().addProduct(rob_user.id, ab_product.id);
+    Long trans = a.getManageTransactionRemote().validate(rob_user.id);
+    a.getManageTransactionRemote().validatePayement(trans, btn);
     System.out.println(" ...  done");
   }
 
@@ -186,7 +186,7 @@ public class JeuDeTestStruct {
     return u;
   }
 
-  private static ProductDto createAndPushProduct(Admin a, List<FilmDto> films, String name, double price) {
+  private static ProductDto createAndPushProduct(Admin a, List<FilmDto> films, String name, double price, boolean main) {
     //creer un produit
     System.out.print("create product : " + name);
     ProductDto pdto = new ProductDto();
@@ -194,13 +194,13 @@ public class JeuDeTestStruct {
     pdto.price = price;
     pdto.id = a.getManageProductRemote().createProduct(pdto);
     for (FilmDto f : films) {
-      a.getManageProductRemote().addExistingFilm(pdto.id, f.id, true);
+      a.getManageProductRemote().addExistingFilm(pdto.id, f.id, main);
     }
     System.out.println(" ...  done");
     return pdto;
   }
 
-  private static ProductDto createAndPushProduct(Admin a, FilmDto f, String name, double price) {
+  private static ProductDto createAndPushProduct(Admin a, FilmDto f, String name, double price, boolean main) {
     //creer un produit
     System.out.print("create product : " + name);
 
@@ -208,7 +208,7 @@ public class JeuDeTestStruct {
     pdto.name = name;
     pdto.price = price;
     pdto.id = a.getManageProductRemote().createProduct(pdto);
-    a.getManageProductRemote().addExistingFilm(pdto.id, f.id, true);
+    a.getManageProductRemote().addExistingFilm(pdto.id, f.id, main);
     System.out.println(" ...  done");
 
     return pdto;

@@ -181,7 +181,7 @@ public class Admin {
         return mvr;
     }
 
-    public ManageTransactionRemote getManagetransactionRemote() {
+    public ManageTransactionRemote getManageTransactionRemote() {
         if (mtr == null) {
             try {
                 mtr = (ManageTransactionRemote) ic.lookup("java:global/HomeCinema/HomeCinema-ejb/ManageTransaction!ejbs.ManageTransactionRemote");
