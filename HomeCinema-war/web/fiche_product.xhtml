@@ -63,7 +63,7 @@
 
 				</h:panelGroup>
 
-				<h:panelGroup rendered="#{!deco and type eq 'PART'}">
+				<h:panelGroup rendered="#{!deco and (type eq 'PART_CADDIE' or type eq 'PART')}">
 				    <h:form>
 					<h:commandButton class="btn btn-success col-md-3 b1" value="Compléter mon caddie" action="#{accountManagedBean.addProductToCaddie(loginManagedBean.id, productManagedBean.id)}" />
 				    </h:form>

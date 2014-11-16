@@ -26,7 +26,6 @@ import javax.faces.context.FacesContext;
 @ViewScoped
 public class AccountManagedBean {
 
-
     public CaddieDto cdto;
 
     public String initBox;
@@ -149,12 +148,14 @@ public class AccountManagedBean {
 	
 	if (caddie == 0 && films == 0)
 	    return "FREE";
+	else if (caddie == n || caddie + films == n)
+	    return "CADDIE";
 	else if (caddie == 0 && films < n)
 	    return "PART_FILM";
+	else if (caddie < n && films == 0)
+	    return "PART_CADDIE";
 	else if (caddie < n && films < n)
 	    return "PART";
-	else if (caddie == n)
-	    return "CADDIE";
 	else
 	    return "OWNED";
     }
@@ -165,12 +166,21 @@ public class AccountManagedBean {
     }
     
     public void addProductToCaddie(Long iduser, Long idproduct) throws IOException {
-	if (getCodeButtonsProduct(idproduct, iduser).compareTo("FREE") == 0)
-	    this.cdto = Ejbs.transaction().addProduct(iduser, idproduct);
-	else{
-	    for (FilmDto f : Ejbs.product().getFilms(idproduct))
-		if (isInMyFilms(Arrays.asList(f.id), iduser) == 0)
-		    this.cdto = Ejbs.transaction().addProduct(iduser, f.main_product_id);
+	String _switch = getCodeButtonsProduct(idproduct, iduser);
+	switch (_switch) {
+	    case "FREE":
+		this.cdto = Ejbs.transaction().addProduct(iduser, idproduct);
+		break;
+	    case "PART_CADDIE":
+		this.cdto = Ejbs.transaction().addProduct(iduser, idproduct);
+		for (FilmDto f : Ejbs.product().getFilms(idproduct))
+		    Ejbs.transaction().removeProduct(iduser, f.main_product_id);
+		break;
+	    default:
+		for (FilmDto f : Ejbs.product().getFilms(idproduct))
+		    if (isInMyFilms(Arrays.asList(f.id), iduser) == 0 && isInMyCaddie(Arrays.asList(f.id), iduser) == 0)
+			this.cdto = Ejbs.transaction().addProduct(iduser, f.main_product_id);
+		break;
 	}
 	FacesContext.getCurrentInstance().getExternalContext().redirect("fiche_product.xhtml?id=" + idproduct);
     }

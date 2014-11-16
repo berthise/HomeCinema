@@ -9,7 +9,7 @@ import dtos.FilmDto;
 import dtos.FilmFicheDto;
 import dtos.GenreDto;
 import dtos.PersonDto;
-import ejbs.ManageFilmRemote;
+import ejbs.Ejbs;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 
@@ -19,7 +19,6 @@ import java.util.Set;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 /**
@@ -30,12 +29,9 @@ import javax.naming.NamingException;
 @ViewScoped
 public class FilmManagedBean {
 
-    private ManageFilmRemote filmManager;
-    
     public FilmFicheDto fdto;
 
     public FilmManagedBean() throws NamingException {
-        filmManager = (ManageFilmRemote) new InitialContext().lookup("java:global/HomeCinema/HomeCinema-ejb/ManageFilm!ejbs.ManageFilmRemote");
         this.fdto = new FilmFicheDto();
     }
 
@@ -43,7 +39,7 @@ public class FilmManagedBean {
         if (fdto.id == null) {
             FacesContext.getCurrentInstance().getExternalContext().dispatch("404.xhtml");
         }
-        FilmFicheDto f = filmManager.getDtoFromId(fdto.id);
+        FilmFicheDto f = Ejbs.film().getDtoFromId(fdto.id);
         if (f == null) {
             FacesContext.getCurrentInstance().getExternalContext().dispatch("404.xhtml");
         }
@@ -163,7 +159,7 @@ public class FilmManagedBean {
     }
 
     public String getDirector() {
-	List<PersonDto> list = filmManager.getDirector(fdto.id);
+	List<PersonDto> list = Ejbs.film().getDirector(fdto.id);
 	String toReturn = "";
 	for (PersonDto s : list) {
 	    toReturn += "<a href=\"#\" class=\"list-genres-crew\">" + s.name + "</a> , ";
@@ -175,7 +171,7 @@ public class FilmManagedBean {
     }
 
     public String getCasting() {
-	List<PersonDto> list = filmManager.getCasting(fdto.id);
+	List<PersonDto> list = Ejbs.film().getCasting(fdto.id);
 	String toReturn = "";
 	for (PersonDto s : list) {
 	    toReturn += "<a href=\"#\" class=\"list-genres-crew\">" + s.name + "</a> , ";
@@ -187,7 +183,7 @@ public class FilmManagedBean {
     }
 
     public String getGenres() {
-	Set<GenreDto> set = filmManager.getGenre(fdto.id);
+	Set<GenreDto> set = Ejbs.film().getGenre(fdto.id);
 	String toReturn = "";
 	for (GenreDto s : set) {
 	    toReturn += "<a href=\"#\" class=\"list-genres-crew\">" + s.name + "</a> , ";

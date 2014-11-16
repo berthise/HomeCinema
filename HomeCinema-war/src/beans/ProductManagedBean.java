@@ -7,13 +7,12 @@ package beans;
 
 import dtos.FilmDto;
 import dtos.ProductDto;
-import ejbs.ManageProductRemote;
+import ejbs.Ejbs;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -26,9 +25,6 @@ import javax.faces.context.FacesContext;
 @ViewScoped
 public class ProductManagedBean {
 
-    @EJB
-    private ManageProductRemote productManager;
-
     public ProductDto pdto;
 
     public ProductManagedBean() {
@@ -39,9 +35,13 @@ public class ProductManagedBean {
 	if (pdto.id == null) {
 	    FacesContext.getCurrentInstance().getExternalContext().dispatch("404.xhtml");
 	}
-	ProductDto p = productManager.getProduct(pdto.id);
+	ProductDto p = Ejbs.product().getProduct(pdto.id);
 	if (p == null) {
 	    FacesContext.getCurrentInstance().getExternalContext().dispatch("404.xhtml");
+	}
+	else if (Ejbs.product().getFilms(p.id).size() == 1){
+	    String url = "fiche_film.xhtml?id="+Ejbs.product().getFilms(p.id).get(0).id;
+	    FacesContext.getCurrentInstance().getExternalContext().redirect(url);
 	}
 	pdto = p;
     }
@@ -81,7 +81,7 @@ public class ProductManagedBean {
     }
 
     public List<FilmDto> getListFilms() {
-	return productManager.getFilms(pdto.id);
+	return Ejbs.product().getFilms(pdto.id);
     }
 
     public String getRating() {
@@ -111,12 +111,12 @@ public class ProductManagedBean {
     }
 
     public Integer getNbSells(Long idproduct) {
-	ProductDto p = productManager.getProduct(idproduct);
+	ProductDto p = Ejbs.product().getProduct(idproduct);
 	return p.nbSales;
     }
 
     public Double getPrice(Long idproduct) {
-	ProductDto p = productManager.getProduct(idproduct);
+	ProductDto p = Ejbs.product().getProduct(idproduct);
 	return p.price;
     }
 
@@ -137,7 +137,7 @@ public class ProductManagedBean {
 	double price = 0;
 	List<FilmDto> l = getListFilms();
 	for (FilmDto f : l) {
-	    price += productManager.getProduct(f.main_product_id).price;
+	    price += Ejbs.product().getProduct(f.main_product_id).price;
 	}	
 	double reduc = pdto.price/price * 100;	
 	return (100 - (int) reduc) + "";	
