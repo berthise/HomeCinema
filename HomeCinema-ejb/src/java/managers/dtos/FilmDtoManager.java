@@ -32,6 +32,7 @@ public class FilmDtoManager {
         fdto.cover = f.getCoverId();
         fdto.rating = f.getRating();
         fdto.runtime = f.getRuntime();
+	fdto.main_product_id = f.getMain_product().getId();
         return fdto;
     }
 

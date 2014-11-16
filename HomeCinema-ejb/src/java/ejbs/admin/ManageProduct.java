@@ -108,4 +108,10 @@ public class ManageProduct implements ManageProductRemote {
         return lfdto;
     }
 
+    @Override
+    public ProductDto getProduct(Long pid) {
+	Product p = em.find(Product.class, pid);
+        return ProductDtoManager.getDto(p);
+    }
+
 }

@@ -22,116 +22,6 @@
             <f:event type="preRenderView" listener="#{filmManagedBean.setDtoFromId()}"/>
         </f:metadata>
 
-        <style>
-            .info-film {
-                width: 64%;
-                text-align: justify;
-                float: right;
-                padding-left: 18px;
-            }
-
-            .cover-film {
-                width: 36%;
-                float: left;
-                margin-bottom: 18px;
-            }
-
-            .form-liste-film {
-                clear: both;
-                height: 32px;
-            }
-
-            .b22 {
-                margin-left: 16px;
-            }
-
-            .b21, .b22 {
-                width: 190px;
-                font-weight: bold;
-                font-size: 18px;
-            }
-
-            .b1 {
-                width: 396px;
-                font-weight: bold;
-                font-size: 18px;
-            }
-
-            .rating {
-                float: right;
-            }
-
-            .rating p {
-                font-size: 15px;
-                margin-left: 15px;
-                margin-top: 12px;
-                float: right;
-            }
-
-            .rating img {
-                width: 18px;
-                height: 18px;
-                margin-right: -5px;
-            }
-
-            #play {
-                width: 396px;
-                height: 594px;
-                background: url("img/play_icon.png") no-repeat center center;
-                position: relative;
-                top: -594px;
-                margin-bottom: -594px;
-                display: none;
-                cursor:pointer;
-            }
-
-            .cover-film:hover #play {
-                display: block;
-            }
-
-            .bold {
-                font-weight: bold;
-            }
-
-            .italic {
-                font-style: italic;
-            }
-
-            .info-film h3 {
-                font-size: 26px;
-                font-weight: 400;
-            }
-
-            .info-film p {
-                font-size: 18px;
-                padding-left: 10px;
-            }
-
-            .list-genre {
-                background-color: #aaa;
-                border-radius: 5px;
-                padding: 3px 5px 3px 5px;
-                color: #333;
-            }
-
-            .list-genre:hover {
-                background-color: #333;
-                text-decoration: none;
-                color: #eee;
-            }
-
-            #ba video {
-                border: 2px solid #333;
-                margin-bottom: 5px;
-            }
-
-            .go-top {
-                float: right;
-                margin-top: -5px;
-                margin-bottom: 5px;
-            }
-        </style>
-
     </head>
     <body id="top">
         <ui:include src="components/header.xhtml" />
@@ -150,46 +40,54 @@
                         <div class="cover-film">
                             <h:graphicImage value="http://image.tmdb.org/t/p/w396/#{filmManagedBean.cover}" />
                             <a id="play" href="#ba"/>
+
+			    <c:set var="deco" value="#{loginManagedBean.id eq null}" />
+			    <c:set var="type" value="#{accountManagedBean.getCodeButtonsFilm(filmManagedBean.id, loginManagedBean.id)}" />
+
+			    <div class="form-liste-film">
+
+				<h:panelGroup rendered="#{!deco and type eq 'OWNED'}">
+				    <h:outputText value="#{filmManagedBean.getLinkToVisionneuse()}" escape="false" />
+				    <h:outputText value="#{filmManagedBean.getLinkToDownload()}" escape="false" />
+				</h:panelGroup>
+
+				<h:panelGroup rendered="#{!deco and type eq 'FREE'}">
+				    <h:form>
+					<h:commandButton class="btn btn-success col-md-3 b1" value="Ajouter au caddie" action="#{accountManagedBean.addProductFilmToCaddie(loginManagedBean.id,filmManagedBean.mainProductId,filmManagedBean.id)}" />
+				    </h:form>
+				</h:panelGroup>
+
+				<h:panelGroup rendered="#{!deco and type eq 'CADDIE'}">
+				    <a class="btn btn-primary col-md-3 b1" href="moncompte.xhtml?box=caddie">Voir le caddie (film déjà ajouté)</a>
+				</h:panelGroup>
+
+				<h:panelGroup rendered="#{deco}">
+				    <a class="btn btn-primary col-md-3 b21" href="signup.xhtml">Inscription</a>
+				    <a class="btn btn-success col-md-3 b22" href="connexion.xhtml">Connexion</a>
+				</h:panelGroup>
+			    </div>
                         </div>
 
                         <div class="info-film">
                             <h3>Résumé :</h3><p class="italic"><h:outputText value="#{filmManagedBean.overview}" escape="false" /></p>
-                            <h3>Date de sortie :</h3><p><h:outputText value="#{filmManagedBean.date}" escape="false" /></p>
-                            <h3>Durée :</h3><p><h:outputText value="#{filmManagedBean.getRuntime()}" escape="false" /></p>
-                            <h3>Genre(s) :</h3><p><h:outputText value="#{filmManagedBean.getGenres()}" escape="false" /></p>
+
+			    <h3>Date de sortie : <span class="info-film-p"><h:outputText value="#{filmManagedBean.date}" escape="false" /></span></h3>
+			    <h3>Durée : <span class="info-film-p"><h:outputText value="#{filmManagedBean.getRuntime()}" escape="false" /></span></h3>
+			    <h3>Genre(s) :</h3><p><h:outputText value="#{filmManagedBean.getGenres()}" escape="false" /></p>
                             <h3>Réalisateur :</h3><p><h:outputText value="#{filmManagedBean.getDirector()}" escape="false" /></p>
                             <h3>Casting :</h3><p><h:outputText value="#{filmManagedBean.getCasting()}" escape="false" /></p>
-                        </div>
+			    <div>
+				<div class="info-fiche-left">
+				    <h3>Nombre de ventes : <span class="info-film-p"><h:outputText value="#{productManagedBean.getNbSells(filmManagedBean.mainProductId)}"  /></span></h3>
+				</div>
+				<div class="info-fiche-right info-film-price">
+				    <h3>Prix : <img class="info-film-img-price" src="img/price.png" /><span class="info-film-p info-film-text-price"><h:outputText value="#{productManagedBean.getPrice(filmManagedBean.mainProductId)}" />€</span></h3>
+				</div>
+			    </div>
+			</div>
                     </div>
 
-                    <c:set var="owned" value="#{accountManagedBean.isOneOfMyFilm(filmManagedBean.id, loginManagedBean.id)}" />
-                    <c:set var="caddie" value="#{accountManagedBean.isInMyCaddie(filmManagedBean.id, loginManagedBean.id)}" />
-                    <c:set var="free" value="#{accountManagedBean.isFree(filmManagedBean.id, loginManagedBean.id)}" />
-                    <c:set var="deco" value="#{loginManagedBean.id eq null}" />
-
-                    <!-- Cas où l'utilisateur est connecté et possède le film -->
-                    <div class="form-liste-film">
-
-                        <h:panelGroup rendered="#{owned}">
-                            <h:outputText value="#{filmManagedBean.getLinkToVisionneuse()}" escape="false" />
-                            <h:outputText value="#{filmManagedBean.getLinkToDownload()}" escape="false" />
-                        </h:panelGroup>
-
-                        <h:panelGroup rendered="#{free}">
-                            <h:form>
-                                <h:commandButton class="btn btn-success col-md-3 b1" value="Ajouter au caddie" action="#{accountManagedBean.addProductFilmToCaddie(loginManagedBean.id,filmManagedBean.mainProductId,filmManagedBean.id)}" />
-                            </h:form>
-                        </h:panelGroup>
-
-                        <h:panelGroup rendered="#{caddie}">
-                            <a class="btn btn-primary col-md-3 b1" href="moncompte.xhtml?box=caddie">Voir le caddie (film déjà ajouté)</a>
-                        </h:panelGroup>
-
-                        <h:panelGroup rendered="#{deco}">
-                            <a class="btn btn-primary col-md-3 b21" href="signup.xhtml">Inscription</a>
-                            <a class="btn btn-success col-md-3 b22" href="connexion.xhtml">Connexion</a>
-                        </h:panelGroup>
-                    </div>
+		    <div style="clear: both;" />
 
                 </div>
 

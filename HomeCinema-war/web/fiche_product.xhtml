@@ -1,0 +1,129 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+        <title></title>
+        <meta name="description" content=""/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+        <link rel="stylesheet" href="css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="css/bootstrap-theme.min.css"/>
+        <link rel="stylesheet" href="css/main.css"/>
+
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
+	<script src="js/slider.js"></script>
+
+        <f:metadata>
+            <f:viewParam name="id" value="#{productManagedBean.id}" />
+            <f:event type="preRenderView" listener="#{productManagedBean.setDtoFromId()}"/>
+        </f:metadata>
+
+    </head>
+    <body id="top">
+        <ui:include src="components/header.xhtml" />
+        <section>
+            <div class="container">
+                <div class="well">
+                    <h2 class="well-title bold">
+			<h:outputText value="#{productManagedBean.name}" />
+			
+			<div class="rating">
+                            <h:outputText value="#{productManagedBean.getRating()}" escape="false"/>
+                        </div>
+                    </h2>
+
+		    <div class="clear">
+                        <div class="cover-film">
+                            <div id="slider">
+				<a onclick="return false;" class="control_next">&gt;</a>
+				<a onclick="return false;" class="control_prev">&lt;</a>
+				<ul>
+				    <ui:repeat var="o" value="#{productManagedBean.getListFilms()}" varStatus="status">
+					<li><img title="#{o.title}" src="http://image.tmdb.org/t/p/w396/#{o.cover}" /></li>
+				    </ui:repeat>
+				</ul>  
+			    </div>
+			    
+			    <c:set var="deco" value="#{loginManagedBean.id eq null}" />
+		    <c:set var="type" value="#{accountManagedBean.getCodeButtonsProduct(productManagedBean.id, loginManagedBean.id)}" />
+
+                    <div class="form-liste-film">
+
+                        <h:panelGroup rendered="#{!deco and type eq 'OWNED'}">
+			    <a class="btn btn-primary col-md-3 b1" href="moncompte.xhtml">Voir les films (déjà achetés)</a>
+
+                        </h:panelGroup>
+
+                        <h:panelGroup rendered="#{!deco and type eq 'PART'}">
+                            <h:form>
+                                <h:commandButton class="btn btn-success col-md-3 b1" value="Compléter mon caddie" action="#{accountManagedBean.addProductToCaddie(loginManagedBean.id, productManagedBean.id)}" />
+                            </h:form>
+                        </h:panelGroup>
+
+			<h:panelGroup rendered="#{!deco and type eq 'PART_FILM'}">
+                            <h:form>
+                                <h:commandButton class="btn btn-success col-md-3 b1" value="Ajouter au caddie les films manquants" action="#{accountManagedBean.addProductToCaddie(loginManagedBean.id, productManagedBean.id)}" />
+                            </h:form>
+                        </h:panelGroup>
+
+			<h:panelGroup rendered="#{!deco and type eq 'FREE'}">
+                            <h:form>
+                                <h:commandButton class="btn btn-success col-md-3 b1" value="Ajouter au caddie" action="#{accountManagedBean.addProductToCaddie(loginManagedBean.id, productManagedBean.id)}" />
+                            </h:form>
+                        </h:panelGroup>
+
+                        <h:panelGroup rendered="#{!deco and type eq 'CADDIE'}">
+                            <a class="btn btn-primary col-md-3 b1" href="moncompte.xhtml?box=caddie">Voir le caddie (films déjà ajoutés)</a>
+                        </h:panelGroup>
+
+                        <h:panelGroup rendered="#{deco}">
+                            <a class="btn btn-primary col-md-3 b21" href="signup.xhtml">Inscription</a>
+                            <a class="btn btn-success col-md-3 b22" href="connexion.xhtml">Connexion</a>
+                        </h:panelGroup>
+                    </div>
+                        </div>
+
+                        <div class="info-film">
+                            <h3>Contenu du produit :</h3>
+			    <ul>
+				<ui:repeat var="o" value="#{productManagedBean.getListFilms()}" varStatus="status">
+				    <li>
+					<a class="box-film-product" href="fiche_film.xhtml?id=#{o.id}" title="Voir la fiche du film">
+					    <p class="float-left box-film-product-title"><img src="img/arrow-title.png"/>#{o.title} (#{filmManagedBean.getYear(o)})</p>
+					    <p class="float-right box-film-product-rate img"><img src="img/rate.png"/>#{o.rating}</p>
+					    <p class="float-right box-film-product-time img"><img src="img/time.png"/>#{filmManagedBean.getRuntime(o)}</p>
+					    <p class="clear-both box-film-product-overview"><img src="img/overview.png"/>#{productManagedBean.getShortOverview(o,180)}</p>
+					</a>			    
+				    </li>
+				</ui:repeat>
+			    </ul>
+			    <h3>Date d'ajout : <span class="info-film-p"><h:outputText value="#{productManagedBean.date}" /></span></h3>
+			    <div>
+				<div class="info-fiche-left">
+				    <h3>Nombre de ventes : <span class="info-film-p"><h:outputText value="#{productManagedBean.getNbSells(productManagedBean.id)}"  /></span></h3>
+				</div>
+				<div class="info-fiche-right info-film-price">
+				    <h3>Prix : <img class="info-film-img-price" src="img/price.png" /><span class="info-film-p info-film-text-price"><h:outputText value="#{productManagedBean.getPrice(productManagedBean.id)}" />€</span>				    
+					<img class="info-film-img-reduc" src="img/reduc.png" /><span class="info-film-reduc">-#{productManagedBean.getReduction()}%</span>
+				    </h3>
+				</div>
+			    </div>
+                        </div>
+                    </div>
+
+		    <div style="clear: both;" />
+		    
+                </div>
+
+	    </div>
+
+        </section>
+    </body>
+</html>
