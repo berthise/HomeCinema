@@ -21,7 +21,7 @@ body {
       background: linear-gradient(to bottom, #fff 0, #eee 100%);
       border-bottom: 3px inset #729d47; }
     body header .decale-right {
-      margin-right: 5px; }
+      margin-right: 7px; }
     body header .userTools {
       z-index: 10000;
       background: -webkit-linear-gradient(left, #111, #666, #666, #666, #111);
@@ -192,7 +192,13 @@ body {
     border-radius: 5px;
     padding: 3px 5px 3px 5px !important;
     color: #333;
-    display: inline; }
+    display: inline;
+    white-space: nowrap; }
+  body .list-genres-crew:hover {
+    background-color: #777;
+    text-decoration: none; }
+  body .info-film-list {
+    line-height: 35px; }
   body .list-genre:hover {
     background-color: #333;
     text-decoration: none;
@@ -427,9 +433,12 @@ body {
     margin-right: 10px; }
   body .box-film-product img {
     margin-right: 5px; }
-  body #lang_fr {
+  body .lang {
     margin-right: -15px; }
   body .lang-inactiv {
     opacity: 0.5; }
+  body .forgot {
+    padding-bottom: 10px !important;
+    padding-right: 15px !important; }
 
 /*# sourceMappingURL=main.css.map */

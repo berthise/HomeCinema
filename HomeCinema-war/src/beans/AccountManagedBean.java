@@ -70,8 +70,6 @@ public class AccountManagedBean {
 	}
     }
 
-
-
     public List<List<String>> getListFilms() {
         List<List<String>> toReturn = new ArrayList<>();
         List<FilmDto> list = Ejbs.user().getFilms(idUser);
@@ -158,31 +156,6 @@ public class AccountManagedBean {
 	    return "PART";
 	else
 	    return "OWNED";
-    }
-
-    public void addProductFilmToCaddie(Long iduser, Long idproduct, Long idfilm) throws IOException {
-	this.cdto = Ejbs.transaction().addProduct(iduser, idproduct);
-	FacesContext.getCurrentInstance().getExternalContext().redirect("fiche_film.xhtml?id=" + idfilm);
-    }
-    
-    public void addProductToCaddie(Long iduser, Long idproduct) throws IOException {
-	String _switch = getCodeButtonsProduct(idproduct, iduser);
-	switch (_switch) {
-	    case "FREE":
-		this.cdto = Ejbs.transaction().addProduct(iduser, idproduct);
-		break;
-	    case "PART_CADDIE":
-		this.cdto = Ejbs.transaction().addProduct(iduser, idproduct);
-		for (FilmDto f : Ejbs.product().getFilms(idproduct))
-		    Ejbs.transaction().removeProduct(iduser, f.main_product_id);
-		break;
-	    default:
-		for (FilmDto f : Ejbs.product().getFilms(idproduct))
-		    if (isInMyFilms(Arrays.asList(f.id), iduser) == 0 && isInMyCaddie(Arrays.asList(f.id), iduser) == 0)
-			this.cdto = Ejbs.transaction().addProduct(iduser, f.main_product_id);
-		break;
-	}
-	FacesContext.getCurrentInstance().getExternalContext().redirect("fiche_product.xhtml?id=" + idproduct);
     }
 
     public void checkIsMyFilm(Long idfilm, Long iduser) throws IOException {

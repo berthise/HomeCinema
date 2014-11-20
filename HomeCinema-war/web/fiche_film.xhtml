@@ -1,114 +1,117 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html
-    xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
-    <h:head>
-        <meta charset="utf-8"/>
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-        <title></title>
-        <meta name="description" content=""/>
-        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+  <h:head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title></title>
+    <meta name="description" content=""/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-        <link rel="stylesheet" href="css/bootstrap.min.css"/>
-        <link rel="stylesheet" href="css/bootstrap-theme.min.css"/>
-        <link rel="stylesheet" href="css/main.css"/>
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" href="css/main.css"/>
 
-        <f:metadata>
-            <f:viewParam name="id" value="#{filmManagedBean.id}" />
-            <f:event type="preRenderView" listener="#{filmManagedBean.setDtoFromId()}"/>
-        </f:metadata>
+    <f:metadata>
+      <f:viewParam name="id" value="#{filmManagedBean.id}" />
+      <f:event type="preRenderView" listener="#{filmManagedBean.setDtoFromId()}"/>
+    </f:metadata>
 
-    </h:head>
-    <h:body id="top">
-	<ui:insert name="header" >
-	    <ui:include src="components/header.xhtml" />
-	</ui:insert>
-        <section>
-	    
-            <div class="container">
-                <div class="well">
-                    <h2 class="well-title bold"><h:outputText value="#{filmManagedBean.title} (#{filmManagedBean.year})" />
+  </h:head>
+  <h:body id="top">
+    <ui:insert name="header" >
+      <ui:include src="components/header.xhtml" />
+    </ui:insert>
+    <section>
 
-                        <div class="rating">
-                            <h:outputText value="#{filmManagedBean.getRating()}" escape="false"/>
-                        </div>
+      <div class="container">
+	<div class="well">
+	  <h2 class="well-title bold"><h:outputText value="#{filmManagedBean.title} (#{filmManagedBean.year})" />
 
-                    </h2>
+	    <div class="rating">
+	      <h:outputText value="#{filmManagedBean.getRating()}" escape="false"/>
+	    </div>
 
-                    <div class="clear">
-                        <div class="cover-film">
-                            <h:graphicImage value="http://image.tmdb.org/t/p/w396/#{filmManagedBean.cover}" />
-                            <a id="play" href="#ba"/>
+	  </h2>
 
-			    <c:set var="deco" value="#{loginManagedBean.id eq null}" />
-			    <c:set var="type" value="#{accountManagedBean.getCodeButtonsFilm(filmManagedBean.id, loginManagedBean.id)}" />
+	  <div class="clear">
+	    <div class="cover-film">
+	      <h:graphicImage value="http://image.tmdb.org/t/p/w396/#{filmManagedBean.cover}" />
+	      <a id="play" href="#ba"/>
 
-			    <div class="form-liste-film">
+	      <c:set var="deco" value="#{loginManagedBean.id eq null}" />
+	      <c:set var="type" value="#{accountManagedBean.getCodeButtonsFilm(filmManagedBean.id, loginManagedBean.id)}" />
 
-				<h:panelGroup rendered="#{!deco and type eq 'OWNED'}">
-				    <h:outputText value="#{filmManagedBean.getLinkToVisionneuse()}" escape="false" />
-				    <h:outputText value="#{filmManagedBean.getLinkToDownload()}" escape="false" />
-				</h:panelGroup>
+	      <div class="form-liste-film">
 
-				<h:panelGroup rendered="#{!deco and type eq 'FREE'}">
-				    <h:form>
-					<h:commandButton class="btn btn-success col-md-3 b1" value="Ajouter au caddie" action="#{accountManagedBean.addProductFilmToCaddie(loginManagedBean.id,filmManagedBean.mainProductId,filmManagedBean.id)}" />
-				    </h:form>
-				</h:panelGroup>
+		<h:panelGroup rendered="#{!deco and type eq 'OWNED'}">
+		  <h:outputText value="#{filmManagedBean.getLinkToVisionneuse()}" escape="false" />
+		  <h:outputText value="#{filmManagedBean.getLinkToDownload()}" escape="false" />
+		</h:panelGroup>
 
-				<h:panelGroup rendered="#{!deco and type eq 'CADDIE'}">
-				    <a class="btn btn-primary col-md-3 b1" href="moncompte.xhtml?box=caddie">Voir le caddie (film déjà ajouté)</a>
-				</h:panelGroup>
+		<h:panelGroup rendered="#{!deco and type eq 'FREE'}">
+		  <h:form>
+		      <h:commandButton class="btn btn-success col-md-3 b1" value="Ajouter au caddie" action="#{caddieManagedBean.addProductFilmToCaddie(loginManagedBean.id,filmManagedBean.mainProductId,filmManagedBean.id)}" />
+		  </h:form>
+		</h:panelGroup>
 
-				<h:panelGroup rendered="#{deco}">
-				    <a class="btn btn-primary col-md-3 b21" href="signup.xhtml">Inscription</a>
-				    <a class="btn btn-success col-md-3 b22" href="connexion.xhtml">Connexion</a>
-				</h:panelGroup>
-			    </div>
-                        </div>
+		<h:panelGroup rendered="#{!deco and type eq 'CADDIE'}">
+		  <a href="moncompte.xhtml?box=caddie" class="btn btn-primary col-md-3 b21" >Voir le caddie</a>
+		  <h:form>
+		    <h:commandButton action="#{caddieManagedBean.deleteFromCaddie(loginManagedBean.id, filmManagedBean.mainProductId)}" value="Enlever du caddie" class="btn btn-primary col-md-3 b22" />
+		  </h:form>
+		</h:panelGroup>
 
-                        <div class="info-film">
-                            <h3>Résumé :</h3><p class="italic"><h:outputText value="#{filmManagedBean.overview}" escape="false" /></p>
+		<h:panelGroup rendered="#{deco}">
+		  <a class="btn btn-primary col-md-3 b21" href="signup.xhtml">Inscription</a>
+		  <a class="btn btn-success col-md-3 b22" href="login.xhtml">Connexion</a>
+		</h:panelGroup>
+	      </div>
+	    </div>
 
-			    <h3>Date de sortie : <span class="info-film-p"><h:outputText value="#{filmManagedBean.date}" escape="false" /></span></h3>
-			    <h3>Durée : <span class="info-film-p"><h:outputText value="#{filmManagedBean.getRuntime()}" escape="false" /></span></h3>
-			    <h3>Genre(s) :</h3><p><h:outputText value="#{filmManagedBean.getGenres()}" escape="false" /></p>
-                            <h3>Réalisateur :</h3><p><h:outputText value="#{filmManagedBean.getDirector()}" escape="false" /></p>
-                            <h3>Casting :</h3><p><h:outputText value="#{filmManagedBean.getCasting()}" escape="false" /></p>
-			    <div>
-				<div class="info-fiche-left">
-				    <h3>Nombre de ventes : <span class="info-film-p"><h:outputText value="#{productManagedBean.getNbSells(filmManagedBean.mainProductId)}"  /></span></h3>
-				</div>
-				<div class="info-fiche-right info-film-price">
-				    <h3>Prix : <img class="info-film-img-price" src="img/price.png" /><span class="info-film-p info-film-text-price"><h:outputText value="#{productManagedBean.getPrice(filmManagedBean.mainProductId)}" />€</span></h3>
-				</div>
-			    </div>
-			</div>
-                    </div>
+	    <div class="info-film">
+	      <h3>Résumé :</h3><p class="italic"><h:outputText value="#{filmManagedBean.overview}" escape="false" /></p>
 
-		    <div style="clear: both;" />
+	      <h3>Date de sortie : <span class="info-film-p"><h:outputText value="#{filmManagedBean.date}" escape="false" /></span></h3>
+	      <h3>Durée : <span class="info-film-p"><h:outputText value="#{filmManagedBean.getRuntime()}" escape="false" /></span></h3>
+	      <h3>Genre(s) :</h3><p class="info-film-list"><h:outputText value="#{filmManagedBean.getGenres()}" escape="false" /></p>
+	      <h3>Réalisateur :</h3><p class="info-film-list"><h:outputText value="#{filmManagedBean.getDirector()}" escape="false" /></p>
+	      <h3>Casting :</h3><p class="info-film-list"><h:outputText value="#{filmManagedBean.getCasting()}" escape="false" /></p>
+	      <div>
+		<div class="info-fiche-left">
+		  <h3>Nombre de ventes : <span class="info-film-p"><h:outputText value="#{productManagedBean.getNbSells(filmManagedBean.mainProductId)}"  /></span></h3>
+		</div>
+		<div class="info-fiche-right info-film-price">
+		  <h3>Prix : <img class="info-film-img-price" src="img/price.png" /><span class="info-film-p info-film-text-price"><h:outputText value="#{productManagedBean.getPrice(filmManagedBean.mainProductId)}" />€</span></h3>
+		</div>
+	      </div>
+	    </div>
+	  </div>
 
-                </div>
+	  <div style="clear: both;" />
 
-                <div id="ba" class="well">
-                    <h2 class="well-title">Bande-annonce</h2>
+	</div>
 
-                    <video id="myVideo" width="100%" controls="controls">
-                        <h:outputText value="#{filmManagedBean.getTrailer()}" escape="false" />
-                        Your browser don't support video element.
-                    </video>
+	<div id="ba" class="well">
+	  <h2 class="well-title">Bande-annonce</h2>
 
-                    <a class="go-top" href="#top" title="Vers le haut"><img src="img/arrowUp.png" /></a>
+	  <video id="myVideo" width="100%" controls="controls">
+	    <h:outputText value="#{filmManagedBean.getTrailer()}" escape="false" />
+	    Your browser don't support video element.
+	  </video>
 
-                </div>
-            </div>
-        </section>
-	<ui:insert name="footer" >
-	    <ui:include src="components/footer.xhtml" />
-	</ui:insert>
-    </h:body>
+	  <a class="go-top" href="#top" title="Vers le haut"><img src="img/arrowUp.png" /></a>
+
+	</div>
+      </div>
+    </section>
+    <ui:insert name="footer" >
+      <ui:include src="components/footer.xhtml" />
+    </ui:insert>
+  </h:body>
 </html>

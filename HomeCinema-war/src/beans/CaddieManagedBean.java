@@ -11,6 +11,7 @@ import dtos.FilmDto;
 import dtos.ProductDto;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -94,8 +95,9 @@ public class CaddieManagedBean {
     }
 
     public Integer counter(Long idUser) {
-	if (idUser == null)
+	if (idUser == null) {
 	    return null;
+	}
 
 //    if (cdto == null) {
 	this.cdto = Ejbs.transaction().getCaddieDto(idUser);
@@ -121,11 +123,58 @@ public class CaddieManagedBean {
     }
 
     public void addProductFilmToCaddie(Long iduser, Long idproduct, Long idfilm) throws IOException {
-	cdto = Ejbs.transaction().addProduct(iduser, idproduct);
-	this.cdto = Ejbs.transaction().getCaddieDto(iduser); // FIXME
-
+	this.cdto = Ejbs.transaction().addProduct(iduser, idproduct);
 	FacesMessage message = new FacesMessage("Succès de l'ajout !");
 	FacesContext.getCurrentInstance().addMessage(null, message);
-//    FacesContext.getCurrentInstance().getExternalContext().redirect("fiche_film.xhtml?id=" + idfilm);
+	FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
+	FacesContext.getCurrentInstance().getExternalContext().redirect("fiche_film.xhtml?id=" + idfilm);
     }
+
+    private int isInMyFilms(Long ids, Long iduser) {
+	int toReturn = 0;
+	for (FilmDto l : Ejbs.user().getFilms(iduser)) {
+	    if (l.id.equals(ids)) {
+		toReturn++;
+	    }
+	}
+	return toReturn;
+    }
+
+    private int isInMyCaddie(Long ids, Long iduser) {
+	int toReturn = 0;
+	for (ProductDto l : Ejbs.transaction().getCaddieDto(iduser).films) {
+	    for (FilmDto f : Ejbs.product().getFilms(l.id)) {
+		if (f.id.equals(ids)) {
+		    toReturn++;
+		}
+	    }
+	}
+	return toReturn;
+    }
+
+    public void addProductToCaddie(Long iduser, Long idproduct, String _switch) throws IOException {
+	switch (_switch) {
+	    case "FREE":
+		this.cdto = Ejbs.transaction().addProduct(iduser, idproduct);
+		break;
+	    case "PART_CADDIE":
+		this.cdto = Ejbs.transaction().addProduct(iduser, idproduct);
+		for (FilmDto f : Ejbs.product().getFilms(idproduct)) {
+		    Ejbs.transaction().removeProduct(iduser, f.main_product_id);
+		}
+		break;
+	    default:
+		for (FilmDto f : Ejbs.product().getFilms(idproduct)) {
+		    if (isInMyFilms(f.id, iduser) == 0 && isInMyCaddie(f.id, iduser) == 0) {
+			this.cdto = Ejbs.transaction().addProduct(iduser, f.main_product_id);
+		    }
+		}
+		break;
+	}
+	FacesMessage message = new FacesMessage("Succès de l'ajout !");
+	FacesContext.getCurrentInstance().addMessage(null, message);
+	FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
+	FacesContext.getCurrentInstance().getExternalContext().redirect("fiche_product.xhtml?id=" + idproduct);
+    }
+
 }

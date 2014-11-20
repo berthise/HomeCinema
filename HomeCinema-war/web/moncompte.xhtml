@@ -5,7 +5,6 @@
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
     xmlns:ez="http://xmlns.jcp.org/jsf/composite/ezcomp">
     <h:head>
 	<meta charset="utf-8"/>
@@ -27,9 +26,10 @@
     </h:head>
     <h:body id="top">
 	<ui:insert name="header" >
-	    <ui:include src="components/header.xhtml" />
+	    <ui:include src="components/header.xhtml">
+		<ui:param name="active" value="moncompte" />
+	    </ui:include>
 	</ui:insert>
-	<ui:param name="active" value="moncompte" />
 	<section>
 	    <div class="container">
 		<div class="well">
@@ -59,41 +59,7 @@
 		    </div>
 
 		    <div class="#{accountManagedBean.getClassDisplay('films')}" id="box-films">
-			<h3><img src="img/film-icon.png" title="Caddie"/>Films</h3>
-
-			<table>
-
-			    <ui:repeat var="o" value="#{accountManagedBean.getListFilms()}" varStatus="status">
-
-				<c:set var="simple" value="#{o.get(0) eq 'SIMPLE'}" />
-				<c:set var="vide" value="#{o.get(0) eq 'EMPTY'}" />
-
-				<tr>
-
-				    <h:panelGroup rendered="#{vide}">
-					<td>Votre liste de films est vide ... <a href="#">Cliquez ici pour trouver des films !</a></td>                                        
-				    </h:panelGroup>
-
-				    <h:panelGroup rendered="#{simple}">
-					<td>
-					    <span class="affiche">
-						<img src="img/glass.png" />
-						<span>
-						    <img src="http://image.tmdb.org/t/p/w396/#{o.get(1)}" />
-						</span>
-					    </span>
-					</td>
-					<td>                 
-					    <a title="Voir la fiche du film" href="fiche_film.xhtml?id=#{o.get(4)}">#{o.get(2)} (#{o.get(3)})</a>
-					</td>
-					<td><a href="visionneuse.xhtml?id=#{o.get(4)}"><img src="img/eye.png" title="Voir le film" /></a></td>
-				    </h:panelGroup>
-
-				</tr>
-
-			    </ui:repeat>
-
-			</table>
+			<ez:films userId="#{loginManagedBean.id}" />
 		    </div>
 
 		    <div class="#{accountManagedBean.getClassDisplay('caddie')}" id="box-caddie">
@@ -101,11 +67,11 @@
 		    </div>
 
 		    <div class="#{accountManagedBean.getClassDisplay('historique')}" id="box-historique">
-			<h3><img src="img/clock-icon.png" title="Caddie"/>Historique</h3>
+			<ez:history userId="#{loginManagedBean.id}" />
 		    </div>
 
 		    <div class="#{accountManagedBean.getClassDisplay('infos')}" id="box-infos">
-			<h3><img src="img/info-icon.png" title="Caddie"/>Informations</h3>
+			<h3><img src="img/info-icon.png" title="Informations"/>Informations</h3>
 		    </div>
 
 		    <div id="bottom">
