@@ -59,6 +59,14 @@
                         </f:facet>
                         <h:outputText value="#{film.rating}" />
                     </h:column>
+		    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Video" />
+                        </f:facet>
+			<a href="videos.xhtml?id=#{film.id}">
+                            Videos
+                        </a>
+                    </h:column>
                     <f:facet name="footer">
                         <h:outputText value="Total: #{filmsManagedBean.total}" />
                     </f:facet>
