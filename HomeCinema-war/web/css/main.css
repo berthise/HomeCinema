@@ -431,5 +431,8 @@ body {
     margin-right: -15px; }
   body .lang-inactiv {
     opacity: 0.5; }
+  body .forgot {
+    padding-bottom: 10px !important;
+    padding-right: 15px !important; }
 
 /*# sourceMappingURL=main.css.map */

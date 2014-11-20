@@ -60,7 +60,7 @@ body {
 	.col-19{
 	    width: 19%;
 	}
-	
+
         margin-bottom: 20px;
         margin-top: 0;
         .navbar-nav>li:hover {
@@ -161,7 +161,7 @@ body {
 	float: right;
 	padding-left: 18px;
     }
-    
+
     .info-film ul {
 	padding-left: 12px;
     }
@@ -253,8 +253,8 @@ body {
 	top: -1px;
 	display: inline-block;
     }
-    
-        .info-fiche-left {
+
+    .info-fiche-left {
 	float: left;
     }
 
@@ -262,11 +262,11 @@ body {
 	float: right;
 	padding-right: 50px;
     }
-    
+
     .info-film-price {
 	margin-top: -12px;
     }
-    
+
     .info-film-img-price {
 	position: relative;
 	top: -1px;
@@ -514,11 +514,11 @@ body {
     .b1r, .float-right {
 	float: right;
     }
-    
+
     .float-left {
 	float: left;
     }
-    
+
     .clear-both {
 	clear: both;
     }
@@ -576,26 +576,26 @@ body {
 	list-style: none;
 	margin: 0 0 15px 0;
     }
-    
+
     .box-film-product {
 	border: 1px solid #bbb;
 	padding: 15px;
 	display: block;
 	color: #333;
     }
-    
+
     .box-film-product:hover {
 	background: #ddd;
 	text-decoration: none;
     }
-    
+
     .info-film-img-reduc {
 	display: block;
 	position: relative;
 	top: -63px;
 	left: 150px;
     }
-    
+
     .info-film-reduc {
 	display: block;
 	position: relative;
@@ -607,51 +607,56 @@ body {
 	color: #457215;
 	font-weight: bold;
     }
-    
+
     .box-film-product {
 	border: 1px solid #bbb;
 	padding: 15px;
 	display: block;
     }
-    
+
     .box-film-product p {
 	padding: 0;
     }
-    
+
     .box-film-product-overview {
 	font-size: 14px !important;
 	font-style: italic;
 	margin-bottom: -5px;
     }
-    
+
     .box-film-product-title {
 	font-size: 16px !important;
 	font-weight: bold;
     }
-    
+
     .box-film-product-title img, .box-film-product-rate img {
 	position: relative;
 	top: -2px
     }
-    
+
     .box-film-product-time img {
 	position: relative;
 	top: -1px
     }
-    
+
     .box-film-product-time {
 	margin-right: 10px;
     }
-    
+
     .box-film-product img {
 	margin-right: 5px;
     }
-    
+
     .lang {
 	margin-right: -15px;
     }
-    
+
     .lang-inactiv {
 	opacity: 0.5;
+    }
+
+    .forgot {
+	padding-bottom: 10px !important;
+	padding-right: 15px !important;
     }
 }
