@@ -43,4 +43,10 @@ public class ManageVideo implements ManageVideoRemote {
         return ManageEntitieVideo.createVideo(vdto, em).getId();
     }
 
+    
+    @Override
+    public Long mergeOrSave(VideoDto vdto)
+    {
+	return VideoDtoManager.mergeOrSave(vdto, em).getId();
+    }
 }

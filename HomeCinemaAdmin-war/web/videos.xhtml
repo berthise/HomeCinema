@@ -57,8 +57,36 @@
                 </h:dataTable>
             </h:form>
         </section>
-	<section>
-	      <h:form id="formFilm" role="form">
+		<section >
+	      <h:form rendered="#{videoManagedBean.film ne null}" id="formTrailer" role="form">
+                <legend>Modifier trailer</legend>
+               
+		<div class="row">
+                    <div class="form-group">
+                        <h:outputLabel class="col-md-5 form-label" for="url_trailer">Url : </h:outputLabel>
+                        <div class="col-md-7">
+                            <h:inputText id="url_trailer" class="form-control" value="#{videoManagedBean.trailerUrl}" p:placeholder="url" p:required="required"/>                                
+                        </div>
+                    </div>
+                </div>
+		<div class="row">
+                    <div class="form-group">
+                        <h:outputLabel class="col-md-5 form-label" for="resolution_trailer">Resolution : </h:outputLabel>
+                        <div class="col-md-7">
+                            <h:inputText id="resolution_trailer" class="form-control" value="#{videoManagedBean.trailerResolution}" p:placeholder="Resolution" p:required="required"/>                                
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5"></div>
+                    <h:commandButton class="btn btn-danger col-md-3" p:type="reset" value="Réinitialiser" />
+
+                    <h:commandButton class="btn btn-primary col-md-3" value="Envoyer" action="#{videoManagedBean.setTrailer}" />
+                </div>
+            </h:form>
+	    </section>
+	<section >
+	    <h:form rendered="#{videoManagedBean.film ne null}"  id="formVideo" role="form">
                 <legend>Ajouter Video</legend>
                
 		<div class="row">
@@ -81,7 +109,7 @@
                     <div class="col-md-5"></div>
                     <h:commandButton class="btn btn-danger col-md-3" p:type="reset" value="Réinitialiser" />
 
-                    <h:commandButton class="btn btn-primary col-md-3" value="Envoyer" action="#{VideoManagedBean.save}" />
+                    <h:commandButton class="btn btn-primary col-md-3" value="Envoyer" action="#{videoManagedBean.addVideo}" />
                 </div>
             </h:form>
 	    </section>

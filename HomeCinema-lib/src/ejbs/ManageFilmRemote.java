@@ -9,6 +9,7 @@ import dtos.FilmDto;
 import dtos.FilmFicheDto;
 import dtos.GenreDto;
 import dtos.PersonDto;
+import dtos.ProductDto;
 import dtos.VideoDto;
 import exception.DuplicateKey;
 import java.util.List;
@@ -63,4 +64,10 @@ public interface ManageFilmRemote {
     public FilmDto getFilmFromId(Long id);
 
     public void mergeOrSave(FilmDto fdto);
+
+    public Set<ProductDto> getProducts(Long fid);
+
+    public ProductDto getMainProduct(long fid);
+
+    public void setMain(Long fid, Long pid);
 }

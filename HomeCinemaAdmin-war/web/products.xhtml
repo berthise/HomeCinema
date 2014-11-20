@@ -8,67 +8,59 @@
     <head>
         <meta charset="utf-8"/>
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-        <title>Films Administration</title>
+        <title>Products Administration</title>
         <meta name="description" content=""/>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
     </head>
     <body>
         <section>
-            <h2 class="well-title">Films Administration</h2>
+            <h2 class="well-title">Products Administration</h2>
             <ul>
                 <li><a href="index.xhtml">Accueil</a></li>
-                <li><a href="film.xhtml?id=0">Ajouter un film</a></li>
+                <li><a href="product.xhtml?id=0">Ajouter un product</a></li>
             </ul>
             <div class="alert alert-success">
                 <h:messages globalOnly="true" infoClass="info" />
             </div>
             <h:form>
-                <h:dataTable id="filmsTable" value="#{filmsManagedBean.films}" var="film" border="1">
+                <h:dataTable id="productsTable" value="#{productsManagedBean.products}" var="product" border="1">
                     <f:facet name="header">
-                        <h:outputText value="Films lists" />
+                        <h:outputText value="Products lists" />
                     </f:facet>
                     <h:column>
                         <f:facet name="header">
                             <h:outputText value="Id" />
                         </f:facet>
-                        <h:outputText value="#{film.id}" />
+                        <h:outputText value="#{product.id}" />
                     </h:column>
                     <h:column>
                         <f:facet name="header">
-                            <h:outputText value="Title" />
+                            <h:outputText value="name" />
                         </f:facet>
-                        <a href="film.xhtml?id=#{film.id}">
-                            <h:outputText value="#{film.title}" />
+                        <a href="product.xhtml?id=#{product.id}">
+                            <h:outputText value="#{product.name}" />
                         </a>
                     </h:column>
                     <h:column>
                         <f:facet name="header">
-                            <h:outputText value="Release" />
+                            <h:outputText value="Add date" />
                         </f:facet>
-                        <h:outputText value="#{film.release_date}" />
+                        <h:outputText value="#{product.addDate}" />
                     </h:column>
                     <h:column>
                         <f:facet name="header">
-                            <h:outputText value="Runtime" />
+                            <h:outputText value="Prix" />
                         </f:facet>
-                        <h:outputText value="#{film.runtime}" />
+                        <h:outputText value="#{product.price}" />
                     </h:column>
                     <h:column>
                         <f:facet name="header">
-                            <h:outputText value="Rating" />
+                            <h:outputText value="Ventes" />
                         </f:facet>
-                        <h:outputText value="#{film.rating}" />
-                    </h:column>
-		    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Video" />
-                        </f:facet>
-			<a href="videos.xhtml?id=#{film.id}">
-                            Videos
-                        </a>
+                        <h:outputText value="#{product.nbSales}" />
                     </h:column>
                     <f:facet name="footer">
-                        <h:outputText value="Total: #{filmsManagedBean.total}" />
+                        <h:outputText value="Total: #{productsManagedBean.total}" />
                     </f:facet>
                 </h:dataTable>
             </h:form>

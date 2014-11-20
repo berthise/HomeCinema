@@ -16,12 +16,16 @@ and open the template in the editor.
 }
 
 .box-left {
-  width: 48%;
+  width: 49%;
   border: 1px solid grey;
   float: left;
   border-radius: 5px;
   padding: 15px;
   background: #fafafa;
+}
+
+body .box-right {
+  width: 49%;
 }
 
 box-left h3 {

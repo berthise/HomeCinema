@@ -24,7 +24,7 @@ import org.json.JSONException;
  *
  * @author titou
  */
-public class JeuDeTestStruct {
+public class JeuDeTestStructActivation {
 
     public static void main(String[] args) {
 	try {
@@ -116,11 +116,11 @@ public class JeuDeTestStruct {
 	    /* **********************
 	     * create users: robin, seb, pierre, narjes et abdou
 	     */
-	    UserDto rob_user = createAndPushUser(a, "rob", "rob@mail.net", "Jean-Robin", "Grandchamp");
-	    UserDto seb_user = createAndPushUser(a, "seb", "seb@mail.net", "Sébastien", "Berthier");
-	    UserDto pierre_user = createAndPushUser(a, "pierre", "pierre@mail.net", "Pierre", "Odin");
-	    UserDto narjes_user = createAndPushUser(a, "narjes", "narjes@mail.net", "Narjes", "Jomaa");
-	    UserDto abdou_user = createAndPushUser(a, "abdou", "abdou@mail.net", "Abdourahamane", "Touré");
+	    UserDto rob_user = createAndPushUser(a, "rob", "rob@mail.net", "Jean-Robin", "Grandchamp", true);
+	    UserDto seb_user = createAndPushUser(a, "seb", "seb@mail.net", "Sébastien", "Berthier", true);
+	    UserDto pierre_user = createAndPushUser(a, "pierre", "pierre@mail.net", "Pierre", "Odin", true);
+	    UserDto narjes_user = createAndPushUser(a, "narjes", "narjes@mail.net", "Narjes", "Jomaa", false);
+	    UserDto abdou_user = createAndPushUser(a, "abdou", "abdou@mail.net", "Abdourahamane", "Touré", false);
 	    /*
 	     ********************** */
 
@@ -165,12 +165,12 @@ public class JeuDeTestStruct {
 	//achat american beauty
 	System.out.print(rob_user.nickName + " buy : " + ab_product.name);
 	a.getManageTransactionRemote().addProduct(rob_user.id, ab_product.id);
-	Long trans = a.getManageTransactionRemote().validate(rob_user.id, null);
+	Long trans = a.getManageTransactionRemote().validate(rob_user.id);
 	a.getManageTransactionRemote().validatePayement(trans, btn);
 	System.out.println(" ...  done");
     }
 
-    private static UserDto createAndPushUser(Admin a, String nickname, String email, String firstname, String lastname) {
+    private static UserDto createAndPushUser(Admin a, String nickname, String email, String firstname, String lastname, boolean activation) {
 	//creer user robin
 	System.out.print("create user : " + nickname);
 	UserDto u = new UserDto();
@@ -180,8 +180,11 @@ public class JeuDeTestStruct {
 	u.lastName = lastname;
 	u.nickName = nickname;
 	u.password = "password";
-	a.getManageUserRemote().signUp(u);
-	u = a.getManageUserRemote().login(u.email, u.password);
+	u.id = a.getManageUserRemote().signUp(u);
+	if (activation) {
+	    a.getManageUserRemote().activate(u.getId());
+	    u = a.getManageUserRemote().login(u.email, u.password);
+	}
 	System.out.println(" ...  done");
 	return u;
     }
