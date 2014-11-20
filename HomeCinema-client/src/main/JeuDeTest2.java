@@ -154,13 +154,13 @@ public class JeuDeTest2 {
 
             //remove u2 apres achat 
             a.getManageTransactionRemote().addProduct(u_id, pdto.id);
-            Long trans2 = a.getManageTransactionRemote().validate(u_id);
+            Long trans2 = a.getManageTransactionRemote().validate(u_id, null);
             a.getManageTransactionRemote().validatePayement(trans2, 42L);
             a.getManageUserRemote().removeUser(u_id);
 
             //achat american beauty
             a.getManageTransactionRemote().addProduct(u.id, pdto.id);
-            Long trans = a.getManageTransactionRemote().validate(u.id);
+            Long trans = a.getManageTransactionRemote().validate(u.id, null);
             a.getManageTransactionRemote().validatePayement(trans, 42L);
 
             //met fight club dans panier

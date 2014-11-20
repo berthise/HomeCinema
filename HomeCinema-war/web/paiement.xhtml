@@ -21,7 +21,7 @@
     <h:outputStylesheet library="css" name="paiement.css" />
 
     <f:metadata>
-      <f:event type="preRenderView" listener="#{loginManagedBean.tmpLogin()}"/>
+      <!--<f:event type="preRenderView" listener="#{loginManagedBean.tmpLogin()}"/>-->
       <f:event type="preRenderView" listener="#{loginManagedBean.checkConnected()}"/>
     </f:metadata>
 
@@ -44,19 +44,54 @@
 
 	  <div class="box-left" id="box-paiement">
 	    <h3><img src="img/cart-icon.png" title="Paiement"/>Paiement</h3>
-	    <h:form role="form">
+	    <h:form role="form" id="paiement">
 	      <div class="row">
 		<div class="form-group">
-		  <h:outputLabel class="col-md-5 form-label" for="email">Numero de carte: <i class="required">*</i> : </h:outputLabel>
+		  <h:outputLabel class="col-md-5 form-label" for="type">Type de carte <i class="required">*</i> : </h:outputLabel>
 		  <div class="col-md-7">
-		    <h:inputText id="numCarte" class="form-control" value="#{paiementManagedBean.numCarte}" p:placeholder="Numero de la carte bancaire" p:required="required" />
+		    <h:selectOneRadio id="typeCarte" value="#{paymentManagedBean.pdto.type}" p:required="required">
+		      <f:selectItems value="#{paymentManagedBean.cardTypes}" var="currentType"  itemValue="#{currentType}" itemLabel="#{currentType.label}"/>
+		    </h:selectOneRadio>
+		  </div>
+		</div>
+	      </div>
+	      <div class="row">
+		<div class="form-group">
+		  <h:outputLabel class="col-md-5 form-label" for="numCarte">Numero de carte <i class="required">*</i> : </h:outputLabel>
+		  <div class="col-md-7">
+		    <h:inputText tabindex="20" id="numCarte" class="form-control" value="#{paymentManagedBean.pdto.numCarte}"
+				 p:placeholder="Numero de la carte bancaire" p:required="required" maxlength="16"
+				 p:pattern="[0-9]{16}" p:title="16 ciffres collés"/>
+		  </div>
+		</div>
+	      </div>
+	      <div class="row">
+		<div class="form-group">
+		  <h:outputLabel class="col-md-5 form-label" for="cryptogramme">Cryptogramme <i class="required">*</i> : </h:outputLabel>
+		  <div class="col-md-7">
+		    <h:inputText tabindex="25" id="cryptogramme" class="form-control" value="#{paymentManagedBean.pdto.cryptogramme}" 
+				 p:placeholder="Crypto code" p:required="required"  maxlength="3"
+				 p:pattern="[0-9]{3}" p:title="3 chiffres"/>
+		  </div>
+		</div>
+	      </div>
+	      <div class="row">
+		<div class="form-group">
+		  <h:outputLabel class="col-md-5 form-label" for="expireDate">Date d'expiration <i class="required">*</i> : </h:outputLabel>
+		  <div class="col-md-7">
+		    <h:selectOneMenu id="expireDateMonth" value="#{paymentManagedBean.pdto.month}" p:required="required" tabindex="30">
+		      <f:selectItems value="#{paymentManagedBean.months}" var="currentMonth" itemValue="#{currentMonth}" itemLabel="#{currentMonth}" />
+		    </h:selectOneMenu>/
+		    <h:selectOneMenu id="expireDateYear" value="#{paymentManagedBean.pdto.year}" p:required="required" tabindex="31">
+		      <f:selectItems value="#{paymentManagedBean.years}" var="currentYear" itemValue="#{currentYear}" itemLabel="#{currentYear}" />
+		    </h:selectOneMenu>
 		  </div>
 		</div>
 	      </div>
 	      <div class="row">
 		<span class="col-md-3"></span>
-		<h:button value="Annuler" title="Retourner au caddie" outcome="moncompte.xhtml?box=caddie" class="btn btn-primary col-md-3"/>
-		<h:commandButton action="#{paiementManagedBean.buy(loginManagedBean.id)}" value="Payer" title="Valider le paiement" class="btn btn-primary col-md-3"/>
+		<h:button value="Annuler" title="Retourner au caddie" outcome="moncompte.xhtml?box=caddie" class="btn btn-primary col-md-3" tabindex="52"/>
+		<h:commandButton action="#{paymentManagedBean.buy(loginManagedBean.id)}" value="Payer" title="Valider le paiement" class="btn btn-success col-md-3" tabindex="50"/>
 	      </div>
 	    </h:form>
 	  </div>
