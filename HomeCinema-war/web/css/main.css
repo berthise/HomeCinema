@@ -255,7 +255,7 @@ body {
     margin: 10px auto;
     width: 160px;
     font-size: 18px; }
-  body #nav {
+  body #nav-account-left {
     width: 36%;
     float: left;
     border-radius: 5px;
@@ -263,25 +263,25 @@ body {
     background: -moz-linear-gradient(left, #cccccc 0%, #eeeeee 100%);
     background: -webkit-gradient(linear, left top, right top, color-stop(0%, #cccccc), color-stop(100%, #eeeeee));
     background: -webkit-linear-gradient(left, #cccccc 0%, #eeeeee 100%); }
-  body #nav p:first-of-type {
+  body #nav-account-left p:first-of-type {
     border-radius: 4px 4px 0px 0px; }
-  body #nav p:last-of-type {
+  body #nav-account-left p:last-of-type {
     border-radius: 0px 0px 4px 4px; }
-  body #nav a {
+  body #nav-account-left a {
     display: block;
     padding: 10px 10px 10px 35px;
     font-weight: bold;
     font-size: 16px;
     color: #333; }
-  body #nav p {
+  body #nav-account-left p {
     margin: 0;
     padding: 0; }
-  body #nav a {
+  body #nav-account-left a {
     background-image: url(../img/listarrow.png);
     background-repeat: no-repeat;
     background-size: 16px;
     background-position: 12px 12px; }
-  body #nav p:hover {
+  body #nav-account-left p:hover {
     background: -moz-linear-gradient(left, #a5a5a5 0%, #c6c6c6 100%);
     background: -webkit-gradient(linear, left top, right top, color-stop(0%, #a5a5a5), color-stop(100%, #c6c6c6));
     background: -webkit-linear-gradient(left, #a5a5a5 0%, #c6c6c6 100%); }
