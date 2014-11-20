@@ -3,6 +3,12 @@ body {
   color: #fff;
   margin: 0;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
+  body .footer-title {
+    text-shadow: 1px 1px 1px black; }
+  body .footer-list a {
+    color: white !important; }
+  body .footer-list a:hover {
+    color: #9FF89F !important; }
   body header {
     margin-bottom: 20px;
     margin-top: 0; }
@@ -64,6 +70,11 @@ body {
       box-shadow: 2px 2px 3px #080808; }
       body section .exclus .film imghover {
         top: 2px; }
+  body section .exclus a {
+    color: white !important;
+    font-weight: bold; }
+  body section .exclus .film:hover a {
+    color: #9FF89F !important; }
   body section .well {
     color: #333; }
     body section .well .well-title {
@@ -209,7 +220,7 @@ body {
   body .go-top {
     float: right;
     margin-top: -5px;
-    margin-bottom: 5px; }
+    margin-bottom: 10px; }
   body #slider {
     position: relative;
     overflow: hidden; }

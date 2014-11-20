@@ -7,6 +7,19 @@ body {
     color: #fff;
     margin: 0;
     font-family: $font;
+
+    .footer-title {
+	text-shadow: 1px 1px 1px black;
+    }
+    
+    .footer-list a {
+	color: white !important;
+    }
+
+    .footer-list a:hover {
+	color: #9FF89F !important;
+    }
+
     header {
         #logo {
             display: inline-block;
@@ -91,6 +104,15 @@ body {
                     }
                 }
             }
+
+	    a {
+		color: white !important;
+		font-weight: bold;
+	    }
+
+	    .film:hover a {
+		color: #9FF89F !important;
+	    }
         }
         .well {
             color: $font-color;
@@ -287,12 +309,12 @@ body {
 	display: inline;
 	white-space: nowrap;
     }
-    
+
     .list-genres-crew:hover {
 	background-color: #777;
 	text-decoration: none;
     }
-    
+
     .info-film-list {
 	line-height: 35px;
     }
@@ -311,7 +333,7 @@ body {
     .go-top {
 	float: right;
 	margin-top: -5px;
-	margin-bottom: 5px;
+	margin-bottom: 10px;
     }
 
     #slider {

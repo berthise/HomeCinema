@@ -21,7 +21,7 @@ import javax.faces.event.ValueChangeEvent;
 @SessionScoped
 public class LanguageManagedBean {
 
-    private String localeCode;
+    private String localeCode = "fr";
 
     private static Map<String, Object> countries;
 
@@ -52,11 +52,10 @@ public class LanguageManagedBean {
 		this.lang = Lang.EN;
 		break;
 	}
+	setLocaleCode(newLocaleValue);
 	
 	for (Map.Entry<String, Object> entry : countries.entrySet()) {
-	    System.out.println(entry.getValue().toString());
 	    if (entry.getValue().toString().equals(newLocaleValue)) {
-		System.out.println("HERE!!");
 		FacesContext.getCurrentInstance().getViewRoot().setLocale((Locale) entry.getValue());
 	    }
 	}

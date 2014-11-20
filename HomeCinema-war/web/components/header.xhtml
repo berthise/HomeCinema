@@ -5,13 +5,12 @@
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
-    xmlns:jsf="http://java.sun.com/jsf"
-    xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
-
-
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+    xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
     <h:body>
 	<ui:composition>
+	    <f:view locale="#{languageManagedBean.localeCode}" />
 	    <header>
 		<div id="banner">
 		    <div id="logo">
@@ -84,7 +83,7 @@
 			</div>
 			<div class="navbar-collapse collapse">
 			    <ul class="nav navbar-nav">
-				<li class="#{(active == null)? 'active' : ''}"><a href="/HomeCinema-war/"><i class="decale-right glyphicon glyphicon-home"></i> <h:outputText value="#{msg['menu-accueil']}" /></a></li>
+				<li class="#{(active == 'index')? 'active' : ''}"><a href="/HomeCinema-war/"><i class="decale-right glyphicon glyphicon-home"></i> <h:outputText value="#{msg['menu-accueil']}" /></a></li>
 				<li class="#{(active == 'films')? 'active' : ''}"><a href="AllFilms.xhtml"><i class="decale-right glyphicon glyphicon-facetime-video"></i> <h:outputText value="#{msg['menu-films']}" /></a></li>
 				<li class="#{(active == 'faq')? 'active' : ''}"><a href="faq.xhtml"><i class="decale-right glyphicon glyphicon-info-sign"></i> <h:outputText value="#{msg['menu-faq']}" /></a></li>
 				<li class="#{(active == 'demo')? 'active' : ''}"><a href="demo.xhtml"><i class="decale-right glyphicon glyphicon-wrench"></i> <h:outputText value="#{msg['menu-demo']}" /></a></li>
