@@ -98,4 +98,9 @@ public class VideoManagedBean {
 	return this.videos.size();
     }
 
+    public void save()
+    {
+	
+    }
+    
 }

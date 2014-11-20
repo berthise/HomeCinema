@@ -6,7 +6,9 @@
 package managers.dtos;
 
 import dtos.TransactionDto;
+import entities.Product;
 import entities.Transaction;
+import java.util.ArrayList;
 
 /**
  *
@@ -26,6 +28,11 @@ public class TransactionDtoManager {
         tdto.state=t.getState();
         tdto.totalPrice=t.getTotalPrice();
         tdto.user=t.getUser().getId();
+	tdto.products= new ArrayList<>();
+	for ( Product p : t.getProducts())
+	{
+	    tdto.products.add(ProductDtoManager.getDto(p));
+	}
         return tdto;
     }
 
