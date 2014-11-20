@@ -27,9 +27,10 @@
     </h:head>
     <h:body id="top">
 	<ui:insert name="header" >
-	    <ui:include src="components/header.xhtml" />
+	    <ui:include src="components/header.xhtml">
+		<ui:param name="active" value="moncompte" />
+	    </ui:include>
 	</ui:insert>
-	<ui:param name="active" value="moncompte" />
 	<section>
 	    <div class="container">
 		<div class="well">
@@ -59,7 +60,7 @@
 		    </div>
 
 		    <div class="#{accountManagedBean.getClassDisplay('films')}" id="box-films">
-			<h3><img src="img/film-icon.png" title="Caddie"/>Films</h3>
+			<h3><img src="img/film-icon.png" title="Films"/>Films</h3>
 
 			<table>
 
@@ -101,11 +102,11 @@
 		    </div>
 
 		    <div class="#{accountManagedBean.getClassDisplay('historique')}" id="box-historique">
-			<h3><img src="img/clock-icon.png" title="Caddie"/>Historique</h3>
+			<ez:history userId="#{loginManagedBean.id}" />
 		    </div>
 
 		    <div class="#{accountManagedBean.getClassDisplay('infos')}" id="box-infos">
-			<h3><img src="img/info-icon.png" title="Caddie"/>Informations</h3>
+			<h3><img src="img/info-icon.png" title="Informations"/>Informations</h3>
 		    </div>
 
 		    <div id="bottom">
