@@ -56,7 +56,7 @@
 
 		<h:panelGroup rendered="#{!deco and type eq 'FREE'}">
 		  <h:form>
-		    <h:commandButton class="btn btn-success col-md-3 b1" value="Ajouter au caddie" action="#{accountManagedBean.addProductFilmToCaddie(loginManagedBean.id,filmManagedBean.mainProductId,filmManagedBean.id)}" />
+		      <h:commandButton class="btn btn-success col-md-3 b1" value="Ajouter au caddie" action="#{caddieManagedBean.addProductFilmToCaddie(loginManagedBean.id,filmManagedBean.mainProductId,filmManagedBean.id)}" />
 		  </h:form>
 		</h:panelGroup>
 

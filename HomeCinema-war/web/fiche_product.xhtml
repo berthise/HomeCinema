@@ -65,19 +65,19 @@
 
 				<h:panelGroup rendered="#{!deco and (type eq 'PART_CADDIE' or type eq 'PART')}">
 				    <h:form>
-					<h:commandButton class="btn btn-success col-md-3 b1" value="Compléter mon caddie" action="#{accountManagedBean.addProductToCaddie(loginManagedBean.id, productManagedBean.id)}" />
+					<h:commandButton class="btn btn-success col-md-3 b1" value="Compléter mon caddie" action="#{caddieManagedBean.addProductToCaddie(loginManagedBean.id, productManagedBean.id, type)}" />
 				    </h:form>
 				</h:panelGroup>
 
 				<h:panelGroup rendered="#{!deco and type eq 'PART_FILM'}">
 				    <h:form>
-					<h:commandButton class="btn btn-success col-md-3 b1" value="Ajouter au caddie les films manquants" action="#{accountManagedBean.addProductToCaddie(loginManagedBean.id, productManagedBean.id)}" />
+					<h:commandButton class="btn btn-success col-md-3 b1" value="Ajouter au caddie les films manquants" action="#{caddieManagedBean.addProductToCaddie(loginManagedBean.id, productManagedBean.id, type)}" />
 				    </h:form>
 				</h:panelGroup>
 
 				<h:panelGroup rendered="#{!deco and type eq 'FREE'}">
 				    <h:form>
-					<h:commandButton class="btn btn-success col-md-3 b1" value="Ajouter au caddie" action="#{accountManagedBean.addProductToCaddie(loginManagedBean.id, productManagedBean.id)}" />
+					<h:commandButton class="btn btn-success col-md-3 b1" value="Ajouter au caddie" action="#{caddieManagedBean.addProductToCaddie(loginManagedBean.id, productManagedBean.id, type)}" />
 				    </h:form>
 				</h:panelGroup>
 
