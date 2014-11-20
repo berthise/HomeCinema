@@ -445,7 +445,7 @@ body {
   body .box-film-product img {
     margin-right: 5px; }
   body .lang {
-    margin-right: -15px; }
+    padding-left: 10px; }
   body .lang-inactiv {
     opacity: 0.5; }
   body .forgot {
