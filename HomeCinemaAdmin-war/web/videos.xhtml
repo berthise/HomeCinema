@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+    xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+        <title>Video Administration</title>
+        <meta name="description" content=""/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+	<f:metadata>
+            <f:viewParam name="id" value="#{videoManagedBean.film}" />
+            <f:event type="preRenderView" listener="#{videoManagedBean.makeVideo()}"/>
+        </f:metadata>
+    </head>
+    <body>
+        <section>
+            <h2 class="well-title">VideoAdministration</h2>
+            <ul>
+                <li><a href="index.xhtml">Accueil</a></li>
+            </ul>
+            <div class="alert alert-success">
+                <h:messages globalOnly="true" infoClass="info" />
+            </div>
+	     <h:outputText value="#{videoManagedBean.title}" />
+            <h:form>
+                <h:dataTable id="videosTable" value="#{videoManagedBean.videos}" var="video" border="1">
+                    <f:facet name="header">
+                        <h:outputText value="Videos lists" />
+                    </f:facet>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Id" />
+                        </f:facet>
+                        <h:outputText value="#{video.id}" />
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Title" />
+                        </f:facet>
+			<h:outputText value="#{video.url}" />
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Release" />
+                        </f:facet>
+                        <h:outputText value="#{video.resolution}" />
+                    </h:column>
+                    <f:facet name="footer">
+                        <h:outputText value="Total: #{videoManagedBean.total}" />
+                    </f:facet>
+                </h:dataTable>
+            </h:form>
+        </section>
+	<section>
+	      <h:form id="formFilm" role="form">
+                <legend>Ajouter Video</legend>
+               
+		<div class="row">
+                    <div class="form-group">
+                        <h:outputLabel class="col-md-5 form-label" for="url">Url : </h:outputLabel>
+                        <div class="col-md-7">
+                            <h:inputText id="url" class="form-control" value="#{videoManagedBean.url}" p:placeholder="url" p:required="required"/>                                
+                        </div>
+                    </div>
+                </div>
+		<div class="row">
+                    <div class="form-group">
+                        <h:outputLabel class="col-md-5 form-label" for="resolution">Resolution : </h:outputLabel>
+                        <div class="col-md-7">
+                            <h:inputText id="resolution" class="form-control" value="#{videoManagedBean.resolution}" p:placeholder="Resolution" p:required="required"/>                                
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5"></div>
+                    <h:commandButton class="btn btn-danger col-md-3" p:type="reset" value="Réinitialiser" />
+
+                    <h:commandButton class="btn btn-primary col-md-3" value="Envoyer" action="#{VideoManagedBean.save}" />
+                </div>
+            </h:form>
+	    </section>
+
+    </body>
+</html>

@@ -38,7 +38,7 @@ public interface ManageUserRemote {
     
     public List<FilmDto> getFilms(Long id);
     
-      public  Set<TransactionDto> getTransaction (Long user);
+      public  List<TransactionDto> getTransaction (Long user);
 
     public boolean changePassword(Long user, String oldPass, String newPass);
 }

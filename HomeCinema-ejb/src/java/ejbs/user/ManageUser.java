@@ -48,9 +48,9 @@ public class ManageUser implements ManageUserRemote {
     }
 
     @Override
-    public Set<TransactionDto> getTransaction(Long user) {
+    public List<TransactionDto> getTransaction(Long user) {
         User u = em.find(User.class, user);
-        Set<TransactionDto> res = new HashSet<>();
+        List<TransactionDto> res = new ArrayList<>();
         for (Transaction t : u.getTransactions()) {
             res.add(TransactionDtoManager.getDto(t));
         }
