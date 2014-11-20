@@ -160,11 +160,13 @@ public class AccountManagedBean {
 	    return "OWNED";
     }
 
+    //TODO move to CaddieManagedBean
     public void addProductFilmToCaddie(Long iduser, Long idproduct, Long idfilm) throws IOException {
 	this.cdto = Ejbs.transaction().addProduct(iduser, idproduct);
 	FacesContext.getCurrentInstance().getExternalContext().redirect("fiche_film.xhtml?id=" + idfilm);
     }
     
+    //TODO move to CaddieManagedBean
     public void addProductToCaddie(Long iduser, Long idproduct) throws IOException {
 	String _switch = getCodeButtonsProduct(idproduct, iduser);
 	switch (_switch) {

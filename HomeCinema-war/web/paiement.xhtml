@@ -21,6 +21,7 @@
     <h:outputStylesheet library="css" name="paiement.css" />
 
     <f:metadata>
+      <f:event type="preRenderView" listener="#{loginManagedBean.tmpLogin()}"/>
       <f:event type="preRenderView" listener="#{loginManagedBean.checkConnected()}"/>
     </f:metadata>
 

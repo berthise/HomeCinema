@@ -6,85 +6,85 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
-    <!-- INTERFACE -->
-    <cc:interface>
-	<cc:attribute name="title" type="String" default="Caddie" />
-	<cc:attribute name="style" type="String" />
-	<cc:attribute name="userId" type="Long" required="true" />
-	<cc:attribute name="recap" type="Boolean" default="false"/>
-    </cc:interface>
+  <!-- INTERFACE -->
+  <cc:interface>
+    <cc:attribute name="title" type="String" default="Caddie" />
+    <cc:attribute name="style" type="String" />
+    <cc:attribute name="userId" type="Long" required="true" />
+    <cc:attribute name="recap" type="Boolean" default="false"/>
+  </cc:interface>
 
-    <!-- IMPLEMENTATION -->
-    <cc:implementation>
-	    <h:outputStylesheet library="css" name="caddie.css" />
-	    <div class="#{cc.attrs.style}" id="caddie">
-		<h3><img src="img/cart-icon.png" title="#{cc.attrs.title}"/>#{cc.attrs.title}</h3>
-		<c:choose>
-		    <c:when test="#{caddieManagedBean.counter(cc.attrs.userId) eq 0}" >
-			<td>Votre caddie est vide ... <a href="#">Cliquez ici pour trouver des films !</a></td>                                        
-		    </c:when>
-		    <c:otherwise>
-			<table>
+  <!-- IMPLEMENTATION -->
+  <cc:implementation>
+    <h:outputStylesheet library="css" name="caddie.css" />
+    <div class="#{cc.attrs.style}" id="caddie">
+      <h3><img src="img/cart-icon.png" title="#{cc.attrs.title}"/>#{cc.attrs.title}</h3>
+      <c:choose>
+	<c:when test="#{caddieManagedBean.counter(cc.attrs.userId) eq 0}" >
+	  <td>Votre caddie est vide ... <a href="#">Cliquez ici pour trouver des films !</a></td>                                        
+	</c:when>
+	<c:otherwise>
+	  <table>
 
-			    <c:choose>
-				<c:when test="#{cc.attrs.recap}" >
-				    <c:set var="colspan_film" value="2" />
-				    <c:set var="colspan_total" value="3" />
-				</c:when>
-				<c:otherwise >
-				    <c:set var="colspan_film" value="3" />
-				    <c:set var="colspan_total" value="4" />
-				</c:otherwise>
-			    </c:choose>
+	    <c:choose>
+	      <c:when test="#{cc.attrs.recap}" >
+		<c:set var="colspan_film" value="2" />
+		<c:set var="colspan_total" value="3" />
+	      </c:when>
+	      <c:otherwise >
+		<c:set var="colspan_film" value="3" />
+		<c:set var="colspan_total" value="4" />
+	      </c:otherwise>
+	    </c:choose>
 
-			    <ui:repeat var="product" value="#{caddieManagedBean.getListCaddie(cc.attrs.userId)}" varStatus="status">
+	    <ui:repeat var="product" value="#{caddieManagedBean.getListCaddie(cc.attrs.userId)}" varStatus="status">
 
-				<tr class="tr-caddie-#{status.index + 1}">
+	      <tr class="tr-caddie-#{status.index + 1}">
 
-				    <td class="td-right" rowspan="#{product.nbRows}">#{status.index +1}</td>
-				    <td class="td-invisible"></td>
-				    <td class="td-right title-film-caddie">                                                
-					<a href="fiche_product.xhtml?id=#{product.product.id}"><b>#{product.product.name}</b></a>
-				    </td>
-				    <c:if test="#{!cc.attrs.recap}" >
-					<td class="td-right" >
-					    <h:form>
-						<h:commandButton action="#{caddieManagedBean.deleteFromCaddie(cc.attrs.userId,product.product.id)}" class="button-delete" value="" title="Enlever du caddie"  />
-					    </h:form>
-					</td>
-				    </c:if>
+		<td class="td-right" rowspan="#{product.nbRows}">#{status.index +1}</td>
+		<td class="td-invisible"></td>
+		<td class="td-right title-film-caddie">                                                
+		  <a href="fiche_product.xhtml?id=#{product.product.id}"><b>#{product.product.name}</b></a>
+		</td>
+		<c:if test="#{!cc.attrs.recap}" >
+		  <td class="td-right" >
+		    <h:form>
+		      <h:commandButton action="#{caddieManagedBean.deleteFromCaddie(cc.attrs.userId,product.product.id)}" class="button-delete" value="" title="Enlever du caddie"  />
+		    </h:form>
+		  </td>
+		</c:if>
 
-				    <td class="td-right">#{product.product.price}€</td>
-				</tr>
-				<ui:repeat var="film" value="#{product.films}" varStatus="status_film">
-				    <tr>
-					<td class="td-right">
-					    <span class="affiche">
-						<img src="img/glass.png" />
-						<span>
-						    <img src="http://image.tmdb.org/t/p/w396/#{film.cover}" />
-						</span>
-					    </span>
-					</td>
-					<td class="align-left" colspan="${colspan_film}">   
-					    <a title="Voir la fiche du film" href="fiche_film.xhtml?id=#{film.id}">#{film.title} (#{film.getReleaseDateString("yyyy")})</a>
-					</td>
-				    </tr>
-				</ui:repeat>
+		<td class="td-right">#{product.product.price}€</td>
+	      </tr>
+	      <ui:repeat var="film" value="#{product.films}" varStatus="status_film">
+		<tr>
+		  <td class="td-right">
+		    <span class="affiche">
+		      <img src="img/glass.png" />
+		      <span>
+			<img src="http://image.tmdb.org/t/p/w396/#{film.cover}" />
+		      </span>
+		    </span>
+		  </td>
+		  <td class="align-left" colspan="${colspan_film}">   
+		    <a title="Voir la fiche du film" href="fiche_film.xhtml?id=#{film.id}">#{film.title} (#{film.getReleaseDateString("yyyy")})</a>
+		  </td>
+		</tr>
+	      </ui:repeat>
 
-			    </ui:repeat>
-			    <tr>
-				<td colspan="${colspan_total}" class="td-right align-right">Total:</td>
-				<td colspan="1">#{caddieManagedBean.getTotalPrice(cc.attrs.userId)}€</td>
-			    </tr>
-			</table>
-			<c:if test="#{!cc.attrs.recap}" >
-			    <c:if test="#{caddieManagedBean.counter(cc.attrs.userId) gt 0}" >
-				<a class="btn btn-success to-right" href="paiement.xhtml">Valider mon caddie</a>
-			    </c:if>
-			</c:if>
-		    </c:otherwise>
-		</c:choose>
-	    </div>
-    </cc:implementation>
+	    </ui:repeat>
+	    <tr>
+	      <td colspan="${colspan_total}" class="td-right align-right">Total:</td>
+	      <td colspan="1">#{caddieManagedBean.getTotalPrice(cc.attrs.userId)}€</td>
+	    </tr>
+	  </table>
+	  <c:if test="#{!cc.attrs.recap}" >
+	    <c:if test="#{caddieManagedBean.counter(cc.attrs.userId) gt 0}" >
+	      <a class="btn btn-success to-right" href="paiement.xhtml">Valider mon caddie</a>
+	    </c:if>
+	  </c:if>
+	</c:otherwise>
+      </c:choose>
+    </div>
+  </cc:implementation>
 </html>
