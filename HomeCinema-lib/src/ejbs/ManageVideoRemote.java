@@ -20,4 +20,6 @@ public interface ManageVideoRemote {
     public Long createVideo(VideoDto vdto);
 
     public List<VideoDto> getAllVideo();
+
+    public Long mergeOrSave(VideoDto vdto);
 }

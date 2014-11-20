@@ -42,7 +42,12 @@ public class ProductDtoManager {
     }
 
     public static Product mergeOrSave(ProductDto pdto, EntityManager em) {
-        Product p = em.find(Product.class, pdto.id);
+	
+        Product p = null;
+	if (pdto.id!=null)
+	{
+		em.find(Product.class, pdto.id);
+	}
         if (p == null) {
             p = makeProduct(pdto);
             em.persist(p);

@@ -36,6 +36,8 @@ public interface ManageProductRemote {
     public List<FilmDto> getFilms(Long pid);
     
     public ProductDto getProduct(Long pid);
+
+    public ProductDto mergeOrSave(ProductDto pdto);
     
     
 }

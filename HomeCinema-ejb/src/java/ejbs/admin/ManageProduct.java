@@ -113,5 +113,11 @@ public class ManageProduct implements ManageProductRemote {
 	Product p = em.find(Product.class, pid);
         return ProductDtoManager.getDto(p);
     }
+    
+        @Override
+    public ProductDto mergeOrSave(ProductDto pdto)
+    {
+        return ProductDtoManager.getDto(ProductDtoManager.mergeOrSave(pdto, em));
+    }
 
 }

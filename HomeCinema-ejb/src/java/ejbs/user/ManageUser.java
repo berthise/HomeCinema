@@ -14,7 +14,9 @@ import ejbs.ManageUserRemote;
 import entities.Transaction;
 import entities.User;
 import entities.UsersFilms;
+import enums.UserStates;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -39,6 +41,8 @@ public class ManageUser implements ManageUserRemote {
 
     @Override
     public void signUp(UserDto udto) {
+	udto.addDate= new Date();
+	udto.state= UserStates.Unactived;
         em.persist(UserDtoManager.createUser(udto));
     }
     
