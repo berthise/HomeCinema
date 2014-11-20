@@ -47,6 +47,21 @@ public class LoginManagedBean {
 	}
     }
 
+    
+    public void tmpLogin() {
+	try {
+	    //user = Ejbs.user().login(user.email, user.password);
+	    user = Ejbs.user().login("pierre@mail.net", "password");
+	    FacesMessage message = new FacesMessage("Bienvenue " + user.nickName + " !");
+	    message.setSeverity(FacesMessage.SEVERITY_INFO);
+	    FacesContext.getCurrentInstance().addMessage(null, message);
+	} catch (EJBException e) {
+	    FacesMessage message = new FacesMessage("Identifiants incorrects !");
+	    message.setSeverity(FacesMessage.SEVERITY_ERROR);
+	    FacesContext.getCurrentInstance().addMessage(null, message);
+	}
+    }
+	
     public void logout() {
 
 	try {
