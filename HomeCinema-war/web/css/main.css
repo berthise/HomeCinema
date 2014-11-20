@@ -43,7 +43,7 @@ body {
       display: none;
       position: absolute;
       right: 0;
-      top: 30px;
+      top: 20px;
       background: -webkit-linear-gradient(left, #111, #666, #666, #666, #111);
       padding: 10px; }
     body header .navbar-nav > li:hover {
@@ -425,5 +425,9 @@ body {
     margin-right: 10px; }
   body .box-film-product img {
     margin-right: 5px; }
+  body #lang_fr {
+    margin-right: -15px; }
+  body .lang-inactiv {
+    opacity: 0.5; }
 
 /*# sourceMappingURL=main.css.map */

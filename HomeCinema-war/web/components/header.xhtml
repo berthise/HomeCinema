@@ -26,7 +26,9 @@
 	    <c:choose>
 	      <c:when test="#{loginManagedBean.firstName == null}" >
 		<a href="#" id="login">Connexion</a> | 
-		<a href="signup.xhtml" id="signup">Inscription</a>
+		<a href="signup.xhtml" id="signup">Inscription</a> |
+		<a href="" id="lang_fr"><img src="img/Flag_France.png" title="Français" /></a>
+		<a href="" id="lang_en"><img class="lang-inactiv" src="img/Flag_English.png" title="English" /></a>
 	      </c:when>
 	      <c:otherwise>
 		<span class="decale-right" style="color: white;"> Bienvenue "<b>#{loginManagedBean.firstName}</b>" </span> | 
