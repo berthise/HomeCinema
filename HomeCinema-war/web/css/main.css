@@ -46,6 +46,8 @@ body {
       top: 20px;
       background: -webkit-linear-gradient(left, #111, #666, #666, #666, #111);
       padding: 10px; }
+    body header .col-19 {
+      width: 19%; }
     body header .navbar-nav > li:hover {
       background: #ADD881; }
     body header .navbar-collapse .pull-right {

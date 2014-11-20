@@ -36,11 +36,13 @@
 		<a href="moncompte.xhtml?box=caddie" title="Voir mon caddie"><i class="glyphicon glyphicon-shopping-cart"></i></a> |
 		<h:form>
 		  <h:commandLink action="#{loginManagedBean.logout}" value="Déconnexion" />
-		</h:form>
+		</h:form> |
+		<a href="" id="lang_fr"><img src="img/Flag_France.png" title="Français" /></a>
+		<a href="" id="lang_en"><img class="lang-inactiv" src="img/Flag_English.png" title="English" /></a>
 	      </c:otherwise>
 	    </c:choose>
 	  </div>
-	  <div class="col-md-2" id="form-login">
+	  <div class="col-md-2 col-19" id="form-login">
 	    <h:form role="form">
 	      <h:messages for="login" infoClass="info" />
 	      <div class="form-group">
