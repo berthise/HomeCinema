@@ -285,6 +285,16 @@ body {
 	padding: 3px 5px 3px 5px !important;
 	color: #333;
 	display: inline;
+	white-space: nowrap;
+    }
+    
+    .list-genres-crew:hover {
+	background-color: #777;
+	text-decoration: none;
+    }
+    
+    .info-film-list {
+	line-height: 35px;
     }
 
     .list-genre:hover {

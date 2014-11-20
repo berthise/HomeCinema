@@ -192,7 +192,13 @@ body {
     border-radius: 5px;
     padding: 3px 5px 3px 5px !important;
     color: #333;
-    display: inline; }
+    display: inline;
+    white-space: nowrap; }
+  body .list-genres-crew:hover {
+    background-color: #777;
+    text-decoration: none; }
+  body .info-film-list {
+    line-height: 35px; }
   body .list-genre:hover {
     background-color: #333;
     text-decoration: none;

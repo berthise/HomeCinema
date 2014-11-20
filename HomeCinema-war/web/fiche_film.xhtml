@@ -79,9 +79,9 @@
 
 	      <h3>Date de sortie : <span class="info-film-p"><h:outputText value="#{filmManagedBean.date}" escape="false" /></span></h3>
 	      <h3>Durée : <span class="info-film-p"><h:outputText value="#{filmManagedBean.getRuntime()}" escape="false" /></span></h3>
-	      <h3>Genre(s) :</h3><p><h:outputText value="#{filmManagedBean.getGenres()}" escape="false" /></p>
-	      <h3>Réalisateur :</h3><p><h:outputText value="#{filmManagedBean.getDirector()}" escape="false" /></p>
-	      <h3>Casting :</h3><p><h:outputText value="#{filmManagedBean.getCasting()}" escape="false" /></p>
+	      <h3>Genre(s) :</h3><p class="info-film-list"><h:outputText value="#{filmManagedBean.getGenres()}" escape="false" /></p>
+	      <h3>Réalisateur :</h3><p class="info-film-list"><h:outputText value="#{filmManagedBean.getDirector()}" escape="false" /></p>
+	      <h3>Casting :</h3><p class="info-film-list"><h:outputText value="#{filmManagedBean.getCasting()}" escape="false" /></p>
 	      <div>
 		<div class="info-fiche-left">
 		  <h3>Nombre de ventes : <span class="info-film-p"><h:outputText value="#{productManagedBean.getNbSells(filmManagedBean.mainProductId)}"  /></span></h3>
