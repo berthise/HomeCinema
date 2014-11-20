@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+	<cc:attribute name="userId" type="Long" required="true" />
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+	<div>
+	    <h3><img src="img/film-icon.png" title="Films"/>Films</h3>
+	    <c:choose>
+		<c:when test="#{historyManagedBean.counter(cc.attrs.userId) eq 0}" >
+		    <td>Votre liste de films est vide ... <a href="#">Cliquez ici pour trouver des films !</a></td>                                        
+		</c:when>
+		<c:otherwise>
+		    <table>
+			<ui:repeat var="o" value="#{accountManagedBean.getListFilms()}">
+			    <tr>
+				<td>
+				    <span class="affiche">
+					<img src="img/glass.png" />
+					<span>
+					    <img src="http://image.tmdb.org/t/p/w396/#{o.get(1)}" />
+					</span>
+				    </span>
+				</td>
+				<td>                 
+				    <a title="Voir la fiche du film" href="fiche_film.xhtml?id=#{o.get(4)}">#{o.get(2)} (#{o.get(3)})</a>
+				</td>
+				<td><a href="visionneuse.xhtml?id=#{o.get(4)}"><img src="img/eye.png" title="Voir le film" /></a></td>
+			    </tr>
+			</ui:repeat>
+		    </table>
+		</c:otherwise>
+	    </c:choose>
+	</div>
+    </cc:implementation>
+</html>

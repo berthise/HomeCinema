@@ -21,7 +21,7 @@ body {
       background: linear-gradient(to bottom, #fff 0, #eee 100%);
       border-bottom: 3px inset #729d47; }
     body header .decale-right {
-      margin-right: 5px; }
+      margin-right: 7px; }
     body header .userTools {
       z-index: 10000;
       background: -webkit-linear-gradient(left, #111, #666, #666, #666, #111);
