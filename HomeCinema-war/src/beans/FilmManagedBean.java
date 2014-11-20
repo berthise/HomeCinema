@@ -162,10 +162,10 @@ public class FilmManagedBean {
 	List<PersonDto> list = Ejbs.film().getDirector(fdto.id);
 	String toReturn = "";
 	for (PersonDto s : list) {
-	    toReturn += "<a href=\"#\" class=\"list-genres-crew\">" + s.name + "</a> , ";
+	    toReturn += "<a href=\"#\" class=\"list-genres-crew\">" + s.name + "</a> ";
 	}
 	if (toReturn.length() > 0)
-	    return toReturn.substring(0, toReturn.length() - 3);
+	    return toReturn;
 	else
 	    return "<span class=\"list-genres-crew\">Inconnu</span>";
     }
@@ -174,10 +174,10 @@ public class FilmManagedBean {
 	List<PersonDto> list = Ejbs.film().getCasting(fdto.id);
 	String toReturn = "";
 	for (PersonDto s : list) {
-	    toReturn += "<a href=\"#\" class=\"list-genres-crew\">" + s.name + "</a> , ";
+	    toReturn += "<a href=\"#\" class=\"list-genres-crew\">" + s.name + "</a> ";
 	}
 	if (toReturn.length() > 0)
-	    return toReturn.substring(0, toReturn.length() - 3);
+	    return toReturn;
 	else
 	    return "<span class=\"list-genres-crew\">Inconnu</span>";
     }
@@ -186,10 +186,10 @@ public class FilmManagedBean {
 	Set<GenreDto> set = Ejbs.film().getGenre(fdto.id);
 	String toReturn = "";
 	for (GenreDto s : set) {
-	    toReturn += "<a href=\"#\" class=\"list-genres-crew\">" + s.name + "</a> , ";
+	    toReturn += "<a href=\"#\" class=\"list-genres-crew\">" + s.name + "</a> ";
 	}
 	if (toReturn.length() > 0)
-	    return toReturn.substring(0, toReturn.length() - 3);
+	    return toReturn;
 	else
 	    return "<span class=\"list-genres-crew\">Inconnu</span>";
     }

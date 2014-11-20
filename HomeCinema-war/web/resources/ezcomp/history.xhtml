@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+	<cc:attribute name="userId" type="Long" required="true" />
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+	<div>
+	    <h3><img src="img/clock-icon.png" title="Historique"/>Historique</h3>
+	    <c:choose>
+		<c:when test="#{historyManagedBean.counter(cc.attrs.userId) eq 0}" >
+		    <td>Votre historique est vide ... </td>                                        
+		</c:when>
+		<c:otherwise>
+		    <table>
+			<ui:repeat var="o" value="#{historyManagedBean.getListTransaction()}" varStatus="status">
+			    <tr>
+				<td>
+				    <ui:repeat var="f" value="#{o.products}" varStatus="status">
+					<a href="fiche_product.xhtml?id=#{f.id}">#{f.name}</a><br/>
+				    </ui:repeat>
+				</td>
+				<td>
+				    <i>#{o.getAddDateString("dd/MM/YYYY hh:mm")}</i>
+				</td>
+				<td>
+				    <b>#{o.totalPrice}€</b>
+				</td>				    
+				<td>
+				    <h:graphicImage value="img/done.png" title="Effectuée" rendered="#{o.state eq 'Done'}" />
+				    <h:graphicImage value="img/canceled.png" title="Annulée" rendered="#{o.state eq 'Canceled'}" />
+				    <h:graphicImage value="img/prepared.png" title="Préparée" rendered="#{o.state eq 'Prepared'}" />
+				</td>
+			    </tr>				
+			</ui:repeat>
+		    </table>
+		</c:otherwise>
+	    </c:choose>
+	</div>
+    </cc:implementation>
+</html>

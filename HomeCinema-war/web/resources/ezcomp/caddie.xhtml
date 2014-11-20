@@ -72,19 +72,19 @@
 		</tr>
 	      </ui:repeat>
 
-	    </ui:repeat>
-	    <tr>
-	      <td colspan="${colspan_total}" class="td-right align-right">Total:</td>
-	      <td colspan="1">#{caddieManagedBean.getTotalPrice(cc.attrs.userId)}€</td>
-	    </tr>
-	  </table>
-	  <c:if test="#{!cc.attrs.recap}" >
-	    <c:if test="#{caddieManagedBean.counter(cc.attrs.userId) gt 0}" >
-	      <a class="btn btn-success to-right" href="paiement.xhtml">Valider mon caddie</a>
-	    </c:if>
-	  </c:if>
-	</c:otherwise>
-      </c:choose>
-    </div>
-  </cc:implementation>
+			    </ui:repeat>
+			    <tr>
+				<td colspan="${colspan_total}" class="td-right align-right">Total :</td>
+				<td colspan="1">#{caddieManagedBean.getTotalPrice(cc.attrs.userId)}€</td>
+			    </tr>
+			</table>
+			<c:if test="#{!cc.attrs.recap}" >
+			    <c:if test="#{caddieManagedBean.counter(cc.attrs.userId) gt 0}" >
+				<a class="btn btn-success to-right" href="paiement.xhtml">Valider mon caddie</a>
+			    </c:if>
+			</c:if>
+		    </c:otherwise>
+		</c:choose>
+	    </div>
+    </cc:implementation>
 </html>

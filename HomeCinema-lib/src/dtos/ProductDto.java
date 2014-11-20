@@ -9,6 +9,7 @@ import enums.ProductStates;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
@@ -20,6 +21,28 @@ import javax.persistence.TemporalType;
  * @author seb
  */
 public class ProductDto implements Serializable {
+
+    @Override
+    public int hashCode() {
+	int hash = 7;
+	hash = 97 * hash + Objects.hashCode(this.id);
+	return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+	if (obj == null) {
+	    return false;
+	}
+	if (getClass() != obj.getClass()) {
+	    return false;
+	}
+	final ProductDto other = (ProductDto) obj;
+	if (!Objects.equals(this.id, other.id)) {
+	    return false;
+	}
+	return true;
+    }
 
   public Long id;
   public Double price;

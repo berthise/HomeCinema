@@ -138,5 +138,21 @@ public class UserManagedBean {
   public void setState(UserStates state) {
     user.state = state;
   }
+  
+  public boolean isActivate()
+  {
+      return user.state==UserStates.Activated;
+  }
+ 
+  
+  public void activate()
+  {
+      this.userManager.activate(this.getId());
+  }
+  
+    public void deactivate()
+  {
+      this.userManager.deactivate(this.getId());
+  }
 
 }
