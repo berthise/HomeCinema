@@ -40,97 +40,114 @@ public class ManageUser implements ManageUserRemote {
     EntityManager em;
 
     @Override
-    public void signUp(UserDto udto) {
-	udto.addDate= new Date();
-	udto.state= UserStates.Unactived;
-        em.persist(UserDtoManager.createUser(udto));
+    public Long signUp(UserDto udto) {
+	udto.addDate = new Date();
+	udto.state = UserStates.Unactived;
+	User u = UserDtoManager.createUser(udto);
+	em.persist(u);
+	return u.getId();
     }
-    
+
+    @Override
+    public void activate(Long user) {
+	User u = em.find(User.class, user);
+	u.setState(UserStates.Activated);
+	em.merge(u);
+    }
+
+    @Override
+    public void deactivate(Long user) {
+	User u = em.find(User.class, user);
+	u.setState(UserStates.Deactivated);
+	em.merge(u);
+    }
+
     @Override
     public void save(UserDtoNoPw udto) {
-      UserDtoManager.mergeOrSave(udto, em);
+	UserDtoManager.mergeOrSave(udto, em);
     }
 
     @Override
     public List<TransactionDto> getTransaction(Long user) {
-        User u = em.find(User.class, user);
-        List<TransactionDto> res = new ArrayList<>();
-        for (Transaction t : u.getTransactions()) {
-            res.add(TransactionDtoManager.getDto(t));
-        }
-        return res;
+	User u = em.find(User.class, user);
+	List<TransactionDto> res = new ArrayList<>();
+	for (Transaction t : u.getTransactions()) {
+	    res.add(TransactionDtoManager.getDto(t));
+	}
+	return res;
     }
 
     @Override
     public UserDto login(String email, String password) {
-        Long id = 1L;
-        TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.email = :email AND u.password = :password", User.class);
-        query.setParameter("email", email);
-        query.setParameter("password", password);
-        User user = query.getSingleResult();
-        return UserDtoManager.getUser(user);
+	Long id = 1L;
+	TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.email = :email AND u.password = :password AND u.state=:active", User.class);
+	query.setParameter("email", email);
+	query.setParameter("password", password);
+	query.setParameter("active", UserStates.Activated);
+	User user = query.getSingleResult();
+	return UserDtoManager.getUser(user);
     }
 
     @Override
     public Set<SimpleUserDto> getAllUser() {
-        Query q;
+	Query q;
 
-        q = em.createQuery("select u From User u ", User.class);
-        List<User> lu = q.getResultList();
-        Set<SimpleUserDto> ludto = new HashSet<>();
-        for (User u : lu) {
-            ludto.add(UserDtoManager.getSimpleDto(u));
-        }
-        return ludto;
+	q = em.createQuery("select u From User u ", User.class);
+	List<User> lu = q.getResultList();
+	Set<SimpleUserDto> ludto = new HashSet<>();
+	for (User u : lu) {
+	    ludto.add(UserDtoManager.getSimpleDto(u));
+	}
+	return ludto;
     }
 
     @Override
     public UserDtoNoPw getUser(Long id) {
-        User u = em.find(User.class, id);
-        return UserDtoManager.getUserNoPw(u);
+	User u = em.find(User.class, id);
+	return UserDtoManager.getUserNoPw(u);
     }
 
     @Override
     public void removeUser(Long id) {
-        User u = em.find(User.class, id);
-        for (Transaction t : u.getTransactions()) {
-            t.setUser(null);
-            em.merge(t);
-        }
-        for (UsersFilms uf : u.getFilms()) {
-            em.remove(uf);
-        }
-        if (u.getCaddy() != null) {
-            em.remove(u.getCaddy());
-        }
-        em.remove(u);
+	User u = em.find(User.class, id);
+	for (Transaction t : u.getTransactions()) {
+	    t.setUser(null);
+	    em.merge(t);
+	}
+	for (UsersFilms uf : u.getFilms()) {
+	    em.remove(uf);
+	}
+	if (u.getCaddy() != null) {
+	    em.remove(u.getCaddy());
+	}
+	em.remove(u);
     }
 
     @Override
     public void mergeOrSave(UserDtoNoPw udto) {
-        UserDtoManager.mergeOrSave(udto, em);
+	UserDtoManager.mergeOrSave(udto, em);
     }
 
     @Override
     public List<FilmDto> getFilms(Long id) {
-        User p = em.find(User.class, id);
-        List<FilmDto> lfdto = new ArrayList<>();
-        for (UsersFilms f : p.getFilms()) {
-            lfdto.add(FilmDtoManager.getDto(f.getFilm()));
-        }
-        return lfdto;
+	User p = em.find(User.class, id);
+	List<FilmDto> lfdto = new ArrayList<>();
+	for (UsersFilms f : p.getFilms()) {
+	    lfdto.add(FilmDtoManager.getDto(f.getFilm()));
+	}
+	return lfdto;
     }
 
     @Override
     public boolean changePassword(Long user, String oldPass, String newPass) {
-        User u = em.find(User.class, user);
-        if (!u.getPassword().equals(oldPass)) {
-            return false;
-        } else {
-            u.setPassword(newPass);
-            em.merge(u);
-            return true;
-        }
+	User u = em.find(User.class, user);
+	if (!u.getPassword().equals(oldPass)) {
+	    return false;
+	} else {
+	    u.setPassword(newPass);
+	    em.merge(u);
+	    return true;
+	}
     }
 
 }
