@@ -3,8 +3,16 @@ body {
   color: #fff;
   margin: 0;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
+  body .btn-space {
+    margin-right: 10px; }
+  body .index-box {
+    height: 320px; }
+  body .text-sitetitle {
+    font-weight: bold;
+    color: #419641; }
   body .footer-title {
-    text-shadow: 1px 1px 1px black; }
+    text-shadow: 1px 1px 1px black;
+    margin-top: 0px; }
   body .footer-list a {
     color: white !important; }
   body .footer-list a:hover {
@@ -47,7 +55,7 @@ body {
     body header #form-login {
       z-index: 10000;
       display: none;
-      position: absolute;
+      position: fixed;
       right: 0;
       top: 20px;
       background: -webkit-linear-gradient(left, #111, #666, #666, #666, #111);
@@ -58,6 +66,10 @@ body {
       background: #ADD881; }
     body header .navbar-collapse .pull-right {
       margin-right: -30px; }
+  body .messages ul {
+    margin: 0;
+    padding: 0;
+    list-style: none; }
   body #search-form input[type="search"] {
     padding: 6px 6px; }
   body section .well-exclus {
@@ -112,6 +124,10 @@ body {
       margin: 0 15px; }
     body section .form-signin i.required {
       color: red; }
+  body section .toggle-row {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display: none; }
   body footer .footer-elem {
     margin: auto;
     text-align: center; }
@@ -221,6 +237,8 @@ body {
     float: right;
     margin-top: -5px;
     margin-bottom: 10px; }
+  body .go-top img {
+    margin-bottom: 5px; }
   body #slider {
     position: relative;
     overflow: hidden; }
@@ -274,33 +292,35 @@ body {
     margin: 10px auto;
     width: 160px;
     font-size: 18px; }
-  body #nav-account-left {
-    width: 36%;
+  body .nav-films ul {
+    list-style: none; }
+  body #nav-page-left {
+    width: 25%;
     float: left;
     border-radius: 5px;
     border: 1px solid grey;
     background: -moz-linear-gradient(left, #cccccc 0%, #eeeeee 100%);
     background: -webkit-gradient(linear, left top, right top, color-stop(0%, #cccccc), color-stop(100%, #eeeeee));
     background: -webkit-linear-gradient(left, #cccccc 0%, #eeeeee 100%); }
-  body #nav-account-left p:first-of-type {
+  body #nav-page-left p:first-of-type {
     border-radius: 4px 4px 0px 0px; }
-  body #nav-account-left p:last-of-type {
+  body #nav-page-left p:last-of-type {
     border-radius: 0px 0px 4px 4px; }
-  body #nav-account-left a {
+  body #nav-page-left a {
     display: block;
     padding: 10px 10px 10px 35px;
     font-weight: bold;
     font-size: 16px;
     color: #333; }
-  body #nav-account-left p {
+  body #nav-page-left p {
     margin: 0;
     padding: 0; }
-  body #nav-account-left a {
+  body #nav-page-left a {
     background-image: url(../img/listarrow.png);
     background-repeat: no-repeat;
     background-size: 16px;
     background-position: 12px 12px; }
-  body #nav-account-left p:hover {
+  body #nav-page-left p:hover {
     background: -moz-linear-gradient(left, #a5a5a5 0%, #c6c6c6 100%);
     background: -webkit-gradient(linear, left top, right top, color-stop(0%, #a5a5a5), color-stop(100%, #c6c6c6));
     background: -webkit-linear-gradient(left, #a5a5a5 0%, #c6c6c6 100%); }
@@ -309,7 +329,7 @@ body {
     background: -webkit-gradient(linear, left top, right top, color-stop(0%, #62a53c), color-stop(100%, #95c640)) !important;
     background: -webkit-linear-gradient(left, #62a53c 0%, #95c640 100%) !important; }
   body .box-right {
-    width: 62%;
+    width: 73%;
     border: 1px solid grey;
     float: right;
     border-radius: 5px;

@@ -7,9 +7,13 @@ package dtos;
 
 import enums.ProductStates;
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.Column;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
@@ -75,6 +79,31 @@ public class ProductDto implements Serializable {
     this.addDate = addDate;
   }
 
+  
+  public String getAddDateString() {
+    return this.getAddDateString("yyyy-MM-dd");
+  }
+
+  public void setAddDate(String addDate) {
+    this.setAddDateString(addDate, "yyyy-MM-dd");
+  }
+
+  public String getAddDateString(String formater) {
+    SimpleDateFormat df = new SimpleDateFormat(formater);
+    return df.format(this.addDate);
+  }
+
+  public void setAddDateString(String s, String formater) {
+    SimpleDateFormat df = new SimpleDateFormat(formater);
+    try {
+      this.addDate = df.parse(s);
+    } catch (ParseException ex) {
+      this.addDate = new Date();
+      Logger.getLogger(UserDtoNoPw.class.getName()).log(Level.SEVERE, null, ex);
+    }
+  }
+
+  
   public String getName() {
     return name;
   }

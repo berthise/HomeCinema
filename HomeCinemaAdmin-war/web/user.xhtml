@@ -71,9 +71,9 @@
                     </div>
                 </div>
                 <div class="row">
-                     <div class="form-group">
-                         <h:outputLabel class="col-md-5 form-label" for="birthDay">State : </h:outputLabel>
-                         #{userManagedBean.state}
+		    <div class="form-group">
+			<h:outputLabel class="col-md-5 form-label" for="birthDay">State : </h:outputLabel>
+			    #{userManagedBean.state}
                     </div>
 
                 </div>
@@ -83,12 +83,15 @@
                     <h:commandButton class="btn btn-primary col-md-3" value="Envoyer" action="#{userManagedBean.save}" />
                 </div>
             </h:form>
-	    <h:form>
-		    <h:commandButton  rendered="#{!userManagedBean.activate}" class="btn btn-primary col-md-3" value="Activer" action="#{userManagedBean.activate}" />
-		    <h:commandButton  rendered="#{userManagedBean.activate}" class="btn btn-primary col-md-3" value="Deactiver" action="#{userManagedBean.deactivate}" />
-		</h:form>    
+	    <h:form rendered="#{!userManagedBean.activate}" > 
+		<h:commandButton   class="btn btn-primary col-md-3" value="Activer" action="#{userManagedBean.activate}" />
+
+	    </h:form>
+	    <h:form  rendered="#{userManagedBean.activate}">
+		<h:commandButton  class="btn btn-primary col-md-3" value="Deactiver" action="#{userManagedBean.deactivate}" />
+	    </h:form>  
         </section>
-                        <script src="js/users.js"></script>
+	<script src="js/users.js"></script>
 
     </body>
 </html>

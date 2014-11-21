@@ -9,6 +9,7 @@ import ejbs.Ejbs;
 import dtos.FilmDto;
 import dtos.ProductDto;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedHashSet;
@@ -26,7 +27,30 @@ import javax.faces.bean.ViewScoped;
 @ViewScoped
 public class ListProductsManagedBean {
 
-    public List<ProductDto> getTopFilms() {
+    private String initBox;
+
+    public void setInitBox(String b) {
+	String[] ref = {"all", "top", "new"};
+	List<String> list = Arrays.asList(ref);
+	if (!list.contains(b) || b == null) {
+	    b = ref[0];
+	}
+	initBox = b;
+    }
+
+    public void changeInitBox(String b) {
+	this.initBox = b;
+    }
+
+    public String getInitBox() {
+	return initBox;
+    }
+
+    public ListProductsManagedBean() {
+	this.initBox = "all";
+    }
+
+    public List<ProductDto> getTopProduct() {
 	List<ProductDto> toReturn = Ejbs.product().getAllProduct();
 
 	Collections.sort(toReturn, new Comparator<ProductDto>() {
@@ -42,9 +66,42 @@ public class ListProductsManagedBean {
 	    }
 	});
 
-	if (toReturn.size() > 10)
+	if (toReturn.size() > 10) {
 	    return toReturn.subList(0, 10);
-	else	
+	} else {
 	    return toReturn;
+	}
+    }
+
+    public List<ProductDto> getNewProduct() {
+	List<ProductDto> toReturn = Ejbs.product().getAllProduct();
+
+	Collections.sort(toReturn, new Comparator<ProductDto>() {
+	    @Override
+	    public int compare(ProductDto t, ProductDto t1) {
+		return t.addDate.compareTo(t1.addDate);
+	    }
+	});
+
+	if (toReturn.size() > 10) {
+	    return toReturn.subList(0, 10);
+	} else {
+	    return toReturn;
+	}
+    }
+
+    public List<FilmDto> getSelectionFilms(int n) {
+	List<FilmDto> list = Ejbs.films().findAllFilms();
+	List<FilmDto> toReturn = new ArrayList<>();
+	Random rng = new Random();
+	Set<Integer> generated = new LinkedHashSet<>();
+	while (generated.size() < n) {
+	    Integer next = rng.nextInt(list.size());
+	    generated.add(next);
+	}
+	for (Integer i : generated) {
+	    toReturn.add(list.get(i));
+	}
+	return toReturn;
     }
 }

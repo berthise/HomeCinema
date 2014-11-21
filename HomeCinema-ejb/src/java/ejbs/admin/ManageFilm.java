@@ -21,6 +21,7 @@ import entities.Genre;
 import entities.Person;
 import entities.Product;
 import entities.Video;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -43,6 +44,7 @@ public class ManageFilm implements ManageFilmRemote {
 
     @PersistenceContext
     public EntityManager em;
+    private Object ManageEntitiesFilm;
 
     @Override
     public Long createFilm(FilmDto fdto) {
@@ -216,20 +218,33 @@ public class ManageFilm implements ManageFilmRemote {
 	}
 	return lgdto;
     }
-    
+
     @Override
-    public ProductDto getMainProduct(long fid)
-    {
+    public ProductDto getMainProduct(long fid) {
 	Film f = em.find(Film.class, fid);
 	return ProductDtoManager.getDto(f.getMain_product());
     }
-    
+
     @Override
-    public void setMain(Long fid,Long pid)
-    {
+    public void setMain(Long fid, Long pid) {
 	Film f = em.find(Film.class, fid);
-	Product p  =em.find(Product.class, pid);
+	Product p = em.find(Product.class, pid);
 	f.setMain_product(p);
 	em.merge(f);
     }
+
+    
+    @Override
+    public List<FilmDto> findFilms(Long actor, Long director, List<Long> lgdto, String str, String year) {
+	Query q = em.createQuery("From Film f", Film.class);
+	List<Film> lf = q.getResultList();
+	List<FilmDto> res = new ArrayList<>();
+
+	for (Film f : lf) {
+	    if (ManageEntitieFilm.filterFilm(f, actor, director, lgdto, str, year,em))
+		res.add(FilmDtoManager.getDto(f));
+	}
+	return res;
+    }
+
 }

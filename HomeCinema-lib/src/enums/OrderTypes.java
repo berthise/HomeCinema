@@ -11,8 +11,10 @@ import java.io.Serializable;
  *
  * @author seb
  */
-public enum UserStates implements Serializable {
-  Activated,
-  Pending,
-  Deactivated
+public enum OrderTypes implements Serializable {
+  SALES,
+  NEW,
+  ALPH,
+  RAND,
+  NO
 }

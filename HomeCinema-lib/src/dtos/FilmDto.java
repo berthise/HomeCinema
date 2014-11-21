@@ -87,24 +87,32 @@ public class FilmDto implements Serializable {
 	return cover;
     }
 
-  public void setRelease_date(Date release_date) {
-    this.release_date = release_date;
-  }
-  
-    public String getReleaseDateString(String formater) {
-    SimpleDateFormat df = new SimpleDateFormat(formater);
-    return df.format(this.release_date);
-  }
-
-  public void setReleaseDateString(String s, String formater) {
-    SimpleDateFormat df = new SimpleDateFormat(formater);
-    try {
-      this.release_date = df.parse(s);
-    } catch (ParseException ex) {
-      this.release_date = new Date();
-      Logger.getLogger(FilmDto.class.getName()).log(Level.SEVERE, null, ex);
+    public void setRelease_date(Date release_date) {
+	this.release_date = release_date;
     }
-  }
+
+    public String getReleaseDateString() {
+	return this.getReleaseDateString("yyyy-MM-dd");
+    }
+
+    public void setReleaseDateString(String s) {
+	setReleaseDateString(s,"yyyy-MM-dd");
+    }
+
+    public String getReleaseDateString(String formater) {
+	SimpleDateFormat df = new SimpleDateFormat(formater);
+	return df.format(this.release_date);
+    }
+
+    public void setReleaseDateString(String s, String formater) {
+	SimpleDateFormat df = new SimpleDateFormat(formater);
+	try {
+	    this.release_date = df.parse(s);
+	} catch (ParseException ex) {
+	    this.release_date = new Date();
+	    Logger.getLogger(FilmDto.class.getName()).log(Level.SEVERE, null, ex);
+	}
+    }
 
     public Date getRelease_date() {
 	return release_date;
