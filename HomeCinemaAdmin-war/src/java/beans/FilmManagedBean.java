@@ -7,6 +7,7 @@ package beans;
 
 import dtos.FilmDto;
 import dtos.GenreDto;
+import dtos.PersonDto;
 import dtos.ProductDto;
 import dtos.UserDtoNoPw;
 import ejbs.ManageFilmRemote;
@@ -39,6 +40,22 @@ import javax.naming.NamingException;
 @SessionScoped
 public class FilmManagedBean {
 
+    public List<PersonDto> getActors() {
+	return actors;
+    }
+
+    public void setActors(List<PersonDto> actors) {
+	this.actors = actors;
+    }
+
+    public List<PersonDto> getDirectors() {
+	return directors;
+    }
+
+    public void setDirectors(List<PersonDto> directors) {
+	this.directors = directors;
+    }
+
     public Set<GenreDto> getGenres() {
 	return genres;
     }
@@ -51,12 +68,31 @@ public class FilmManagedBean {
 	return genres.size();
     }
 
+    public Integer getTotalActor() {
+	return actors.size();
+    }
+
+    public Integer getTotalDirector() {
+	return directors.size();
+    }
+
     private ManageFilmRemote filmManager;
 
+    public String genreName;
+
+    public String getGenreName() {
+	return genreName;
+    }
+
+    public void setGenreName(String genreName) {
+	this.genreName = genreName;
+    }
     public FilmDto fdto;
     public Set<ProductDto> products;
     public ProductDto main;
     public Set<GenreDto> genres;
+    public List<PersonDto> actors;
+    public List<PersonDto> directors;
 
     public FilmManagedBean() throws NamingException {
 	filmManager = (ManageFilmRemote) new InitialContext().lookup("java:global/HomeCinema/HomeCinema-ejb/ManageFilm!ejbs.ManageFilmRemote");
@@ -70,11 +106,15 @@ public class FilmManagedBean {
 	    products = filmManager.getProducts(fdto.id);
 	    main = filmManager.getMainProduct(fdto.id);
 	    genres = this.filmManager.getGenre(fdto.id);
+	    directors = this.filmManager.getDirector(fdto.id);
+	    actors = this.filmManager.getCasting(fdto.id);
 	} else {
 	    fdto = new FilmDto();
 	    products = new HashSet<>();
 	    main = new ProductDto();
 	    genres = new HashSet<>();
+	    actors = new ArrayList<>();
+	    directors = new ArrayList<>();
 	}
 
     }
@@ -183,4 +223,6 @@ public class FilmManagedBean {
     public void setMain(Long pid) {
 	this.filmManager.setMain(fdto.id, pid);
     }
+    
+
 }

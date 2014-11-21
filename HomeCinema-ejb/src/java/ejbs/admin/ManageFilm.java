@@ -124,6 +124,8 @@ public class ManageFilm implements ManageFilmRemote {
 	    addGenre(fid, gdto);
 	}
     }
+    
+
 
     @Override
     public void addGenre(Long fid, GenreDto gdto) {

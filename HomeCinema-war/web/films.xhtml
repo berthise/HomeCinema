@@ -45,6 +45,11 @@ and open the template in the editor.
 				    <f:ajax execute="@form" render=":form-random :panel-random" />
 				</h:commandLink>
 			    </p>
+			    <p class="#{((listProductsManagedBean.initBox eq 'pack')? 'activated' : '')}">
+				<h:commandLink value="Tous les packs" action="#{listProductsManagedBean.changeInitBox('pack')}">
+				    <f:ajax execute="@form" render=":form-random :panel-random" />
+				</h:commandLink>
+			    </p>
 			    <p class="#{((listProductsManagedBean.initBox eq 'top')? 'activated' : '')}">
 				<h:commandLink value="Top 50" action="#{listProductsManagedBean.changeInitBox('top')}">
 				    <f:ajax execute="@form" render=":form-random :panel-random" />
@@ -84,72 +89,21 @@ and open the template in the editor.
 			<h3><img src="img/list-icon.png" title="Produits"/>Liste des produits</h3>
 
 			<h:panelGroup id="panel-random">
-			    <ui:repeat var="o" value="#{listProductsManagedBean.getSelectionFilms(6)}">
-				<div class="col-md-2 col-sm-6 col-xs-12 film">
-				    <a href="fiche_film.xhtml?id=#{o.id}">
-					<img class="cover" src="http://image.tmdb.org/t/p/w300/#{o.cover}" />
-					<span class="film_title">#{o.title}</span>
-				    </a>
-				</div>
-			    </ui:repeat>
+			    <table class="table-borderless">
+				<ui:repeat var="o" value="#{listProductsManagedBean.getFilms()}">
+				    <tr>
+					<ui:repeat var="f" value="#{o}">
+					    <td>
+						<a class="table-td-background" href="fiche_product.xhtml?id=#{f.id}">					
+						    <img class="table-cover-film" src="http://image.tmdb.org/t/p/w396/#{f.cover}" title="#{f.name}"/>				    
+						    <p class="table-title-film">#{f.name}</p>
+						</a>				
+					    </td>
+					</ui:repeat>
+				    </tr>
+				</ui:repeat>
+			    </table>
 			</h:panelGroup>
-
-			<table class="table-borderless">
-			    <tr>
-				<td>
-				    <a class="table-td-background" href="#">					
-					<img class="table-cover-film" src="http://image.tmdb.org/t/p/w396//hpt3aa5i0TrSAnEdl3VJrRrje8C.jpg" title="Fight Club"/>				    
-					<p class="table-title-film">Fighdg dgd gdg dg dg dg dgd gd g t Club the 6 last revenger of mormon double wrif</p>
-				    </a>				
-				</td>
-
-				<td>
-				    <a class="table-td-background" href="#">					
-					<img class="table-cover-film" src="http://image.tmdb.org/t/p/w396//hpt3aa5i0TrSAnEdl3VJrRrje8C.jpg" title="Fight Club"/>				    
-					<p class="table-title-film">Fighdg dgd gdg dg dg dg dgd gd g t Club the 6 last revenger of mormon double wrif</p>
-				    </a>				
-				</td>
-
-				<td>
-				    <a class="table-td-background" href="#">					
-					<img class="table-cover-film" src="http://image.tmdb.org/t/p/w396//hpt3aa5i0TrSAnEdl3VJrRrje8C.jpg" title="Fight Club"/>				    
-					<p class="table-title-film">Fighdg dgd gdg dg dg dg dgd gd g t Club the 6 last revenger of mormon double wrif</p>
-				    </a>				
-				</td>
-
-				<td>
-				    <a class="table-td-background" href="#">					
-					<img class="table-cover-film" src="http://image.tmdb.org/t/p/w396//hpt3aa5i0TrSAnEdl3VJrRrje8C.jpg" title="Fight Club"/>				    
-					<p class="table-title-film">Fighdg dgd gdg dg dg dg dgd gd g t Club the 6 last revenger of mormon double wrif</p>
-				    </a>				
-				</td>
-			    </tr>
-
-			    <tr>
-				<td>
-				    <a class="table-td-background" href="#">					
-					<img class="table-cover-film" src="http://image.tmdb.org/t/p/w396//hpt3aa5i0TrSAnEdl3VJrRrje8C.jpg" title="Fight Club"/>				    
-					<p class="table-title-film">Fighdg dgd gdg dg dg dg dgd gd g t Club the 6 last revenger of mormon double wrif</p>
-				    </a>				
-				</td>
-
-				<td>
-				    <a class="table-td-background" href="#">					
-					<img class="table-cover-film" src="http://image.tmdb.org/t/p/w396//hpt3aa5i0TrSAnEdl3VJrRrje8C.jpg" title="Fight Club"/>				    
-					<p class="table-title-film">Fighdg dgd gdg dg dg dg dgd gd g t Club the 6 last revenger of mormon double wrif</p>
-				    </a>				
-				</td>
-
-				<td>
-				    <a class="table-td-background" href="#">					
-					<img class="table-cover-film" src="http://image.tmdb.org/t/p/w396//hpt3aa5i0TrSAnEdl3VJrRrje8C.jpg" title="Fight Club"/>				    
-					<p class="table-title-film">Fighdg dgd gdg dg dg dg dgd gd g t Club the 6 last revenger of mormon double wrif</p>
-				    </a>				
-				</td>
-			    </tr>
-			</table>
-
-
 
 
 		    </div>

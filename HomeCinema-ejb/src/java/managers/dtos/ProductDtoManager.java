@@ -29,7 +29,10 @@ public class ProductDtoManager {
 	pdto.nbSales = p.getNbSales();
 	pdto.price = p.getPrice();
 	pdto.state = p.getState();
-
+	if (p.getFilms()==null || p.getFilms().isEmpty())
+	    return null;
+	else
+	    pdto.cover=p.getFilms().get(0).getCoverId();
 	return pdto;
     }
 
