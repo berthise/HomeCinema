@@ -16,5 +16,6 @@ public enum OrderTypes implements Serializable {
   NEW,
   ALPH,
   RAND,
+  RATING,
   NO
 }
