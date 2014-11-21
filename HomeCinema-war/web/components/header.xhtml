@@ -31,8 +31,12 @@
 			    </c:when>
 			    <c:otherwise>
 				<span class="decale-right" style="color: white;"> <h:outputText value="#{msg['header-welcome']}" /> "<b>#{loginManagedBean.firstName}</b>" </span> | 
-				<a href="moncompte.xhtml" title="#{msg['header-voircompte']}"><i class="glyphicon glyphicon-folder-open"></i></a> |
-				<a href="moncompte.xhtml?box=caddie" title="#{msg['header-voircaddie']}"><i class="glyphicon glyphicon-shopping-cart"></i></a> |
+				<a href="moncompte.xhtml" title="#{msg['header-voircompte']}">
+				  <i class="glyphicon glyphicon-folder-open"></i>
+				</a> |
+				  <a href="moncompte.xhtml?box=caddie" title="#{msg['header-voircaddie']}">
+				  <i class="glyphicon glyphicon-shopping-cart"></i> (#{loginManagedBean.caddySize})
+				</a> |
 				<h:form>
 				    <h:commandLink action="#{loginManagedBean.logout}" value="#{msg['deconnexion']}" />
 				</h:form> |

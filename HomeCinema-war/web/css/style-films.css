@@ -23,7 +23,7 @@
 }
 
 .table-td-background {
-    display: inline-block;
+    display: block;
     background: #f1f1f1;
 }
 

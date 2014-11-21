@@ -11,13 +11,12 @@ import dtos.FilmDto;
 import dtos.ProductDto;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
@@ -27,7 +26,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author titou
  */
 @ManagedBean
-@RequestScoped
+@ViewScoped
 public class CaddieManagedBean {
 
   public class Product {
@@ -50,7 +49,7 @@ public class CaddieManagedBean {
     public void setFilms(List<FilmDto> films) {
       this.films = films;
     }
-    
+
     public FilmDto getFilm() {
       return (this.films.size() > 1) ? null : this.films.get(0);
     }
@@ -62,15 +61,20 @@ public class CaddieManagedBean {
   }
 
   public CaddieDto cdto;
+  private LoginManagedBean session;
+
+  public void setSession(LoginManagedBean session) {
+    this.session = session;
+  }
 
   public CaddieManagedBean() throws NamingException {
     cdto = null;
   }
 
-  public List<Product> getListCaddie(Long idUser) {
+  public List<Product> getListCaddie() {
     List<Product> toReturn = new ArrayList<>();
     if (cdto == null) {
-      this.cdto = Ejbs.transaction().getCaddieDto(idUser);
+      this.cdto = Ejbs.transaction().getCaddieDto(session.getId());
     }
 
     for (ProductDto pd : cdto.films) {
@@ -84,10 +88,10 @@ public class CaddieManagedBean {
     return toReturn;
   }
 
-  public Double getTotalPrice(Long idUser) {
+  public Double getTotalPrice() {
     Double price = 0D;
     if (cdto == null) {
-      this.cdto = Ejbs.transaction().getCaddieDto(idUser);
+      this.cdto = Ejbs.transaction().getCaddieDto(session.getId());
     }
     if (cdto != null) {
       for (ProductDto pd : cdto.films) {
@@ -97,21 +101,15 @@ public class CaddieManagedBean {
     return price;
   }
 
-  public Integer counter(Long idUser) {
-    if (idUser == null) {
-      return null;
-    }
-
-//    if (cdto == null) {
-    this.cdto = Ejbs.transaction().getCaddieDto(idUser);
-//    }
-    return cdto.films.size();
+  public Integer counter() {
+    return session.getCaddySize();
   }
 
-  public void deleteFromCaddie(Long idUser, Long idProduct) {
+  public void deleteFromCaddie(Long idProduct) {
     try {
-      Ejbs.transaction().removeProduct(idUser, idProduct);
-      this.cdto = Ejbs.transaction().getCaddieDto(idUser);
+      Ejbs.transaction().removeProduct(session.getId(), idProduct);
+      this.cdto = Ejbs.transaction().getCaddieDto(session.getId());
+      session.caddySizeMinus();
       FacesMessage message = new FacesMessage("Succès de la suppresion !");
       FacesContext.getCurrentInstance().addMessage(null, message);
       if (((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest()).getRequestURI().contains("moncompte.xhtml")) {
@@ -125,17 +123,20 @@ public class CaddieManagedBean {
 
   }
 
-  public void addProductFilmToCaddie(Long iduser, Long idproduct, Long idfilm) throws IOException {
-    this.cdto = Ejbs.transaction().addProduct(iduser, idproduct);
+  public void addProductFilmToCaddie(LoginManagedBean session, Long idproduct, Long idfilm) throws IOException {
+    if ( session != null )
+      this.session = session;
+    this.cdto = Ejbs.transaction().addProduct(this.session.getId(), idproduct);
+    session.caddySizePlus();
     FacesMessage message = new FacesMessage("Succès de l'ajout !");
     FacesContext.getCurrentInstance().addMessage(null, message);
     FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
     FacesContext.getCurrentInstance().getExternalContext().redirect("fiche_film.xhtml?id=" + idfilm);
   }
 
-  private int isInMyFilms(Long ids, Long iduser) {
+  private int isInMyFilms(Long ids) {
     int toReturn = 0;
-    for (FilmDto l : Ejbs.user().getFilms(iduser)) {
+    for (FilmDto l : Ejbs.user().getFilms(session.getId())) {
       if (l.id.equals(ids)) {
 	toReturn++;
       }
@@ -143,9 +144,9 @@ public class CaddieManagedBean {
     return toReturn;
   }
 
-  private int isInMyCaddie(Long ids, Long iduser) {
+  private int isInMyCaddie(Long ids) {
     int toReturn = 0;
-    for (ProductDto l : Ejbs.transaction().getCaddieDto(iduser).films) {
+    for (ProductDto l : Ejbs.transaction().getCaddieDto(session.getId()).films) {
       for (FilmDto f : Ejbs.product().getFilms(l.id)) {
 	if (f.id.equals(ids)) {
 	  toReturn++;
@@ -155,21 +156,25 @@ public class CaddieManagedBean {
     return toReturn;
   }
 
-  public void addProductToCaddie(Long iduser, Long idproduct, String _switch) throws IOException {
+  public void addProductToCaddie(LoginManagedBean session, Long idproduct, String _switch) throws IOException {
+        if ( session != null )
+      this.session = session;
     switch (_switch) {
       case "FREE":
-	this.cdto = Ejbs.transaction().addProduct(iduser, idproduct);
+	this.cdto = Ejbs.transaction().addProduct(session.getId(), idproduct);
+	session.caddySizePlus();
 	break;
       case "PART_CADDIE":
-	this.cdto = Ejbs.transaction().addProduct(iduser, idproduct);
+	this.cdto = Ejbs.transaction().addProduct(session.getId(), idproduct);
 	for (FilmDto f : Ejbs.product().getFilms(idproduct)) {
-	  Ejbs.transaction().removeProduct(iduser, f.main_product_id);
+	  Ejbs.transaction().removeProduct(session.getId(), f.main_product_id);
 	}
 	break;
       default:
 	for (FilmDto f : Ejbs.product().getFilms(idproduct)) {
-	  if (isInMyFilms(f.id, iduser) == 0 && isInMyCaddie(f.id, iduser) == 0) {
-	    this.cdto = Ejbs.transaction().addProduct(iduser, f.main_product_id);
+	  if (isInMyFilms(f.id) == 0 && isInMyCaddie(f.id) == 0) {
+	    this.cdto = Ejbs.transaction().addProduct(session.getId(), f.main_product_id);
+	    session.caddySizePlus();
 	  }
 	}
 	break;

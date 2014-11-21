@@ -8,6 +8,7 @@ package beans;
 import ejbs.Ejbs;
 import dtos.FilmDto;
 import dtos.ProductDto;
+import enums.OrderTypes;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -30,7 +31,7 @@ public class ListProductsManagedBean {
     private String initBox;
 
     public void setInitBox(String b) {
-	String[] ref = {"all", "top", "new"};
+	String[] ref = {"all", "top", "new", "pack"};
 	List<String> list = Arrays.asList(ref);
 	if (!list.contains(b) || b == null) {
 	    b = ref[0];
@@ -48,6 +49,53 @@ public class ListProductsManagedBean {
 
     public ListProductsManagedBean() {
 	this.initBox = "all";
+    }
+
+    private List<List<ProductDto>> splitListFilmDto(List<ProductDto> l) {
+	List<List<ProductDto>> toReturn = new ArrayList<>();
+	int i = 0;
+	while (i + 3 < l.size()) {
+	    toReturn.add(l.subList(i, i + 3));
+	    i += 3;
+	}
+	if (i < l.size()) {
+	    toReturn.add(l.subList(i, l.size()));
+	}
+	return toReturn;
+    }
+
+    private List<List<ProductDto>> getAllFilms() {
+	List<ProductDto> list = Ejbs.product().getFilteredProducts(null, null, null, null, null, OrderTypes.NO, null, null, true);
+	return splitListFilmDto(list);
+    }
+    
+    private List<List<ProductDto>> getAllProducts() {
+	List<ProductDto> list = Ejbs.product().getFilteredProducts(null, null, null, null, null, OrderTypes.NO, null, null, false);
+	return splitListFilmDto(list);
+    }
+
+    private List<List<ProductDto>> getNewFilms() {
+	List<ProductDto> list = Ejbs.product().getFilteredProducts(null, null, null, null, null, OrderTypes.NEW, 10, null, false);
+	return splitListFilmDto(list);
+    }
+    
+    private List<List<ProductDto>> getTopFilms() {
+	List<ProductDto> list = Ejbs.product().getFilteredProducts(null, null, null, null, null, OrderTypes.SALES, 10, null, false);
+	return splitListFilmDto(list);
+    }
+
+    public List<List<ProductDto>> getFilms() {
+	switch (initBox) {
+	    case "new":
+		return getNewFilms();
+	    case "top":
+		return getTopFilms();
+	    case "pack":
+		return getAllProducts();
+	    case "all":
+	    default:
+		return getAllFilms();
+	}
     }
 
     public List<ProductDto> getTopProduct() {

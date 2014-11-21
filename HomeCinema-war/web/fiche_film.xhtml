@@ -56,11 +56,12 @@
 
 		<h:panelGroup rendered="#{!deco and type eq 'FREE'}">
 		  <h:form>
-		      <h:commandButton class="btn btn-success col-md-3 b1" value="Ajouter au caddie" action="#{caddieManagedBean.addProductFilmToCaddie(loginManagedBean.id,filmManagedBean.mainProductId,filmManagedBean.id)}" />
+		      <h:commandButton class="btn btn-success col-md-3 b1" value="Ajouter au caddie" action="#{caddieManagedBean.addProductFilmToCaddie(loginManagedBean, filmManagedBean.mainProductId,filmManagedBean.id)}" />
 		  </h:form>
 		</h:panelGroup>
 
 		<h:panelGroup rendered="#{!deco and type eq 'CADDIE'}">
+		  
 		  <a href="moncompte.xhtml?box=caddie" class="btn btn-primary col-md-3 b1" >Voir le caddie (film déjà ajouté)</a>
 		</h:panelGroup>
 

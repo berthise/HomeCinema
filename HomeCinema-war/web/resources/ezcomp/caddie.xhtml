@@ -4,7 +4,8 @@
       xmlns:cc="http://xmlns.jcp.org/jsf/composite"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
   <!-- INTERFACE -->
   <cc:interface>
@@ -16,105 +17,109 @@
 
   <!-- IMPLEMENTATION -->
   <cc:implementation>
+    <f:view>
+    <f:event type="preRenderComponent" listener="#{loginManagedBean.checkConnected()}"/>
+    <f:event type="preRenderComponent" listener="#{caddieManagedBean.setSession(loginManagedBean)}"/>
+    </f:view>
     <h:outputStylesheet library="css" name="caddie.css" />
     <div class="#{cc.attrs.style}" id="caddie">
       <h3><img src="img/cart-icon.png" title="#{cc.attrs.title}"/>#{cc.attrs.title}</h3>
-      <c:choose>
-	<c:when test="#{caddieManagedBean.counter(cc.attrs.userId) eq 0}" >
-	  <td>Votre caddie est vide ... <a href="#">Cliquez ici pour trouver des films !</a></td>                                        
-	</c:when>
-	<c:otherwise>
-	  <table>
+      <!--      <c:choose>
+	      <c:when test="#{caddieManagedBean.counter() eq 0}" >-->
+      <h:panelGroup  rendered="#{caddieManagedBean.counter() eq 0}" >
+	<td>Votre caddie est vide ... <a href="#">Cliquez ici pour trouver des films !</a></td>                                        
+      </h:panelGroup>
+      <h:panelGroup  rendered="#{caddieManagedBean.counter() gt 0}" >
+	<table>
 
-	    <c:choose>
-	      <c:when test="#{cc.attrs.recap}" >
-		<c:set var="colspan_film" value="2" />
-		<c:set var="colspan_total" value="3" />
-	      </c:when>
-	      <c:otherwise >
-		<c:set var="colspan_film" value="3" />
-		<c:set var="colspan_total" value="4" />
-	      </c:otherwise>
-	    </c:choose>
+	  <c:choose>
+	    <c:when test="#{cc.attrs.recap}" >
+	      <c:set var="colspan_film" value="2" />
+	      <c:set var="colspan_total" value="3" />
+	    </c:when>
+	    <c:otherwise >
+	      <c:set var="colspan_film" value="3" />
+	      <c:set var="colspan_total" value="4" />
+	    </c:otherwise>
+	  </c:choose>
 
-	    <ui:repeat var="product" value="#{caddieManagedBean.getListCaddie(cc.attrs.userId)}" varStatus="status">
-	
-	      <h:panelGroup  rendered="#{product.nbRows == 1}">
-		  <tr class="tr-caddie-#{status.index + 1}">
-		    <td class="td-right" rowspan="#{product.nbRows}">#{status.index +1}</td>
+	  <ui:repeat var="product" value="#{caddieManagedBean.getListCaddie()}" varStatus="status">
 
-		    <td class="td-right">
-		      <span class="affiche">
-			<img src="img/glass.png" />
-			<span>
-			  <img src="http://image.tmdb.org/t/p/w396/#{product.film.cover}" />
-			</span>
+	    <h:panelGroup  rendered="#{product.nbRows == 1}">
+	      <tr class="tr-caddie-#{status.index + 1}">
+		<td class="td-right" rowspan="#{product.nbRows}">#{status.index +1}</td>
+
+		<td class="td-right">
+		  <span class="affiche">
+		    <img src="img/glass.png" />
+		    <span>
+		      <img src="http://image.tmdb.org/t/p/w396/#{product.film.cover}" />
+		    </span>
+		  </span>
+		</td>
+		<td class="td-right title-film-caddie">   
+		  <a title="Voir la fiche du film" href="fiche_film.xhtml?id=#{product.film.id}">#{product.film.title} (#{product.film.getReleaseDateString("yyyy")})</a>
+		</td>
+		<c:if test="#{!cc.attrs.recap}" >
+		  <td class="td-right" >
+		    <h:form>
+		      <h:commandButton action="#{caddieManagedBean.deleteFromCaddie(product.product.id)}" class="button-delete" value="" title="Enlever du caddie"  />
+		    </h:form>
+		  </td>
+		</c:if>
+		<td class="td-right">#{product.product.price}€</td>
+	      </tr>
+	    </h:panelGroup>
+	    <h:panelGroup  rendered="#{product.nbRows > 1}">
+
+	      <tr class="tr-caddie-#{status.index + 1}">
+
+
+		<td class="td-right" rowspan="#{product.nbRows}">#{status.index +1}</td>
+		<td class="td-invisible"></td>
+		<td class="td-right title-film-caddie">                                                
+		  <a href="fiche_product.xhtml?id=#{product.product.id}"><b>#{product.product.name}</b></a>
+		</td>
+		<c:if test="#{!cc.attrs.recap}" >
+		  <td class="td-right" >
+		    <h:form>
+		      <h:commandButton action="#{caddieManagedBean.deleteFromCaddie(product.product.id)}" class="button-delete" value="" title="Enlever du caddie"  />
+		    </h:form>
+		  </td>
+		</c:if>
+
+		<td class="td-right">#{product.product.price}€</td>
+	      </tr>
+	      <ui:repeat var="film" value="#{product.films}" varStatus="status_film">
+		<tr>
+		  <td class="td-right">
+		    <span class="affiche">
+		      <img src="img/glass.png" />
+		      <span>
+			<img src="http://image.tmdb.org/t/p/w396/#{film.cover}" />
 		      </span>
-		    </td>
-		    <td class="td-right title-film-caddie">   
-		      <a title="Voir la fiche du film" href="fiche_film.xhtml?id=#{product.film.id}">#{product.film.title} (#{product.film.getReleaseDateString("yyyy")})</a>
-		    </td>
-		    <c:if test="#{!cc.attrs.recap}" >
-		      <td class="td-right" >
-			<h:form>
-			  <h:commandButton action="#{caddieManagedBean.deleteFromCaddie(cc.attrs.userId,product.product.id)}" class="button-delete" value="" title="Enlever du caddie"  />
-			</h:form>
-		      </td>
-		    </c:if>
-		    <td class="td-right">#{product.product.price}€</td>
-		  </tr>
-	      </h:panelGroup>
-	      <h:panelGroup  rendered="#{product.nbRows > 1}">
-
-		  <tr class="tr-caddie-#{status.index + 1}">
+		    </span>
+		  </td>
+		  <td class="align-left" colspan="${colspan_film}">   
+		    <a title="Voir la fiche du film" href="fiche_film.xhtml?id=#{film.id}">#{film.title} (#{film.getReleaseDateString("yyyy")})</a>
+		  </td>
+		</tr>
+	      </ui:repeat>
+	    </h:panelGroup>
 
 
-		    <td class="td-right" rowspan="#{product.nbRows}">#{status.index +1}</td>
-		    <td class="td-invisible"></td>
-		    <td class="td-right title-film-caddie">                                                
-		      <a href="fiche_product.xhtml?id=#{product.product.id}"><b>#{product.product.name}</b></a>
-		    </td>
-		    <c:if test="#{!cc.attrs.recap}" >
-		      <td class="td-right" >
-			<h:form>
-			  <h:commandButton action="#{caddieManagedBean.deleteFromCaddie(cc.attrs.userId,product.product.id)}" class="button-delete" value="" title="Enlever du caddie"  />
-			</h:form>
-		      </td>
-		    </c:if>
-
-		    <td class="td-right">#{product.product.price}€</td>
-		  </tr>
-		  <ui:repeat var="film" value="#{product.films}" varStatus="status_film">
-		    <tr>
-		      <td class="td-right">
-			<span class="affiche">
-			  <img src="img/glass.png" />
-			  <span>
-			    <img src="http://image.tmdb.org/t/p/w396/#{film.cover}" />
-			  </span>
-			</span>
-		      </td>
-		      <td class="align-left" colspan="${colspan_film}">   
-			<a title="Voir la fiche du film" href="fiche_film.xhtml?id=#{film.id}">#{film.title} (#{film.getReleaseDateString("yyyy")})</a>
-		      </td>
-		    </tr>
-		  </ui:repeat>
-	      </h:panelGroup>
-
-
-	    </ui:repeat>
-	    <tr>
-	      <td colspan="${colspan_total}" class="td-right align-right">Total :</td>
-	      <td colspan="1">#{caddieManagedBean.getTotalPrice(cc.attrs.userId)}€</td>
-	    </tr>
-	  </table>
-	  <c:if test="#{!cc.attrs.recap}" >
-	    <c:if test="#{caddieManagedBean.counter(cc.attrs.userId) gt 0}" >
-	      <a class="btn btn-success to-right" href="paiement.xhtml">Valider mon caddie</a>
-	    </c:if>
-	  </c:if>
-	</c:otherwise>
-      </c:choose>
+	  </ui:repeat>
+	  <tr>
+	    <td colspan="${colspan_total}" class="td-right align-right">Total :</td>
+	    <td colspan="1">#{caddieManagedBean.getTotalPrice()}€</td>
+	  </tr>
+	</table>
+	<c:if test="#{!cc.attrs.recap}" >
+	  <h:panelGroup rendered="#{caddieManagedBean.counter() gt 0}" >
+	    <a class="btn btn-success to-right" href="paiement.xhtml">Valider mon caddie</a>
+	  </h:panelGroup>
+	</c:if>
+      </h:panelGroup>
     </div>
   </cc:implementation>
 </html>
