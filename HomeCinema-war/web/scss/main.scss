@@ -8,10 +8,24 @@ body {
     margin: 0;
     font-family: $font;
 
-    .footer-title {
-	text-shadow: 1px 1px 1px black;
+    .btn-space {
+	margin-right: 10px;
     }
     
+    .index-box {
+	height: 320px;
+    }
+    
+    .text-sitetitle {
+	font-weight: bold;
+	color: #419641; 
+    }
+    
+    .footer-title {
+	text-shadow: 1px 1px 1px black;
+	margin-top: 0px;
+    }
+
     .footer-list a {
 	color: white !important;
     }
@@ -335,6 +349,10 @@ body {
 	margin-top: -5px;
 	margin-bottom: 10px;
     }
+    
+    .go-top img {
+	margin-bottom: 5px;
+    }
 
     #slider {
 	position: relative;
@@ -408,9 +426,13 @@ body {
 	width: 160px;
 	font-size: 18px;
     }
+    
+    .nav-films ul {
+	list-style: none;
+    }
 
-    #nav-account-left {
-	width: 36%;
+    #nav-page-left {
+	width: 25%;
 	float: left;
 	border-radius: 5px;
 	border: 1px solid grey;
@@ -419,15 +441,15 @@ body {
 	background: -webkit-linear-gradient(left, #cccccc 0%,#eeeeee 100%);
     }
 
-    #nav-account-left p:first-of-type {
+    #nav-page-left p:first-of-type {
 	border-radius: 4px 4px 0px 0px;
     }
 
-    #nav-account-left p:last-of-type {
+    #nav-page-left p:last-of-type {
 	border-radius: 0px 0px 4px 4px;
     }
 
-    #nav-account-left a {
+    #nav-page-left a {
 	display: block;
 	padding: 10px 10px 10px 35px;
 	font-weight: bold;
@@ -435,19 +457,19 @@ body {
 	color: #333;
     }
 
-    #nav-account-left p {
+    #nav-page-left p {
 	margin: 0;
 	padding: 0;
     }
 
-    #nav-account-left a {
+    #nav-page-left a {
 	background-image: url(../img/listarrow.png);
 	background-repeat: no-repeat;
 	background-size: 16px;
 	background-position: 12px 12px; 
     }
 
-    #nav-account-left p:hover {
+    #nav-page-left p:hover {
 	background: -moz-linear-gradient(left, #a5a5a5 0%, #c6c6c6 100%);
 	background: -webkit-gradient(linear, left top, right top, color-stop(0%,#a5a5a5), color-stop(100%,#c6c6c6));
 	background: -webkit-linear-gradient(left, #a5a5a5 0%,#c6c6c6 100%);
@@ -458,9 +480,9 @@ body {
 	background: -webkit-gradient(linear, left top, right top, color-stop(0%,#62a53c), color-stop(100%,#95c640)) !important;
 	background: -webkit-linear-gradient(left, #62a53c 0%,#95c640 100%) !important;
     }
-
+    
     .box-right {
-	width: 62%;
+	width: 73%;
 	border: 1px solid grey;
 	float: right;
 	border-radius: 5px;

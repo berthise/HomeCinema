@@ -13,38 +13,26 @@
 			    <div class="footer-elem col-md-4">
 				<h3 class="footer-title">Top 10</h3>
 				<ul class="footer-list">
-				    <ui:repeat var="o" value="#{listProductsManagedBean.getTopFilms()}">
+				    <ui:repeat var="o" value="#{listProductsManagedBean.getTopProduct()}">
 					<li><a href="fiche_product.xhtml?id=#{o.id}">#{o.name}</a></li>
 				    </ui:repeat>
 				</ul></div>
 			    <div class="footer-elem col-md-4">
 				<h3 class="footer-title">Nouveautés</h3>
 				<ul class="footer-list">
-				    <li>Element du footer</li>
-				    <li>Element du footer</li>
-				    <li>Element du footer</li>
-				    <li>Element du footer</li>
-				    <li>Element du footer</li>
-				    <li>Element du footer</li>
-				    <li>Element du footer</li>
-				    <li>Element du footer</li>
-				    <li>Element du footer</li>
-				    <li>Element du footer</li>
+				    <ui:repeat var="o" value="#{listProductsManagedBean.getNewProduct()}">
+					<li><a href="fiche_product.xhtml?id=#{o.id}">#{o.name}</a></li>
+				    </ui:repeat>
 				</ul>
 			    </div>
 			    <div class="footer-elem col-md-4">
 				<h3 class="footer-title">Liens rapides</h3>
 				<ul class="footer-list">
-				    <li>Element du footer</li>
-				    <li>Element du footer</li>
-				    <li>Element du footer</li>
-				    <li>Element du footer</li>
-				    <li>Element du footer</li>
-				    <li>Element du footer</li>
-				    <li>Element du footer</li>
-				    <li>Element du footer</li>
-				    <li>Element du footer</li>
-				    <li>Element du footer</li>
+				    <li><a href="films.xhtml">Tous les films</a></li>
+				    <li><a href="faq.xhtml">FAQ</a></li>
+				    <li><a href="demo.xhtml">Démo</a></li>
+				    <li><a href="#">Contact</a></li>
+				    <li><a href="#">Plan du site</a></li>
 				</ul>
 			    </div>
 			</div>

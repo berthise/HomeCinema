@@ -67,7 +67,7 @@
 			<div class="navbar-collapse collapse">
 			    <ul class="nav navbar-nav">
 				<li class="#{(active == 'index')? 'active' : ''}"><a href="/HomeCinema-war/"><i class="decale-right glyphicon glyphicon-home"></i> <h:outputText value="#{msg['menu-accueil']}" /></a></li>
-				<li class="#{(active == 'films')? 'active' : ''}"><a href="AllFilms.xhtml"><i class="decale-right glyphicon glyphicon-facetime-video"></i> <h:outputText value="#{msg['menu-films']}" /></a></li>
+				<li class="#{(active == 'films')? 'active' : ''}"><a href="films.xhtml"><i class="decale-right glyphicon glyphicon-facetime-video"></i> <h:outputText value="#{msg['menu-films']}" /></a></li>
 				<li class="#{(active == 'faq')? 'active' : ''}"><a href="faq.xhtml"><i class="decale-right glyphicon glyphicon-info-sign"></i> <h:outputText value="#{msg['menu-faq']}" /></a></li>
 				<li class="#{(active == 'demo')? 'active' : ''}"><a href="demo.xhtml"><i class="decale-right glyphicon glyphicon-wrench"></i> <h:outputText value="#{msg['menu-demo']}" /></a></li>
 				<h:panelGroup rendered="#{loginManagedBean.id != null}">
