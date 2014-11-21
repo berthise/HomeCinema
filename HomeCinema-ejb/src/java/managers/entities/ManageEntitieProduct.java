@@ -36,34 +36,25 @@ public class ManageEntitieProduct {
         public static Comparator<Product> getComparator(OrderTypes ot) {
 	switch (ot) {
 	    case SALES:
-		new Comparator<Product>() {
-		    @Override
-		    public int compare(Product t, Product t1) {
-			return t.getNbSales().compareTo(t1.getNbSales());
-		    }
-		};
-		break;
+		return new comp_sales();
 	    case NEW:
-		new Comparator<Product>() {
-		    @Override
-		    public int compare(Product t, Product t1) {
-			return t.getAddDate().compareTo(t1.getAddDate());
-
-		    }
-		};
-		break;
+		return new comp_sales();
 	    case ALPH:
-		new Comparator<Product>() {
-		    @Override
-		    public int compare(Product t, Product t1) {
-			return t.getName().compareTo(t1.getName());
-		    }
-		};
-		break;
+		return new comp_sales();
+
 	    default:
 		throw new AssertionError(ot.name());
 
 	}
-	return null;
     }
+}
+
+class comp_sales implements Comparator<Product>
+{
+
+    @Override
+    public int compare(Product t, Product t1) {
+	return t.getNbSales().compareTo(t1.getNbSales());
+    }
+    
 }

@@ -146,7 +146,7 @@ public class ManageProduct implements ManageProductRemote {
 	if (sort.equals(OrderTypes.RAND)) {
 	    Collections.shuffle(lpdto);
 	}
-	if (!sort.equals(OrderTypes.NO)) {
+	else if (!sort.equals(OrderTypes.NO)) {
 	    Collections.sort(lpdto, ManageEntitieProduct.getComparator(sort));
 	}
 	if (row == null || row < 0) {
