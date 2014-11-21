@@ -7,6 +7,7 @@ package beans;
 
 import ejbs.Ejbs;
 import dtos.UserDto;
+import dtos.UserDtoNoPw;
 import enums.UserStates;
 import java.io.IOException;
 import java.util.Date;
@@ -26,15 +27,20 @@ import javax.faces.context.FacesContext;
 @SessionScoped
 public class LoginManagedBean {
 
-    private UserDto user;
+    private UserDtoNoPw user;
+    private Integer caddySize;
+    private String password;
 
     public LoginManagedBean() {
 	user = new UserDto();
+	caddySize = 2;
+	password = "";
     }
 
     public void login() {
 	try {
-	    user = Ejbs.user().login(user.email, user.password);
+	  // TOOD UserDtoNoPw
+	    user = (UserDtoNoPw) Ejbs.user().login(user.email, password);
 	    //user = mur.login("rob@mail.net", "password");
 	    FacesMessage message = new FacesMessage("Bienvenue " + user.nickName + " !");
 	    message.setSeverity(FacesMessage.SEVERITY_INFO);
@@ -50,7 +56,7 @@ public class LoginManagedBean {
     public void tmpLogin() {
 	try {
 	    //user = Ejbs.user().login(user.email, user.password);
-	    user = Ejbs.user().login("rob@mail.net", "password");
+	    user = (UserDtoNoPw) Ejbs.user().login("rob@mail.net", "password");
 	    FacesMessage message = new FacesMessage("Bienvenue " + user.nickName + " !");
 	    message.setSeverity(FacesMessage.SEVERITY_INFO);
 	    FacesContext.getCurrentInstance().addMessage(null, message);
@@ -109,11 +115,11 @@ public class LoginManagedBean {
     }
 
     public String getPassword() {
-	return user.password;
+	return this.password;
     }
 
     public void setPassword(String password) {
-	user.password = password;
+	this.password = password;
     }
 
     public String getEmail() {
@@ -149,9 +155,25 @@ public class LoginManagedBean {
     }
 
     public void checkConnected() throws IOException {
-	System.out.println("?????");
 	if (user.id == null) {
 	    FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
 	}
+    }
+    
+    public void checkCaddyPaiement() throws IOException {
+	if (this.caddySize == 0) {
+	    FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
+	}
+    }    
+    public void caddySizePlus() {
+      this.caddySize ++;
+    }
+    
+    public void caddySizeMinus() {
+      this.caddySize --;
+    }
+    
+    public Integer getCaddySize() {
+      return this.caddySize;
     }
 }
