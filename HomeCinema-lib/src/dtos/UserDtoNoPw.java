@@ -19,11 +19,21 @@ import java.util.logging.Logger;
  */
 public class UserDtoNoPw extends SimpleUserDto implements Serializable {
 
+    public Integer getCaddieSize() {
+	return caddieSize;
+    }
+
+    public void setCaddieSize(Integer caddieSize) {
+	this.caddieSize = caddieSize;
+    }
+
   public String firstName;
   public String lastName;
 
   public Date birthDate;
   public Date addDate;
+  
+  public Integer caddieSize;
 
   public String getFirstName() {
     return firstName;

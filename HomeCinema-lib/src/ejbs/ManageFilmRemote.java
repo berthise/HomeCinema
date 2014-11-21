@@ -70,4 +70,6 @@ public interface ManageFilmRemote {
     public ProductDto getMainProduct(long fid);
 
     public void setMain(Long fid, Long pid);
+
+    public List<FilmDto> findFilms(Long actor, Long director, List<Long> lgdto, String str, String year);
 }

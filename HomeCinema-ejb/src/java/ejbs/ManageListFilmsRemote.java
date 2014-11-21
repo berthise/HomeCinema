@@ -6,6 +6,7 @@
 package ejbs;
 
 import dtos.FilmDto;
+import dtos.GenreDto;
 import java.util.Date;
 import java.util.List;
 
@@ -29,5 +30,7 @@ public interface ManageListFilmsRemote {
 
     public List<FilmDto> FilmsOrderedByalph();
     public List<FilmDto> FilmsOrderedByYear() ;
+
+    public List<FilmDto> FindFilmsB(Long actor, Long director, List<GenreDto> lgdto, String str);
 
 }

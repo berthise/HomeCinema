@@ -24,7 +24,6 @@ public interface ManageUserRemote {
     public Long signUp(UserDto user);
     
     public void save(UserDtoNoPw user);
-
     
     public UserDto login(String email, String password);
     
@@ -38,9 +37,11 @@ public interface ManageUserRemote {
     
     public List<FilmDto> getFilms(Long id);
     
-      public  List<TransactionDto> getTransaction (Long user);
+    public  List<TransactionDto> getTransaction (Long user);
 
-    public boolean changePassword(Long user, String oldPass, String newPass);
+    public boolean changePassword(Long id, String oldPassword, String newPassword);
+    
+    public boolean changeEmail(Long id, String email, String newPassword);
 
     public void activate(Long user);
 

@@ -27,131 +27,179 @@ import javax.faces.context.FacesContext;
 public class LoginManagedBean {
 
     private UserDto user;
+    private String newEmail;
+    private String newPassword;
+    private String oldPassword;
 
     public LoginManagedBean() {
-	user = new UserDto();
+        user = new UserDto();
     }
 
     public void login() {
-	try {
-	    user = Ejbs.user().login(user.email, user.password);
-	    //user = mur.login("rob@mail.net", "password");
-	    FacesMessage message = new FacesMessage("Bienvenue " + user.nickName + " !");
-	    message.setSeverity(FacesMessage.SEVERITY_INFO);
-	    FacesContext.getCurrentInstance().addMessage(null, message);
-	} catch (EJBException e) {
-	    FacesMessage message = new FacesMessage("Identifiants incorrects !");
-	    message.setSeverity(FacesMessage.SEVERITY_ERROR);
-	    FacesContext.getCurrentInstance().addMessage(null, message);
-	}
+        try {
+            user = Ejbs.user().login(user.email, user.password);
+            //user = mur.login("rob@mail.net", "password");
+            FacesMessage message = new FacesMessage("Bienvenue " + user.nickName + " !");
+            message.setSeverity(FacesMessage.SEVERITY_INFO);
+            FacesContext.getCurrentInstance().addMessage(null, message);
+        } catch (EJBException e) {
+            FacesMessage message = new FacesMessage("Identifiants incorrects !");
+            message.setSeverity(FacesMessage.SEVERITY_ERROR);
+            FacesContext.getCurrentInstance().addMessage(null, message);
+        }
     }
 
-    
     public void tmpLogin() {
-	try {
-	    //user = Ejbs.user().login(user.email, user.password);
-	    user = Ejbs.user().login("pierre@mail.net", "password");
-	    FacesMessage message = new FacesMessage("Bienvenue " + user.nickName + " !");
-	    message.setSeverity(FacesMessage.SEVERITY_INFO);
-	    FacesContext.getCurrentInstance().addMessage(null, message);
-	} catch (EJBException e) {
-	    FacesMessage message = new FacesMessage("Identifiants incorrects !");
-	    message.setSeverity(FacesMessage.SEVERITY_ERROR);
-	    FacesContext.getCurrentInstance().addMessage(null, message);
-	}
+        try {
+            //user = Ejbs.user().login(user.email, user.password);
+            user = Ejbs.user().login("pierre@mail.net", "password");
+            FacesMessage message = new FacesMessage("Bienvenue " + user.nickName + " !");
+            message.setSeverity(FacesMessage.SEVERITY_INFO);
+            FacesContext.getCurrentInstance().addMessage(null, message);
+        } catch (EJBException e) {
+            FacesMessage message = new FacesMessage("Identifiants incorrects !");
+            message.setSeverity(FacesMessage.SEVERITY_ERROR);
+            FacesContext.getCurrentInstance().addMessage(null, message);
+        }
     }
-	
+
     public void logout() {
 
-	try {
-	    FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Au revoir " + user.nickName + " !", null);
-	    FacesContext.getCurrentInstance().addMessage(null, message);
-	    user = new UserDto();
+        try {
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Au revoir " + user.nickName + " !", null);
+            FacesContext.getCurrentInstance().addMessage(null, message);
+            user = new UserDto();
 
-	    FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
-	    FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
-	} catch (IOException ex) {
-	    Logger.getLogger(LoginManagedBean.class.getName()).log(Level.SEVERE, null, ex);
-	}
-	//return "/HomeCinema-war/?faces-redirect=true";
+            FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
+            FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
+        } catch (IOException ex) {
+            Logger.getLogger(LoginManagedBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //return "/HomeCinema-war/?faces-redirect=true";
+    }
+
+    public void changeEmail() {
+        FacesMessage message;
+        if (Ejbs.user().changeEmail(user.id, newEmail, oldPassword)) {
+            user.setEmail(newEmail);
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Adresse mail changée avec succès", null);
+        } else {
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Mot de passe incorrect !", null);
+        }
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+
+    public void changePassword() {
+        FacesMessage message;
+        if (Ejbs.user().changePassword(user.id, oldPassword, newPassword)) {
+            user.setPassword(newPassword);
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Mot de passe changé avec succès", null);
+        } else {
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Votre ancien mot de passe est incorrect !", null);
+        }
+        FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
     public Long getId() {
-	return user.id;
+        return user.id;
     }
 
     public void setId(Long id) {
-	user.id = id;
+        user.id = id;
     }
 
     public String getNickName() {
-	return user.nickName;
+        return user.nickName;
     }
 
     public void setNickName(String nickName) {
-	user.nickName = nickName.trim();
+        user.nickName = nickName.trim();
     }
 
     public String getFirstName() {
-	return user.firstName;
+        return user.firstName;
     }
 
     public void setFirstName(String firstName) {
-	user.firstName = firstName.trim();
+        user.firstName = firstName.trim();
     }
 
     public String getLastName() {
-	return user.lastName;
+        return user.lastName;
     }
 
     public void setLastName(String lastName) {
-	user.lastName = lastName.trim();
+        user.lastName = lastName.trim();
     }
 
     public String getPassword() {
-	return user.password;
+        return user.password;
     }
 
     public void setPassword(String password) {
-	user.password = password;
+        user.password = password;
     }
 
     public String getEmail() {
-	return user.email;
+        return user.email;
     }
 
     public void setEmail(String email) {
-	user.email = email.trim();
+        user.email = email.trim();
     }
 
     public Date getBirthDate() {
-	return user.birthDate;
+        return user.birthDate;
     }
 
     public void setBirthDate(Date birthDate) {
-	user.birthDate = birthDate;
+        user.birthDate = birthDate;
     }
 
     public Date getAddDate() {
-	return user.addDate;
+        return user.addDate;
     }
 
     public void setAddDate(Date addDate) {
-	user.addDate = addDate;
+        user.addDate = addDate;
     }
 
     public UserStates getState() {
-	return user.state;
+        return user.state;
     }
 
     public void setState(UserStates state) {
-	user.state = state;
+        user.state = state;
+    }
+
+    public String getNewEmail() {
+        return newEmail;
+    }
+
+    public void setNewEmail(String newEmail) {
+        this.newEmail = newEmail;
+    }
+
+    public String getNewPassword() {
+        return newPassword;
+    }
+
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
+    }
+
+    public String getOldPassword() {
+        return oldPassword;
+    }
+
+    public void setOldPassword(String oldPassword) {
+        this.oldPassword = oldPassword;
     }
 
     public void checkConnected() throws IOException {
-	System.out.println("?????");
-	if (user.id == null) {
-	    FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
-	}
+        System.out.println("?????");
+        if (user.id == null) {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
+        }
     }
 }

@@ -92,11 +92,15 @@
 	    <script src="js/vendor/bootstrap.min.js"></script>
 	    <script src="js/main.js"></script>
 
-	    <section class="messages">
-		<h:messages globalOnly="true" infoClass="alert alert-success" errorClass="alert alert-warning"
-			    fatalClass="alert alert-danger" warnClass="alert alert-warning"/>
-		<!--styleClass="alert alert-success"-->
-	    </section>
-	</ui:composition>
+            <div class="messages container">
+                <h:messages globalOnly="true" infoClass="alert alert-success" errorClass="alert alert-danger"
+                            fatalClass="alert alert-danger" warnClass="alert alert-warning">
+                    <button type="button" class="close" data-dismiss="alert">
+                        <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                    </button>
+                </h:messages>
+                <!--styleClass="alert alert-success"-->
+            </div>
+        </ui:composition>
     </h:body>
 </html>
