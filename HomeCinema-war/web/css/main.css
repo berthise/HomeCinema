@@ -3,6 +3,12 @@ body {
   color: #fff;
   margin: 0;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
+  body .footer-title {
+    text-shadow: 1px 1px 1px black; }
+  body .footer-list a {
+    color: white !important; }
+  body .footer-list a:hover {
+    color: #9FF89F !important; }
   body header {
     margin-bottom: 20px;
     margin-top: 0; }
@@ -21,7 +27,7 @@ body {
       background: linear-gradient(to bottom, #fff 0, #eee 100%);
       border-bottom: 3px inset #729d47; }
     body header .decale-right {
-      margin-right: 5px; }
+      margin-right: 7px; }
     body header .userTools {
       z-index: 10000;
       background: -webkit-linear-gradient(left, #111, #666, #666, #666, #111);
@@ -68,6 +74,11 @@ body {
       box-shadow: 2px 2px 3px #080808; }
       body section .exclus .film imghover {
         top: 2px; }
+  body section .exclus a {
+    color: white !important;
+    font-weight: bold; }
+  body section .exclus .film:hover a {
+    color: #9FF89F !important; }
   body section .well {
     color: #333; }
     body section .well .well-title {
@@ -200,7 +211,13 @@ body {
     border-radius: 5px;
     padding: 3px 5px 3px 5px !important;
     color: #333;
-    display: inline; }
+    display: inline;
+    white-space: nowrap; }
+  body .list-genres-crew:hover {
+    background-color: #777;
+    text-decoration: none; }
+  body .info-film-list {
+    line-height: 35px; }
   body .list-genre:hover {
     background-color: #333;
     text-decoration: none;
@@ -211,7 +228,7 @@ body {
   body .go-top {
     float: right;
     margin-top: -5px;
-    margin-bottom: 5px; }
+    margin-bottom: 10px; }
   body #slider {
     position: relative;
     overflow: hidden; }
@@ -435,9 +452,12 @@ body {
     margin-right: 10px; }
   body .box-film-product img {
     margin-right: 5px; }
-  body #lang_fr {
-    margin-right: -15px; }
+  body .lang {
+    padding-left: 10px; }
   body .lang-inactiv {
     opacity: 0.5; }
+  body .forgot {
+    padding-bottom: 10px !important;
+    padding-right: 15px !important; }
 
 /*# sourceMappingURL=main.css.map */

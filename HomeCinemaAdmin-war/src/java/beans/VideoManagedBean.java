@@ -30,20 +30,37 @@ import javax.naming.NamingException;
 @RequestScoped
 public class VideoManagedBean {
 
-    public String getUrl() {
-	return Url;
+    public String getTrailerUrl() {
+	return trailer.url;
     }
 
-    public void setUrl(String Url) {
-	this.Url = Url;
+    public void setTrailerUrl(String trailer) {
+	this.trailer.url = trailer;
+    }
+
+    public Integer getTrailerResolution() {
+	return trailer.resolution;
+    }
+
+    public void setTrailerResolution(Integer trailer) {
+	this.trailer.resolution = trailer;
+    }
+
+    public String getUrl() {
+
+	return vdto.url;
+    }
+
+    public void setUrl(String url) {
+	this.vdto.url = url;
     }
 
     public Integer getResolution() {
-	return resolution;
+	return vdto.resolution;
     }
 
     public void setResolution(Integer resolution) {
-	this.resolution = resolution;
+	this.vdto.resolution = resolution;
     }
 
     public Long getFilm() {
@@ -60,10 +77,8 @@ public class VideoManagedBean {
     private Long film;
     private String title;
     private List<VideoDto> videos;
-    private VideoDto trailer =null;
-    private String Url ="" ;
-    private Integer resolution = 240;
-    
+    private VideoDto trailer =  new VideoDto();
+    private VideoDto vdto = new VideoDto();
 
     public VideoManagedBean() throws NamingException {
 	filmManager = (ManageFilmRemote) new InitialContext().lookup("java:global/HomeCinema/HomeCinema-ejb/ManageFilm!ejbs.ManageFilmRemote");
@@ -75,9 +90,18 @@ public class VideoManagedBean {
 	    FilmFicheDto f = filmManager.getDtoFromId(film);
 	    this.title = f.title;
 	    this.videos = f.files;
-	    this.trailer=f.trailler;
+	    this.trailer = f.trailler;
+	    if (trailer == null) {
+		this.trailer = new VideoDto();
+	    }
+	    if (vdto == null) {
+		this.vdto = new VideoDto();
+		this.vdto.resolution=240;
+		this.vdto.url=" ";
+		this.trailer = new VideoDto();
+	    }
 	} else {
-	    this.title = "tout les films";
+	    this.title = "toutes les videos";
 	    this.videos = videoManager.getAllVideo();
 	}
     }
@@ -98,9 +122,15 @@ public class VideoManagedBean {
 	return this.videos.size();
     }
 
-    public void save()
-    {
-	
+    public void addVideo() {
+	this.filmManager.addVideo(film, vdto);
     }
-    
+
+    public void setTrailer() {
+	if (trailer.id == null) {
+	    this.filmManager.setTrailer(film, trailer);
+	} else {
+	    this.videoManager.mergeOrSave(trailer);
+	}
+    }
 }

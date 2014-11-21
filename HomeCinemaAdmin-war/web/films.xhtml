@@ -17,7 +17,7 @@
             <h2 class="well-title">Films Administration</h2>
             <ul>
                 <li><a href="index.xhtml">Accueil</a></li>
-                <li><a href="film.xhtml">Ajouter un film</a></li>
+                <li><a href="film.xhtml?id=0">Ajouter un film</a></li>
             </ul>
             <div class="alert alert-success">
                 <h:messages globalOnly="true" infoClass="info" />
@@ -45,7 +45,7 @@
                         <f:facet name="header">
                             <h:outputText value="Release" />
                         </f:facet>
-                        <h:outputText value="#{film.release_date}" />
+                        <h:outputText value="#{film.releaseDateString}" />
                     </h:column>
                     <h:column>
                         <f:facet name="header">

@@ -94,7 +94,46 @@
             </h:form>
             <button class="btn btn-primary col-md-3"  value="Load TMDB" onclick="load_tmdb()"> Load TMDB</button>
         </section>
-        <script src="js/users.js"></script>
+        <section>
+
+	    <h:form rendered="#{filmManagedBean.id ne null}">
+                <h:dataTable id="productsTable" value="#{filmManagedBean.products}" var="product" border="1">
+                    <f:facet name="header">
+                        <h:outputText value="Products lists" />
+                    </f:facet>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Id" />
+                        </f:facet>
+                        <h:outputText value="#{product.id}" />
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="name" />
+                        </f:facet>
+                        <a href="product.xhtml?id=#{product.id}">
+                            <h:outputText value="#{product.name}" />
+                        </a>
+                    </h:column>
+		    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Prix" />
+                        </f:facet>
+                        <h:outputText value="#{product.price}" />
+                    </h:column>
+		    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="main" />
+                        </f:facet>
+                        <h:outputText rendered="#{filmManagedBean.isMain(product.id)}"  value="Main" />
+			<h:commandLink rendered="#{!filmManagedBean.isMain(product.id)}"  onclick="return confirm('Are you sure ?')" action="#{filmManagedBean.setMain(product.id)}" value="Set as Main" />
+                    </h:column>
+                    <f:facet name="footer">
+                        <h:outputText value="Total: #{filmManagedBean.total}" />
+                    </f:facet>
+                </h:dataTable>
+            </h:form>
+	</section>
 
     </body>
 </html>

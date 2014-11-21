@@ -6,6 +6,7 @@
 package ejbs;
 
 import dtos.CaddieDto;
+import dtos.PaymentDto;
 import javax.ejb.Remote;
 
 /**
@@ -19,7 +20,7 @@ public interface ManageTransactionRemote {
     
     public CaddieDto addProduct(Long user, Long id);
     
-    public Long validate(Long user);
+    public Long validate(Long user, PaymentDto pdto);
     
     public void validatePayement(Long id,Long btn);
     

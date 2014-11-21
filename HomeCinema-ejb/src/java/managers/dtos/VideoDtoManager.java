@@ -16,6 +16,10 @@ import javax.persistence.EntityManager;
 public class VideoDtoManager {
 
     public static VideoDto getDto(Video v) {
+	if (v==null)
+	{
+	    return null;
+	}
         VideoDto vdto = new VideoDto();
         vdto.id = v.getId();
         vdto.resolution = v.getResolution();

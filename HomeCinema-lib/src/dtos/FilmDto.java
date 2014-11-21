@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -17,6 +18,28 @@ import java.util.logging.Logger;
  * @author titou
  */
 public class FilmDto implements Serializable {
+
+    @Override
+    public int hashCode() {
+	int hash = 3;
+	hash = 97 * hash + Objects.hashCode(this.id);
+	return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+	if (obj == null) {
+	    return false;
+	}
+	if (getClass() != obj.getClass()) {
+	    return false;
+	}
+	final FilmDto other = (FilmDto) obj;
+	if (!Objects.equals(this.id, other.id)) {
+	    return false;
+	}
+	return true;
+    }
 
     public Long id;
     public String title;
@@ -64,24 +87,32 @@ public class FilmDto implements Serializable {
 	return cover;
     }
 
-  public void setRelease_date(Date release_date) {
-    this.release_date = release_date;
-  }
-  
-    public String getReleaseDateString(String formater) {
-    SimpleDateFormat df = new SimpleDateFormat(formater);
-    return df.format(this.release_date);
-  }
-
-  public void setReleaseDateString(String s, String formater) {
-    SimpleDateFormat df = new SimpleDateFormat(formater);
-    try {
-      this.release_date = df.parse(s);
-    } catch (ParseException ex) {
-      this.release_date = new Date();
-      Logger.getLogger(FilmDto.class.getName()).log(Level.SEVERE, null, ex);
+    public void setRelease_date(Date release_date) {
+	this.release_date = release_date;
     }
-  }
+
+    public String getReleaseDateString() {
+	return this.getReleaseDateString("yyyy-MM-dd");
+    }
+
+    public void setReleaseDateString(String s) {
+	setReleaseDateString(s,"yyyy-MM-dd");
+    }
+
+    public String getReleaseDateString(String formater) {
+	SimpleDateFormat df = new SimpleDateFormat(formater);
+	return df.format(this.release_date);
+    }
+
+    public void setReleaseDateString(String s, String formater) {
+	SimpleDateFormat df = new SimpleDateFormat(formater);
+	try {
+	    this.release_date = df.parse(s);
+	} catch (ParseException ex) {
+	    this.release_date = new Date();
+	    Logger.getLogger(FilmDto.class.getName()).log(Level.SEVERE, null, ex);
+	}
+    }
 
     public Date getRelease_date() {
 	return release_date;

@@ -9,6 +9,7 @@ import dtos.CaddieDto;
 import dtos.FilmDto;
 import dtos.ProductDto;
 import dtos.VideoDto;
+import enums.OrderTypes;
 import java.util.List;
 import javax.ejb.Remote;
 
@@ -36,6 +37,12 @@ public interface ManageProductRemote {
     public List<FilmDto> getFilms(Long pid);
     
     public ProductDto getProduct(Long pid);
+
+    public ProductDto mergeOrSave(ProductDto pdto);
+
+    public List<ProductDto> findProducts(Long actor, Long director, List<Long> lgdto, String str, String year);
+
+    public List<ProductDto> getFilteredProducts(Long actor, Long director, List<Long> lgdto, String str, String year, OrderTypes sort, Integer limit, Integer row);
     
     
 }

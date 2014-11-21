@@ -21,7 +21,7 @@ import javax.ejb.Remote;
 @Remote
 public interface ManageUserRemote {
 
-    public void signUp(UserDto user);
+    public Long signUp(UserDto user);
     
     public void save(UserDtoNoPw user);
     
@@ -42,4 +42,9 @@ public interface ManageUserRemote {
     public boolean changePassword(Long id, String oldPassword, String newPassword);
     
     public boolean changeEmail(Long id, String email, String newPassword);
+    public boolean changePassword(Long user, String oldPass, String newPass);
+
+    public void activate(Long user);
+
+    public void deactivate(Long user);
 }

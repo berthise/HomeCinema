@@ -70,8 +70,6 @@ public class AccountManagedBean {
 	}
     }
 
-
-
     public List<List<String>> getListFilms() {
         List<List<String>> toReturn = new ArrayList<>();
         List<FilmDto> list = Ejbs.user().getFilms(idUser);

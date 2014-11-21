@@ -163,7 +163,7 @@ public class JeuDeTestStruct {
 	//achat american beauty
 	System.out.print(rob_user.nickName + " buy : " + ab_product.name);
 	a.getManageTransactionRemote().addProduct(rob_user.id, ab_product.id);
-	Long trans = a.getManageTransactionRemote().validate(rob_user.id);
+	Long trans = a.getManageTransactionRemote().validate(rob_user.id, null);
 	a.getManageTransactionRemote().validatePayement(trans, btn);
 	System.out.println(" ...  done");
     }

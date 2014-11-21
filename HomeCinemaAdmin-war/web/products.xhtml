@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+        <title>Products Administration</title>
+        <meta name="description" content=""/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    </head>
+    <body>
+        <section>
+            <h2 class="well-title">Products Administration</h2>
+            <ul>
+                <li><a href="index.xhtml">Accueil</a></li>
+                <li><a href="product.xhtml?id=0">Ajouter un product</a></li>
+            </ul>
+            <div class="alert alert-success">
+                <h:messages globalOnly="true" infoClass="info" />
+            </div>
+            <h:form>
+                <h:dataTable id="productsTable" value="#{productsManagedBean.products}" var="product" border="1">
+                    <f:facet name="header">
+                        <h:outputText value="Products lists" />
+                    </f:facet>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Id" />
+                        </f:facet>
+                        <h:outputText value="#{product.id}" />
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="name" />
+                        </f:facet>
+                        <a href="product.xhtml?id=#{product.id}">
+                            <h:outputText value="#{product.name}" />
+                        </a>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Add date" />
+                        </f:facet>
+                        <h:outputText value="#{product.addDate}" />
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Prix" />
+                        </f:facet>
+                        <h:outputText value="#{product.price}" />
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Ventes" />
+                        </f:facet>
+                        <h:outputText value="#{product.nbSales}" />
+                    </h:column>
+                    <f:facet name="footer">
+                        <h:outputText value="Total: #{productsManagedBean.total}" />
+                    </f:facet>
+                </h:dataTable>
+            </h:form>
+        </section>
+
+
+    </body>
+</html>

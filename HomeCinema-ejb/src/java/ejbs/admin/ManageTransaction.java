@@ -6,6 +6,7 @@
 package ejbs.admin;
 
 import dtos.CaddieDto;
+import dtos.PaymentDto;
 import ejbs.ManageTransactionRemote;
 import entities.Caddy;
 import entities.Product;
@@ -69,7 +70,7 @@ public class ManageTransaction implements ManageTransactionRemote {
    }
     
     @Override
-    public Long validate(Long user)
+    public Long validate(Long user, PaymentDto pdto)
     {
         User u = em.find(User.class, user);
         Transaction t = new Transaction();
