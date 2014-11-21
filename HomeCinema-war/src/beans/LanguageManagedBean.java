@@ -21,15 +21,9 @@ import javax.faces.event.ValueChangeEvent;
 @SessionScoped
 public class LanguageManagedBean {
 
-    private String localeCode = "fr";
+    private String localeCode;
 
-    private static Map<String, Object> countries;
-
-    static {
-	countries = new LinkedHashMap<String, Object>();
-	countries.put("fr", Locale.FRENCH); //label, value
-	countries.put("en", Locale.ENGLISH);
-    }
+    private final Map<String, Object> countries;
 
     public Map<String, Object> getCountriesInMap() {
 	return countries;
@@ -44,14 +38,6 @@ public class LanguageManagedBean {
     }
 
     public void countryLocaleCodeChanged(String newLocaleValue) {
-	switch (newLocaleValue) {
-	    case "fr":
-		this.lang = Lang.FR;
-		break;
-	    case "en":
-		this.lang = Lang.EN;
-		break;
-	}
 	setLocaleCode(newLocaleValue);
 	
 	for (Map.Entry<String, Object> entry : countries.entrySet()) {
@@ -61,22 +47,18 @@ public class LanguageManagedBean {
 	}
     }
 
-    private enum Lang {
-
-	FR, EN
-    };
-
-    private Lang lang;
-
     public LanguageManagedBean() {
-	lang = Lang.FR;
+	localeCode = "fr";
+	countries = new LinkedHashMap<>();
+	countries.put("fr", Locale.FRENCH);
+	countries.put("en", Locale.ENGLISH);
     }
 
     public boolean isFR() {
-	return lang == Lang.FR;
+	return localeCode.equals("fr");
     }
 
     public boolean isEN() {
-	return lang == Lang.EN;
+	return localeCode.equals("en");
     }
 }
