@@ -80,7 +80,7 @@ public class ManageUser implements ManageUserRemote {
     @Override
     public UserDto login(String email, String password) {
 	Long id = 1L;
-	TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.email = :email AND u.password = :password AND u.state=:active", User.class);
+	TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE (u.email = :email OR u.nickName = :email) AND u.password = :password AND u.state=:active", User.class);
 	query.setParameter("email", email);
 	query.setParameter("password", password);
 	query.setParameter("active", UserStates.Activated);

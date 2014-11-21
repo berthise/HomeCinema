@@ -125,13 +125,8 @@
                         <f:facet name="header">
                             <h:outputText value="main" />
                         </f:facet>
-                        <h:outputText value="#{filmManagedBean.isMain(product.id)}" />
-                    </h:column>
-		    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Set as main" />
-                        </f:facet>
-			<h:commandLink onclick="return confirm('Are you sure ?')" action="#{filmManagedBean.setMain(product.id)}" value="Set as Main" />
+                        <h:outputText rendered="#{filmManagedBean.isMain(product.id)}"  value="Main" />
+			<h:commandLink rendered="#{!filmManagedBean.isMain(product.id)}"  onclick="return confirm('Are you sure ?')" action="#{filmManagedBean.setMain(product.id)}" value="Set as Main" />
                     </h:column>
                     <f:facet name="footer">
                         <h:outputText value="Total: #{filmManagedBean.total}" />
