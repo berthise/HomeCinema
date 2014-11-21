@@ -1,104 +1,108 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html
-  xmlns="http://www.w3.org/1999/xhtml"
-  xmlns:ui="http://java.sun.com/jsf/facelets"
-  xmlns:h="http://java.sun.com/jsf/html"
-  xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
-  xmlns:jsf="http://java.sun.com/jsf"
-  xmlns:f="http://java.sun.com/jsf/core"
-  xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+    xmlns:jsf="http://java.sun.com/jsf"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
 
-  <h:body>
-    <ui:composition>
-      <header>
-        <div id="banner">
-	  <div id="logo">
-	    <a href="/HomeCinema-war/">
-	      <img src="img/logo.png" />
-	    </a>
-	  </div>
-	  <div id="banner-img">
-	    <img src="img/bann.png" />
-	  </div>
-	  <div class="userTools">
-	    <c:choose>
-	      <c:when test="#{loginManagedBean.firstName == null}" >
-		<a href="#" id="login">Connexion</a> | 
-		<a href="signup.xhtml" id="signup">Inscription</a> |
-		<a href="" id="lang_fr"><img src="img/Flag_France.png" title="Français" /></a>
-		<a href="" id="lang_en"><img class="lang-inactiv" src="img/Flag_English.png" title="English" /></a>
-	      </c:when>
-	      <c:otherwise>
-		<span class="decale-right" style="color: white;"> Bienvenue "<b>#{loginManagedBean.firstName}</b>" </span> | 
-		<a href="moncompte.xhtml" title="Voir mon compte"><i class="glyphicon glyphicon-folder-open"></i></a> |
-		<a href="moncompte.xhtml?box=caddie" title="Voir mon caddie"><i class="glyphicon glyphicon-shopping-cart"></i></a> |
-		<h:form>
-		  <h:commandLink action="#{loginManagedBean.logout}" value="Déconnexion" />
-		</h:form> |
-		<a href="" id="lang_fr"><img src="img/Flag_France.png" title="Français" /></a>
-		<a href="" id="lang_en"><img class="lang-inactiv" src="img/Flag_English.png" title="English" /></a>
-	      </c:otherwise>
-	    </c:choose>
-	  </div>
-	  <div class="col-md-2 col-19" id="form-login">
-	    <h:form role="form">
-	      <h:messages for="login" infoClass="info" />
-	      <div class="form-group">
-		<h:inputText p:type="email" id="email" value="#{loginManagedBean.email}" class="form-control input-sm" p:placeholder="Votre adresse mail" />
-	      </div>
-	      <div class="form-group">
-		<h:inputSecret id="password" value="#{loginManagedBean.password}" class="form-control input-sm" p:placeholder="Votre mot de passe" />
-	      </div>
-	      <h:commandButton class="btn btn-success btn-sm btn-block" value="Connexion" action="#{loginManagedBean.login}"/>
-	    </h:form>
-	  </div> <!-- /#form-login -->
-        </div>
-        <!-- Fixed navbar -->
-        <nav class="navbar navbar-default navbar-static-top" role="navigation">
-	  <div class="container">
-	    <div class="navbar-header">
-	      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
-		<span class="sr-only">Toggle navigation</span>
-		<span class="icon-bar"></span>
-		<span class="icon-bar"></span>
-		<span class="icon-bar"></span>
-	      </button>
-	    </div>
-	    <div class="navbar-collapse collapse">
-	      <ul class="nav navbar-nav">
-		<li class="#{(active == null)? 'active' : ''}"><a href="/HomeCinema-war/"><i class="decale-right glyphicon glyphicon-home"></i> Accueil</a></li>
-		<li class="#{(active == 'films')? 'active' : ''}"><a href="AllFilms.xhtml"><i class="decale-right glyphicon glyphicon-facetime-video"></i> Films</a></li>
-		<li class="#{(active == 'faq')? 'active' : ''}"><a href="#autres"><i class="decale-right glyphicon glyphicon-info-sign"></i> FAQ</a></li>
-		<li class="#{(active == 'demo')? 'active' : ''}"><a href="#menu3"><i class="decale-right glyphicon glyphicon-wrench"></i> Demo</a></li>
-		<h:panelGroup rendered="#{loginManagedBean.id != null}">
-		  <li class="#{(active == 'moncompte')? 'active' : ''}"><a href="moncompte.xhtml"><i class="decale-right glyphicon glyphicon-folder-open"></i> Mon compte</a></li>
-		</h:panelGroup>
-	      </ul>
-	      <div class="col-sm-3 col-md-3 pull-right">
-		<form class="navbar-form" role="search" id="search-form">
-		  <div class="input-group">
-		    <input type="search" class="form-control" placeholder="Rechercher un film" name="q"/>
-		    <div class="input-group-btn">
-		      <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
-		    </div>
-		  </div>
-		</form>
-	      </div>
-	    </div><!--/.nav-collapse -->
-	  </div>
-        </nav>
-      </header>
-      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
-      <script src="js/vendor/bootstrap.min.js"></script>
-      <script src="js/main.js"></script>
+    <h:body>
+        <ui:composition>
+            <header>
+                <div id="banner">
+                    <div id="logo">
+                        <a href="/HomeCinema-war/">
+                            <img src="img/logo.png" />
+                        </a>
+                    </div>
+                    <div id="banner-img">
+                        <img src="img/bann.png" />
+                    </div>
+                    <div class="userTools">
+                        <c:choose>
+                            <c:when test="#{loginManagedBean.firstName == null}" >
+                                <a href="#" id="login">Connexion</a> | 
+                                <a href="signup.xhtml" id="signup">Inscription</a> |
+                                <a href="" id="lang_fr"><img src="img/Flag_France.png" title="Français" /></a>
+                                <a href="" id="lang_en"><img class="lang-inactiv" src="img/Flag_English.png" title="English" /></a>
+                            </c:when>
+                            <c:otherwise>
+                                <span class="decale-right" style="color: white;"> Bienvenue "<b>#{loginManagedBean.firstName}</b>" </span> | 
+                                <a href="moncompte.xhtml" title="Voir mon compte"><i class="glyphicon glyphicon-folder-open"></i></a> |
+                                <a href="moncompte.xhtml?box=caddie" title="Voir mon caddie"><i class="glyphicon glyphicon-shopping-cart"></i></a> |
+                                <h:form>
+                                    <h:commandLink action="#{loginManagedBean.logout}" value="Déconnexion" />
+                                </h:form> |
+                                <a href="" id="lang_fr"><img src="img/Flag_France.png" title="Français" /></a>
+                                <a href="" id="lang_en"><img class="lang-inactiv" src="img/Flag_English.png" title="English" /></a>
+                            </c:otherwise>
+                        </c:choose>
+                    </div>
+                    <div class="col-md-2 col-19" id="form-login">
+                        <h:form role="form">
+                            <h:messages for="login" infoClass="info" />
+                            <div class="form-group">
+                                <h:inputText p:type="email" id="email" value="#{loginManagedBean.email}" class="form-control input-sm" p:placeholder="Votre adresse mail" />
+                            </div>
+                            <div class="form-group">
+                                <h:inputSecret id="password" value="#{loginManagedBean.password}" class="form-control input-sm" p:placeholder="Votre mot de passe" />
+                            </div>
+                            <h:commandButton class="btn btn-success btn-sm btn-block" value="Connexion" action="#{loginManagedBean.login}"/>
+                        </h:form>
+                    </div> <!-- /#form-login -->
+                </div>
+                <!-- Fixed navbar -->
+                <nav class="navbar navbar-default navbar-static-top" role="navigation">
+                    <div class="container">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                        </div>
+                        <div class="navbar-collapse collapse">
+                            <ul class="nav navbar-nav">
+                                <li class="#{(active == null)? 'active' : ''}"><a href="/HomeCinema-war/"><i class="decale-right glyphicon glyphicon-home"></i> Accueil</a></li>
+                                <li class="#{(active == 'films')? 'active' : ''}"><a href="AllFilms.xhtml"><i class="decale-right glyphicon glyphicon-facetime-video"></i> Films</a></li>
+                                <li class="#{(active == 'faq')? 'active' : ''}"><a href="#autres"><i class="decale-right glyphicon glyphicon-info-sign"></i> FAQ</a></li>
+                                <li class="#{(active == 'demo')? 'active' : ''}"><a href="#menu3"><i class="decale-right glyphicon glyphicon-wrench"></i> Demo</a></li>
+                                <h:panelGroup rendered="#{loginManagedBean.id != null}">
+                                    <li class="#{(active == 'moncompte')? 'active' : ''}"><a href="moncompte.xhtml"><i class="decale-right glyphicon glyphicon-folder-open"></i> Mon compte</a></li>
+                                </h:panelGroup>
+                            </ul>
+                            <div class="col-sm-3 col-md-3 pull-right">
+                                <form class="navbar-form" role="search" id="search-form">
+                                    <div class="input-group">
+                                        <input type="search" class="form-control" placeholder="Rechercher un film" name="q"/>
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div><!--/.nav-collapse -->
+                    </div>
+                </nav>
+            </header>
+            <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
+            <script src="js/vendor/bootstrap.min.js"></script>
+            <script src="js/main.js"></script>
 
-      <section class="messages">
-	<h:messages globalOnly="true" infoClass="alert alert-success" errorClass="alert alert-warning"
-		    fatalClass="alert alert-danger" warnClass="alert alert-warning"/>
-	 <!--styleClass="alert alert-success"-->
-      </section>
-    </ui:composition>
-  </h:body>
+            <div class="messages container">
+                <h:messages globalOnly="true" infoClass="alert alert-success" errorClass="alert alert-danger"
+                            fatalClass="alert alert-danger" warnClass="alert alert-warning">
+                    <button type="button" class="close" data-dismiss="alert">
+                        <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                    </button>
+                </h:messages>
+                <!--styleClass="alert alert-success"-->
+            </div>
+        </ui:composition>
+    </h:body>
 </html>

@@ -6,118 +6,195 @@
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+    xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
     xmlns:ez="http://xmlns.jcp.org/jsf/composite/ezcomp">
     <h:head>
-	<meta charset="utf-8"/>
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-	<title></title>
-	<meta name="description" content=""/>
-	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+        <title></title>
+        <meta name="description" content=""/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-	<link rel="stylesheet" href="css/bootstrap.min.css"/>
-	<link rel="stylesheet" href="css/bootstrap-theme.min.css"/>
-	<link rel="stylesheet" href="css/main.css"/>
+        <link rel="stylesheet" href="css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="css/bootstrap-theme.min.css"/>
+        <link rel="stylesheet" href="css/main.css"/>
 
-	<f:metadata>
-	    <f:viewParam name="box" value="#{accountManagedBean.initBox}" />
-	    <f:event type="preRenderView" listener="#{loginManagedBean.checkConnected()}"/>
-	    <f:event type="preRenderView" listener="#{accountManagedBean.setIdUser(loginManagedBean.id)}"/>
-	</f:metadata>
+        <f:metadata>
+            <f:viewParam name="box" value="#{accountManagedBean.initBox}" />
+            <f:event type="preRenderView" listener="#{loginManagedBean.checkConnected()}"/>
+            <f:event type="preRenderView" listener="#{accountManagedBean.setIdUser(loginManagedBean.id)}"/>
+        </f:metadata>
 
     </h:head>
     <h:body id="top">
-	<ui:insert name="header" >
-	    <ui:include src="components/header.xhtml">
-		<ui:param name="active" value="moncompte" />
-	    </ui:include>
-	</ui:insert>
-	<section>
-	    <div class="container">
-		<div class="well">
-		    <h2 class="well-title">Mon compte</h2>
+        <ui:insert name="header" >
+            <ui:include src="components/header.xhtml">
+                <ui:param name="active" value="moncompte" />
+            </ui:include>
+        </ui:insert>
+        <section>
+            <div class="container">
+                <div class="well">
+                    <h2 class="well-title">Mon compte</h2>
 
-		    <script>
-			function display(id) {
-			    document.getElementById('box-films').className = "display-none";
-			    document.getElementById('link-films').className = "";
-			    document.getElementById('box-caddie').className = "display-none";
-			    document.getElementById('link-caddie').className = "";
-			    document.getElementById('box-historique').className = "display-none";
-			    document.getElementById('link-historique').className = "";
-			    document.getElementById('box-infos').className = "display-none";
-			    document.getElementById('link-infos').className = "";
-			    document.getElementById('box-' + id).className = "box-right";
-			    document.getElementById('link-' + id).className = "activated";
-			    return false;
-			}
-		    </script> 
+                    <script>
+                        function display(id) {
+                            document.getElementById('box-films').className = "display-none";
+                            document.getElementById('link-films').className = "";
+                            document.getElementById('box-caddie').className = "display-none";
+                            document.getElementById('link-caddie').className = "";
+                            document.getElementById('box-historique').className = "display-none";
+                            document.getElementById('link-historique').className = "";
+                            document.getElementById('box-infos').className = "display-none";
+                            document.getElementById('link-infos').className = "";
+                            document.getElementById('box-' + id).className = "box-right";
+                            document.getElementById('link-' + id).className = "activated";
+                            return false;
+                        }
+                    </script> 
 
-		    <div id="nav-account-left">
-			<h:outputText value="#{accountManagedBean.getHtmlForLink('films', 'Mes films')}" escape="false" />
-			<h:outputText value="#{accountManagedBean.getHtmlForLink('caddie', 'Mon Caddie')}" escape="false" />
-			<h:outputText value="#{accountManagedBean.getHtmlForLink('historique', 'Mon historique')}" escape="false" />
-			<h:outputText value="#{accountManagedBean.getHtmlForLink('infos', 'Mes informations')}" escape="false" />
-		    </div>
+                    <div id="nav-account-left">
+                        <h:outputText value="#{accountManagedBean.getHtmlForLink('films', 'Mes films')}" escape="false" />
+                        <h:outputText value="#{accountManagedBean.getHtmlForLink('caddie', 'Mon Caddie')}" escape="false" />
+                        <h:outputText value="#{accountManagedBean.getHtmlForLink('historique', 'Mon historique')}" escape="false" />
+                        <h:outputText value="#{accountManagedBean.getHtmlForLink('infos', 'Mes informations')}" escape="false" />
+                    </div>
 
-		    <div class="#{accountManagedBean.getClassDisplay('films')}" id="box-films">
-			<h3><img src="img/film-icon.png" title="Films"/>Films</h3>
+                    <div class="#{accountManagedBean.getClassDisplay('films')}" id="box-films">
+                        <h3><img src="img/film-icon.png" title="Films"/>Films</h3>
 
-			<table>
+                        <table>
 
-			    <ui:repeat var="o" value="#{accountManagedBean.getListFilms()}" varStatus="status">
+                            <ui:repeat var="o" value="#{accountManagedBean.getListFilms()}" varStatus="status">
 
-				<c:set var="simple" value="#{o.get(0) eq 'SIMPLE'}" />
-				<c:set var="vide" value="#{o.get(0) eq 'EMPTY'}" />
+                                <c:set var="simple" value="#{o.get(0) eq 'SIMPLE'}" />
+                                <c:set var="vide" value="#{o.get(0) eq 'EMPTY'}" />
 
-				<tr>
+                                <tr>
 
-				    <h:panelGroup rendered="#{vide}">
-					<td>Votre liste de films est vide ... <a href="#">Cliquez ici pour trouver des films !</a></td>                                        
-				    </h:panelGroup>
+                                    <h:panelGroup rendered="#{vide}">
+                                        <td>Votre liste de films est vide ... <a href="#">Cliquez ici pour trouver des films !</a></td>                                        
+                                    </h:panelGroup>
 
-				    <h:panelGroup rendered="#{simple}">
-					<td>
-					    <span class="affiche">
-						<img src="img/glass.png" />
-						<span>
-						    <img src="http://image.tmdb.org/t/p/w396/#{o.get(1)}" />
-						</span>
-					    </span>
-					</td>
-					<td>                 
-					    <a title="Voir la fiche du film" href="fiche_film.xhtml?id=#{o.get(4)}">#{o.get(2)} (#{o.get(3)})</a>
-					</td>
-					<td><a href="visionneuse.xhtml?id=#{o.get(4)}"><img src="img/eye.png" title="Voir le film" /></a></td>
-				    </h:panelGroup>
+                                    <h:panelGroup rendered="#{simple}">
+                                        <td>
+                                            <span class="affiche">
+                                                <img src="img/glass.png" />
+                                                <span>
+                                                    <img src="http://image.tmdb.org/t/p/w396/#{o.get(1)}" />
+                                                </span>
+                                            </span>
+                                        </td>
+                                        <td>                 
+                                            <a title="Voir la fiche du film" href="fiche_film.xhtml?id=#{o.get(4)}">#{o.get(2)} (#{o.get(3)})</a>
+                                        </td>
+                                        <td><a href="visionneuse.xhtml?id=#{o.get(4)}"><img src="img/eye.png" title="Voir le film" /></a></td>
+                                    </h:panelGroup>
 
-				</tr>
+                                </tr>
 
-			    </ui:repeat>
+                            </ui:repeat>
 
-			</table>
-		    </div>
+                        </table>
+                    </div>
 
-		    <div class="#{accountManagedBean.getClassDisplay('caddie')}" id="box-caddie">
-			<ez:caddie title="Caddie" userId="#{loginManagedBean.id}" recap="false"/>
-		    </div>
+                    <div class="#{accountManagedBean.getClassDisplay('caddie')}" id="box-caddie">
+                        <ez:caddie title="Caddie" userId="#{loginManagedBean.id}" recap="false"/>
+                    </div>
 
-		    <div class="#{accountManagedBean.getClassDisplay('historique')}" id="box-historique">
-			<ez:history userId="#{loginManagedBean.id}" />
-		    </div>
+                    <div class="#{accountManagedBean.getClassDisplay('historique')}" id="box-historique">
+                        <ez:history userId="#{loginManagedBean.id}" />
+                    </div>
 
-		    <div class="#{accountManagedBean.getClassDisplay('infos')}" id="box-infos">
-			<h3><img src="img/info-icon.png" title="Informations"/>Informations</h3>
-		    </div>
+                    <div class="#{accountManagedBean.getClassDisplay('infos')}" id="box-infos">
+                        <h3><img src="img/info-icon.png" title="Informations"/>Informations</h3>
 
-		    <div id="bottom">
-			<a class="go-top" href="#top" title="Vers le haut"><img src="img/arrowUp.png" /></a>                        
-		    </div>                        
-		</div>
+                        <a href="#" id="edit_mail" class="toggle-btn">Changer mon adresse mail</a>
 
-	    </div>
-	</section>
-	<ui:insert name="footer" >
-	    <ui:include src="components/footer.xhtml" />
-	</ui:insert>
+                        <div class="row toggle-row">
+                            <div class="col-md-10">
+                                <h:form role="form">
+                                    <h:messages id="output" globalOnly="true" infoClass="alert alert-success" errorClass="alert alert-warning"
+                                                fatalClass="alert alert-danger" warnClass="alert alert-warning" />
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <h:outputLabel class="col-md-5 form-label" for="email">Email <i class="required">*</i> : </h:outputLabel>
+                                            <div class="col-md-7">
+                                                <h:inputText p:type="email" id="newEmail" class="form-control" value="#{loginManagedBean.newEmail}" p:placeholder="Adresse e-mail" p:required="required" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <h:outputLabel class="col-md-5 form-label" for="password">Mot de passe <i class="required">*</i> : </h:outputLabel>
+                                            <div class="col-md-7">
+                                                <h:inputSecret id="oldPassword" class="form-control" value="#{loginManagedBean.oldPassword}" p:placeholder="Mot de passe" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin-top: 5px">
+                                        <span class="col-md-5"></span>
+                                        <div class="col-md-7">
+                                            <h:commandButton class="btn btn-primary" value="Changer mon email" action="#{loginManagedBean.changeEmail}">
+                                                <f:ajax execute="@form" render="output" />
+                                            </h:commandButton>
+                                        </div>
+                                    </div>
+                                </h:form>
+                            </div>
+                        </div>
+                        <br /><a href="#" id="edit_mail" class="toggle-btn">Changer de mot de passe</a>
+                        <div class="row toggle-row">
+                            <div class="col-md-10">
+                                <h:form>
+                                    <h:messages id="output" globalOnly="true" infoClass="alert alert-success" errorClass="alert alert-warning"
+                                                fatalClass="alert alert-danger" warnClass="alert alert-warning" />
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <h:outputLabel class="col-md-5 form-label" for="newPassword">Nouveau mot de passe <i class="required">*</i> : </h:outputLabel>
+                                            <div class="col-md-7">
+                                                <h:inputSecret id="newPassword" class="form-control" value="#{loginManagedBean.newPassword}" p:placeholder="Mot de passe" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <h:outputLabel class="col-md-5 form-label" for="conf_pass">Confirmation mot de passe <i class="required">*</i> : </h:outputLabel>
+                                            <div class="col-md-7">
+                                                <h:inputSecret id="conf_password" class="form-control" p:placeholder="Confirmation mot de passe" p:required="required" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <h:outputLabel class="col-md-5 form-label" for="oldPassword">Ancien mot de passe <i class="required">*</i> : </h:outputLabel>
+                                            <div class="col-md-7">
+                                                <h:inputSecret id="oldPassword" class="form-control" value="#{loginManagedBean.oldPassword}" p:placeholder="Ancien mot de passe" p:required="required" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin-top: 5px">
+                                        <span class="col-md-5"></span>
+                                        <div class="col-md-7">
+                                            <h:commandButton class="btn btn-primary" value="Changer de mot de passe" action="#{loginManagedBean.changePassword}">
+                                                <f:ajax execute="@form" render="output" />
+                                            </h:commandButton>
+                                        </div>
+                                    </div>
+                                </h:form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="bottom">
+                        <a class="go-top" href="#top" title="Vers le haut"><img src="img/arrowUp.png" /></a>                        
+                    </div>                        
+                </div>
+            </div>
+        </section>
+        <script src="js/moncompte.js"></script>
+        <ui:insert name="footer" >
+            <ui:include src="components/footer.xhtml" />
+        </ui:insert>
     </h:body>
 </html>

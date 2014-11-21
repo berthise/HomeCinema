@@ -7,7 +7,6 @@ package main;
 
 import dtos.FilmDto;
 import dtos.ProductDto;
-import dtos.SimpleUserDto;
 import dtos.UserDto;
 import dtos.VideoDto;
 import java.io.IOException;
@@ -15,7 +14,6 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.JSONException;
