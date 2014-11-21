@@ -47,7 +47,7 @@ body {
     body header #form-login {
       z-index: 10000;
       display: none;
-      position: absolute;
+      position: fixed;
       right: 0;
       top: 20px;
       background: -webkit-linear-gradient(left, #111, #666, #666, #666, #111);
@@ -58,6 +58,10 @@ body {
       background: #ADD881; }
     body header .navbar-collapse .pull-right {
       margin-right: -30px; }
+  body .messages ul {
+    margin: 0;
+    padding: 0;
+    list-style: none; }
   body #search-form input[type="search"] {
     padding: 6px 6px; }
   body section .well-exclus {
@@ -112,6 +116,10 @@ body {
       margin: 0 15px; }
     body section .form-signin i.required {
       color: red; }
+  body section .toggle-row {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display: none; }
   body footer .footer-elem {
     margin: auto;
     text-align: center; }

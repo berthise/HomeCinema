@@ -3,7 +3,6 @@ $font: "Helvetica Neue",Helvetica,Arial,sans-serif;
 $font-color: #333;
 body {
     background: $background;
-
     color: #fff;
     margin: 0;
     font-family: $font;
@@ -65,7 +64,7 @@ body {
         #form-login {            
             z-index: 10000;
             display: none;
-            position: absolute;
+            position: fixed;
             right: 0; top: 20px;
             background: $background;
             padding: 10px;
@@ -81,6 +80,12 @@ body {
         }
         .navbar-collapse .pull-right {
             margin-right: -30px; 
+        }
+    }
+    .messages {
+        ul {
+            margin: 0; padding: 0;
+            list-style: none;
         }
     }
     #search-form {
@@ -162,6 +167,11 @@ body {
             i.required {
                 color: red;
             }
+        }
+        .toggle-row {
+            margin-top: 5px;
+            margin-bottom: 5px;
+            display: none;
         }
     }
     footer {

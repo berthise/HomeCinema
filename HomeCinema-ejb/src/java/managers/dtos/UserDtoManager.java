@@ -34,16 +34,16 @@ public class UserDtoManager {
     }
 
     public static User createUser(UserDtoNoPw udto) {
-	User u = new User();
-	u.setId(udto.id);
-	u.setEmail(udto.email);
-	u.setNickName(udto.nickName);
-	u.setFirstName(udto.firstName);
-	u.setLastName(udto.lastName);
-	u.setBirthDate(udto.birthDate);
-	u.setAddDate(new Date());
-	u.setState(UserStates.Deactivated);
-	return u;
+        User u = new User();
+        u.setId(udto.id);
+        u.setEmail(udto.email);
+        u.setNickName(udto.nickName);
+        u.setFirstName(udto.firstName);
+        u.setLastName(udto.lastName);
+        u.setBirthDate(udto.birthDate);
+        u.setAddDate(new Date());
+        u.setState(UserStates.Pending);
+        return u;
     }
 
     public static SimpleUserDto getSimpleDto(User u) {

@@ -42,7 +42,7 @@ public class ManageUser implements ManageUserRemote {
     @Override
     public Long signUp(UserDto udto) {
 	udto.addDate = new Date();
-	udto.state = UserStates.Unactived;
+	udto.state = UserStates.Pending;
 	User u = UserDtoManager.createUser(udto);
 	em.persist(u);
 	return u.getId();
@@ -141,15 +141,26 @@ public class ManageUser implements ManageUserRemote {
     }
 
     @Override
-    public boolean changePassword(Long user, String oldPass, String newPass) {
-	User u = em.find(User.class, user);
-	if (!u.getPassword().equals(oldPass)) {
-	    return false;
-	} else {
-	    u.setPassword(newPass);
-	    em.merge(u);
-	    return true;
-	}
+    public boolean changePassword(Long id, String oldPassword, String newPassword) {
+        User u = em.find(User.class, id);
+        if (!u.getPassword().equals(oldPassword)) {
+            return false;
+        } else {
+            u.setPassword(newPassword);
+            em.merge(u);
+            return true;
+        }
     }
 
+    @Override
+    public boolean changeEmail(Long id, String email, String newPassword) {
+        User u = em.find(User.class, id);
+        if (!u.getPassword().equals(newPassword)) {
+            return false;
+        } else {
+            u.setEmail(email);
+            em.merge(u);
+            return true;
+        }
+    }
 }
