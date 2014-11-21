@@ -114,6 +114,116 @@ public class JeuDeTestStructActivation {
 	     ********************** */
 
 	    /* **********************
+	     * create Juno videos film and product 
+	     */
+	    VideoDto j_video = createAndPushVideo(a, 240,
+		    "http://geekompagny.ddns.net/ECOM/FightClubFilm.mp4");
+	    VideoDto j_trailer = createAndPushVideo(a, 240,
+		    "http://geekompagny.ddns.net/ECOM/FightClubTrailer.mp4");
+	    FilmDto j_film = createAndPushFilm(a, 7326L, j_video.id, j_trailer.id);
+	    ProductDto j_product = createAndPushProduct(a, j_film, "Juno", 6.0, true);
+	    /*
+	     ********************** */
+
+	    /* **********************
+	     * create sw1 videos film and product 
+	     */
+	    VideoDto sw1_video = createAndPushVideo(a, 240,
+		    "http://geekompagny.ddns.net/ECOM/FightClubFilm.mp4");
+	    VideoDto sw1_trailer = createAndPushVideo(a, 240,
+		    "http://geekompagny.ddns.net/ECOM/FightClubTrailer.mp4");
+	    FilmDto sw1_film = createAndPushFilm(a, 1893L, sw1_video.id, sw1_trailer.id);
+	    ProductDto sw1_product = createAndPushProduct(a, sw1_film, "Star Wars I", 6.0, true);
+	    /*
+	     ********************** */
+
+	    /* **********************
+	     * create sw2 videos film and product 
+	     */
+	    VideoDto sw2_video = createAndPushVideo(a, 240,
+		    "http://geekompagny.ddns.net/ECOM/FightClubFilm.mp4");
+	    VideoDto sw2_trailer = createAndPushVideo(a, 240,
+		    "http://geekompagny.ddns.net/ECOM/FightClubTrailer.mp4");
+	    FilmDto sw2_film = createAndPushFilm(a, 1894L, sw2_video.id, sw2_trailer.id);
+	    ProductDto sw2_product = createAndPushProduct(a, sw2_film, "Star wars II", 6.0, true);
+	    /*
+	     ********************** */
+
+	    /* **********************
+	     * create sw3 videos film and product 
+	     */
+	    VideoDto sw3_video = createAndPushVideo(a, 240,
+		    "http://geekompagny.ddns.net/ECOM/FightClubFilm.mp4");
+	    VideoDto sw3_trailer = createAndPushVideo(a, 240,
+		    "http://geekompagny.ddns.net/ECOM/FightClubTrailer.mp4");
+	    FilmDto sw3_film = createAndPushFilm(a, 1895L, sw3_video.id, sw3_trailer.id);
+	    ProductDto sw3_product = createAndPushProduct(a, sw3_film, "Star Wars III", 6.0, true);
+	    /*
+	     ********************** */
+
+	    /* **********************
+	     * create Star Wars trilogie product 
+	     */
+	    ArrayList<FilmDto> swp_films = new ArrayList<>();
+	    swp_films.add(sw1_film);
+	    swp_films.add(sw2_film);
+	    swp_films.add(sw3_film);
+	    ProductDto swp_product = createAndPushProduct(a, swp_films, "Star Wars Prelogie", 25.0, false);
+	    /*
+	     ********************** */
+
+	    /* **********************
+	     * create Star Wars trilogie product 
+	     */
+	    ArrayList<FilmDto> swa_films = new ArrayList<>();
+	    swa_films.add(sw1_film);
+	    swa_films.add(sw2_film);
+	    swa_films.add(sw3_film);
+	    swa_films.add(sw4_film);
+	    swa_films.add(sw5_film);
+	    swa_films.add(sw6_film);
+	    ProductDto swt_product = createAndPushProduct(a, swa_films, "Star Wars", 45.0, false);
+	    /*
+	     ********************** */
+
+	    /* **********************
+	     * create requiem for a dream videos film and product 
+	     */
+	    VideoDto rd_video = createAndPushVideo(a, 240,
+		    "http://geekompagny.ddns.net/ECOM/FightClubFilm.mp4");
+	    VideoDto rd_trailer = createAndPushVideo(a, 240,
+		    "http://geekompagny.ddns.net/ECOM/FightClubTrailer.mp4");
+	    FilmDto rd_film = createAndPushFilm(a, 641L, rd_video.id, rd_trailer.id);
+	    ProductDto rd_product = createAndPushProduct(a, rd_film, "Requieme for a dream", 11.0, true);
+	    /*
+	     ********************** */
+
+	    /* **********************
+	     * create shawshank redemption videos film and product 
+	     */
+	    VideoDto sr_video = createAndPushVideo(a, 240,
+		    "http://geekompagny.ddns.net/ECOM/FightClubFilm.mp4");
+	    VideoDto sr_trailer = createAndPushVideo(a, 240,
+		    "http://geekompagny.ddns.net/ECOM/FightClubTrailer.mp4");
+	    FilmDto sr_film = createAndPushFilm(a, 278L, sr_video.id, sr_trailer.id);
+	    ProductDto sr_product = createAndPushProduct(a, sr_film, "The Shawshank Redemption", 11.0, true);
+	    /*
+	     ********************** */
+
+	    
+	    	    /* **********************
+	     * create american history X videos film and product 
+	     */
+	    VideoDto ah_video = createAndPushVideo(a, 240,
+		    "http://geekompagny.ddns.net/ECOM/FightClubFilm.mp4");
+	    VideoDto ah_trailer = createAndPushVideo(a, 240,
+		    "http://geekompagny.ddns.net/ECOM/FightClubTrailer.mp4");
+	    FilmDto ah_film = createAndPushFilm(a, 73L, ah_video.id, ah_trailer.id);
+	    ProductDto ah_product = createAndPushProduct(a, ah_film, "American History X", 11.0, true);
+	    /*
+	     ********************** */
+	    
+	    /* **********************
 	     * create users: robin, seb, pierre, narjes et abdou
 	     */
 	    UserDto rob_user = createAndPushUser(a, "rob", "rob@mail.net", "Jean-Robin", "Grandchamp", true);

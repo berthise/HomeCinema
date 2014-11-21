@@ -59,7 +59,7 @@ public class Admin {
         fdto.title = (String) json.get("title");
         fdto.cover = (String) json.get("poster_path");
         fdto.runtime = (int) json.get("runtime");
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         fdto.release_date = formatter.parse((String) json.get("release_date"));
         fdto.overview = (String) json.get("overview");
         fdto.rating = (Double) json.get("vote_average");
