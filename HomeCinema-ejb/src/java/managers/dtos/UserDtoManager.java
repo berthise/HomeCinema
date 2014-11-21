@@ -84,6 +84,11 @@ public class UserDtoManager {
 	udto.birthDate = u.getBirthDate();
 	udto.addDate = u.getAddDate();
 	udto.state = u.getState();
+	if (u.getCaddy() != null) {
+	    udto.caddieSize = u.getCaddy().getProducts().size();
+	} else {
+	    udto.caddieSize = 0;
+	}
 	return udto;
     }
 
