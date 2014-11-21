@@ -6,6 +6,7 @@
 package ejbs.admin;
 
 import dtos.FilmDto;
+import dtos.GenreDto;
 import ejbs.ManageListFilmsRemote;
 import entities.Film;
 import java.util.ArrayList;
@@ -33,27 +34,17 @@ public class ManageListFilms implements ManageListFilmsRemote {
     ArrayList<FilmDto> listFilmDto = new ArrayList<>();
 
     Query q = em.createQuery("From Film f", Film.class);
-//    int i = 0;
     List<Film> listfilms = q.getResultList();
     for (Film f : listfilms) {
       FilmDto fdto = FilmDtoManager.getDto(f);
       listFilmDto.add(fdto);
     }
-//    while (i < listfilms.size()) {
-//      FilmDto fdto = new FilmDto();
-//      Film f = listfilms.get(i);
-//      fdto.setId(f.getId());
-//      fdto.title = f.getTitle() + listfilms.size();
-//      fdto.cover = f.getCoverId();
-//      listFilmDto.add(fdto);
-//      i++;
-//    }
 
     return listFilmDto;
   }
 
-  @Override
-  public List<FilmDto> FindFilmsByActor(String actorName) {
+
+  public List<FilmDto> FindFilmsB(String actorName) {
     ArrayList<FilmDto> listFilmDto = new ArrayList<>();
 
     Query q = em.createQuery("FROM APP.FILMS AS T1 \n"
@@ -64,21 +55,13 @@ public class ManageListFilms implements ManageListFilmsRemote {
 	    + "        WHERE T1.ID_Film = T2.ID_PERSON AND  T2.FIRST_NAME='" + actorName + "' \n"
 	    + "    ); ");
 
-//    int i = 0;
+
     List<Film> listfilms = q.getResultList();
     for (Film f : listfilms) {
       FilmDto fdto = FilmDtoManager.getDto(f);
       listFilmDto.add(fdto);
     }
-//    while (i < listfilms.size()) {
-//      FilmDto fdto = new FilmDto();
-//      Film f = listfilms.get(i);
-//      fdto.setId(f.getId());
-//      fdto.title = f.getTitle() + listfilms.size();
-//      fdto.cover = f.getCoverId();
-//      listFilmDto.add(fdto);
-//      i++;
-//    }
+
 
     return listFilmDto;
   }
@@ -100,18 +83,6 @@ public class ManageListFilms implements ManageListFilmsRemote {
       listFilmDto.add(fdto);
     }
 
-//    int i = 0;
-//    List<Film> listfilms = q.getResultList();
-//
-//    FilmDto fdto = new FilmDto();
-//    while (i < listfilms.size()) {
-//      Film f = listfilms.get(i);
-//      fdto.id = f.getId();
-//      fdto.title = f.getTitle();
-//      fdto.overview = f.getOverview();
-//      fdto.cover = f.getCoverId();
-//      listFilmDto.add(fdto);
-//    }
     return listFilmDto;
   }
 
@@ -127,17 +98,6 @@ public class ManageListFilms implements ManageListFilmsRemote {
       FilmDto fdto = FilmDtoManager.getDto(f);
       listFilmDto.add(fdto);
     }
-//    int i = 0;
-//    List<Film> listfilms = q.getResultList();
-//    while (i < listfilms.size()) {
-//      FilmDto fdto = new FilmDto();
-//      Film f = listfilms.get(i);
-//      fdto.setId(f.getId());
-//      fdto.title = f.getTitle() + listfilms.size();
-//      fdto.cover = f.getCoverId();
-//      listFilmDto.add(fdto);
-//      i++;
-//    }
 
     return listFilmDto;
   }
@@ -146,29 +106,14 @@ public class ManageListFilms implements ManageListFilmsRemote {
   public List<FilmDto> FindTopN(Integer N) {
 
     Query q = em.createQuery("SELECT * FROM APP.FILMS ORDER BY RATING DESC LIMIT " + N + ";");
-    // em.createQuery(
-    //      "select object(o) from Films as o", Film.class);
-    
+
        List<FilmDto> listFilmDto = new ArrayList<>();
     List<Film> listfilms = q.getResultList();
     for (Film f : listfilms) {
       FilmDto fdto = FilmDtoManager.getDto(f);
       listFilmDto.add(fdto);
     }
-//    List<FilmDto> listFilmDto = new ArrayList<>();
-//    int i = 0;
-//    List<Film> listfilms = q.getResultList();
-//
-//    FilmDto fdto = new FilmDto();
-//    while (i < listfilms.size()) {
-//      Film f = listfilms.get(i);
-//      fdto.id = f.getId();
-//      fdto.title = f.getTitle();
-//      fdto.overview = f.getOverview();
-//      fdto.cover = f.getCoverId();
-//      listFilmDto.add(fdto);
-//      i++;
-//    }
+
 
     return listFilmDto;
 
@@ -188,4 +133,14 @@ public class ManageListFilms implements ManageListFilmsRemote {
   public List<FilmDto> FilmsOrderedByYear() {
     throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
   }
+
+    @Override
+    public List<FilmDto> FindFilmsByActor(String actorName) {
+	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<FilmDto> FindFilmsB(Long actor, Long director, List<GenreDto> lgdto, String str) {
+	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

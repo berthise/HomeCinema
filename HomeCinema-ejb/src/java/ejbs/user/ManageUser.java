@@ -77,6 +77,8 @@ public class ManageUser implements ManageUserRemote {
 	return res;
     }
 
+
+    //TODO userDto => userDtoNoPw
     @Override
     public UserDto login(String email, String password) {
 	Long id = 1L;
