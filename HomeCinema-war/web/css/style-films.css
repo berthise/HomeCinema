@@ -1,0 +1,38 @@
+@charset 'UTF-8';
+
+.table-cover-film {
+    position: relative;
+    top: 10px;
+    width: 100px;
+    border-radius: 3px;
+    box-shadow: 1px 1px 1px grey;
+}
+
+.table-borderless, .table-borderless td, .table-borderless tr {
+    border: none !important;
+}
+
+.table-borderless td {
+    width: 25%;
+    vertical-align: top;
+}
+
+.table-borderless td:hover .table-td-background {
+    background: #ddd;
+    text-decoration: none;
+}
+
+.table-td-background {
+    display: inline-block;
+    background: #f1f1f1;
+}
+
+.table-title-film {
+    margin-top: 20px;
+    font-weight: bold;
+    padding-bottom: 8px;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-bottom: 0px;
+    color: #333;
+}

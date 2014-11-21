@@ -27,15 +27,15 @@
 
     </h:head>
     <h:body id="top">
-        <ui:insert name="header" >
-            <ui:include src="components/header.xhtml">
-                <ui:param name="active" value="moncompte" />
-            </ui:include>
-        </ui:insert>
-        <section>
-            <div class="container">
-                <div class="well">
-                    <h2 class="well-title">Mon compte</h2>
+	<ui:insert name="header" >
+	    <ui:include src="components/header.xhtml">
+		<ui:param name="active" value="moncompte" />
+	    </ui:include>
+	</ui:insert>
+	<section>
+	    <div class="container">
+		<div class="well">
+		    <h2 class="well-title"><strong>Mon compte</strong></h2>
 
                     <script>
                         function display(id) {
@@ -53,12 +53,12 @@
                         }
                     </script> 
 
-                    <div id="nav-account-left">
-                        <h:outputText value="#{accountManagedBean.getHtmlForLink('films', 'Mes films')}" escape="false" />
-                        <h:outputText value="#{accountManagedBean.getHtmlForLink('caddie', 'Mon Caddie')}" escape="false" />
-                        <h:outputText value="#{accountManagedBean.getHtmlForLink('historique', 'Mon historique')}" escape="false" />
-                        <h:outputText value="#{accountManagedBean.getHtmlForLink('infos', 'Mes informations')}" escape="false" />
-                    </div>
+		    <div id="nav-page-left" class="nav-account">
+			<h:outputText value="#{accountManagedBean.getHtmlForLink('films', 'Mes films')}" escape="false" />
+			<h:outputText value="#{accountManagedBean.getHtmlForLink('caddie', 'Mon Caddie')}" escape="false" />
+			<h:outputText value="#{accountManagedBean.getHtmlForLink('historique', 'Mon historique')}" escape="false" />
+			<h:outputText value="#{accountManagedBean.getHtmlForLink('infos', 'Mes informations')}" escape="false" />
+		    </div>
 
                     <div class="#{accountManagedBean.getClassDisplay('films')}" id="box-films">
                         <h3><img src="img/film-icon.png" title="Films"/>Films</h3>

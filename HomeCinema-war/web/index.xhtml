@@ -29,29 +29,27 @@
 		<c:if test="#{loginManagedBean.firstName == null}">
 		    <div class="row">
 			<div class="col-md-7">
-			    <div class="well">
+			    <div class="well index-box">
 				<h2 class="well-title"><h:outputText value="#{msg['index-welcome']}" /></h2>
-				<p>
-				    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do 
-				    eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut 
-				    enim ad minim veniam, quis nostrud exercitation ullamco laboris 
-				    nisi. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do 
-				    eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut 
-				    enim ad minim veniam, quis nostrud exercitation ullamco laboris 
-				    nisi ...
+				<p class="text-justify">
+				    <span class="text-sitetitle">HomeCinéma</span> est un site de vente de films accessible en streaming et en téléchargement. 
+				    Ce site vous propose une grande variété de films de toutes les époques et de tous les genres. Vous trouverez également
+				    des pack de films vous offrant des superbes réductions sur une liste de films ! Sur <span class="text-sitetitle">HomeCinéma</span>, un film acheté est disponible à vie !
 				</p>
-				<a href="#">FAQ</a><br />
-				<a href="#">Demo</a>
-				<hr />
+				<p class="text-justify">
+				    Pour plus d'informations sur le fonctionnement de <span class="text-sitetitle">HomeCinéma</span>, n'hésitez pas à regarde la vidéo de <a href="demo.xhtml">démonstration</a>. 
+				    Si vous avez besoin d'aide, rendez-vous sur la page <a href="faq.xhtml">FAQ</a>.
+				    <p>Inscrivez-vous dès maintenant :</p>
+				</p>
 				<center>
-				    <a href="login.xhtml" class="btn btn-success btn-lg">Connexion</a>
+				    <a href="login.xhtml" class="btn btn-success btn-lg btn-space">Connexion</a>
 				    <a href="signup.xhtml" class="btn btn-primary btn-lg">Inscription</a>
 				</center>
 			    </div>
 			</div>
 			<div class="col-md-5">
-			    <div class="well">
-				<h2 class="well-title">Demo</h2>
+			    <div class="well index-box">
+				<h2 class="well-title">Démonstration</h2>
 				<video id="myVideo" width="100%" height="212px" controls="controls">
 				    <source src="http://techslides.com/demos/sample-videos/small.mp4" type="video/mp4" />
 				</video>
@@ -70,7 +68,7 @@
 			</h1>
 			<hr />
 			<h:panelGroup id="panel-random">
-			    <ui:repeat var="o" value="#{listFilmBean.getSelectionFilms(6)}">
+			    <ui:repeat var="o" value="#{listProductsManagedBean.getSelectionFilms(6)}">
 				<div class="col-md-2 col-sm-6 col-xs-12 film">
 				    <a href="fiche_film.xhtml?id=#{o.id}">
 					<img class="cover" src="http://image.tmdb.org/t/p/w300/#{o.cover}" />

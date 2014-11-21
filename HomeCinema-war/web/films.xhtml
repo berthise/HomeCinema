@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+	<meta charset="utf-8"/>
+	<meta http-equiv="X-UA-Compatible" />
+	<title>Display films </title>
+	<meta name="description" content=""/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+	<link rel="stylesheet" href="css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="css/bootstrap-theme.min.css"/>
+	<link rel="stylesheet" href="css/main.css"/>
+	<link rel="stylesheet" href="css/style-films.css"/>
+
+	<f:metadata>
+	    <f:viewParam name="s" value="#{listProductsManagedBean.initBox}" />
+	</f:metadata>
+
+    </h:head>
+
+    <h:body>
+	<ui:insert name="header" >
+	    <ui:include src="components/header.xhtml">
+		<ui:param name="active" value="films" />
+	    </ui:include>
+	</ui:insert>
+	<section>
+	    <div class="container">
+		<div class="well">
+		    <h2 class="well-title"><strong>Films</strong></h2>
+
+		    <div id="nav-page-left">
+			<h:form id="form-random">
+			    <p class="#{((listProductsManagedBean.initBox eq 'all')? 'activated' : '')}">
+				<h:commandLink value="Tous les films" action="#{listProductsManagedBean.changeInitBox('all')}">
+				    <f:ajax execute="@form" render=":form-random :panel-random" />
+				</h:commandLink>
+			    </p>
+			    <p class="#{((listProductsManagedBean.initBox eq 'top')? 'activated' : '')}">
+				<h:commandLink value="Top 50" action="#{listProductsManagedBean.changeInitBox('top')}">
+				    <f:ajax execute="@form" render=":form-random :panel-random" />
+				</h:commandLink>
+			    </p>
+			    <p class="#{((listProductsManagedBean.initBox eq 'new')? 'activated' : '')}">
+				<h:commandLink value="Nouveautés" action="#{listProductsManagedBean.changeInitBox('new')}">
+				    <f:ajax execute="@form" render=":form-random :panel-random" />
+				</h:commandLink>
+			    </p>
+			</h:form>
+
+
+
+
+
+			<!--
+			<hr/>
+
+			<div id="nav-search">
+			    <h:form>
+				<h:outputLabel value="Année :"/><h:inputText />
+			    </h:form>
+			    <h:form>
+				<h:outputLabel value="Réalisateur :"/><h:inputText />
+			    </h:form>
+			    <h:form>
+				<h:outputLabel value="Acteurs :"/><h:inputText />
+			    </h:form>
+			</div>
+   
+			-->
+
+		    </div>
+
+		    <div class="box-right">
+			<h3><img src="img/list-icon.png" title="Produits"/>Liste des produits</h3>
+
+			<h:panelGroup id="panel-random">
+			    <ui:repeat var="o" value="#{listProductsManagedBean.getSelectionFilms(6)}">
+				<div class="col-md-2 col-sm-6 col-xs-12 film">
+				    <a href="fiche_film.xhtml?id=#{o.id}">
+					<img class="cover" src="http://image.tmdb.org/t/p/w300/#{o.cover}" />
+					<span class="film_title">#{o.title}</span>
+				    </a>
+				</div>
+			    </ui:repeat>
+			</h:panelGroup>
+
+			<table class="table-borderless">
+			    <tr>
+				<td>
+				    <a class="table-td-background" href="#">					
+					<img class="table-cover-film" src="http://image.tmdb.org/t/p/w396//hpt3aa5i0TrSAnEdl3VJrRrje8C.jpg" title="Fight Club"/>				    
+					<p class="table-title-film">Fighdg dgd gdg dg dg dg dgd gd g t Club the 6 last revenger of mormon double wrif</p>
+				    </a>				
+				</td>
+
+				<td>
+				    <a class="table-td-background" href="#">					
+					<img class="table-cover-film" src="http://image.tmdb.org/t/p/w396//hpt3aa5i0TrSAnEdl3VJrRrje8C.jpg" title="Fight Club"/>				    
+					<p class="table-title-film">Fighdg dgd gdg dg dg dg dgd gd g t Club the 6 last revenger of mormon double wrif</p>
+				    </a>				
+				</td>
+
+				<td>
+				    <a class="table-td-background" href="#">					
+					<img class="table-cover-film" src="http://image.tmdb.org/t/p/w396//hpt3aa5i0TrSAnEdl3VJrRrje8C.jpg" title="Fight Club"/>				    
+					<p class="table-title-film">Fighdg dgd gdg dg dg dg dgd gd g t Club the 6 last revenger of mormon double wrif</p>
+				    </a>				
+				</td>
+
+				<td>
+				    <a class="table-td-background" href="#">					
+					<img class="table-cover-film" src="http://image.tmdb.org/t/p/w396//hpt3aa5i0TrSAnEdl3VJrRrje8C.jpg" title="Fight Club"/>				    
+					<p class="table-title-film">Fighdg dgd gdg dg dg dg dgd gd g t Club the 6 last revenger of mormon double wrif</p>
+				    </a>				
+				</td>
+			    </tr>
+
+			    <tr>
+				<td>
+				    <a class="table-td-background" href="#">					
+					<img class="table-cover-film" src="http://image.tmdb.org/t/p/w396//hpt3aa5i0TrSAnEdl3VJrRrje8C.jpg" title="Fight Club"/>				    
+					<p class="table-title-film">Fighdg dgd gdg dg dg dg dgd gd g t Club the 6 last revenger of mormon double wrif</p>
+				    </a>				
+				</td>
+
+				<td>
+				    <a class="table-td-background" href="#">					
+					<img class="table-cover-film" src="http://image.tmdb.org/t/p/w396//hpt3aa5i0TrSAnEdl3VJrRrje8C.jpg" title="Fight Club"/>				    
+					<p class="table-title-film">Fighdg dgd gdg dg dg dg dgd gd g t Club the 6 last revenger of mormon double wrif</p>
+				    </a>				
+				</td>
+
+				<td>
+				    <a class="table-td-background" href="#">					
+					<img class="table-cover-film" src="http://image.tmdb.org/t/p/w396//hpt3aa5i0TrSAnEdl3VJrRrje8C.jpg" title="Fight Club"/>				    
+					<p class="table-title-film">Fighdg dgd gdg dg dg dg dgd gd g t Club the 6 last revenger of mormon double wrif</p>
+				    </a>				
+				</td>
+			    </tr>
+			</table>
+
+
+
+
+		    </div>
+
+		    <div id="bottom">
+			<a class="go-top" href="#top" title="Vers le haut"><img src="img/arrowUp.png" /></a>                        
+		    </div>
+
+		</div>
+
+	    </div>
+	</section>
+
+	<!--<ui:insert name="header" >
+	<ui:include src="components/header.xhtml" />
+      </ui:insert>
+      <aside >
+	<div id="wrapper">
+	    <div id="sidebar">
+		<header>
+		    <h2 align="center">Chercher un produit</h2>
+		</header>
+		<form method="post" action="#">
+		    <input id="search_ID" type="text" class="text" name="search" placeholder="Search" />
+		</form>
+
+		<nav id="nav">
+		    <ul>
+			<li><a href="#">Top 50</a></li>
+			<li><a href="#">Nouveautés</a></li>
+			<li><a href="#">Tous les films</a></li>
+		    </ul>
+		</nav>
+
+
+		<section>
+		    <header>
+			<h2 align="center">Recherche avancée</h2>
+		    </header>
+		    <ul>
+			<h3>Acteurs</h3>
+			<h3>Catégorie</h3>
+			<h3>Année</h3>
+
+		    </ul>
+
+		</section>
+	    </div>
+
+	</div>
+	</aside>
+	<section>
+	    <article> 
+		<div class="row exclus"> 
+		    <c:forEach var="row" items="#{listFilmBean.allFilms}"  > 
+			<div class="col-md-2  col-xs-12 film">
+			    <a href="fiche_film.xhtml?id= #{row.id}" >  
+				<img   class="cover" 
+				       src="http://image.tmdb.org/t/p/w154/#{row.cover}" 
+				       title="#{row.title}"/></a>
+			    <h:outputText value="Title: " />
+			    <h:outputText value="#{row.title}" />
+			</div>
+		    </c:forEach> 
+		</div>
+
+
+
+
+
+	    </article>
+	</section>-->
+	<ui:insert name="footer" >
+	    <ui:include src="components/footer.xhtml" />
+	</ui:insert>
+    </h:body>
+
+</html>
