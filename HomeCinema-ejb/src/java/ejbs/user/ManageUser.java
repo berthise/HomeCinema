@@ -42,7 +42,7 @@ public class ManageUser implements ManageUserRemote {
     @Override
     public Long signUp(UserDto udto) {
 	udto.addDate = new Date();
-	udto.state = UserStates.Unactived;
+	udto.state = UserStates.Pending;
 	User u = UserDtoManager.createUser(udto);
 	em.persist(u);
 	return u.getId();
