@@ -50,7 +50,7 @@ public class LoginManagedBean {
     public void tmpLogin() {
 	try {
 	    //user = Ejbs.user().login(user.email, user.password);
-	    user = Ejbs.user().login("pierre@mail.net", "password");
+	    user = Ejbs.user().login("rob@mail.net", "password");
 	    FacesMessage message = new FacesMessage("Bienvenue " + user.nickName + " !");
 	    message.setSeverity(FacesMessage.SEVERITY_INFO);
 	    FacesContext.getCurrentInstance().addMessage(null, message);
