@@ -28,13 +28,14 @@ import javax.faces.context.FacesContext;
 public class LoginManagedBean {
 
     private UserDtoNoPw user;
-    private Integer caddySize;
     private String password;
+    private String newEmail;
+    private String oldPassword;
+    private String newPassword;
+
 
     public LoginManagedBean() {
 	user = new UserDto();
-	caddySize = 2;
-	password = "";
     }
 
     public void login() {
@@ -95,7 +96,7 @@ public class LoginManagedBean {
     public void changePassword() {
         FacesMessage message;
         if (Ejbs.user().changePassword(user.id, oldPassword, newPassword)) {
-            user.setPassword(newPassword);
+           // user.setPassword(newPassword);
             message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Mot de passe changé avec succès", null);
         } else {
             message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Votre ancien mot de passe est incorrect !", null);
@@ -206,19 +207,19 @@ public class LoginManagedBean {
     }
     
     public void checkCaddyPaiement() throws IOException {
-	if (this.caddySize == 0) {
+	if (user.caddieSize == 0) {
 	    FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
 	}
     }    
     public void caddySizePlus() {
-      this.caddySize ++;
+      user.caddieSize ++;
     }
     
     public void caddySizeMinus() {
-      this.caddySize --;
+      user.caddieSize --;
     }
     
     public Integer getCaddySize() {
-      return this.caddySize;
+      return user.caddieSize;
     }
 }
