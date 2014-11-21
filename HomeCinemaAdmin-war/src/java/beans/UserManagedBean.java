@@ -101,7 +101,7 @@ public class UserManagedBean {
   }
 
   public String getBirthDateString() {
-    SimpleDateFormat df = new SimpleDateFormat("yy-MM-dd");
+    SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
     return df.format(user.birthDate);
   }
 
@@ -110,7 +110,7 @@ public class UserManagedBean {
   }
 
     public void setBirthDateString(String s) {
-    SimpleDateFormat df = new SimpleDateFormat("yy-MM-dd");
+    SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
     try {
       user.birthDate = df.parse(s);
     } catch (ParseException ex) {
