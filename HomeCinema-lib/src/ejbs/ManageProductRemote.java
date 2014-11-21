@@ -40,7 +40,6 @@ public interface ManageProductRemote {
 
     public ProductDto mergeOrSave(ProductDto pdto);
 
-    public List<ProductDto> findProducts(Long actor, Long director, List<Long> lgdto, String str, String year);
 
     /**
      *
@@ -54,7 +53,7 @@ public interface ManageProductRemote {
      * @param row row de depart null=>0
      * @return film correspondant a tous les critéres précedents , empty si aucun 
      */
-    public List<ProductDto> getFilteredProducts(Long actor, Long director, List<Long> lgdto, String str, String year, OrderTypes sort, Integer limit, Integer row);
+    public List<ProductDto> getFilteredProducts(Long actor, Long director, List<Long> lgdto, String str, String year, OrderTypes sort, Integer limit, Integer row,boolean main);
     
     
 }

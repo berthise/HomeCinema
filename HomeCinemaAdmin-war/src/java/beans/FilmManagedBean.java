@@ -6,6 +6,7 @@
 package beans;
 
 import dtos.FilmDto;
+import dtos.GenreDto;
 import dtos.ProductDto;
 import dtos.UserDtoNoPw;
 import ejbs.ManageFilmRemote;
@@ -38,11 +39,24 @@ import javax.naming.NamingException;
 @SessionScoped
 public class FilmManagedBean {
 
+    public Set<GenreDto> getGenres() {
+	return genres;
+    }
+
+    public void setGenres(Set<GenreDto> genres) {
+	this.genres = genres;
+    }
+
+    public Integer getTotalGenre() {
+	return genres.size();
+    }
+
     private ManageFilmRemote filmManager;
 
     public FilmDto fdto;
     public Set<ProductDto> products;
     public ProductDto main;
+    public Set<GenreDto> genres;
 
     public FilmManagedBean() throws NamingException {
 	filmManager = (ManageFilmRemote) new InitialContext().lookup("java:global/HomeCinema/HomeCinema-ejb/ManageFilm!ejbs.ManageFilmRemote");
@@ -55,10 +69,12 @@ public class FilmManagedBean {
 	    fdto = f;
 	    products = filmManager.getProducts(fdto.id);
 	    main = filmManager.getMainProduct(fdto.id);
+	    genres = this.filmManager.getGenre(fdto.id);
 	} else {
 	    fdto = new FilmDto();
 	    products = new HashSet<>();
 	    main = new ProductDto();
+	    genres = new HashSet<>();
 	}
 
     }

@@ -134,6 +134,31 @@
                 </h:dataTable>
             </h:form>
 	</section>
+    <section>
+
+	    <h:form rendered="#{filmManagedBean.id ne null}">
+                <h:dataTable id="productsTable" value="#{filmManagedBean.genres}" var="genre" border="1">
+                    <f:facet name="header">
+                        <h:outputText value="Genre lists" />
+                    </f:facet>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Id" />
+                        </f:facet>
+                        <h:outputText value="#{genre.id}" />
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="name" />
+                        </f:facet>
+                            <h:outputText value="#{genre.name}" />
+                    </h:column>
+                    <f:facet name="footer">
+                        <h:outputText value="Total: #{filmManagedBean.totalgenre}" />
+                    </f:facet>
+                </h:dataTable>
+            </h:form>
+	</section>
 
     </body>
 </html>

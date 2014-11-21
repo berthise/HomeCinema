@@ -61,37 +61,7 @@ public class ProductDtoManager {
 	return p;
     }
 
-    public static Comparator<ProductDto> getComparator(OrderTypes ot) {
-	switch (ot) {
-	    case SALES:
-		new Comparator<ProductDto>() {
-		    @Override
-		    public int compare(ProductDto t, ProductDto t1) {
-			return t.nbSales.compareTo(t1.nbSales);
-		    }
-		};
-		break;
-	    case NEW:
-		new Comparator<ProductDto>() {
-		    @Override
-		    public int compare(ProductDto t, ProductDto t1) {
-			return t.addDate.compareTo(t1.addDate);
 
-		    }
-		};
-		break;
-	    case ALPH:
-		new Comparator<ProductDto>() {
-		    @Override
-		    public int compare(ProductDto t, ProductDto t1) {
-			return t.name.compareTo(t1.name);
-		    }
-		};
-		break;
-	    default:
-		throw new AssertionError(ot.name());
-
-	}
-	return null;
-    }
+    
+    
 }

@@ -119,34 +119,35 @@ public class ManageProduct implements ManageProductRemote {
 	return ProductDtoManager.getDto(ProductDtoManager.mergeOrSave(pdto, em));
     }
 
-    @Override
-    public List<ProductDto> findProducts(Long actor, Long director, List<Long> lgdto, String str, String year) {
+    private List<Product> findProducts(Long actor, Long director, List<Long> lgdto, String str, String year, boolean main) {
 	Query q = em.createQuery("From Product p", Product.class);
 	List<Product> lp = q.getResultList();
-	List<ProductDto> res = new ArrayList<>();
+	List<Product> res = new ArrayList<>();
 
 	for (Product p : lp) {
-	    boolean add = false;
-	    for (Film f : p.getFilms()) {
-		if (ManageEntitieFilm.filterFilm(f, actor, director, lgdto, str, year, em)) {
-		    add = true;
+	    if (!main || p.getFilms().size() == 1) {
+		boolean add = false;
+		for (Film f : p.getFilms()) {
+		    if (ManageEntitieFilm.filterFilm(f, actor, director, lgdto, str, year, em)) {
+			add = true;
+		    }
 		}
-	    }
-	    if (add) {
-		res.add(ProductDtoManager.getDto(p));
+		if (add) {
+		    res.add(p);
+		}
 	    }
 	}
 	return res;
     }
 
     @Override
-    public List<ProductDto> getFilteredProducts(Long actor, Long director, List<Long> lgdto, String str, String year, OrderTypes sort, Integer limit, Integer row) {
-	List<ProductDto> lpdto = this.findProducts(actor, director, lgdto, str, year);
+    public List<ProductDto> getFilteredProducts(Long actor, Long director, List<Long> lgdto, String str, String year, OrderTypes sort, Integer limit, Integer row, boolean main) {
+	List<Product> lpdto = this.findProducts(actor, director, lgdto, str, year, main);
 	if (sort.equals(OrderTypes.RAND)) {
 	    Collections.shuffle(lpdto);
 	}
 	if (!sort.equals(OrderTypes.NO)) {
-	    Collections.sort(lpdto, ProductDtoManager.getComparator(sort));
+	    Collections.sort(lpdto, ManageEntitieProduct.getComparator(sort));
 	}
 	if (row == null || row < 0) {
 	    row = 0;
@@ -160,6 +161,12 @@ public class ManageProduct implements ManageProductRemote {
 	if (limit <= row) {
 	    return new ArrayList<>();
 	}
-	return lpdto.subList(row, row + limit);
+
+	lpdto.subList(row, row + limit);
+	List<ProductDto> res = new ArrayList<>();
+	for (Product p : lpdto) {
+	    res.add(ProductDtoManager.getDto(p));
+	}
+	return res;
     }
 }

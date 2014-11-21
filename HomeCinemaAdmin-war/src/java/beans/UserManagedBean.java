@@ -53,7 +53,6 @@ public class UserManagedBean {
   }
 
   public void save() {
-    user.addDate = new Date();
     userManager.save(user);
     FacesMessage message = new FacesMessage("Succès de la modification !");
     FacesContext.getCurrentInstance().addMessage(null, message);

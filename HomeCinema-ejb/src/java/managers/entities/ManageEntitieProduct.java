@@ -8,7 +8,9 @@ package managers.entities;
 import dtos.ProductDto;
 import entities.Film;
 import entities.Product;
+import enums.OrderTypes;
 import enums.ProductStates;
+import java.util.Comparator;
 import javax.persistence.EntityManager;
 import managers.dtos.ProductDtoManager;
 
@@ -29,5 +31,39 @@ public class ManageEntitieProduct {
         p.setState(ProductStates.Activated);
         em.persist(p);
         return p;
+    }
+    
+        public static Comparator<Product> getComparator(OrderTypes ot) {
+	switch (ot) {
+	    case SALES:
+		new Comparator<Product>() {
+		    @Override
+		    public int compare(Product t, Product t1) {
+			return t.getNbSales().compareTo(t1.getNbSales());
+		    }
+		};
+		break;
+	    case NEW:
+		new Comparator<Product>() {
+		    @Override
+		    public int compare(Product t, Product t1) {
+			return t.getAddDate().compareTo(t1.getAddDate());
+
+		    }
+		};
+		break;
+	    case ALPH:
+		new Comparator<Product>() {
+		    @Override
+		    public int compare(Product t, Product t1) {
+			return t.getName().compareTo(t1.getName());
+		    }
+		};
+		break;
+	    default:
+		throw new AssertionError(ot.name());
+
+	}
+	return null;
     }
 }
