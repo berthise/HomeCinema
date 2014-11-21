@@ -91,14 +91,15 @@ public class VideoManagedBean {
 	    this.title = f.title;
 	    this.videos = f.files;
 	    this.trailer = f.trailler;
-/*	    if (trailer == null) {
+	    if (trailer == null) {
 		this.trailer = new VideoDto();
 	    }
 	    if (vdto == null) {
 		this.vdto = new VideoDto();
 		this.vdto.resolution=240;
 		this.vdto.url=" ";
-	    }*/
+		this.trailer = new VideoDto();
+	    }
 	} else {
 	    this.title = "toutes les videos";
 	    this.videos = videoManager.getAllVideo();

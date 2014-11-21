@@ -54,10 +54,10 @@ public class FilmManagedBean {
 	    FilmDto f = filmManager.getFilmFromId(fdto.id);
 	    fdto = f;
 	    products = filmManager.getProducts(fdto.id);
-	    main= filmManager.getMainProduct(fdto.id);
+	    main = filmManager.getMainProduct(fdto.id);
 	} else {
 	    fdto = new FilmDto();
-	    products= new HashSet<>();
+	    products = new HashSet<>();
 	    main = new ProductDto();
 	}
 
@@ -151,19 +151,20 @@ public class FilmManagedBean {
     public void setProducts(Set<ProductDto> array) {
 	this.products = array;
     }
-    
-    public Integer getTotal()
-    {
+
+    public Integer getTotal() {
 	return products.size();
     }
-    
-    public boolean isMain(Long pid)
-    {
-	return Objects.equals(pid, main.getId());
+
+    public boolean isMain(Long pid) {
+	if (main == null) {
+	    return false;
+	} else {
+	    return Objects.equals(pid, main.getId());
+	}
     }
-    
-    public void setMain(Long pid)
-    {
+
+    public void setMain(Long pid) {
 	this.filmManager.setMain(fdto.id, pid);
     }
 }
