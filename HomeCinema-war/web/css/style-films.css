@@ -36,3 +36,9 @@
     margin-bottom: 0px;
     color: #333;
 }
+
+.films-loader {
+    float: right;
+    margin-top: 3px;
+    display: none;
+}

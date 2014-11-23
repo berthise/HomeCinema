@@ -5,6 +5,7 @@
  */
 package beans;
 
+import com.sun.faces.util.CollectionsUtils;
 import ejbs.Ejbs;
 import dtos.FilmDto;
 import dtos.ProductDto;
@@ -68,19 +69,22 @@ public class ListProductsManagedBean {
 	List<ProductDto> list = Ejbs.product().getFilteredProducts(null, null, null, null, null, OrderTypes.NO, null, null, true);
 	return splitListFilmDto(list);
     }
-    
+
     private List<List<ProductDto>> getAllProducts() {
-	List<ProductDto> list = Ejbs.product().getFilteredProducts(null, null, null, null, null, OrderTypes.NO, null, null, false);
-	return splitListFilmDto(list);
+	List<ProductDto> list1 = Ejbs.product().getFilteredProducts(null, null, null, null, null, OrderTypes.NO, null, null, false);
+	List<ProductDto> list2 = Ejbs.product().getFilteredProducts(null, null, null, null, null, OrderTypes.NO, null, null, true);
+	list1.removeAll(list2);
+	return splitListFilmDto(list1);
+
     }
 
     private List<List<ProductDto>> getNewFilms() {
 	List<ProductDto> list = Ejbs.product().getFilteredProducts(null, null, null, null, null, OrderTypes.NEW, 10, null, false);
 	return splitListFilmDto(list);
     }
-    
+
     private List<List<ProductDto>> getTopFilms() {
-	List<ProductDto> list = Ejbs.product().getFilteredProducts(null, null, null, null, null, OrderTypes.SALES, 10, null, false);
+	List<ProductDto> list = Ejbs.product().getFilteredProducts(null, null, null, null, null, OrderTypes.RATING, 10, null, false);
 	return splitListFilmDto(list);
     }
 

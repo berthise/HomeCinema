@@ -7,6 +7,10 @@ body {
     margin: 0;
     font-family: $font;
 
+    .navbar-noborder {
+	border: 1px solid #333 !important;
+    }
+    
     .btn-space {
 	margin-right: 10px;
     }
