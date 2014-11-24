@@ -22,7 +22,7 @@ and open the template in the editor.
 	<link rel="stylesheet" href="css/style-films.css"/>
 
 	<f:metadata>
-	    <f:viewParam name="s" value="#{listProductsManagedBean.initBox}" />
+	    <f:viewParam name="s" value="#{tabsManagedBean.tabFilms}" />
 	</f:metadata>
 
     </h:head>
@@ -36,7 +36,7 @@ and open the template in the editor.
 
 	<script>
 	    function loader(id) {
-		document.getElementById('loader-'+id).style.display='inline';
+		document.getElementById('loader-' + id).style.display = 'inline';
 	    }
 	</script>
 
@@ -47,27 +47,27 @@ and open the template in the editor.
 
 		    <div id="nav-page-left">
 			<h:form id="form-random">
-			    <p class="#{((listProductsManagedBean.initBox eq 'all')? 'activated' : '')}">
+			    <p class="#{((tabsManagedBean.getTabFilms() eq 'all')? 'activated' : '')}">
 				<h:commandLink onclick="javascript:loader('all');" value="Tous les films" action="#{listProductsManagedBean.changeInitBox('all')}">
-				    <f:ajax execute="@form" render=":form-random :panel-random" />
+				    <f:ajax listener="#{tabsManagedBean.setTabFilms('all')}" execute="@form" render=":form-random :panel-random" />
 				    <img id="loader-all" class="films-loader" src="img/loader.gif"/>
 				</h:commandLink>
 			    </p>
-			    <p class="#{((listProductsManagedBean.initBox eq 'pack')? 'activated' : '')}">
+			    <p class="#{((tabsManagedBean.getTabFilms() eq 'pack')? 'activated' : '')}">
 				<h:commandLink onclick="javascript:loader('pack');" value="Tous les packs" action="#{listProductsManagedBean.changeInitBox('pack')}">
-				    <f:ajax execute="@form" render=":form-random :panel-random" />
+				    <f:ajax listener="#{tabsManagedBean.setTabFilms('pack')}" execute="@form" render=":form-random :panel-random" />
 				    <img id="loader-pack" class="films-loader" src="img/loader.gif"/>
 				</h:commandLink>
 			    </p>
-			    <p class="#{((listProductsManagedBean.initBox eq 'top')? 'activated' : '')}">
+			    <p class="#{((tabsManagedBean.getTabFilms() eq 'top')? 'activated' : '')}">
 				<h:commandLink onclick="javascript:loader('top');" value="Top 50" action="#{listProductsManagedBean.changeInitBox('top')}">
-				    <f:ajax execute="@form" render=":form-random :panel-random" />
+				    <f:ajax listener="#{tabsManagedBean.setTabFilms('top')}" execute="@form" render=":form-random :panel-random" />
 				    <img id="loader-top" class="films-loader" src="img/loader.gif"/>
 				</h:commandLink>
 			    </p>
-			    <p class="#{((listProductsManagedBean.initBox eq 'new')? 'activated' : '')}">
+			    <p class="#{((tabsManagedBean.getTabFilms() eq 'new')? 'activated' : '')}">
 				<h:commandLink onclick="javascript:loader('new');" value="Nouveautés" action="#{listProductsManagedBean.changeInitBox('new')}">
-				    <f:ajax execute="@form" render=":form-random :panel-random" />
+				    <f:ajax listener="#{tabsManagedBean.setTabFilms('new')}" execute="@form" render=":form-random :panel-random" />
 				    <img id="loader-new" class="films-loader" src="img/loader.gif"/>
 				</h:commandLink>
 			    </p>
