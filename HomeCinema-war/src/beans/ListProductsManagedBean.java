@@ -5,11 +5,12 @@
  */
 package beans;
 
-import com.sun.faces.util.CollectionsUtils;
+import beans.SearchProductsManagedBean.SearchParams;
 import ejbs.Ejbs;
 import dtos.FilmDto;
 import dtos.ProductDto;
 import enums.OrderTypes;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -19,37 +20,77 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 /**
  *
  * @author narcisse
  */
 @ManagedBean
-@ViewScoped
+@SessionScoped
 public class ListProductsManagedBean {
 
-    private String initBox;
+    private final List<String> listTabsFilms;
+    private String tabFilms;
 
-    public void setInitBox(String b) {
-	String[] ref = {"all", "top", "new", "pack"};
-	List<String> list = Arrays.asList(ref);
-	if (!list.contains(b) || b == null) {
-	    b = ref[0];
+    private final int OPEN = 0;
+    private final int OPENING = 1;
+    private final int CLOSING = 2;
+    private final int CLOSE = 3;
+    private Integer searchOpened;
+
+    public Integer getSearchOpened() {
+	if (searchOpened == OPENING) {
+	    searchOpened = OPEN;
+	    return CLOSE;
+	} else if (searchOpened == CLOSING) {
+	    searchOpened = CLOSE;
+	    return OPEN;
+	} else {
+	    return searchOpened;
 	}
-	initBox = b;
     }
 
-    public void changeInitBox(String b) {
-	this.initBox = b;
+    public void setSearchOpened(Integer searchOpened) {
+	this.searchOpened = searchOpened;
     }
 
-    public String getInitBox() {
-	return initBox;
+    public String getTabFilms() {
+	return tabFilms;
+    }
+
+    public void setTabFilms(String tabFilms) throws IOException {
+	if (!(tabFilms == null || !listTabsFilms.contains(tabFilms))) {
+	    if (tabFilms.equals("searchLOCALE") && searchOpened == CLOSE) {
+		searchOpened = OPENING;
+	    } else if (!tabFilms.equals("searchLOCALE") && tabFilms.endsWith("LOCALE") && searchOpened == OPEN) {
+		searchOpened = CLOSING;
+	    } else if (tabFilms.equals("search")) {
+		searchOpened = OPEN;
+	    } else {
+		searchOpened = CLOSE;
+	    }
+
+	    if (tabFilms.endsWith("LOCALE")) {
+		this.tabFilms = tabFilms.split("LOCALE")[0];
+	    } else {
+		this.tabFilms = tabFilms;
+	    }
+	} else {
+	    this.tabFilms = listTabsFilms.get(0);
+	    searchOpened = CLOSE;
+	}
+	if (!FacesContext.getCurrentInstance().isPostback()) {
+	    FacesContext.getCurrentInstance().getExternalContext().redirect("films.xhtml");
+	}
     }
 
     public ListProductsManagedBean() {
-	this.initBox = "all";
+	String[] ref1 = {"all", "allLOCALE", "top", "topLOCALE", "new", "newLOCALE", "pack", "packLOCALE", "search", "searchLOCALE"};
+	listTabsFilms = Arrays.asList(ref1);
+	tabFilms = "all";
+	searchOpened = CLOSE;
     }
 
     private List<List<ProductDto>> splitListFilmDto(List<ProductDto> l) {
@@ -75,7 +116,6 @@ public class ListProductsManagedBean {
 	List<ProductDto> list2 = Ejbs.product().getFilteredProducts(null, null, null, null, null, OrderTypes.NO, null, null, true);
 	list1.removeAll(list2);
 	return splitListFilmDto(list1);
-
     }
 
     private List<List<ProductDto>> getNewFilms() {
@@ -88,14 +128,21 @@ public class ListProductsManagedBean {
 	return splitListFilmDto(list);
     }
 
-    public List<List<ProductDto>> getFilms() {
-	switch (initBox) {
+    private List<List<ProductDto>> getSearchProducts(SearchParams params) {
+	List<ProductDto> list = Ejbs.product().getFilteredProducts(null, null, null, params.title, params.date, OrderTypes.NO, null, null, false);
+	return splitListFilmDto(list);
+    }
+
+    public List<List<ProductDto>> getFilms(SearchParams params) {
+	switch (tabFilms) {
 	    case "new":
 		return getNewFilms();
 	    case "top":
 		return getTopFilms();
 	    case "pack":
 		return getAllProducts();
+	    case "search":
+		return getSearchProducts(params);
 	    case "all":
 	    default:
 		return getAllFilms();
