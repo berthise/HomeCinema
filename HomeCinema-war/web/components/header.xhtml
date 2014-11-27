@@ -24,21 +24,21 @@
 		    </div>
 		    <div class="userTools">
 			<c:choose>
-			    <c:when test="#{loginManagedBean.firstName == null}" >
+			    <c:when test="#{sessionManagedBean.firstName == null}" >
 				<a href="#" id="login"><h:outputText value="#{msg['connexion']}" /></a> | 
 				<a href="signup.xhtml" id="signup"><h:outputText value="#{msg['inscription']}" /></a> |
 				<ez:lang />
 			    </c:when>
 			    <c:otherwise>
-				<span class="decale-right" style="color: white;"> <h:outputText value="#{msg['header-welcome']}" /> "<b>#{loginManagedBean.firstName}</b>" </span> | 
+				<span class="decale-right" style="color: white;"> <h:outputText value="#{msg['header-welcome']}" /> "<b>#{sessionManagedBean.firstName}</b>" </span> | 
 				<a href="moncompte.xhtml" title="#{msg['header-voircompte']}">
 				  <i class="glyphicon glyphicon-folder-open"></i>
 				</a> |
 				  <a href="moncompte.xhtml?box=caddie" title="#{msg['header-voircaddie']}">
-				  <i class="glyphicon glyphicon-shopping-cart"></i> (#{loginManagedBean.caddySize})
+				  <i class="glyphicon glyphicon-shopping-cart"></i> (#{sessionManagedBean.caddySize})
 				</a> |
 				<h:form>
-				    <h:commandLink action="#{loginManagedBean.logout}" value="#{msg['deconnexion']}" />
+				    <h:commandLink action="#{sessionManagedBean.logout}" value="#{msg['deconnexion']}" />
 				</h:form> |
 				<ez:lang />
 			    </c:otherwise>
@@ -74,7 +74,7 @@
 				<li class="#{(active == 'films')? 'active' : ''}"><a href="films.xhtml?tab=all"><i class="decale-right glyphicon glyphicon-facetime-video"></i> <h:outputText value="#{msg['menu-films']}" /></a></li>
 				<li class="#{(active == 'faq')? 'active' : ''}"><a href="faq.xhtml"><i class="decale-right glyphicon glyphicon-info-sign"></i> <h:outputText value="#{msg['menu-faq']}" /></a></li>
 				<li class="#{(active == 'demo')? 'active' : ''}"><a href="demo.xhtml"><i class="decale-right glyphicon glyphicon-wrench"></i> <h:outputText value="#{msg['menu-demo']}" /></a></li>
-				<h:panelGroup rendered="#{loginManagedBean.id != null}">
+				<h:panelGroup rendered="#{sessionManagedBean.id != null}">
 				    <li class="#{(active == 'moncompte')? 'active' : ''}"><a href="moncompte.xhtml"><i class="decale-right glyphicon glyphicon-folder-open"></i> <h:outputText value="#{msg['menu-compte']}" /></a></li>
 				</h:panelGroup>
 			    </ul>
