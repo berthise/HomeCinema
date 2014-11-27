@@ -5,6 +5,7 @@
  */
 package beans;
 
+import ejbs.Ejbs;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,8 +27,12 @@ public class SearchProductsManagedBean {
 	public String date;
 	public String director;
 	public String actor;
+	public Long directorId;
+	public Long actorId;
+
 	public List<Long> genres = new ArrayList<>();
 
+	// TODO: supprimer cette fonction useless
 	public void print() {
 	    for (Long l : genres) {
 		System.out.println(l);
@@ -36,7 +41,7 @@ public class SearchProductsManagedBean {
 	}
     }
 
-    private Map<Long, Boolean> checked = new HashMap<Long, Boolean>();
+    private Map<Long, Boolean> checked;
 
     public Map<Long, Boolean> getChecked() {
 	return checked;
@@ -50,6 +55,7 @@ public class SearchProductsManagedBean {
 
     public SearchProductsManagedBean() {
 	params = new SearchParams();
+	checked = new HashMap<>();
     }
 
     public SearchParams getSearchParams() {
@@ -89,6 +95,11 @@ public class SearchProductsManagedBean {
 	this.params.director = director;
     }
 
+    public void deleteDirector() {
+	this.params.director = null;
+	this.params.directorId = null;
+    }
+
     public String getActor() {
 	if (this.params.actor != null && this.params.actor.length() == 0) {
 	    return null;
@@ -98,6 +109,11 @@ public class SearchProductsManagedBean {
 
     public void setActor(String actor) {
 	this.params.actor = actor;
+    }
+
+    public void deleteActor() {
+	this.params.actor = null;
+	this.params.actorId = null;
     }
 
     public List<Long> getGenres() {
@@ -119,6 +135,42 @@ public class SearchProductsManagedBean {
 	    }
 	}
 	this.params.genres = newList;
-	this.params.print();
+	//this.params.print();
+    }
+
+    public Long getDirectorId() {
+	return this.params.directorId;
+    }
+
+    public void setDirectorId(Long directorId) {
+	this.params.directorId = directorId;
+	this.params.director = directorId + "<MettreLeVraiNom>";
+    }
+
+    public Long getActorId() {
+	return this.params.actorId;
+    }
+
+    public void setActorId(Long actorId) {
+	this.params.actorId = actorId;
+	this.params.director = actorId + "<MettreLeVraiNom>";
+    }
+
+    public void setGenreAlone(Long id) {
+	this.params.genres.add(id);
+	checked.put(id, Boolean.TRUE);
+    }
+
+    public Long getGenreAlone() {
+	return null;
+    }
+
+    public void setClean(Long id) {
+	params = new SearchParams();
+	checked = new HashMap<>();
+    }
+
+    public Long getClean() {
+	return null;
     }
 }

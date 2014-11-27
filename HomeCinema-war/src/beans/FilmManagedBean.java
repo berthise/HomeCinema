@@ -11,14 +11,10 @@ import dtos.GenreDto;
 import dtos.PersonDto;
 import ejbs.Ejbs;
 import java.io.IOException;
-import static java.lang.Math.max;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 
 import java.util.Date;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Random;
 import java.util.Set;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -166,7 +162,7 @@ public class FilmManagedBean {
 	List<PersonDto> list = Ejbs.film().getDirector(fdto.id);
 	String toReturn = "";
 	for (PersonDto s : list) {
-	    toReturn += "<a href=\"#\" class=\"list-genres-crew\">" + s.name + "</a> ";
+	    toReturn += "<a href=\"films.xhtml?tab=search&clean=&director=" + s.id + "\" class=\"list-genres-crew\">" + s.name + "</a> ";
 	}
 	if (toReturn.length() > 0) {
 	    return toReturn;
@@ -179,7 +175,7 @@ public class FilmManagedBean {
 	List<PersonDto> list = Ejbs.film().getCasting(fdto.id);
 	String toReturn = "";
 	for (PersonDto s : list) {
-	    toReturn += "<a href=\"#\" class=\"list-genres-crew\">" + s.name + "</a> ";
+	    toReturn += "<a href=\"films.xhtml?tab=search&clean=&actor=" + s.id + "\" class=\"list-genres-crew\">" + s.name + "</a> ";
 	}
 	if (toReturn.length() > 0) {
 	    return toReturn;
@@ -192,7 +188,7 @@ public class FilmManagedBean {
 	Set<GenreDto> set = Ejbs.film().getGenre(fdto.id);
 	String toReturn = "";
 	for (GenreDto s : set) {
-	    toReturn += "<a href=\"#\" class=\"list-genres-crew\">" + s.name + "</a> ";
+	    toReturn += "<a href=\"films.xhtml?tab=search&clean=&genre=" + s.id + "\" class=\"list-genres-crew\">" + s.name + "</a> ";
 	}
 	if (toReturn.length() > 0) {
 	    return toReturn;

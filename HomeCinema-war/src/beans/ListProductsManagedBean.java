@@ -8,6 +8,7 @@ package beans;
 import beans.SearchProductsManagedBean.SearchParams;
 import ejbs.Ejbs;
 import dtos.FilmDto;
+import dtos.FilteredListProductsDto;
 import dtos.GenreDto;
 import dtos.ProductDto;
 import enums.OrderTypes;
@@ -15,8 +16,6 @@ import enums.ProductTypes;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Random;
@@ -42,6 +41,15 @@ public class ListProductsManagedBean {
     private final int CLOSE = 3;
     private Integer searchOpened;
 
+    private int page;
+    private int lastPage;
+    private final int N_PER_PAGE = 3;
+
+    private List<GenreDto> allGenres;
+
+    private List<ProductDto> staticNewProduct;
+    private List<ProductDto> staticTopProduct;
+
     public Integer getSearchOpened() {
 	if (searchOpened == OPENING) {
 	    searchOpened = OPEN;
@@ -63,6 +71,8 @@ public class ListProductsManagedBean {
     }
 
     public void setTabFilms(String tabFilms) throws IOException {
+	this.page = 1;
+
 	if (!(tabFilms == null || !listTabsFilms.contains(tabFilms))) {
 	    if (tabFilms.equals("searchLOCALE") && searchOpened == CLOSE) {
 		searchOpened = OPENING;
@@ -93,6 +103,10 @@ public class ListProductsManagedBean {
 	listTabsFilms = Arrays.asList(ref1);
 	tabFilms = "all";
 	searchOpened = CLOSE;
+	page = lastPage = 1;
+	allGenres = null;
+	staticNewProduct = null;
+	staticTopProduct = null;
     }
 
     private List<List<ProductDto>> splitListFilmDto(List<ProductDto> l) {
@@ -107,44 +121,58 @@ public class ListProductsManagedBean {
 	}
 	return toReturn;
     }
-    
-    public String getEmptyTd(List<List<ProductDto>> list){
-	int size = list.get(list.size()-1).size();
-	if (size == 1)
-	    return "<td><td/><td></td>";
-	else if (size == 2)
-	    return "<td><td/>";
-	else
+
+    public boolean isPack(Long id) {
+	return Ejbs.product().getFilms(id).size() > 1;
+    }
+
+    public String getEmptyTd(List<List<ProductDto>> list) {
+	int nb_lines = list.size();
+	if (nb_lines > 1) {
 	    return "";
+	}
+	int size = list.get(list.size() - 1).size();
+	if (size == 1) {
+	    return "<td class=\"invisible-td\"></td><td class=\"invisible-td\"></td>";
+	} else if (size == 2) {
+	    return "<td class=\"invisible-td\"></td>";
+	} else {
+	    return "";
+	}
+    }
+
+    private void updateLastPage(FilteredListProductsDto flpdto) {
+	this.lastPage = Math.max(1, flpdto.size / N_PER_PAGE + ((flpdto.size % N_PER_PAGE != 0) ? 1 : 0));
     }
 
     private List<List<ProductDto>> getAllFilms() {
-	List<ProductDto> list = Ejbs.product().getFilteredProducts(null, null, null, null, null, OrderTypes.NO, null, null, ProductTypes.Main);
-	return splitListFilmDto(list);
+	FilteredListProductsDto flpdto = Ejbs.product().getFilteredProducts(null, null, null, null, null, OrderTypes.ALPH, N_PER_PAGE, (page - 1) * N_PER_PAGE, ProductTypes.Main);
+	updateLastPage(flpdto);
+	return splitListFilmDto(flpdto.list);
     }
 
     private List<List<ProductDto>> getAllProducts() {
-	List<ProductDto> list1 = Ejbs.product().getFilteredProducts(null, null, null, null, null, OrderTypes.NO, null, null, ProductTypes.Pack);
-	return splitListFilmDto(list1);
+	FilteredListProductsDto flpdto = Ejbs.product().getFilteredProducts(null, null, null, null, null, OrderTypes.ALPH, N_PER_PAGE, (page - 1) * N_PER_PAGE, ProductTypes.Pack);
+	updateLastPage(flpdto);
+	return splitListFilmDto(flpdto.list);
     }
 
     private List<List<ProductDto>> getNewFilms() {
-	List<ProductDto> list = Ejbs.product().getFilteredProducts(null, null, null, null, null, OrderTypes.NEW, 10, null,ProductTypes.All);
-	return splitListFilmDto(list);
+	FilteredListProductsDto flpdto = Ejbs.product().getFilteredProducts(null, null, null, null, null, OrderTypes.NEW, 9, null, ProductTypes.All);
+	updateLastPage(flpdto);
+	return splitListFilmDto(flpdto.list);
     }
 
     private List<List<ProductDto>> getTopFilms() {
-	List<ProductDto> list = Ejbs.product().getFilteredProducts(null, null, null, null, null, OrderTypes.RATING, 10, null, ProductTypes.All);
-	return splitListFilmDto(list);
+	FilteredListProductsDto flpdto = Ejbs.product().getFilteredProducts(null, null, null, null, null, OrderTypes.RATING, 9, null, ProductTypes.All);
+	updateLastPage(flpdto);
+	return splitListFilmDto(flpdto.list);
     }
 
     private List<List<ProductDto>> getSearchProducts(SearchParams params) {
-	Long actor = null;
-	//actor = Ejbs.person().getActor(params.actor);
-	Long director = null;
-	//director = Ejbs.person().getDirector(params.director);
-	List<ProductDto> list = Ejbs.product().getFilteredProducts(actor, director, params.genres, params.title, params.date, OrderTypes.NO, null, null,  ProductTypes.All);
-	return splitListFilmDto(list);
+	FilteredListProductsDto flpdto = Ejbs.product().getFilteredProducts(params.actorId, params.directorId, params.genres, params.title, params.date, OrderTypes.NO, N_PER_PAGE, (page - 1) * N_PER_PAGE, ProductTypes.All);
+	updateLastPage(flpdto);
+	return splitListFilmDto(flpdto.list);
     }
 
     public List<List<ProductDto>> getFilms(SearchParams params) {
@@ -163,62 +191,65 @@ public class ListProductsManagedBean {
 	}
     }
 
-    public List<ProductDto> getTopProduct() {
-	List<ProductDto> toReturn = Ejbs.product().getAllProduct();
-
-	Collections.sort(toReturn, new Comparator<ProductDto>() {
-	    @Override
-	    public int compare(ProductDto t, ProductDto t1) {
-		if (t.nbSales < t1.nbSales) {
-		    return 1;
-		} else if (t.nbSales > t1.nbSales) {
-		    return -1;
-		} else {
-		    return 0;
-		}
-	    }
-	});
-
-	if (toReturn.size() > 10) {
-	    return toReturn.subList(0, 10);
-	} else {
-	    return toReturn;
+    public List<ProductDto> getStaticNewProduct() {
+	if (staticNewProduct == null) {
+	    staticNewProduct = Ejbs.product().getFilteredProducts(null, null, null, null, null, OrderTypes.NEW, 9, null, ProductTypes.All).list;
 	}
+	return staticNewProduct;
     }
 
-    public List<ProductDto> getNewProduct() {
-	List<ProductDto> toReturn = Ejbs.product().getAllProduct();
-
-	Collections.sort(toReturn, new Comparator<ProductDto>() {
-	    @Override
-	    public int compare(ProductDto t, ProductDto t1) {
-		return t.addDate.compareTo(t1.addDate);
-	    }
-	});
-
-	if (toReturn.size() > 10) {
-	    return toReturn.subList(0, 10);
-	} else {
-	    return toReturn;
+    public List<ProductDto> getStaticTopProduct() {
+	if (staticTopProduct == null) {
+	    staticTopProduct = Ejbs.product().getFilteredProducts(null, null, null, null, null, OrderTypes.RATING, 9, null, ProductTypes.All).list;
 	}
+	return staticTopProduct;
     }
 
     public List<FilmDto> getSelectionFilms(int n) {
 	List<FilmDto> list = Ejbs.films().findAllFilms();
 	List<FilmDto> toReturn = new ArrayList<>();
-	Random rng = new Random();
-	Set<Integer> generated = new LinkedHashSet<>();
-	while (generated.size() < n) {
-	    Integer next = rng.nextInt(list.size());
-	    generated.add(next);
-	}
-	for (Integer i : generated) {
-	    toReturn.add(list.get(i));
+	if (list.size() > n) {
+	    Random rng = new Random();
+	    Set<Integer> generated = new LinkedHashSet<>();
+	    while (generated.size() < n) {
+		Integer next = rng.nextInt(list.size());
+		generated.add(next);
+	    }
+	    for (Integer i : generated) {
+		toReturn.add(list.get(i));
+	    }
 	}
 	return toReturn;
     }
-    
-    public List<GenreDto> getAllGenres (){
-	return Ejbs.product().getAllGenres();
+
+    public List<GenreDto> getAllGenres() {
+	if (allGenres == null) {
+	    allGenres = Ejbs.product().getAllGenres();
+	}
+	return allGenres;
     }
+
+    public int getPage() {
+	return page;
+    }
+
+    public void setPage(int page) {
+	this.page = page;
+    }
+
+    public void setPageNext() {
+	this.page++;
+    }
+
+    public void setPagePrevious() {
+	this.page--;
+    }
+
+    public boolean isLastPage() {
+	if (tabFilms.equals("top") || tabFilms.equals("new")) {
+	    return true;
+	}
+	return this.page == this.lastPage;
+    }
+
 }
