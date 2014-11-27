@@ -143,7 +143,7 @@ public class ListProductsManagedBean {
 	//actor = Ejbs.person().getActor(params.actor);
 	Long director = null;
 	//director = Ejbs.person().getDirector(params.director);
-	List<ProductDto> list = Ejbs.product().getFilteredProducts(actor, director, params.genres, params.title, params.date, OrderTypes.NO, null, null, false);
+	List<ProductDto> list = Ejbs.product().getFilteredProducts(actor, director, params.genres, params.title, params.date, OrderTypes.NO, null, null,  ProductTypes.All);
 	return splitListFilmDto(list);
     }
 
