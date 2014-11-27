@@ -6,12 +6,15 @@
 package ejbs.admin;
 
 import dtos.FilmDto;
+import dtos.GenreDto;
 import dtos.ProductDto;
 import dtos.VideoDto;
 import ejbs.ManageProductRemote;
 import entities.Film;
+import entities.Genre;
 import entities.Product;
 import enums.OrderTypes;
+import enums.ProductTypes;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -20,6 +23,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import managers.dtos.FilmDtoManager;
+import managers.dtos.GenreDtoManager;
 import managers.dtos.ProductDtoManager;
 import managers.entities.ManageEntitieFilm;
 import managers.entities.ManageEntitieProduct;
@@ -119,13 +123,13 @@ public class ManageProduct implements ManageProductRemote {
 	return ProductDtoManager.getDto(ProductDtoManager.mergeOrSave(pdto, em));
     }
 
-    private List<Product> findProducts(Long actor, Long director, List<Long> lgdto, String str, String year, boolean main) {
+    private List<Product> findProducts(Long actor, Long director, List<Long> lgdto, String str, String year, ProductTypes main) {
 	Query q = em.createQuery("From Product p", Product.class);
 	List<Product> lp = q.getResultList();
 	List<Product> res = new ArrayList<>();
 
 	for (Product p : lp) {
-	    if (!main || p.getFilms().size() == 1) {
+	    if (main.equals(ProductTypes.All) || (p.getFilms().size() == 1 && main.equals(ProductTypes.Main)) || (p.getFilms().size() > 1 && main.equals(ProductTypes.Pack)) ) {
 		boolean add = false;
 		for (Film f : p.getFilms()) {
 		    if (ManageEntitieFilm.filterFilm(f, actor, director, lgdto, str, year, em)) {
@@ -141,7 +145,7 @@ public class ManageProduct implements ManageProductRemote {
     }
 
     @Override
-    public List<ProductDto> getFilteredProducts(Long actor, Long director, List<Long> lgdto, String str, String year, OrderTypes sort, Integer limit, Integer row, boolean main) {
+    public List<ProductDto> getFilteredProducts(Long actor, Long director, List<Long> lgdto, String str, String year, OrderTypes sort, Integer limit, Integer row, ProductTypes main) {
 	List<Product> lpdto = this.findProducts(actor, director, lgdto, str, year, main);
 	if (sort.equals(OrderTypes.RAND)) {
 	    Collections.shuffle(lpdto);
@@ -168,5 +172,16 @@ public class ManageProduct implements ManageProductRemote {
 	    res.add(ProductDtoManager.getDto(p));
 	}
 	return res;
+    }
+
+    @Override
+    public List<GenreDto> getAllGenres() {
+	Query q = em.createQuery("From Genre g", Genre.class);
+	List<Genre> lg = q.getResultList();
+	List<GenreDto> lgdto = new ArrayList<GenreDto>();
+	for (Genre g : lg) {
+	    lgdto.add(GenreDtoManager.getDto(g));
+	}
+	return lgdto;
     }
 }

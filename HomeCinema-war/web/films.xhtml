@@ -47,7 +47,7 @@ and open the template in the editor.
 		switch (status) {
 		    case "success":
 			setTimeout(function () {
-			    document.getElementById('search-attributs').style.maxHeight = '500px';
+			    document.getElementById('search-attributs').style.maxHeight = '1000px';
 			}, 100);
 			break;
 		}
@@ -102,23 +102,36 @@ and open the template in the editor.
 				    <f:ajax execute="@form" render=":form-random :panel-random" onevent="handleAjaxOpen"/>
 				    <img id="loader-search" class="films-loader" src="img/loader.gif"/>
 				</h:commandLink>
-				
+
 				<span id="search-attributs" style="max-height: #{((listProductsManagedBean.searchOpened == 0)? '500' : '0')}px;">
 				    <h:outputLabel for="title">Titre :</h:outputLabel><h:inputText class="form-control input-search" id="title" value="#{searchProductsManagedBean.title}" />
 				    <h:commandButton rendered="#{searchProductsManagedBean.title != null}" onclick="javascript:loader('search');" class="clean" value="×" action="#{searchProductsManagedBean.setTitle(null)}">
 					<f:ajax execute="@form" render=":form-random :panel-random" />
 				    </h:commandButton>
-				    
+
 				    <h:outputLabel for="date">Date :</h:outputLabel><h:inputText class="form-control input-search" id="date" value="#{searchProductsManagedBean.date}" />
 				    <h:commandButton rendered="#{searchProductsManagedBean.date != null}" onclick="javascript:loader('search');" class="clean" value="×" action="#{searchProductsManagedBean.setDate(null)}">
 					<f:ajax execute="@form" render=":form-random :panel-random" />
 				    </h:commandButton>
-				    
+
 				    <h:outputLabel for="director">Réalisateur :</h:outputLabel><h:inputText class="form-control input-search" id="director" value="#{searchProductsManagedBean.director}" />
 				    <h:commandButton rendered="#{searchProductsManagedBean.director != null}" onclick="javascript:loader('search');" class="clean" value="×" action="#{searchProductsManagedBean.setDirector(null)}">
 					<f:ajax execute="@form" render=":form-random :panel-random" />
 				    </h:commandButton>
-				    
+				    <h:outputLabel for="actor">Acteur :</h:outputLabel><h:inputText class="form-control input-search" id="actor" value="#{searchProductsManagedBean.actor}" />
+				    <h:commandButton rendered="#{searchProductsManagedBean.actor != null}" onclick="javascript:loader('search');" class="clean" value="×" action="#{searchProductsManagedBean.setActor(null)}">
+					<f:ajax execute="@form" render=":form-random :panel-random" />
+				    </h:commandButton>
+
+				    <ui:repeat var="g" value="#{listProductsManagedBean.getAllGenres()}" >
+					<h:outputLabel class="label-genres" >#{g.name} :</h:outputLabel>
+					<h:selectBooleanCheckbox value="#{searchProductsManagedBean.checked[g.id]}" >
+					    <f:ajax listener="#{searchProductsManagedBean.majGenres()}" />
+					</h:selectBooleanCheckbox>
+				    </ui:repeat>
+
+				    <!-- problème de maj des checkbox -->
+
 				    <h:commandButton onclick="javascript:loader('search');" class="btn btn-success btn-xs btn-search" value="Rechercher">
 					<f:ajax execute="@form" render=":form-random :panel-random"/>
 				    </h:commandButton>
@@ -148,6 +161,7 @@ and open the template in the editor.
 					    </ui:repeat>
 					</tr>
 				    </ui:repeat>
+				    <h:outputText value="#{listProductsManagedBean.getEmptyTd(list)}" escape="false" />
 				</table>
 			    </h:panelGroup>
 

@@ -5,11 +5,12 @@
  */
 package ejbs;
 
-import dtos.CaddieDto;
 import dtos.FilmDto;
+import dtos.GenreDto;
 import dtos.ProductDto;
 import dtos.VideoDto;
 import enums.OrderTypes;
+import enums.ProductTypes;
 import java.util.List;
 import javax.ejb.Remote;
 
@@ -39,8 +40,9 @@ public interface ManageProductRemote {
     public ProductDto getProduct(Long pid);
 
     public ProductDto mergeOrSave(ProductDto pdto);
-
-
+    
+    public List<GenreDto> getAllGenres();
+    
     /**
      *
      * @param actor film avec l'acteur ayant cet id 0||null => tout
@@ -51,9 +53,11 @@ public interface ManageProductRemote {
      * @param sort critere de tri
      * @param limit nb de row max 0||null => tout
      * @param row row de depart null=>0
+     * @param main affiche tous les products , uniquement les main product ou que les packs
      * @return film correspondant a tous les critéres précedents , empty si aucun 
      */
-    public List<ProductDto> getFilteredProducts(Long actor, Long director, List<Long> lgdto, String str, String year, OrderTypes sort, Integer limit, Integer row,boolean main);
+
+    public List<ProductDto> getFilteredProducts(Long actor, Long director, List<Long> lgdto, String str, String year, OrderTypes sort, Integer limit, Integer row, ProductTypes main);
     
     
 }
