@@ -89,7 +89,7 @@ and open the template in the editor.
 				</h:commandLink>
 			    </p>
 			    <p class="#{((listProductsManagedBean.getTabFilms() eq 'top')? 'activated' : '')}">
-				<h:commandLink onclick="javascript:loader('top');" value="Top 50" action="#{listProductsManagedBean.setTabFilms('topLOCALE')}">
+				<h:commandLink onclick="javascript:loader('top');" value="Top 10" action="#{listProductsManagedBean.setTabFilms('topLOCALE')}">
 				    <f:ajax execute="@form" render=":form-random :panel-random :form-nav-page" onevent="handleAjaxClose"/>
 				    <img id="loader-top" class="films-loader" src="img/loader.gif"/>
 				</h:commandLink>

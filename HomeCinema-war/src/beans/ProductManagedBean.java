@@ -10,9 +10,11 @@ import dtos.ProductDto;
 import ejbs.Ejbs;
 import java.io.IOException;
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -38,9 +40,8 @@ public class ProductManagedBean {
 	ProductDto p = Ejbs.product().getProduct(pdto.id);
 	if (p == null) {
 	    FacesContext.getCurrentInstance().getExternalContext().dispatch("404.xhtml");
-	}
-	else if (Ejbs.product().getFilms(p.id).size() == 1){
-	    String url = "fiche_film.xhtml?id="+Ejbs.product().getFilms(p.id).get(0).id;
+	} else if (Ejbs.product().getFilms(p.id).size() == 1) {
+	    String url = "fiche_film.xhtml?id=" + Ejbs.product().getFilms(p.id).get(0).id;
 	    FacesContext.getCurrentInstance().getExternalContext().redirect(url);
 	}
 	pdto = p;
@@ -115,9 +116,9 @@ public class ProductManagedBean {
 	return p.nbSales;
     }
 
-    public Double getPrice(Long idproduct) {
+    public String getPrice(Long idproduct) {
 	ProductDto p = Ejbs.product().getProduct(idproduct);
-	return p.price;
+	return String.format("%.2f", p.price);
     }
 
     public String getShortOverview(FilmDto fdto, int limit) {
@@ -128,18 +129,18 @@ public class ProductManagedBean {
 	String toReturn = parts[0];
 	int i = 1;
 	while ((toReturn + parts[i]).length() < limit) {
-	    toReturn += " "+parts[i++];
+	    toReturn += " " + parts[i++];
 	}
 	return toReturn + " ...";
     }
-    
-    public String getReduction (){
+
+    public String getReduction() {
 	double price = 0;
 	List<FilmDto> l = getListFilms();
 	for (FilmDto f : l) {
 	    price += Ejbs.product().getProduct(f.main_product_id).price;
-	}	
-	double reduc = pdto.price/price * 100;	
-	return (100 - (int) reduc) + "";	
+	}
+	double reduc = pdto.price / price * 100;
+	return (100 - (int) reduc) + "";
     }
 }

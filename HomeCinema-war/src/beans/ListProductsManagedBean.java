@@ -43,7 +43,7 @@ public class ListProductsManagedBean {
 
     private int page;
     private int lastPage;
-    private final int N_PER_PAGE = 3;
+    private final int N_PER_PAGE = 12;
 
     private List<GenreDto> allGenres;
 
