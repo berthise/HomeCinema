@@ -18,8 +18,8 @@
   <!-- IMPLEMENTATION -->
   <cc:implementation>
     <f:view>
-    <f:event type="preRenderComponent" listener="#{loginManagedBean.checkConnected()}"/>
-    <f:event type="preRenderComponent" listener="#{caddieManagedBean.setSession(loginManagedBean)}"/>
+    <f:event type="preRenderComponent" listener="#{sessionManagedBean.checkConnected()}"/>
+    <f:event type="preRenderComponent" listener="#{caddieManagedBean.setSession(sessionManagedBean)}"/>
     </f:view>
     <h:outputStylesheet library="css" name="caddie.css" />
     <div class="#{cc.attrs.style}" id="caddie">

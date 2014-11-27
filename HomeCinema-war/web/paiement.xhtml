@@ -21,9 +21,9 @@
     <h:outputStylesheet library="css" name="paiement.css" />
 
     <f:metadata>
-      <!--<f:event type="preRenderView" listener="#{loginManagedBean.tmpLogin()}"/>-->
-      <f:event type="preRenderView" listener="#{loginManagedBean.checkConnected()}"/>
-      <f:event type="preRenderView" listener="#{loginManagedBean.checkCaddyPaiement()}"/>
+      <!--<f:event type="preRenderView" listener="#{sessionManagedBean.tmpLogin()}"/>-->
+      <f:event type="preRenderView" listener="#{sessionManagedBean.checkConnected()}"/>
+      <f:event type="preRenderView" listener="#{sessionManagedBean.checkCaddyPaiement()}"/>
     </f:metadata>
 
   </h:head>
@@ -87,14 +87,14 @@
 	      <div class="row">
 		<span class="col-md-3"></span>
 		<h:button value="Annuler" title="Retourner au caddie" outcome="moncompte.xhtml?box=caddie" class="btn btn-primary col-md-3" tabindex="52"/>
-		<h:commandButton action="#{paymentManagedBean.buy(loginManagedBean.id)}" value="Payer" title="Valider le paiement" class="btn btn-success col-md-3" tabindex="50"/>
+		<h:commandButton action="#{paymentManagedBean.buy(sessionManagedBean.id)}" value="Payer" title="Valider le paiement" class="btn btn-success col-md-3" tabindex="50"/>
 	      </div>
 	    </h:form>
 	  </div>
 
 
 	  <div class="box-right">
-	    <ez:caddie title="Caddie" userId="#{loginManagedBean.id}" recap="true"/>
+	    <ez:caddie title="Caddie" userId="#{sessionManagedBean.id}" recap="true"/>
 	  </div>
 	  <div id="bottom">
 	    <a class="go-top" href="#top" title="Vers le haut"><img src="img/arrowUp.png" /></a>                        
