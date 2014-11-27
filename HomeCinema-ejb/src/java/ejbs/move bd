@@ -1,0 +1,5 @@
+insert into HomeCinema.FILMS ( select id,poster,overview,rating,release_date,runtime,title,'0','0' from library.movie);
+insert into FILMS_PRODUCTS (select ID_FILM,MAIN_PRODUCT from FILMS);
+insert into PRODUCTS (select ID_FILM +1000000,RELEASE_DATE,TITLE,0, 6+floor(15* RAND()),0 from FILMS);
+insert into GENRES (select id,name from library.genre);
+ insert into FILMS_GENRES (select movie,genre from library.is_genre);

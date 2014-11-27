@@ -59,7 +59,7 @@ public class ManageEntitieFilm {
 	if (actor == null || actor == 0 || ManageEntitieFilm.hasActor(f, actor, em)) {
 	    if (director == null || director == 0 || ManageEntitieFilm.hasDirector(f, director, em)) {
 		if (lgdto == null || lgdto.isEmpty() || ManageEntitieFilm.hasGenre(f, lgdto, em)) {
-		    if (str == null || "".equals(str) || f.getTitle().matches(str)) {
+		    if (str == null || "".equals(str) || f.getTitle().matches("(?i:.*"+str+".*)")) {
 			if (year == null || "".equals(year) || new SimpleDateFormat("yyyy-MM-dd").format(f.getReleaseDate()).equals(year)) {
 			    return true;
 			}

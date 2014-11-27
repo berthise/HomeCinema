@@ -10,6 +10,7 @@ import ejbs.Ejbs;
 import dtos.FilmDto;
 import dtos.ProductDto;
 import enums.OrderTypes;
+import enums.ProductTypes;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -107,29 +108,27 @@ public class ListProductsManagedBean {
     }
 
     private List<List<ProductDto>> getAllFilms() {
-	List<ProductDto> list = Ejbs.product().getFilteredProducts(null, null, null, null, null, OrderTypes.NO, null, null, true);
+	List<ProductDto> list = Ejbs.product().getFilteredProducts(null, null, null, null, null, OrderTypes.NO, null, null, ProductTypes.Main);
 	return splitListFilmDto(list);
     }
 
     private List<List<ProductDto>> getAllProducts() {
-	List<ProductDto> list1 = Ejbs.product().getFilteredProducts(null, null, null, null, null, OrderTypes.NO, null, null, false);
-	List<ProductDto> list2 = Ejbs.product().getFilteredProducts(null, null, null, null, null, OrderTypes.NO, null, null, true);
-	list1.removeAll(list2);
+	List<ProductDto> list1 = Ejbs.product().getFilteredProducts(null, null, null, null, null, OrderTypes.NO, null, null, ProductTypes.Pack);
 	return splitListFilmDto(list1);
     }
 
     private List<List<ProductDto>> getNewFilms() {
-	List<ProductDto> list = Ejbs.product().getFilteredProducts(null, null, null, null, null, OrderTypes.NEW, 10, null, false);
+	List<ProductDto> list = Ejbs.product().getFilteredProducts(null, null, null, null, null, OrderTypes.NEW, 10, null,ProductTypes.All);
 	return splitListFilmDto(list);
     }
 
     private List<List<ProductDto>> getTopFilms() {
-	List<ProductDto> list = Ejbs.product().getFilteredProducts(null, null, null, null, null, OrderTypes.RATING, 10, null, false);
+	List<ProductDto> list = Ejbs.product().getFilteredProducts(null, null, null, null, null, OrderTypes.RATING, 10, null, ProductTypes.All);
 	return splitListFilmDto(list);
     }
 
     private List<List<ProductDto>> getSearchProducts(SearchParams params) {
-	List<ProductDto> list = Ejbs.product().getFilteredProducts(null, null, null, params.title, params.date, OrderTypes.NO, null, null, false);
+	List<ProductDto> list = Ejbs.product().getFilteredProducts(null, null, null, params.title, params.date, OrderTypes.NO, null, null, ProductTypes.All);
 	return splitListFilmDto(list);
     }
 
