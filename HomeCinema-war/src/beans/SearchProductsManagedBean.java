@@ -5,6 +5,10 @@
  */
 package beans;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
@@ -21,6 +25,25 @@ public class SearchProductsManagedBean {
 	public String title;
 	public String date;
 	public String director;
+	public String actor;
+	public List<Long> genres = new ArrayList<>();
+
+	public void print() {
+	    for (Long l : genres) {
+		System.out.println(l);
+	    }
+	    System.out.println("------");
+	}
+    }
+
+    private Map<Long, Boolean> checked = new HashMap<Long, Boolean>();
+
+    public Map<Long, Boolean> getChecked() {
+	return checked;
+    }
+
+    public void setChecked(Map<Long, Boolean> checked) {
+	this.checked = checked;
     }
 
     private SearchParams params;
@@ -38,14 +61,16 @@ public class SearchProductsManagedBean {
     }
 
     public String getTitle() {
-	if (this.params.title != null && this.params.title.length() == 0)
+	if (this.params.title != null && this.params.title.length() == 0) {
 	    return null;
+	}
 	return this.params.title;
     }
 
     public String getDate() {
-	if (this.params.date != null && this.params.date.length() == 0)
+	if (this.params.date != null && this.params.date.length() == 0) {
 	    return null;
+	}
 	return this.params.date;
     }
 
@@ -54,8 +79,9 @@ public class SearchProductsManagedBean {
     }
 
     public String getDirector() {
-	if (this.params.director != null && this.params.director.length() == 0)
+	if (this.params.director != null && this.params.director.length() == 0) {
 	    return null;
+	}
 	return this.params.director;
     }
 
@@ -63,4 +89,36 @@ public class SearchProductsManagedBean {
 	this.params.director = director;
     }
 
+    public String getActor() {
+	if (this.params.actor != null && this.params.actor.length() == 0) {
+	    return null;
+	}
+	return this.params.actor;
+    }
+
+    public void setActor(String actor) {
+	this.params.actor = actor;
+    }
+
+    public List<Long> getGenres() {
+	if (this.params.genres != null) {
+	    return null;
+	}
+	return this.params.genres;
+    }
+
+    public void setGenres(List<Long> genres) {
+	this.params.genres = genres;
+    }
+
+    public void majGenres() {
+	List<Long> newList = new ArrayList<>();
+	for (Long i : checked.keySet()) {
+	    if (checked.get(i)) {
+		newList.add(i);
+	    }
+	}
+	this.params.genres = newList;
+	this.params.print();
+    }
 }

@@ -5,6 +5,8 @@ body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
   body .navbar-noborder {
     border: 1px solid #333 !important; }
+  body .col-size-fixed {
+    width: 215px !important; }
   body .btn-space {
     margin-right: 10px; }
   body .index-box {

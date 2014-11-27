@@ -8,6 +8,7 @@ package beans;
 import beans.SearchProductsManagedBean.SearchParams;
 import ejbs.Ejbs;
 import dtos.FilmDto;
+import dtos.GenreDto;
 import dtos.ProductDto;
 import enums.OrderTypes;
 import java.io.IOException;
@@ -66,7 +67,7 @@ public class ListProductsManagedBean {
 		searchOpened = OPENING;
 	    } else if (!tabFilms.equals("searchLOCALE") && tabFilms.endsWith("LOCALE") && searchOpened == OPEN) {
 		searchOpened = CLOSING;
-	    } else if (tabFilms.equals("search")) {
+	    } else if (tabFilms.equals("search") || (tabFilms.equals("searchLOCALE") && searchOpened == OPEN)) {
 		searchOpened = OPEN;
 	    } else {
 		searchOpened = CLOSE;
@@ -105,6 +106,16 @@ public class ListProductsManagedBean {
 	}
 	return toReturn;
     }
+    
+    public String getEmptyTd(List<List<ProductDto>> list){
+	int size = list.get(list.size()-1).size();
+	if (size == 1)
+	    return "<td><td/><td></td>";
+	else if (size == 2)
+	    return "<td><td/>";
+	else
+	    return "";
+    }
 
     private List<List<ProductDto>> getAllFilms() {
 	List<ProductDto> list = Ejbs.product().getFilteredProducts(null, null, null, null, null, OrderTypes.NO, null, null, true);
@@ -129,7 +140,11 @@ public class ListProductsManagedBean {
     }
 
     private List<List<ProductDto>> getSearchProducts(SearchParams params) {
-	List<ProductDto> list = Ejbs.product().getFilteredProducts(null, null, null, params.title, params.date, OrderTypes.NO, null, null, false);
+	Long actor = null;
+	//actor = Ejbs.person().getActor(params.actor);
+	Long director = null;
+	//director = Ejbs.person().getDirector(params.director);
+	List<ProductDto> list = Ejbs.product().getFilteredProducts(actor, director, params.genres, params.title, params.date, OrderTypes.NO, null, null, false);
 	return splitListFilmDto(list);
     }
 
@@ -202,5 +217,9 @@ public class ListProductsManagedBean {
 	    toReturn.add(list.get(i));
 	}
 	return toReturn;
+    }
+    
+    public List<GenreDto> getAllGenres (){
+	return Ejbs.product().getAllGenres();
     }
 }

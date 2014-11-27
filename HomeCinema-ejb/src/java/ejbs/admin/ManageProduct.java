@@ -6,10 +6,12 @@
 package ejbs.admin;
 
 import dtos.FilmDto;
+import dtos.GenreDto;
 import dtos.ProductDto;
 import dtos.VideoDto;
 import ejbs.ManageProductRemote;
 import entities.Film;
+import entities.Genre;
 import entities.Product;
 import enums.OrderTypes;
 import java.util.ArrayList;
@@ -20,6 +22,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import managers.dtos.FilmDtoManager;
+import managers.dtos.GenreDtoManager;
 import managers.dtos.ProductDtoManager;
 import managers.entities.ManageEntitieFilm;
 import managers.entities.ManageEntitieProduct;
@@ -168,5 +171,16 @@ public class ManageProduct implements ManageProductRemote {
 	    res.add(ProductDtoManager.getDto(p));
 	}
 	return res;
+    }
+
+    @Override
+    public List<GenreDto> getAllGenres() {
+	Query q = em.createQuery("From Genre g", Genre.class);
+	List<Genre> lg = q.getResultList();
+	List<GenreDto> lgdto = new ArrayList<GenreDto>();
+	for (Genre g : lg) {
+	    lgdto.add(GenreDtoManager.getDto(g));
+	}
+	return lgdto;
     }
 }
