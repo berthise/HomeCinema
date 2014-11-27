@@ -1,71 +1,64 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html
-  xmlns="http://www.w3.org/1999/xhtml"
-  xmlns:ui="http://java.sun.com/jsf/facelets"
-  xmlns:h="http://java.sun.com/jsf/html"
-  xmlns:f="http://java.sun.com/jsf/core">
-  <h:head>
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title></title>
-    <meta name="description" content=""/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+        <title></title>
+        <meta name="description" content=""/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-    <link rel="stylesheet" href="css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="css/bootstrap-theme.min.css"/>
-    <link rel="stylesheet" href="css/main.css"/>
+        <link rel="stylesheet" href="css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="css/bootstrap-theme.min.css"/>
+        <link rel="stylesheet" href="css/main.css"/>
 
-    <f:metadata>
-      <f:viewParam name="id" value="#{filmManagedBean.id}" />
-      <f:event type="preRenderView" listener="#{filmManagedBean.setDtoFromId()}"/>
-      <f:event type="preRenderView" listener="#{sessionManagedBean.checkConnected()}"/>
-      <f:event type="preRenderView" listener="#{accountManagedBean.checkIsMyFilm(filmManagedBean.id, sessionManagedBean.id)}"/>
-    </f:metadata>
+        <f:metadata>
+            <f:viewParam name="id" value="#{filmManagedBean.id}" />
+            <f:event type="preRenderView" listener="#{filmManagedBean.setDtoFromId()}"/>
+            <f:event type="preRenderView" listener="#{sessionManagedBean.checkConnected()}"/>
+            <f:event type="preRenderView" listener="#{accountManagedBean.checkIsMyFilm(filmManagedBean.id, sessionManagedBean.id)}"/>
+        </f:metadata>
 
     </h:head>
-    <h:body id="top" onload="initVideo()">
+    <h:body id="top">
         <ui:insert name="header" >
-	    <ui:include src="components/header.xhtml" />
-	</ui:insert>
+            <ui:include src="components/header.xhtml" />
+        </ui:insert>
         <section>
             <div class="container">
 
-	<div id="ba" class="well">
-	  <h2 class="well-title"><strong>Visionneuse : </strong><h:outputText value="#{filmManagedBean.getLinkToFiche()}" escape="false"/>
-	    <div class="form-download-film">
-	      <h:outputText value="#{filmManagedBean.getLinkToDownload()}" escape="false" />
-	    </div>
-	  </h2>
+                <div id="ba" class="well">
+                    <h2 class="well-title"><strong>Visionneuse : </strong><h:outputText value="#{filmManagedBean.getLinkToFiche()}" escape="false"/>
+                        <div class="form-download-film">
+                            <h:outputText value="#{filmManagedBean.getLinkToDownload()}" escape="false" />
+                        </div>
+                    </h2>
 
-	  <video id="myVideo" width="100%" controls="controls">
-	    <h:outputText value="#{filmManagedBean.getVideo()}" escape="false" />
-	    Your browser don't support video element.
-	  </video>
+                    <video id="myVideo" width="100%" controls="controls">
+                        <h:outputText value="#{filmManagedBean.getVideo()}" escape="false" />
+                        Your browser don't support video element.
+                    </video>
+                    <h:form>
+                        <h:inputHidden id="ufUser" value="#{usersFilmsManagedBean.ufdto.user}" />
+                        <h:inputHidden id="ufFilm" value="#{usersFilmsManagedBean.ufdto.film}" />
+                        <h:inputHidden id="ufCP" value="#{usersFilmsManagedBean.ufdto.currentPosition}" />
+                    </h:form>
 
-	  <script>
-	    var vid = document.getElementById("myVideo");
-	    vid.onpause = function () {
-	      // Mise à jour de l'état pause
-	    };
-	    vid.onplay = function () {
-	      // Mise à jour de l'état play
-	    };
-	    function initVideo() {
-	      // Mise à jour de la position de la vidéo selon l'état
-	      //vid.currentTime = 4;
-	    }
-	  </script>
+                    <script src="js/main.js"></script>
 
-	  <a class="go-top" href="#top"><img src="img/arrowUp.png" /></a>
+                    <a class="go-top" href="#top"><img src="img/arrowUp.png" /></a>
 
-	</div>
-      </div>
-    </section>
-    
-    <ui:insert name="footer" >
-      <ui:include src="components/footer.xhtml" />
-    </ui:insert>
-  </h:body>
+                </div>
+            </div>
+        </section>
+
+        <ui:insert name="footer" >
+            <ui:include src="components/footer.xhtml" />
+        </ui:insert>
+    </h:body>
 
 </html>
