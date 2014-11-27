@@ -23,13 +23,12 @@ and open the template in the editor.
 	<link rel="stylesheet" href="css/style-films.css"/>
 
 	<f:metadata>
+	    <f:event type="preRenderView" listener="#{sessionManagedBean.checkRight()}"/>
 	    <f:viewParam name="clean" value="#{searchProductsManagedBean.clean}" />
 	    <f:viewParam name="director" value="#{searchProductsManagedBean.directorId}" />
 	    <f:viewParam name="actor" value="#{searchProductsManagedBean.actorId}" />
 	    <f:viewParam name="genre" value="#{searchProductsManagedBean.genreAlone}" />
 	    <f:viewParam name="title" value="#{searchProductsManagedBean.title}" />
-	    <f:event type="preRenderView" listener="#{sessionManagedBean.checkRight()}"/>
-	    <f:viewParam name="n" value="#{searchProductsManagedBean.title}" />
 	    <f:viewParam name="form-search" value="#{listProductsManagedBean.searchOpened}" />
 	    <f:viewParam name="tab" value="#{listProductsManagedBean.tabFilms}" />
 	</f:metadata>

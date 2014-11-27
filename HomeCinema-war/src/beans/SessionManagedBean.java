@@ -50,6 +50,7 @@ public class SessionManagedBean {
     if (getSessionState() == SessionStates.LOGGED_PAY) {
 
       // TODO change state in ejbs
+      user.caddieSize = 0;
       user.setState(UserStates.Activated);
       Redirect.redirectTo(Pages.MON_COMPTE);
     }
