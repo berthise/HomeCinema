@@ -27,5 +27,6 @@ public class ManageGenre {
             ManageEntitieGenre.getGenre(gdto, em);
         }
     }
+    
 
 }

@@ -54,6 +54,7 @@ public class ManageFilm implements ManageFilmRemote {
     @Override
     public List<FilmDto> getAllFilm() {
 	Query q = em.createQuery("From Film f", Film.class);
+	//q.setMaxResults(100);
 	List<Film> lf = q.getResultList();
 	List<FilmDto> lfdto = new ArrayList<>();
 	for (Film f : lf) {
