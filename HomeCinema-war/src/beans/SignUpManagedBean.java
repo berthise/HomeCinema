@@ -18,6 +18,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
+import utils.Redirect;
 
 /**
  *
@@ -40,12 +41,7 @@ public class SignUpManagedBean {
     FacesMessage message = new FacesMessage("Succès de l'inscription !");
     message.setSeverity(FacesMessage.SEVERITY_INFO);
     FacesContext.getCurrentInstance().addMessage(null, message);
-    FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
-    try {
-      FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
-    } catch (IOException ex) {
-      Logger.getLogger(SignUpManagedBean.class.getName()).log(Level.SEVERE, null, ex);
-    }
+    Redirect.redirectTo("index.xhtml");
   }
 
   public void convertDate(String birthDay) {

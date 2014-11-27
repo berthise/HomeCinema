@@ -21,6 +21,7 @@
 	<script src="js/slider.js"></script>
 
         <f:metadata>
+	    <f:event type="preRenderView" listener="#{sessionManagedBean.checkRight()}"/>
             <f:viewParam name="id" value="#{productManagedBean.id}" />
             <f:event type="preRenderView" listener="#{productManagedBean.setDtoFromId()}"/>
         </f:metadata>

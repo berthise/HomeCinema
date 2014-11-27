@@ -17,6 +17,8 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import static utils.Beans.getRequestPage;
+import utils.Redirect;
 
 /**
  *
@@ -27,6 +29,44 @@ import javax.faces.context.FacesContext;
 public class SessionManagedBean {
 
   private UserDtoNoPw user = new UserDtoNoPw();
+
+  public enum SessionStates {
+
+    LOGGED,
+    NOT_LOGGED,
+    LOGGED_PAY;
+  }
+
+  public void openPaiement() {
+    if (getSessionState() == SessionStates.LOGGED && user.caddieSize > 0) {
+      user.setState(UserStates.Payment);
+
+	// TODO change state in ejbs
+      Redirect.redirectTo("paiement.xhtml");
+    }
+  }
+
+  public void closePaiement() {
+    if (getSessionState() == SessionStates.LOGGED_PAY) {
+
+      // TODO change state in ejbs
+      user.setState(UserStates.Activated);
+      Redirect.redirectTo("moncompte.xhtml");
+    }
+  }
+
+  public void cancelPaiement() {
+    if (getSessionState() == SessionStates.LOGGED_PAY) {
+
+      FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,
+	      "Annulation du paiement !", null);
+      FacesContext.getCurrentInstance().addMessage(null, message);
+      // TODO change state in ejbs
+
+      user.setState(UserStates.Activated);
+    }
+  }
+
 
   public Boolean login(LoginManagedBean login) {
     try {
@@ -39,16 +79,12 @@ public class SessionManagedBean {
 
   public void logout() {
 
-    try {
-      FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Au revoir " + user.nickName + " !", null);
-      FacesContext.getCurrentInstance().addMessage(null, message);
-      user = new UserDtoNoPw();
+    FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Au revoir " + user.nickName + " !", null);
+    FacesContext.getCurrentInstance().addMessage(null, message);
+    user = new UserDtoNoPw();
 
-      FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
-      FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
-    } catch (IOException ex) {
-      Logger.getLogger(SessionManagedBean.class.getName()).log(Level.SEVERE, null, ex);
-    }
+    Redirect.redirectIfNeeded(getSessionState());
+
   }
 
   public Boolean changeEmail(InfoUserManagedBean info) {
@@ -68,19 +104,25 @@ public class SessionManagedBean {
 
     return ret;
   }
-  
-  public void checkConnected() throws IOException {
-    if (user.id == null) {
-      FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
+
+  public void checkRight() {
+    if (getSessionState() == SessionStates.LOGGED_PAY && !getRequestPage().equals("paiement.xhtml")) {
+      this.cancelPaiement();
     }
+    Redirect.redirectIfNeeded(getSessionState());
+
   }
 
-  public void checkCaddyPaiement() throws IOException {
-    if (user.caddieSize == 0) {
-      FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
+  private SessionStates getSessionState() {
+    if (user.id != null) {
+      if (this.getState() == UserStates.Payment) {
+	return SessionStates.LOGGED_PAY;
+      }
+      return SessionStates.LOGGED;
+    } else {
+      return SessionStates.NOT_LOGGED;
     }
   }
-
 
   public Long getId() {
     return user.id;

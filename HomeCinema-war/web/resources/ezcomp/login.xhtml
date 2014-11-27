@@ -14,7 +14,7 @@
   <!-- IMPLEMENTATION -->
   <cc:implementation>
     <!--    <f:view>
-	      <f:event type="preRenderComponent" listener="#{!sessionManagedBean.checkConnected()}"/>
+	      <f:event type="preRenderComponent" listener="#{!sessionManagedBean.checkRight()}"/>
 	</f:view>-->
     <c:choose>
       <c:when test="#{!cc.attrs.short}">
@@ -27,7 +27,7 @@
 		<div class="form-group">
 		  <h:outputLabel class="col-md-5 form-label" for="email">Email <i class="required">*</i> : </h:outputLabel>
 		  <div class="col-md-7">
-		    <h:inputText p:type="email" id="email" class="form-control" value="#{loginManagedBean.email}" p:placeholder="Adresse e-mail" p:required="required" />
+		    <h:inputText p:type="email" id="email" class="form-control" value="#{loginManagedBean.email}" tabindex="500" p:placeholder="Adresse e-mail" p:required="required" />
 		  </div>
 		</div>
 	      </div>
@@ -35,20 +35,20 @@
 		<div class="form-group">
 		  <h:outputLabel class="col-md-5 form-label" for="password">Mot de passe <i class="required">*</i> : </h:outputLabel>
 		  <div class="col-md-7">
-		    <h:inputSecret id="password" class="form-control" value="#{loginManagedBean.password}" p:placeholder="Mot de passe" 
+		    <h:inputSecret id="password" class="form-control" value="#{loginManagedBean.password}" tabindex="510"  p:placeholder="Mot de passe" 
 				   p:required="required" p:pattern=".{6,}" p:title="6 caractères minimum" />
 		  </div>
 		</div>
 	      </div>
 	      <div class="row">
 		<span class="pull-right forgot">
-		  <a href="#">E-mail ou mot de passe oublié ?</a>
+		  <a href="#" tabindex="600" >E-mail ou mot de passe oublié ?</a>
 		</span>
 	      </div>
 	      <div class="row">
 		<div class="col-md-3"></div>
-		<h:commandButton class="btn btn-primary col-md-4" p:type="reset" value="Réinitialiser" />
-		<h:commandButton class="btn btn-success col-md-4" value="Connexion" action="#{loginManagedBean.login}" />
+		<h:commandButton class="btn btn-primary col-md-4" p:type="reset" value="Réinitialiser" tabindex="530" />
+		<h:commandButton class="btn btn-success col-md-4" value="Connexion" action="#{loginManagedBean.login}" tabindex="520" />
 	      </div>
 	    </div>
 	  </div>

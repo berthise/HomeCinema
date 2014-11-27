@@ -11,7 +11,6 @@ import enums.CardTypes;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,6 +20,8 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.naming.NamingException;
+import static utils.Beans.findBean;
+import utils.Redirect;
 
 /**
  *
@@ -56,22 +57,25 @@ public class PaymentManagedBean {
     pdto.setType(CardTypes.CB);
   }
 
-  public void buy(Long userId) {
+  public void buy() {
+    SessionManagedBean session = findBean("sessionManagedBean");
 
-    Long t_id = Ejbs.transaction().validate(userId, pdto);
+    Long t_id = Ejbs.transaction().validate(session.getId(), pdto);
 
     // TODO do that when we receive payment confirmation.
     Ejbs.transaction().validatePayement(t_id, 52L);
 
-    try {
-      FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Succès de l'achat !", null);
-      FacesContext.getCurrentInstance().addMessage(null, message);
-      FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
-      FacesContext.getCurrentInstance().getExternalContext().redirect("moncompte.xhtml");
-    } catch (IOException ex) {
-      Logger.getLogger(PaymentManagedBean.class.getName()).log(Level.SEVERE, null, ex);
-    }
+    FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Succès de l'achat !", null);
+    FacesContext.getCurrentInstance().addMessage(null, message);
+    session.closePaiement();
 
+  }
+
+  public void cancel() {
+    SessionManagedBean session = findBean("sessionManagedBean");
+
+    session.cancelPaiement();
+    Redirect.redirectTo("moncompte.xhtml");
   }
 
   public void returnCaddie() {
