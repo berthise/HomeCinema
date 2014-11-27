@@ -18,6 +18,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
+import utils.Pages;
 import utils.Redirect;
 
 /**
@@ -41,7 +42,7 @@ public class SignUpManagedBean {
     FacesMessage message = new FacesMessage("Succès de l'inscription !");
     message.setSeverity(FacesMessage.SEVERITY_INFO);
     FacesContext.getCurrentInstance().addMessage(null, message);
-    Redirect.redirectTo("index.xhtml");
+    Redirect.redirectTo(Pages.INDEX);
   }
 
   public void convertDate(String birthDay) {

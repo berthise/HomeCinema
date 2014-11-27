@@ -24,6 +24,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.naming.NamingException;
+import utils.Pages;
 
 /**
  *
@@ -41,11 +42,11 @@ public class FilmManagedBean {
 
     public void setDtoFromId() throws IOException {
 	if (fdto.id == null) {
-	    FacesContext.getCurrentInstance().getExternalContext().dispatch("404.xhtml");
+	    FacesContext.getCurrentInstance().getExternalContext().dispatch(Pages.NOT_FOUND);
 	}
 	FilmFicheDto f = Ejbs.film().getDtoFromId(fdto.id);
 	if (f == null) {
-	    FacesContext.getCurrentInstance().getExternalContext().dispatch("404.xhtml");
+	    FacesContext.getCurrentInstance().getExternalContext().dispatch(Pages.NOT_FOUND);
 	}
 	fdto = f;
     }
@@ -110,11 +111,11 @@ public class FilmManagedBean {
     }
 
     public String getLinkToFiche() {
-	return "<a title=\"Voir la fiche du film\" href=\"fiche_film.xhtml?id=" + fdto.id + "\"/>" + fdto.title + "</a>";
+	return "<a title=\"Voir la fiche du film\" href=\""+Pages.FICHE_FILM+"?id=" + fdto.id + "\"/>" + fdto.title + "</a>";
     }
 
     public String getLinkToVisionneuse() {
-	return "<a class=\"btn btn-success col-md-3 b21\" href=\"visionneuse.xhtml?id=" + fdto.id + "\">Voir en Streaming</a>";
+	return "<a class=\"btn btn-success col-md-3 b21\" href=\""+Pages.VISIONNEUSE+"?id=" + fdto.id + "\">Voir en Streaming</a>";
     }
 
     public String getLinkToDownload() {

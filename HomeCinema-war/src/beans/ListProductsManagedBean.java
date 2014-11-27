@@ -24,6 +24,7 @@ import java.util.Set;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import utils.Pages;
 
 /**
  *
@@ -84,7 +85,7 @@ public class ListProductsManagedBean {
 	    searchOpened = CLOSE;
 	}
 	if (!FacesContext.getCurrentInstance().isPostback()) {
-	    FacesContext.getCurrentInstance().getExternalContext().redirect("films.xhtml");
+	    FacesContext.getCurrentInstance().getExternalContext().redirect(Pages.FILMS);
 	}
     }
 

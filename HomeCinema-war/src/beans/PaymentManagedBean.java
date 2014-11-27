@@ -21,6 +21,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.naming.NamingException;
 import static utils.Beans.findBean;
+import utils.Pages;
 import utils.Redirect;
 
 /**
@@ -75,16 +76,9 @@ public class PaymentManagedBean {
     SessionManagedBean session = findBean("sessionManagedBean");
 
     session.cancelPaiement();
-    Redirect.redirectTo("moncompte.xhtml");
+    Redirect.redirectTo(Pages.MON_COMPTE);
   }
 
-  public void returnCaddie() {
-    try {
-      FacesContext.getCurrentInstance().getExternalContext().redirect("moncompte.xhtml?box=caddie");
-    } catch (IOException ex) {
-      Logger.getLogger(PaymentManagedBean.class.getName()).log(Level.SEVERE, null, ex);
-    }
-  }
 
   public PaymentDto getPdto() {
     return pdto;

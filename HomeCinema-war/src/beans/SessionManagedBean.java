@@ -18,6 +18,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import static utils.Beans.getRequestPage;
+import utils.Pages;
 import utils.Redirect;
 
 /**
@@ -40,9 +41,8 @@ public class SessionManagedBean {
   public void openPaiement() {
     if (getSessionState() == SessionStates.LOGGED && user.caddieSize > 0) {
       user.setState(UserStates.Payment);
-
 	// TODO change state in ejbs
-      Redirect.redirectTo("paiement.xhtml");
+      Redirect.redirectTo(Pages.PAYMENT);
     }
   }
 
@@ -51,7 +51,7 @@ public class SessionManagedBean {
 
       // TODO change state in ejbs
       user.setState(UserStates.Activated);
-      Redirect.redirectTo("moncompte.xhtml");
+      Redirect.redirectTo(Pages.MON_COMPTE);
     }
   }
 
@@ -106,7 +106,7 @@ public class SessionManagedBean {
   }
 
   public void checkRight() {
-    if (getSessionState() == SessionStates.LOGGED_PAY && !getRequestPage().equals("paiement.xhtml")) {
+    if (getSessionState() == SessionStates.LOGGED_PAY && !getRequestPage().equals(Pages.PAYMENT)) {
       this.cancelPaiement();
     }
     Redirect.redirectIfNeeded(getSessionState());
