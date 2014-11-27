@@ -49,7 +49,7 @@ public class ManageEntitieFilm {
 	boolean ok = false;
 	for (Long g : lg) {
 	    Genre a = em.find(Genre.class, lg);
-	    ok = ok || f.getGenre().contains(a);
+	    ok = (ok || f.getGenre().contains(a));
 	}
 	return ok;
     }

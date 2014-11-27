@@ -6,6 +6,7 @@
 package ejbs;
 
 import dtos.FilmDto;
+import dtos.FilteredListProductsDto;
 import dtos.GenreDto;
 import dtos.ProductDto;
 import dtos.VideoDto;
@@ -57,7 +58,6 @@ public interface ManageProductRemote {
      * @return film correspondant a tous les critéres précedents , empty si aucun 
      */
 
-    public List<ProductDto> getFilteredProducts(Long actor, Long director, List<Long> lgdto, String str, String year, OrderTypes sort, Integer limit, Integer row, ProductTypes main);
-    
+    public FilteredListProductsDto getFilteredProducts(Long actor, Long director, List<Long> lgdto, String str, String year, OrderTypes sort, Integer limit, Integer row, ProductTypes main);
     
 }

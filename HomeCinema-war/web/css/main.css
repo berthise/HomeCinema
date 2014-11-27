@@ -4,7 +4,7 @@ body {
   margin: 0;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
   body .navbar-noborder {
-    border: 1px solid #333 !important; }
+    border-bottom: 1px solid #333 !important; }
   body .col-size-fixed {
     width: 215px !important; }
   body .btn-space {
@@ -216,10 +216,17 @@ body {
     position: relative;
     top: -1px; }
   body .info-film-text-price {
-    left: -73px;
     font-weight: bold;
     text-shadow: 1px 1px 1px white;
-    margin-top: -10px; }
+    margin-top: -10px;
+    display: block;
+    width: 72px;
+    position: relative;
+    left: 70px;
+    text-align: center;
+    padding: 0;
+    top: -26px;
+    font-size: 17px; }
   body .list-genres-crew {
     background-color: #aaa;
     border-radius: 5px;
