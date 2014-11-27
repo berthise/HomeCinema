@@ -51,6 +51,7 @@ public class ManageProduct implements ManageProductRemote {
     @Override
     public List<ProductDto> getAllProduct() {
 	Query q = em.createQuery("From Product p", Product.class);
+	//q.setMaxResults(100);
 	List<Product> lp = q.getResultList();
 	List<ProductDto> lpdto = new ArrayList<ProductDto>();
 	for (Product p : lp) {
@@ -125,6 +126,7 @@ public class ManageProduct implements ManageProductRemote {
 
     private List<Product> findProducts(Long actor, Long director, List<Long> lgdto, String str, String year, ProductTypes main) {
 	Query q = em.createQuery("From Product p", Product.class);
+	//q.setMaxResults(100);
 	List<Product> lp = q.getResultList();
 	List<Product> res = new ArrayList<>();
 
