@@ -13,14 +13,14 @@
 			    <div class="footer-elem col-md-4">
 				<h3 class="footer-title"><a href="films.xhtml?s=top">Top</a></h3>
 				<ul class="footer-list">
-				    <ui:repeat var="o" value="#{listProductsManagedBean.getTopProduct()}">
+				    <ui:repeat var="o" value="#{listProductsManagedBean.getStaticTopProduct()}">
 					<li><a href="fiche_product.xhtml?id=#{o.id}">#{o.name}</a></li>
 				    </ui:repeat>
 				</ul></div>
 			    <div class="footer-elem col-md-4">
 				<h3 class="footer-title"><a href="films.xhtml?s=new">Nouveautés</a></h3>
 				<ul class="footer-list">
-				    <ui:repeat var="o" value="#{listProductsManagedBean.getNewProduct()}">
+				    <ui:repeat var="o" value="#{listProductsManagedBean.getStaticNewProduct()}">
 					<li><a href="fiche_product.xhtml?id=#{o.id}">#{o.name}</a></li>
 				    </ui:repeat>
 				</ul>

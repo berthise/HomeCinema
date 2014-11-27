@@ -23,9 +23,13 @@ and open the template in the editor.
 	<link rel="stylesheet" href="css/style-films.css"/>
 
 	<f:metadata>
-	    <f:viewParam name="n" value="#{searchProductsManagedBean.title}" />
+	    <f:viewParam name="clean" value="#{searchProductsManagedBean.clean}" />
+	    <f:viewParam name="director" value="#{searchProductsManagedBean.directorId}" />
+	    <f:viewParam name="actor" value="#{searchProductsManagedBean.actorId}" />
+	    <f:viewParam name="genre" value="#{searchProductsManagedBean.genreAlone}" />
+	    <f:viewParam name="title" value="#{searchProductsManagedBean.title}" />
 	    <f:viewParam name="form-search" value="#{listProductsManagedBean.searchOpened}" />
-	    <f:viewParam name="s" value="#{listProductsManagedBean.tabFilms}" />
+	    <f:viewParam name="tab" value="#{listProductsManagedBean.tabFilms}" />
 	</f:metadata>
 
     </h:head>
@@ -47,7 +51,7 @@ and open the template in the editor.
 		switch (status) {
 		    case "success":
 			setTimeout(function () {
-			    document.getElementById('search-attributs').style.maxHeight = '1000px';
+			    document.getElementById('search-attributs').style.maxHeight = '2000px';
 			}, 100);
 			break;
 		}
@@ -74,66 +78,72 @@ and open the template in the editor.
 			<h:form id="form-random">
 			    <p class="#{((listProductsManagedBean.getTabFilms() eq 'all')? 'activated' : '')}">
 				<h:commandLink onclick="javascript:loader('all');" value="Tous les films" action="#{listProductsManagedBean.setTabFilms('allLOCALE')}">
-				    <f:ajax execute="@form" render=":form-random :panel-random" onevent="handleAjaxClose"/>
+				    <f:ajax execute="@form" render=":form-random :panel-random :form-nav-page" onevent="handleAjaxClose"/>
 				    <img id="loader-all" class="films-loader" src="img/loader.gif"/>
 				</h:commandLink>
 			    </p>
 			    <p class="#{((listProductsManagedBean.getTabFilms() eq 'pack')? 'activated' : '')}">
 				<h:commandLink onclick="javascript:loader('pack');" value="Tous les packs" action="#{listProductsManagedBean.setTabFilms('packLOCALE')}">
-				    <f:ajax execute="@form" render=":form-random :panel-random" onevent="handleAjaxClose"/>
+				    <f:ajax execute="@form" render=":form-random :panel-random :form-nav-page" onevent="handleAjaxClose"/>
 				    <img id="loader-pack" class="films-loader" src="img/loader.gif"/>
 				</h:commandLink>
 			    </p>
 			    <p class="#{((listProductsManagedBean.getTabFilms() eq 'top')? 'activated' : '')}">
 				<h:commandLink onclick="javascript:loader('top');" value="Top 50" action="#{listProductsManagedBean.setTabFilms('topLOCALE')}">
-				    <f:ajax execute="@form" render=":form-random :panel-random" onevent="handleAjaxClose"/>
+				    <f:ajax execute="@form" render=":form-random :panel-random :form-nav-page" onevent="handleAjaxClose"/>
 				    <img id="loader-top" class="films-loader" src="img/loader.gif"/>
 				</h:commandLink>
 			    </p>
 			    <p class="#{((listProductsManagedBean.getTabFilms() eq 'new')? 'activated' : '')}">
 				<h:commandLink onclick="javascript:loader('new');" value="Nouveautés" action="#{listProductsManagedBean.setTabFilms('newLOCALE')}">
-				    <f:ajax execute="@form" render=":form-random :panel-random" onevent="handleAjaxClose"/>
+				    <f:ajax execute="@form" render=":form-random :panel-random :form-nav-page" onevent="handleAjaxClose"/>
 				    <img id="loader-new" class="films-loader" src="img/loader.gif"/>
 				</h:commandLink>
 			    </p>
 
 			    <p class="#{((listProductsManagedBean.getTabFilms() eq 'search')? 'activated' : '')}">
 				<h:commandLink onclick="javascript:loader('search');" value="Recherche avancée" action="#{listProductsManagedBean.setTabFilms('searchLOCALE')}">
-				    <f:ajax execute="@form" render=":form-random :panel-random" onevent="handleAjaxOpen"/>
+				    <f:ajax execute="@form" render=":form-random :panel-random :form-nav-page" onevent="handleAjaxOpen"/>
 				    <img id="loader-search" class="films-loader" src="img/loader.gif"/>
 				</h:commandLink>
 
 				<span id="search-attributs" style="max-height: #{((listProductsManagedBean.searchOpened == 0)? '500' : '0')}px;">
 				    <h:outputLabel for="title">Titre :</h:outputLabel><h:inputText class="form-control input-search" id="title" value="#{searchProductsManagedBean.title}" />
 				    <h:commandButton rendered="#{searchProductsManagedBean.title != null}" onclick="javascript:loader('search');" class="clean" value="×" action="#{searchProductsManagedBean.setTitle(null)}">
-					<f:ajax execute="@form" render=":form-random :panel-random" />
+					<f:actionListener binding="#{listProductsManagedBean.setPage(1)}"/>
+					<f:ajax execute="@form" render=":form-random :panel-random :form-nav-page" />
 				    </h:commandButton>
 
 				    <h:outputLabel for="date">Date :</h:outputLabel><h:inputText class="form-control input-search" id="date" value="#{searchProductsManagedBean.date}" />
 				    <h:commandButton rendered="#{searchProductsManagedBean.date != null}" onclick="javascript:loader('search');" class="clean" value="×" action="#{searchProductsManagedBean.setDate(null)}">
-					<f:ajax execute="@form" render=":form-random :panel-random" />
+					<f:actionListener binding="#{listProductsManagedBean.setPage(1)}"/>
+					<f:ajax execute="@form" render=":form-random :panel-random :form-nav-page" />
 				    </h:commandButton>
 
 				    <h:outputLabel for="director">Réalisateur :</h:outputLabel><h:inputText class="form-control input-search" id="director" value="#{searchProductsManagedBean.director}" />
-				    <h:commandButton rendered="#{searchProductsManagedBean.director != null}" onclick="javascript:loader('search');" class="clean" value="×" action="#{searchProductsManagedBean.setDirector(null)}">
-					<f:ajax execute="@form" render=":form-random :panel-random" />
+				    <h:commandButton rendered="#{searchProductsManagedBean.director != null}" onclick="javascript:loader('search');" class="clean" value="×" action="#{searchProductsManagedBean.deleteDirector()}">
+					<f:actionListener binding="#{listProductsManagedBean.setPage(1)}"/>
+					<f:ajax execute="@form" render=":form-random :panel-random :form-nav-page" />
 				    </h:commandButton>
 				    <h:outputLabel for="actor">Acteur :</h:outputLabel><h:inputText class="form-control input-search" id="actor" value="#{searchProductsManagedBean.actor}" />
-				    <h:commandButton rendered="#{searchProductsManagedBean.actor != null}" onclick="javascript:loader('search');" class="clean" value="×" action="#{searchProductsManagedBean.setActor(null)}">
-					<f:ajax execute="@form" render=":form-random :panel-random" />
+				    <h:commandButton rendered="#{searchProductsManagedBean.actor != null}" onclick="javascript:loader('search');" class="clean" value="×" action="#{searchProductsManagedBean.deleteActor()}">
+					<f:actionListener binding="#{listProductsManagedBean.setPage(1)}"/>
+					<f:ajax execute="@form" render=":form-random :panel-random :form-nav-page" />
 				    </h:commandButton>
 
-				    <ui:repeat var="g" value="#{listProductsManagedBean.getAllGenres()}" >
-					<h:outputLabel class="label-genres" >#{g.name} :</h:outputLabel>
-					<h:selectBooleanCheckbox value="#{searchProductsManagedBean.checked[g.id]}" >
+				    <h:outputLabel class="label-genres-title">Genres :</h:outputLabel>
+
+				    <c:forEach items="#{listProductsManagedBean.getAllGenres()}" var="g" varStatus="loop">
+					<h:selectBooleanCheckbox id="genres-id-#{loop.index}" value="#{searchProductsManagedBean.checked[g.id]}" >
 					    <f:ajax listener="#{searchProductsManagedBean.majGenres()}" />
 					</h:selectBooleanCheckbox>
-				    </ui:repeat>
+					<h:outputLabel class="label-genres" for="genres-id-#{loop.index}" >#{g.name}</h:outputLabel>
+				    </c:forEach>
+				    <br />
 
-				    <!-- problème de maj des checkbox -->
-
-				    <h:commandButton onclick="javascript:loader('search');" class="btn btn-success btn-xs btn-search" value="Rechercher">
-					<f:ajax execute="@form" render=":form-random :panel-random"/>
+				    <h:commandButton onclick="javascript:loader('search');" class="btn btn-success btn-xs btn-search" value="Rechercher" >
+					<f:actionListener binding="#{listProductsManagedBean.setPage(1)}"/>
+					<f:ajax execute="@form" render=":form-random :panel-random :form-nav-page"/>
 				    </h:commandButton>
 				</span>
 			    </p>
@@ -143,32 +153,70 @@ and open the template in the editor.
 		    <div class="box-right">
 			<h3><img src="img/list-icon.png" title="Produits"/>Liste des produits</h3>
 
-			<c:set var="list" value="#{listProductsManagedBean.getFilms(searchProductsManagedBean.searchParams)}" />
-			<c:set var="vide" value="#{empty list}" />
+			<c:set var="list" scope="view" value="#{listProductsManagedBean.getFilms(searchProductsManagedBean.searchParams)}" />
 
 			<h:panelGroup id="panel-random">
-			    <h:panelGroup rendered="#{not vide}">
-				<table class="table-borderless">
-				    <ui:repeat var="o" value="#{list}">
-					<tr>
-					    <ui:repeat var="f" value="#{o}">
-						<td>
-						    <a class="table-td-background" href="fiche_product.xhtml?id=#{f.id}">					
-							<img class="table-cover-film" src="http://image.tmdb.org/t/p/w396/#{f.cover}" title="#{f.name}"/>				    
-							<p class="table-title-film">#{f.name}</p>
-						    </a>				
-						</td>
-					    </ui:repeat>
-					</tr>
-				    </ui:repeat>
-				    <h:outputText value="#{listProductsManagedBean.getEmptyTd(list)}" escape="false" />
-				</table>
-			    </h:panelGroup>
+			    <c:choose>
+				<c:when test="#{list.size() > 0}" >
+				    <table class="table-borderless">
+					<ui:repeat var="o" value="#{list}">
+					    <tr>
+						<ui:repeat var="f" value="#{o}">
+						    <td>
+							<a class="table-td-background" href="fiche_product.xhtml?id=#{f.id}">					
+							    <span class="#{((listProductsManagedBean.isPack(f.id))? 'background-pack' : '')}">
+								<img class="table-cover-film" src="http://image.tmdb.org/t/p/w396/#{f.cover}" title="#{f.name}"/>
+							    </span>
+							    <p class="table-title-film">#{f.name}</p>
+							</a>				
+						    </td>
+						</ui:repeat>
+						<h:outputText value="#{listProductsManagedBean.getEmptyTd(list)}" escape="false" />
+					    </tr>
+					</ui:repeat>
+				    </table>
+				</c:when>
+				<c:otherwise>
 
-			    <h:panelGroup rendered="#{vide}">
-				Aucun produit ne correspond à votre recherche ...
-			    </h:panelGroup>
+				    Aucun produit ne correspond à votre recherche ...
+				</c:otherwise>
+			    </c:choose>
 			</h:panelGroup>
+
+			<h:form id="form-nav-page" >
+			    <nav class="nav-right">
+				<ul class="pagination">
+				    <c:choose>
+					<c:when test="#{listProductsManagedBean.page eq 1}" >
+					    <li class="disabled cursor-normal"><a href="#" onclick="return false;"><span aria-hidden="true">«</span><span class="sr-only">Previous</span></a></li>
+					</c:when>
+					<c:otherwise>
+					    <li>
+						<h:commandLink action="#{listProductsManagedBean.setPagePrevious()}">
+						    <span aria-hidden="true">«</span><span class="sr-only">Previous</span>
+						    <f:ajax execute="@form" render=":form-nav-page :panel-random" />
+						</h:commandLink>
+					    </li>
+					</c:otherwise>
+				    </c:choose>
+				    <li class="active cursor-normal"><a href="" onclick="return false;">#{listProductsManagedBean.page}</a></li>
+				    <c:choose>
+					<c:when test="#{listProductsManagedBean.isLastPage()}" >
+					    <li class="disabled cursor-normal"><a href="#" onclick="return false;"><span aria-hidden="true">»</span><span class="sr-only">Next</span></a></li>
+					</c:when>
+					<c:otherwise>
+					    <li>
+						<h:commandLink action="#{listProductsManagedBean.setPageNext()}">
+						    <span aria-hidden="true">»</span><span class="sr-only">Next</span>
+						    <f:ajax execute="@form" render=":form-nav-page :panel-random" />
+						</h:commandLink>
+					    </li>
+					</c:otherwise>
+				    </c:choose>
+				</ul>
+			    </nav>
+			</h:form>
+
 		    </div>
 
 		    <div id="bottom">

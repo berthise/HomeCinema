@@ -15,11 +15,17 @@
 .table-borderless td {
     width: 25%;
     vertical-align: top;
+    border: 5px solid #fafafa !important;
+    background: #f1f1f1;
 }
 
-.table-borderless td:hover .table-td-background {
+.table-borderless td:hover, .table-borderless td:hover .table-td-background {
     background: #ddd;
     text-decoration: none;
+}
+
+.invisible-td {
+    visibility: hidden;
 }
 
 .table-td-background {
@@ -54,6 +60,7 @@
     height: 25px;
     margin-bottom: 7px;
     margin-right: 1px;
+    padding-top: 6px;
 }
 
 .clean {
@@ -89,5 +96,36 @@
 }
 
 .label-genres {
-    width: 83% !important;
+    width: 40% !important;
+    padding-left: 10px;
+    font-style: italic;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.nav-right {
+    float: right;
+    margin-bottom: -25px;
+}
+
+.background-pack {
+    background: url(../img/background-pack.png) 0px 13px no-repeat;
+    display: block;
+    margin: auto;
+    width: 161px;
+}
+
+input[type=checkbox]{
+    margin-top: 0;
+    position: relative;
+    top: 2px;
+    left: 15px;
+}
+
+.label-genres-title {
+    display: block;
+}
+
+.cursor-normal a {
+    cursor: default !important;
 }
