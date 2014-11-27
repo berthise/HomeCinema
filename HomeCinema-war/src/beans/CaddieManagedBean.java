@@ -61,9 +61,9 @@ public class CaddieManagedBean {
   }
 
   public CaddieDto cdto;
-  private LoginManagedBean session;
+  private SessionManagedBean session;
 
-  public void setSession(LoginManagedBean session) {
+  public void setSession(SessionManagedBean session) {
     this.session = session;
   }
 
@@ -123,7 +123,7 @@ public class CaddieManagedBean {
 
   }
 
-  public void addProductFilmToCaddie(LoginManagedBean session, Long idproduct, Long idfilm) throws IOException {
+  public void addProductFilmToCaddie(SessionManagedBean session, Long idproduct, Long idfilm) throws IOException {
     if ( session != null )
       this.session = session;
     this.cdto = Ejbs.transaction().addProduct(this.session.getId(), idproduct);
@@ -156,7 +156,7 @@ public class CaddieManagedBean {
     return toReturn;
   }
 
-  public void addProductToCaddie(LoginManagedBean session, Long idproduct, String _switch) throws IOException {
+  public void addProductToCaddie(SessionManagedBean session, Long idproduct, String _switch) throws IOException {
         if ( session != null )
       this.session = session;
     switch (_switch) {

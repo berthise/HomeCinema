@@ -44,8 +44,8 @@
 	      <h:graphicImage value="http://image.tmdb.org/t/p/w396/#{filmManagedBean.cover}" />
 	      <a id="play" href="#ba"/>
 
-	      <c:set var="deco" value="#{loginManagedBean.id eq null}" />
-	      <c:set var="type" value="#{accountManagedBean.getCodeButtonsFilm(filmManagedBean.id, loginManagedBean.id)}" />
+	      <c:set var="deco" value="#{sessionManagedBean.id eq null}" />
+	      <c:set var="type" value="#{accountManagedBean.getCodeButtonsFilm(filmManagedBean.id, sessionManagedBean.id)}" />
 
 	      <div class="form-liste-film">
 
@@ -56,7 +56,7 @@
 
 		<h:panelGroup rendered="#{!deco and type eq 'FREE'}">
 		  <h:form>
-		      <h:commandButton class="btn btn-success col-md-3 b1" value="Ajouter au caddie" action="#{caddieManagedBean.addProductFilmToCaddie(loginManagedBean, filmManagedBean.mainProductId,filmManagedBean.id)}" />
+		      <h:commandButton class="btn btn-success col-md-3 b1" value="Ajouter au caddie" action="#{caddieManagedBean.addProductFilmToCaddie(sessionManagedBean, filmManagedBean.mainProductId,filmManagedBean.id)}" />
 		  </h:form>
 		</h:panelGroup>
 
