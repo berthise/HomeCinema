@@ -5,8 +5,8 @@
  */
 package ejbs;
 
-import dtos.CaddieDto;
 import dtos.FilmDto;
+import dtos.GenreDto;
 import dtos.ProductDto;
 import dtos.VideoDto;
 import enums.OrderTypes;
@@ -40,8 +40,9 @@ public interface ManageProductRemote {
     public ProductDto getProduct(Long pid);
 
     public ProductDto mergeOrSave(ProductDto pdto);
-
-
+    
+    public List<GenreDto> getAllGenres();
+    
     /**
      *
      * @param actor film avec l'acteur ayant cet id 0||null => tout
