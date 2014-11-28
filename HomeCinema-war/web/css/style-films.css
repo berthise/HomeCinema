@@ -90,6 +90,12 @@
     transition: max-height 0.8s;
 }
 
+.activated-search {
+    background: -moz-linear-gradient(left, #62a53c 0%, #95c640 100%) !important;
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%,#62a53c), color-stop(100%,#95c640)) !important;
+    background: -webkit-linear-gradient(left, #62a53c 0%,#95c640 100%) !important;
+}
+
 .btn-search {
     float: right;
     margin-right: 23px;
@@ -130,4 +136,21 @@ input[type=checkbox]{
 
 .cursor-normal a {
     cursor: default !important;
+}
+
+.radio-search {
+    position: relative;
+    left: 70px;
+    top: -25px;
+    margin-bottom: -20px;
+}
+
+.radio-search label {
+    position: relative;
+    top: -2px;
+    left: -5px;
+}
+
+.radio-search input {
+    margin-left: 5px;
 }

@@ -16,24 +16,24 @@
 	    <h3><img src="img/film-icon.png" title="Films"/>Films</h3>
 	    <c:choose>
 		<c:when test="#{historyManagedBean.counter(cc.attrs.userId) eq 0}" >
-		    <td>Votre liste de films est vide ... <a href="#">Cliquez ici pour trouver des films !</a></td>                                        
+		    <td>Votre liste de films est vide ... <a href="films.xhtml">Cliquez ici pour trouver des films !</a></td>                                        
 		</c:when>
 		<c:otherwise>
 		    <table>
-			<ui:repeat var="o" value="#{accountManagedBean.getListFilms()}">
+			<ui:repeat var="o" value="#{accountManagedBean.getListFilmsOwned()}">
 			    <tr>
 				<td>
 				    <span class="affiche">
 					<img src="img/glass.png" />
 					<span>
-					    <img src="http://image.tmdb.org/t/p/w396/#{o.get(1)}" />
+					    <img src="http://image.tmdb.org/t/p/w396/#{o.cover}" />
 					</span>
 				    </span>
 				</td>
 				<td>                 
-				    <a title="Voir la fiche du film" href="fiche_film.xhtml?id=#{o.get(4)}">#{o.get(2)} (#{o.get(3)})</a>
+				    <a title="Voir la fiche du film" href="fiche_film.xhtml?id=#{o.id}">#{o.title} (#{o.getReleaseDateString('YYYY')})</a>
 				</td>
-				<td><a href="visionneuse.xhtml?id=#{o.get(4)}"><img src="img/eye.png" title="Voir le film" /></a></td>
+				<td><a href="visionneuse.xhtml?id=#{o.id}"><img src="img/eye.png" title="Voir le film" /></a></td>
 			    </tr>
 			</ui:repeat>
 		    </table>

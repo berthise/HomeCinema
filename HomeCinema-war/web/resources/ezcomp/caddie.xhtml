@@ -27,7 +27,7 @@
       <!--      <c:choose>
 	      <c:when test="#{caddieManagedBean.counter() eq 0}" >-->
       <h:panelGroup  rendered="#{caddieManagedBean.counter() eq 0}" >
-	<td>Votre caddie est vide ... <a href="#">Cliquez ici pour trouver des films !</a></td>                                        
+	<td>Votre caddie est vide ... <a href="films.xhtml">Cliquez ici pour trouver des films !</a></td>                                        
       </h:panelGroup>
       <h:panelGroup  rendered="#{caddieManagedBean.counter() gt 0}" >
 	<table>

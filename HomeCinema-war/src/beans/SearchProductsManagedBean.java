@@ -30,16 +30,9 @@ public class SearchProductsManagedBean {
 	public String actor;
 	public Long directorId;
 	public Long actorId;
+	public String genresMode = "OR";
 
 	public List<Long> genres = new ArrayList<>();
-
-	// TODO: supprimer cette fonction useless
-	public void print() {
-	    for (Long l : genres) {
-		System.out.println(l);
-	    }
-	    System.out.println("------");
-	}
     }
 
     private Map<Long, Boolean> checked;
@@ -147,7 +140,6 @@ public class SearchProductsManagedBean {
 	    }
 	}
 	this.params.genres = newList;
-	//this.params.print();
     }
 
     public Long getDirectorId() {
@@ -185,4 +177,14 @@ public class SearchProductsManagedBean {
     public Long getClean() {
 	return null;
     }
+    
+
+    public String getGenresMode() {
+	return this.params.genresMode;
+    }
+
+    public void setGenresMode(String genresMode) {
+	this.params.genresMode = genresMode;
+    }
+
 }
