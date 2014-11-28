@@ -68,6 +68,8 @@
     color: #666;
     border:0;
     background: none;
+    cursor: pointer;
+    margin-left: 2px;
 }
 
 
