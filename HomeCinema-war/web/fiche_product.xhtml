@@ -113,7 +113,7 @@
 				</div>
 				<div class="info-fiche-right info-film-price">
 				    <h3>Prix : <img class="info-film-img-price" src="img/price.png" /><span class="info-film-p info-film-text-price"><h:outputText value="#{productManagedBean.getPrice(productManagedBean.id)}" />€</span>				    
-					<img class="info-film-img-reduc" src="img/reduc.png" /><span class="info-film-reduc">-#{productManagedBean.getReduction()}%</span>
+					<img class="info-film-img-reduc" src="img/reduc.png" /><span class="info-film-reduc">#{productManagedBean.getReduction()}%</span>
 				    </h3>
 				</div>
 			    </div>

@@ -144,7 +144,7 @@ public class SearchProductsManagedBean {
 
     public void setDirectorId(Long directorId) {
 	this.params.directorId = directorId;
-	this.params.director = directorId + "<MettreLeVraiNom>";
+	this.params.director = "tmp";
     }
 
     public Long getActorId() {
