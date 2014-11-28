@@ -5,6 +5,7 @@
  */
 package ejbs.admin;
 
+import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
 import dtos.FilmDto;
 import dtos.FilteredListProductsDto;
 import dtos.GenreDto;
@@ -16,8 +17,10 @@ import entities.Genre;
 import entities.Product;
 import enums.OrderTypes;
 import enums.ProductTypes;
+import java.security.Timestamp;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -128,11 +131,11 @@ public class ManageProduct implements ManageProductRemote {
     private List<Product> findProducts(Long actor, Long director, List<Long> lgdto, String str, String year, ProductTypes main) {
 	Query q = em.createQuery("From Product p", Product.class);
 	//q.setMaxResults(100);
+
 	List<Product> lp = q.getResultList();
 	List<Product> res = new ArrayList<>();
-
 	for (Product p : lp) {
-	    if (main.equals(ProductTypes.All) || (p.getFilms().size() == 1 && main.equals(ProductTypes.Main)) || (p.getFilms().size() > 1 && main.equals(ProductTypes.Pack)) ) {
+	    if (main.equals(ProductTypes.All) || (p.getFilms().size() == 1 && main.equals(ProductTypes.Main)) || (p.getFilms().size() > 1 && main.equals(ProductTypes.Pack))) {
 		boolean add = false;
 		for (Film f : p.getFilms()) {
 		    if (ManageEntitieFilm.filterFilm(f, actor, director, lgdto, str, year, em)) {
@@ -146,7 +149,6 @@ public class ManageProduct implements ManageProductRemote {
 	}
 	return res;
     }
-    
 
     @Override
     public FilteredListProductsDto getFilteredProducts(Long actor, Long director, List<Long> lgdto, String str, String year, OrderTypes sort, Integer limit, Integer row, ProductTypes main) {
@@ -154,8 +156,7 @@ public class ManageProduct implements ManageProductRemote {
 	int size = lpdto.size();
 	if (sort.equals(OrderTypes.RAND)) {
 	    Collections.shuffle(lpdto);
-	}
-	else if (!sort.equals(OrderTypes.NO)) {
+	} else if (!sort.equals(OrderTypes.NO)) {
 	    Collections.sort(lpdto, ManageEntitieProduct.getComparator(sort));
 	}
 	if (row == null || row < 0) {
@@ -167,13 +168,12 @@ public class ManageProduct implements ManageProductRemote {
 	if (row + limit > lpdto.size()) {
 	    limit = lpdto.size() - row;
 	}
-		
+
 	lpdto = lpdto.subList(row, row + limit);
 	List<ProductDto> res = new ArrayList<>();
 	for (Product p : lpdto) {
 	    res.add(ProductDtoManager.getDto(p));
 	}
-	
 	return new FilteredListProductsDto(res, size);
     }
 
