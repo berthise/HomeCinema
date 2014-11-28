@@ -129,11 +129,12 @@ public class ManageProduct implements ManageProductRemote {
     }
 
     private List<Product> findProducts(Long actor, Long director, List<Long> lgdto, String str, String year, ProductTypes main) {
-	Query q = em.createQuery("From Product p", Product.class);
-	//q.setMaxResults(100);
-
+	Query q = em.createQuery("select distinct p From Product p join p.films f join f.genre g where g.name='Action' ", Product.class);
+	q.setFirstResult(100);
+	q.setMaxResults(100);
 	List<Product> lp = q.getResultList();
-	List<Product> res = new ArrayList<>();
+	return lp;
+	/*List<Product> res = new ArrayList<>();
 	for (Product p : lp) {
 	    if (main.equals(ProductTypes.All) || (p.getFilms().size() == 1 && main.equals(ProductTypes.Main)) || (p.getFilms().size() > 1 && main.equals(ProductTypes.Pack))) {
 		boolean add = false;
@@ -147,7 +148,7 @@ public class ManageProduct implements ManageProductRemote {
 		}
 	    }
 	}
-	return res;
+	return res;*/
     }
 
     @Override
