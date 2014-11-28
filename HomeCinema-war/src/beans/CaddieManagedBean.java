@@ -19,7 +19,9 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.naming.NamingException;
-import javax.servlet.http.HttpServletRequest;
+import static utils.Beans.getRequestPage;
+import utils.Pages;
+import utils.Redirect;
 
 /**
  *
@@ -106,32 +108,27 @@ public class CaddieManagedBean {
   }
 
   public void deleteFromCaddie(Long idProduct) {
-    try {
-      Ejbs.transaction().removeProduct(session.getId(), idProduct);
-      this.cdto = Ejbs.transaction().getCaddieDto(session.getId());
-      session.caddySizeMinus();
-      FacesMessage message = new FacesMessage("Succès de la suppresion !");
-      FacesContext.getCurrentInstance().addMessage(null, message);
-      if (((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest()).getRequestURI().contains("moncompte.xhtml")) {
-	// redirect only if on page moncompte (to reload caddie).
-	FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
-	FacesContext.getCurrentInstance().getExternalContext().redirect("moncompte.xhtml?box=caddie");
-      }
-    } catch (IOException ex) {
-      Logger.getLogger(CaddieManagedBean.class.getName()).log(Level.SEVERE, null, ex);
+    Ejbs.transaction().removeProduct(session.getId(), idProduct);
+    this.cdto = Ejbs.transaction().getCaddieDto(session.getId());
+    session.caddySizeMinus();
+    FacesMessage message = new FacesMessage("Succès de la suppresion !");
+    FacesContext.getCurrentInstance().addMessage(null, message);
+    if (getRequestPage().contains(Pages.MON_COMPTE)) {
+      // redirect only if on page moncompte (to reload caddie).
+      Redirect.redirectTo(Pages.MON_COMPTE + "?box=caddie");
     }
 
   }
 
   public void addProductFilmToCaddie(SessionManagedBean session, Long idproduct, Long idfilm) throws IOException {
-    if ( session != null )
+    if (session != null) {
       this.session = session;
+    }
     this.cdto = Ejbs.transaction().addProduct(this.session.getId(), idproduct);
-    session.caddySizePlus();
+    this.session.caddySizePlus();
     FacesMessage message = new FacesMessage("Succès de l'ajout !");
     FacesContext.getCurrentInstance().addMessage(null, message);
-    FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
-    FacesContext.getCurrentInstance().getExternalContext().redirect("fiche_film.xhtml?id=" + idfilm);
+    Redirect.redirectTo(Pages.FICHE_FILM + "?id=" + idfilm);
   }
 
   private int isInMyFilms(Long ids) {
@@ -157,8 +154,9 @@ public class CaddieManagedBean {
   }
 
   public void addProductToCaddie(SessionManagedBean session, Long idproduct, String _switch) throws IOException {
-        if ( session != null )
+    if (session != null) {
       this.session = session;
+    }
     switch (_switch) {
       case "FREE":
 	this.cdto = Ejbs.transaction().addProduct(session.getId(), idproduct);
@@ -181,8 +179,7 @@ public class CaddieManagedBean {
     }
     FacesMessage message = new FacesMessage("Succès de l'ajout !");
     FacesContext.getCurrentInstance().addMessage(null, message);
-    FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
-    FacesContext.getCurrentInstance().getExternalContext().redirect("fiche_product.xhtml?id=" + idproduct);
+    Redirect.redirectTo(Pages.FICHE_PRODUCT + "?id=" + idproduct);
   }
 
 }

@@ -14,5 +14,6 @@ import java.io.Serializable;
 public enum UserStates implements Serializable {
   Activated,
   Pending,
-  Deactivated
+  Deactivated,
+  Payment;
 }

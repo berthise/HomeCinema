@@ -16,7 +16,8 @@ import java.util.Arrays;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
+import utils.Pages;
+import utils.Redirect;
 
 /**
  *
@@ -160,7 +161,7 @@ public class AccountManagedBean {
 
     public void checkIsMyFilm(Long idfilm, Long iduser) throws IOException {
 	if (isInMyFilms(Arrays.asList(idfilm), iduser) == 0) {
-	    FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
+	  Redirect.redirectTo(Pages.MON_COMPTE);
 	}
     }
 }

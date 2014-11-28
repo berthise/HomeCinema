@@ -18,6 +18,7 @@ import java.util.Locale;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import utils.Pages;
 
 /**
  *
@@ -35,13 +36,14 @@ public class ProductManagedBean {
 
     public void setDtoFromId() throws IOException {
 	if (pdto.id == null) {
-	    FacesContext.getCurrentInstance().getExternalContext().dispatch("404.xhtml");
+	    FacesContext.getCurrentInstance().getExternalContext().dispatch(Pages.NOT_FOUND);
 	}
 	ProductDto p = Ejbs.product().getProduct(pdto.id);
 	if (p == null) {
-	    FacesContext.getCurrentInstance().getExternalContext().dispatch("404.xhtml");
-	} else if (Ejbs.product().getFilms(p.id).size() == 1) {
-	    String url = "fiche_film.xhtml?id=" + Ejbs.product().getFilms(p.id).get(0).id;
+	    FacesContext.getCurrentInstance().getExternalContext().dispatch(Pages.NOT_FOUND);
+	}
+	else if (Ejbs.product().getFilms(p.id).size() == 1){
+	    String url = Pages.FICHE_FILM+"?id="+Ejbs.product().getFilms(p.id).get(0).id;
 	    FacesContext.getCurrentInstance().getExternalContext().redirect(url);
 	}
 	pdto = p;

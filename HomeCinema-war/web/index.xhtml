@@ -17,6 +17,9 @@
 	<link rel="stylesheet" href="css/bootstrap-theme.min.css"/>
 	<link rel="stylesheet" href="css/main.css"/>
 
+	    <f:metadata>
+      <f:event type="preRenderView" listener="#{sessionManagedBean.checkRight()}"/>
+    </f:metadata>
     </h:head>
     <h:body>
 	<ui:insert name="header" >
