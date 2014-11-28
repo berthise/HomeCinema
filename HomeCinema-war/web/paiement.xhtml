@@ -22,8 +22,8 @@
 
     <f:metadata>
       <!--<f:event type="preRenderView" listener="#{sessionManagedBean.tmpLogin()}"/>-->
-      <f:event type="preRenderView" listener="#{sessionManagedBean.checkConnected()}"/>
-      <f:event type="preRenderView" listener="#{sessionManagedBean.checkCaddyPaiement()}"/>
+      <f:event type="preRenderView" listener="#{sessionManagedBean.checkRight()}"/>
+      <!--<f:event type="preRenderView" listener="#{sessionManagedBean.checkCaddyPaiement()}"/>-->
     </f:metadata>
 
   </h:head>
@@ -86,8 +86,15 @@
 	      </div>
 	      <div class="row">
 		<span class="col-md-3"></span>
-		<h:button value="Annuler" title="Retourner au caddie" outcome="moncompte.xhtml?box=caddie" class="btn btn-primary col-md-3" tabindex="52"/>
-		<h:commandButton action="#{paymentManagedBean.buy(sessionManagedBean.id)}" value="Payer" title="Valider le paiement" class="btn btn-success col-md-3" tabindex="50"/>
+		<h:commandButton action="#{paymentManagedBean.cancel()}" value="Annuler"
+				 title="Annuler le paiement" class="btn btn-primary col-md-3" 
+				 tabindex="52">
+		  <f:ajax/>
+		</h:commandButton>
+		  
+		<h:commandButton action="#{paymentManagedBean.buy()}" value="Payer"
+				 title="Valider le paiement" class="btn btn-success col-md-3" 
+				 tabindex="50"/>
 	      </div>
 	    </h:form>
 	  </div>

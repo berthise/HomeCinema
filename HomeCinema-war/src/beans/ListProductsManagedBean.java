@@ -23,6 +23,7 @@ import java.util.Set;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import utils.Pages;
 
 /**
  *
@@ -43,7 +44,7 @@ public class ListProductsManagedBean {
 
     private int page;
     private int lastPage;
-    private final int N_PER_PAGE = 3;
+    private final int N_PER_PAGE = 12;
 
     private List<GenreDto> allGenres;
 
@@ -94,7 +95,7 @@ public class ListProductsManagedBean {
 	    searchOpened = CLOSE;
 	}
 	if (!FacesContext.getCurrentInstance().isPostback()) {
-	    FacesContext.getCurrentInstance().getExternalContext().redirect("films.xhtml");
+	    FacesContext.getCurrentInstance().getExternalContext().redirect(Pages.FILMS);
 	}
     }
 

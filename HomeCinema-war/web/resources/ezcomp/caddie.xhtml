@@ -18,7 +18,7 @@
   <!-- IMPLEMENTATION -->
   <cc:implementation>
     <f:view>
-    <f:event type="preRenderComponent" listener="#{sessionManagedBean.checkConnected()}"/>
+    <f:event type="preRenderComponent" listener="#{sessionManagedBean.checkRight()}"/>
     <f:event type="preRenderComponent" listener="#{caddieManagedBean.setSession(sessionManagedBean)}"/>
     </f:view>
     <h:outputStylesheet library="css" name="caddie.css" />
@@ -116,7 +116,9 @@
 	</table>
 	<c:if test="#{!cc.attrs.recap}" >
 	  <h:panelGroup rendered="#{caddieManagedBean.counter() gt 0}" >
-	    <a class="btn btn-success to-right" href="paiement.xhtml">Valider mon caddie</a>
+	    <h:form>
+	      <h:commandButton action="#{sessionManagedBean.openPaiement()}" value="Valider mon caddie" class="btn btn-success to-right"/>
+	    </h:form>
 	  </h:panelGroup>
 	</c:if>
       </h:panelGroup>

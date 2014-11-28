@@ -21,7 +21,7 @@
 
         <f:metadata>
             <f:viewParam name="box" value="#{accountManagedBean.initBox}" />
-            <f:event type="preRenderView" listener="#{sessionManagedBean.checkConnected()}"/>
+            <f:event type="preRenderView" listener="#{sessionManagedBean.checkRight}"/>
             <f:event type="preRenderView" listener="#{accountManagedBean.setIdUser(sessionManagedBean.id)}"/>
         </f:metadata>
 

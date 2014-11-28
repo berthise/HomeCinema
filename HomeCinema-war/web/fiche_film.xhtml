@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="css/main.css"/>
 
     <f:metadata>
+      <f:event type="preRenderView" listener="#{sessionManagedBean.checkRight()}"/>
       <f:viewParam name="id" value="#{filmManagedBean.id}" />
       <f:event type="preRenderView" listener="#{filmManagedBean.setDtoFromId()}"/>
     </f:metadata>

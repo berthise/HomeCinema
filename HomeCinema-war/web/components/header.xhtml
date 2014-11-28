@@ -4,7 +4,6 @@
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
     xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
     xmlns:f="http://xmlns.jcp.org/jsf/core"
     xmlns:ez="http://xmlns.jcp.org/jsf/composite/ezcomp">
@@ -45,7 +44,9 @@
 			</c:choose>
 		    </div>
 		    <div class="col-md-2 col-19 col-size-fixed" id="form-login">
-			<h:form role="form">
+		      	      <ez:login short="true"/>
+
+<!--			<h:form role="form">
 			    <h:messages for="login" infoClass="info" />
 			    <div class="form-group">
 				<h:inputText p:type="email" id="email" value="#{loginManagedBean.email}" class="form-control input-sm" p:placeholder="#{msg['header-email']}" />
@@ -54,7 +55,7 @@
 				<h:inputSecret id="password" value="#{loginManagedBean.password}" class="form-control input-sm" p:placeholder="#{msg['header-mdp']}" />
 			    </div>
 			    <h:commandButton class="btn btn-success btn-sm btn-block" value="#{msg['connexion']}" action="#{loginManagedBean.login}"/>
-			</h:form>
+			</h:form>-->
 		    </div> <!-- /#form-login -->
 		</div>
 		<!-- Fixed navbar -->
@@ -76,6 +77,11 @@
 				<li class="#{(active == 'demo')? 'active' : ''}"><a href="demo.xhtml"><i class="decale-right glyphicon glyphicon-wrench"></i> <h:outputText value="#{msg['menu-demo']}" /></a></li>
 				<h:panelGroup rendered="#{sessionManagedBean.id != null}">
 				    <li class="#{(active == 'moncompte')? 'active' : ''}"><a href="moncompte.xhtml"><i class="decale-right glyphicon glyphicon-folder-open"></i> <h:outputText value="#{msg['menu-compte']}" /></a></li>
+				</h:panelGroup>
+				<h:panelGroup rendered="#{sessionManagedBean.id == null}">
+				    <li class="#{(active == 'login')? 'active' : ''}"><a href="login.xhtml"><i class="decale-right glyphicon glyphicon-folder-open"></i> <h:outputText value="#{msg['connexion']}" /></a></li>
+				    <li class="#{(active == 'signup')? 'active' : ''}"><a href="signup.xhtml"><i class="decale-right glyphicon glyphicon-folder-open"></i> <h:outputText value="#{msg['inscription']}" /></a></li>
+
 				</h:panelGroup>
 			    </ul>
 			    <div class="col-sm-3 col-md-3 pull-right">
