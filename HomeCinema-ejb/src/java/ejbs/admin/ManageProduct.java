@@ -180,6 +180,21 @@ public class ManageProduct implements ManageProductRemote {
 	    }
 		    query += "  f.title like '%"+str+"%' or p.name like '%"+str+"%' ) "; 
 	}
+	switch (sort)
+	{
+	    case RATING :
+		query += "group by p order by  AVG(f.rating) desc ";
+		break;
+	    case SALES :
+		query+= "order by p.nbSales desc";
+		break;
+	    case ALPH :
+		query += "order by p.name ";
+		break;
+	    case NEW :
+		query += "order by p.addDate desc";
+		break;
+	}
 	Query q = em.createQuery(query, Product.class);
 	q.setFirstResult(row);
 	q.setMaxResults(limit);
