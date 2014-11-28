@@ -5,6 +5,7 @@
  */
 package beans;
 
+import dtos.PersonDto;
 import ejbs.Ejbs;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -94,7 +95,13 @@ public class SearchProductsManagedBean {
     public void setDirector(String director) {
 	this.params.director = director;
 	if (director != null && director.length() > 0) {
-	    this.params.directorId = Ejbs.person().getPerson(director).id;
+	    PersonDto p = Ejbs.person().getPerson(director);
+	    if (p != null) {
+		this.params.directorId = p.id;
+	    }
+	    else {
+		this.params.directorId = -1L;
+	    }
 	} else {
 	    this.params.directorId = null;
 	}
@@ -110,7 +117,12 @@ public class SearchProductsManagedBean {
     public void setActor(String actor) {
 	this.params.actor = actor;
 	if (actor != null && actor.length() > 0) {
-	    this.params.directorId = Ejbs.person().getPerson(actor).id;
+	    PersonDto p = Ejbs.person().getPerson(actor);
+	    if (p != null) {
+		this.params.actorId = p.id;
+	    } else {
+		this.params.actorId = -1L;
+	    }
 	} else {
 	    this.params.actorId = null;
 	}
