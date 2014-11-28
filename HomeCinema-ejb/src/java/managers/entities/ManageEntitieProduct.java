@@ -87,7 +87,7 @@ class comp_alph implements Comparator<Product> {
 class comp_rating implements Comparator<Product> {
 
     @Override
-    public int compare(Product t, Product t1) {
+    public int compare(Product t1, Product t) {
 	return ManageEntitieProduct.getRating(t).compareTo(ManageEntitieProduct.getRating(t1));
     }
 

@@ -3,17 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package enums;
+package ejbs;
 
-import java.io.Serializable;
+import dtos.PersonDto;
 
 /**
  *
- * @author seb
+ * @author titou
  */
-public enum UserStates implements Serializable {
-  Activated,
-  Pending,
-  Deactivated,
-  Payment;
+public interface ManagePersonRemote {
+ public PersonDto getPerson(String n);   
 }

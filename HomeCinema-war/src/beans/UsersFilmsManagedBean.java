@@ -20,10 +20,13 @@ public class UsersFilmsManagedBean {
     UsersFilmsDto ufdto;
     
     public UsersFilmsManagedBean() {
+        ufdto = new UsersFilmsDto();
     }
     
-    public void updateCurrentTime() {
-        
+    public String updateCurrentTime(Long user, Long film) {
+        ufdto.user = user;
+        ufdto.film = film;
+        return ""+ufdto.user+ufdto.film+ufdto.currentPosition;
     }
 
     public UsersFilmsDto getUfdto() {
@@ -32,6 +35,5 @@ public class UsersFilmsManagedBean {
 
     public void setUfdto(UsersFilmsDto ufdto) {
         this.ufdto = ufdto;
-    }
-    
+    }    
 }

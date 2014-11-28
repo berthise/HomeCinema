@@ -6,12 +6,18 @@ $(function () {
     var vid = document.getElementById("myVideo");
     $("#myVideo").on({
         pause: function(e) {
-            console.log("Pause : " + vid.currentTime);
+            $("#ufCP").val(parseInt(vid.currentTime));
+            console.log("Pause : " + parseInt(vid.currentTime));
+            $("#updateCT").click();
         },
         play: function(e) {
             console.log("Play : " + vid.currentTime);
         }
     });
+    $("#ufCP").on("keyup", function() {
+        console.log($(this).val());
+    });
+    
     function saveCurrentTime(time) {
         
     }

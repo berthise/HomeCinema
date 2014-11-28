@@ -3,6 +3,7 @@
 <html
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
@@ -18,8 +19,8 @@
 
         <f:metadata>
             <f:viewParam name="id" value="#{filmManagedBean.id}" />
+            <f:event type="preRenderView" listener="#{loginManagedBean.tmpLogin()}"/>
             <f:event type="preRenderView" listener="#{filmManagedBean.setDtoFromId()}"/>
-            <f:event type="preRenderView" listener="#{sessionManagedBean.checkConnected()}"/>
             <f:event type="preRenderView" listener="#{accountManagedBean.checkIsMyFilm(filmManagedBean.id, sessionManagedBean.id)}"/>
         </f:metadata>
 
@@ -43,11 +44,12 @@
                         Your browser don't support video element.
                     </video>
                     <h:form>
-                        <h:inputHidden id="ufUser" value="#{usersFilmsManagedBean.ufdto.user}" />
-                        <h:inputHidden id="ufFilm" value="#{usersFilmsManagedBean.ufdto.film}" />
-                        <h:inputHidden id="ufCP" value="#{usersFilmsManagedBean.ufdto.currentPosition}" />
+                        <h:inputText id="currentPosition" p:id="ufCP" value="#{usersFilmsManagedBean.ufdto.currentPosition}" />
+                        <h:commandButton action="#{usersFilmsManagedBean.updateCurrentTime(sessionManagedBean.id, filmManagedBean.id)}" p:id="updateCT">
+                            <f:ajax execute="@form" render="output" />
+                        </h:commandButton>
                     </h:form>
-
+                    <h:outputText id="output" value="#{usersFilmsManagedBean.updateCurrentTime(sessionManagedBean.id, filmManagedBean.id)})" />
                     <script src="js/main.js"></script>
 
                     <a class="go-top" href="#top"><img src="img/arrowUp.png" /></a>

@@ -30,6 +30,7 @@ public class Ejbs {
   private static ManageUserRemote mur = null;
   private static ManageVideoRemote mvr = null;
   private static ManageTransactionRemote mtr = null;
+  private static ManageUsersFilmsRemote mufr = null;
 
   private static void makeContext() {
     try {
@@ -85,6 +86,20 @@ public class Ejbs {
       }
     }
     return mpr;
+  }  
+  
+  public static ManageUsersFilmsRemote usersFilms() {
+    if (mufr == null) {
+      try {
+	if (ic == null) {
+	  makeContext();
+	}
+	mufr = (ManageUsersFilmsRemote) ic.lookup("java:global/HomeCinema/HomeCinema-ejb/ManageUsersFilms!ejbs.ManageUsersFilmsRemote");
+      } catch (NamingException ex) {
+	Logger.getLogger(Ejbs.class.getName()).log(Level.SEVERE, null, ex);
+      }
+    }
+    return mufr;
   }
 
   public static ManageUserRemote user() {

@@ -6,6 +6,7 @@
 package ejbs.admin;
 
 import dtos.FilmDto;
+import dtos.FilteredListProductsDto;
 import dtos.GenreDto;
 import dtos.ProductDto;
 import dtos.VideoDto;
@@ -51,6 +52,7 @@ public class ManageProduct implements ManageProductRemote {
     @Override
     public List<ProductDto> getAllProduct() {
 	Query q = em.createQuery("From Product p", Product.class);
+	//q.setMaxResults(100);
 	List<Product> lp = q.getResultList();
 	List<ProductDto> lpdto = new ArrayList<ProductDto>();
 	for (Product p : lp) {
@@ -125,6 +127,7 @@ public class ManageProduct implements ManageProductRemote {
 
     private List<Product> findProducts(Long actor, Long director, List<Long> lgdto, String str, String year, ProductTypes main) {
 	Query q = em.createQuery("From Product p", Product.class);
+	//q.setMaxResults(100);
 	List<Product> lp = q.getResultList();
 	List<Product> res = new ArrayList<>();
 
@@ -143,10 +146,12 @@ public class ManageProduct implements ManageProductRemote {
 	}
 	return res;
     }
+    
 
     @Override
-    public List<ProductDto> getFilteredProducts(Long actor, Long director, List<Long> lgdto, String str, String year, OrderTypes sort, Integer limit, Integer row, ProductTypes main) {
+    public FilteredListProductsDto getFilteredProducts(Long actor, Long director, List<Long> lgdto, String str, String year, OrderTypes sort, Integer limit, Integer row, ProductTypes main) {
 	List<Product> lpdto = this.findProducts(actor, director, lgdto, str, year, main);
+	int size = lpdto.size();
 	if (sort.equals(OrderTypes.RAND)) {
 	    Collections.shuffle(lpdto);
 	}
@@ -159,19 +164,17 @@ public class ManageProduct implements ManageProductRemote {
 	if (limit == null || limit == 0) {
 	    limit = lpdto.size() - row;
 	}
-	if (limit > lpdto.size()) {
-	    limit = lpdto.size() + 1;
+	if (row + limit > lpdto.size()) {
+	    limit = lpdto.size() - row;
 	}
-	if (limit <= row) {
-	    return new ArrayList<>();
-	}
-
-	lpdto.subList(row, row + limit);
+		
+	lpdto = lpdto.subList(row, row + limit);
 	List<ProductDto> res = new ArrayList<>();
 	for (Product p : lpdto) {
 	    res.add(ProductDtoManager.getDto(p));
 	}
-	return res;
+	
+	return new FilteredListProductsDto(res, size);
     }
 
     @Override
