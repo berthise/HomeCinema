@@ -93,11 +93,11 @@ public class SearchProductsManagedBean {
 
     public void setDirector(String director) {
 	this.params.director = director;
-    }
-
-    public void deleteDirector() {
-	this.params.director = null;
-	this.params.directorId = null;
+	if (director != null && director.length() > 0) {
+	    this.params.directorId = Ejbs.person().getPerson(director).id;
+	} else {
+	    this.params.directorId = null;
+	}
     }
 
     public String getActor() {
@@ -109,11 +109,11 @@ public class SearchProductsManagedBean {
 
     public void setActor(String actor) {
 	this.params.actor = actor;
-    }
-
-    public void deleteActor() {
-	this.params.actor = null;
-	this.params.actorId = null;
+	if (actor != null && actor.length() > 0) {
+	    this.params.directorId = Ejbs.person().getPerson(actor).id;
+	} else {
+	    this.params.actorId = null;
+	}
     }
 
     public List<Long> getGenres() {
@@ -144,7 +144,7 @@ public class SearchProductsManagedBean {
 
     public void setDirectorId(Long directorId) {
 	this.params.directorId = directorId;
-	this.params.director = "tmp";
+	this.params.director = Ejbs.person().getPerson(directorId).name;
     }
 
     public Long getActorId() {
@@ -153,7 +153,7 @@ public class SearchProductsManagedBean {
 
     public void setActorId(Long actorId) {
 	this.params.actorId = actorId;
-	this.params.director = actorId + "<MettreLeVraiNom>";
+	this.params.actor = Ejbs.person().getPerson(actorId).name;
     }
 
     public void setGenreAlone(Long id) {

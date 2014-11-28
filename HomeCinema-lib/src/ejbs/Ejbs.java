@@ -5,12 +5,6 @@
  */
 package ejbs;
 
-import ejbs.ManageFilmRemote;
-import ejbs.ManageListFilmsRemote;
-import ejbs.ManageProductRemote;
-import ejbs.ManageTransactionRemote;
-import ejbs.ManageUserRemote;
-import ejbs.ManageVideoRemote;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
