@@ -56,6 +56,8 @@ public class ManageEntitieFilm {
 
     //TODO optimiser
     public static boolean filterFilm(Film f, Long actor, Long director, List<Long> lgdto, String str, String year, EntityManager em) {
+
+	
 	if (actor == null || actor == 0 || ManageEntitieFilm.hasActor(f, actor, em)) {
 	    if (director == null || director == 0 || ManageEntitieFilm.hasDirector(f, director, em)) {
 		if (lgdto == null || lgdto.isEmpty() || ManageEntitieFilm.hasGenre(f, lgdto, em)) {
