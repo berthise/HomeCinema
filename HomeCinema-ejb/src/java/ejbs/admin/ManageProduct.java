@@ -142,7 +142,7 @@ public class ManageProduct implements ManageProductRemote {
 	    query += " where  a.id=" + actor;
 	    where=true;
 	}
-	if (director != null && !actor.equals(0L)) {
+	if (director != null && !director.equals(0L)) {
 	    if (where) {
 		query += " and ";
 	    } else {
@@ -182,6 +182,8 @@ public class ManageProduct implements ManageProductRemote {
 	}
 	switch (sort)
 	{
+	    case RAND ://TODO faire un truc correct 
+		row= (int)(Math.random()*4000); 
 	    case RATING :
 		query += "group by p order by  AVG(f.rating) desc ";
 		break;
