@@ -40,6 +40,10 @@ public class UsersFilmsManagedBean {
             }
         }
     }
+    
+    public void getCurrentTime(Long user, Long film) {
+        ufdto = Ejbs.usersFilms().getCurrentTime(user, film);
+    }
 
     private String getParam(FacesContext fc, String param) {
         Map<String, String> params = fc.getExternalContext().getRequestParameterMap();

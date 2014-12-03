@@ -43,7 +43,7 @@ public class ManageUsersFilms implements ManageUsersFilmsRemote {
 
     @Override
     public UsersFilmsDto getCurrentTime(Long user, Long film) {
-        TypedQuery<UsersFilms> query = em.createQuery("SELECT uf FROM UsersFilms uf WHERE uf.film = :film AND u.user = :user", UsersFilms.class);
+        TypedQuery<UsersFilms> query = em.createQuery("SELECT uf FROM UsersFilms uf WHERE uf.film.id = :film AND uf.user.id = :user", UsersFilms.class);
         query.setParameter("film", film);
         query.setParameter("user", user);
         UsersFilms usersFilms = query.getSingleResult();
