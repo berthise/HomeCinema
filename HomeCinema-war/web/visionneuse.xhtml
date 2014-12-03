@@ -39,7 +39,7 @@
                         </div>
                     </h2>
 
-                    <video id="myVideo" width="100%" controls="controls">
+                    <video id="myVideo" width="100%" controls="controls" autoplay="autoplay">
                         <h:outputText value="#{filmManagedBean.getVideo()}" escape="false" />
                         Your browser don't support video element.
                     </video>
@@ -52,8 +52,8 @@
                         </h:commandButton>
                     </h:form>                        
                     <h:outputText id="output" value="#{usersFilmsManagedBean.updateCurrentTime()}" />
-                    <script src="js/main.js"></script>
-
+                    #{usersFilmsManagedBean.getCurrentTime(sessionManagedBean.id, filmManagedBean.id)}
+                    <span id="lastPosition" style="display: none">#{usersFilmsManagedBean.ufdto.currentPosition}</span>
                     <a class="go-top" href="#top"><img src="img/arrowUp.png" /></a>
 
                 </div>
