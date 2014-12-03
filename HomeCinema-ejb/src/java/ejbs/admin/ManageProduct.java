@@ -5,6 +5,7 @@
  */
 package ejbs.admin;
 
+import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
 import dtos.FilmDto;
 import dtos.FilteredListProductsDto;
 import dtos.GenreDto;
@@ -16,8 +17,10 @@ import entities.Genre;
 import entities.Product;
 import enums.OrderTypes;
 import enums.ProductTypes;
+import java.security.Timestamp;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -125,56 +128,82 @@ public class ManageProduct implements ManageProductRemote {
 	return ProductDtoManager.getDto(ProductDtoManager.mergeOrSave(pdto, em));
     }
 
-    private List<Product> findProducts(Long actor, Long director, List<Long> lgdto, String str, String year, ProductTypes main) {
-	Query q = em.createQuery("From Product p", Product.class);
-	//q.setMaxResults(100);
-	List<Product> lp = q.getResultList();
-	List<Product> res = new ArrayList<>();
-
-	for (Product p : lp) {
-	    if (main.equals(ProductTypes.All) || (p.getFilms().size() == 1 && main.equals(ProductTypes.Main)) || (p.getFilms().size() > 1 && main.equals(ProductTypes.Pack)) ) {
-		boolean add = false;
-		for (Film f : p.getFilms()) {
-		    if (ManageEntitieFilm.filterFilm(f, actor, director, lgdto, str, year, em)) {
-			add = true;
-		    }
-		}
-		if (add) {
-		    res.add(p);
-		}
-	    }
-	}
-	return res;
-    }
-    
-
     @Override
     public FilteredListProductsDto getFilteredProducts(Long actor, Long director, List<Long> lgdto, String str, String year, OrderTypes sort, Integer limit, Integer row, ProductTypes main) {
-	List<Product> lpdto = this.findProducts(actor, director, lgdto, str, year, main);
-	int size = lpdto.size();
-	if (sort.equals(OrderTypes.RAND)) {
-	    Collections.shuffle(lpdto);
-	}
-	else if (!sort.equals(OrderTypes.NO)) {
-	    Collections.sort(lpdto, ManageEntitieProduct.getComparator(sort));
-	}
-	if (row == null || row < 0) {
+	String query = "select distinct p From Product p join p.films f join f.genre g join f.actors a join f.directors d ";
+	if (row == null) {
 	    row = 0;
 	}
-	if (limit == null || limit == 0) {
-	    limit = lpdto.size() - row;
+	if (limit == null) {
+	    limit = 100;
 	}
-	if (row + limit > lpdto.size()) {
-	    limit = lpdto.size() - row;
+	boolean where = false;
+	if (actor != null && !actor.equals(0L)) {
+	    query += " where  a.id=" + actor;
+	    where=true;
 	}
+	if (director != null && !actor.equals(0L)) {
+	    if (where) {
+		query += " and ";
+	    } else {
+		query += " where ";
+		where=true;
+	    }
+	    query += " d.id" + director;
+	}
+	if (lgdto != null && !lgdto.isEmpty()) {
+	    if (where) {
+		query += " and (";
 		
-	lpdto = lpdto.subList(row, row + limit);
+	    } else {
+		query += " where (";
+		where=true;
+	    }
+	    boolean first = true;
+	    for ( Long g : lgdto)
+	    {
+		if (first )
+		    first=false;
+		else
+		    query+=" or ";
+		query += " g.id="+g;
+	    }
+	    query+=" ) ";
+	}
+	if (str!=null && !str.equals("")  )
+	{
+	    	    if (where) {
+		query += " and (";
+		where=true;
+	    } else {
+		query += " where (";
+	    }
+		    query += "  f.title like '%"+str+"%' or p.name like '%"+str+"%' ) "; 
+	}
+	switch (sort)
+	{
+	    case RATING :
+		query += "group by p order by  AVG(f.rating) desc ";
+		break;
+	    case SALES :
+		query+= "order by p.nbSales desc";
+		break;
+	    case ALPH :
+		query += "order by p.name ";
+		break;
+	    case NEW :
+		query += "order by p.addDate desc";
+		break;
+	}
+	Query q = em.createQuery(query, Product.class);
+	q.setFirstResult(row);
+	q.setMaxResults(limit);
+	List<Product> lpdto = q.getResultList();
 	List<ProductDto> res = new ArrayList<>();
 	for (Product p : lpdto) {
 	    res.add(ProductDtoManager.getDto(p));
 	}
-	
-	return new FilteredListProductsDto(res, size);
+	return new FilteredListProductsDto(res, 3500);
     }
 
     @Override

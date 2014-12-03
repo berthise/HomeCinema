@@ -68,6 +68,10 @@ and open the template in the editor.
 			break;
 		}
 	    }
+	    function clean(id) {
+		document.getElementById('form-random:' + id).value = "";
+		return false;
+	    }
 	</script>
 
 	<section>
@@ -108,31 +112,25 @@ and open the template in the editor.
 				    <img id="loader-search" class="films-loader" src="img/loader.gif"/>
 				</h:commandLink>
 
-				<span id="search-attributs" style="max-height: #{((listProductsManagedBean.searchOpened == 0)? '500' : '0')}px;">
+				<div class="#{((listProductsManagedBean.getTabFilms() eq 'search')? 'activated-search' : '')}" id="search-attributs" style="max-height: #{((listProductsManagedBean.searchOpened == 0)? '2000' : '0')}px;">
 				    <h:outputLabel for="title">Titre :</h:outputLabel><h:inputText class="form-control input-search" id="title" value="#{searchProductsManagedBean.title}" />
-				    <h:commandButton rendered="#{searchProductsManagedBean.title != null}" onclick="javascript:loader('search');" class="clean" value="×" action="#{searchProductsManagedBean.setTitle(null)}">
-					<f:actionListener binding="#{listProductsManagedBean.setPage(1)}"/>
-					<f:ajax execute="@form" render=":form-random :panel-random :form-nav-page" />
-				    </h:commandButton>
+				    <span class="clean" onclick="clean('title');">×</span>
 
 				    <h:outputLabel for="date">Date :</h:outputLabel><h:inputText class="form-control input-search" id="date" value="#{searchProductsManagedBean.date}" />
-				    <h:commandButton rendered="#{searchProductsManagedBean.date != null}" onclick="javascript:loader('search');" class="clean" value="×" action="#{searchProductsManagedBean.setDate(null)}">
-					<f:actionListener binding="#{listProductsManagedBean.setPage(1)}"/>
-					<f:ajax execute="@form" render=":form-random :panel-random :form-nav-page" />
-				    </h:commandButton>
+				    <span class="clean" onclick="clean('date');">×</span>
 
 				    <h:outputLabel for="director">Réalisateur :</h:outputLabel><h:inputText class="form-control input-search" id="director" value="#{searchProductsManagedBean.director}" />
-				    <h:commandButton rendered="#{searchProductsManagedBean.director != null}" onclick="javascript:loader('search');" class="clean" value="×" action="#{searchProductsManagedBean.deleteDirector()}">
-					<f:actionListener binding="#{listProductsManagedBean.setPage(1)}"/>
-					<f:ajax execute="@form" render=":form-random :panel-random :form-nav-page" />
-				    </h:commandButton>
+				    <span class="clean" onclick="clean('director');">×</span>
+
 				    <h:outputLabel for="actor">Acteur :</h:outputLabel><h:inputText class="form-control input-search" id="actor" value="#{searchProductsManagedBean.actor}" />
-				    <h:commandButton rendered="#{searchProductsManagedBean.actor != null}" onclick="javascript:loader('search');" class="clean" value="×" action="#{searchProductsManagedBean.deleteActor()}">
-					<f:actionListener binding="#{listProductsManagedBean.setPage(1)}"/>
-					<f:ajax execute="@form" render=":form-random :panel-random :form-nav-page" />
-				    </h:commandButton>
+				    <span class="clean" onclick="clean('actor');">×</span>
 
 				    <h:outputLabel class="label-genres-title">Genres :</h:outputLabel>
+
+				    <h:selectOneRadio class="radio-search" value="#{searchProductsManagedBean.genresMode}">
+					<f:selectItem itemValue="OR" itemLabel="OU" />
+					<f:selectItem itemValue="AND" itemLabel="ET" />
+				    </h:selectOneRadio>
 
 				    <c:forEach items="#{listProductsManagedBean.getAllGenres()}" var="g" varStatus="loop">
 					<h:selectBooleanCheckbox id="genres-id-#{loop.index}" value="#{searchProductsManagedBean.checked[g.id]}" >
@@ -146,7 +144,7 @@ and open the template in the editor.
 					<f:actionListener binding="#{listProductsManagedBean.setPage(1)}"/>
 					<f:ajax execute="@form" render=":form-random :panel-random :form-nav-page"/>
 				    </h:commandButton>
-				</span>
+				</div>
 			    </p>
 			</h:form>
 		    </div>

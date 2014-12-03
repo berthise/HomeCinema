@@ -7,8 +7,9 @@ package ejbs.admin;
 
 import dtos.PersonDto;
 import ejbs.ManagePersonRemote;
-import entities.Film;
 import entities.Person;
+import java.util.List;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -18,17 +19,26 @@ import managers.dtos.PersonDtoManager;
  *
  * @author titou
  */
+@Stateless
 public class ManagePerson implements ManagePersonRemote {
-    
-        @PersistenceContext
+
+    @PersistenceContext
     public EntityManager em;
-	
-    public PersonDto getPerson(String n)
-    {
+
+    @Override
+    public PersonDto getPerson(String n) {
 	Query q = em.createQuery("From Person p where p.name=:n", Person.class);
 	q.setParameter("n", n);
-	Person p = (Person) q.getSingleResult();
+	List<Person> r = q.getResultList();
+	if (r.isEmpty())
+	    return null;
+	else
+	    return PersonDtoManager.getDto(r.get(0));
+    }
+
+    @Override
+    public PersonDto getPerson(Long id) {
+	Person p = em.find(Person.class, id);
 	return PersonDtoManager.getDto(p);
     }
-    
 }

@@ -5,6 +5,7 @@
  */
 package beans;
 
+import dtos.PersonDto;
 import ejbs.Ejbs;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,16 +30,9 @@ public class SearchProductsManagedBean {
 	public String actor;
 	public Long directorId;
 	public Long actorId;
+	public String genresMode = "OR";
 
 	public List<Long> genres = new ArrayList<>();
-
-	// TODO: supprimer cette fonction useless
-	public void print() {
-	    for (Long l : genres) {
-		System.out.println(l);
-	    }
-	    System.out.println("------");
-	}
     }
 
     private Map<Long, Boolean> checked;
@@ -93,11 +87,17 @@ public class SearchProductsManagedBean {
 
     public void setDirector(String director) {
 	this.params.director = director;
-    }
-
-    public void deleteDirector() {
-	this.params.director = null;
-	this.params.directorId = null;
+	if (director != null && director.length() > 0) {
+	    PersonDto p = Ejbs.person().getPerson(director);
+	    if (p != null) {
+		this.params.directorId = p.id;
+	    }
+	    else {
+		this.params.directorId = -1L;
+	    }
+	} else {
+	    this.params.directorId = null;
+	}
     }
 
     public String getActor() {
@@ -109,11 +109,16 @@ public class SearchProductsManagedBean {
 
     public void setActor(String actor) {
 	this.params.actor = actor;
-    }
-
-    public void deleteActor() {
-	this.params.actor = null;
-	this.params.actorId = null;
+	if (actor != null && actor.length() > 0) {
+	    PersonDto p = Ejbs.person().getPerson(actor);
+	    if (p != null) {
+		this.params.actorId = p.id;
+	    } else {
+		this.params.actorId = -1L;
+	    }
+	} else {
+	    this.params.actorId = null;
+	}
     }
 
     public List<Long> getGenres() {
@@ -135,7 +140,6 @@ public class SearchProductsManagedBean {
 	    }
 	}
 	this.params.genres = newList;
-	//this.params.print();
     }
 
     public Long getDirectorId() {
@@ -144,7 +148,7 @@ public class SearchProductsManagedBean {
 
     public void setDirectorId(Long directorId) {
 	this.params.directorId = directorId;
-	this.params.director = directorId + "<MettreLeVraiNom>";
+	this.params.director = Ejbs.person().getPerson(directorId).name;
     }
 
     public Long getActorId() {
@@ -153,7 +157,7 @@ public class SearchProductsManagedBean {
 
     public void setActorId(Long actorId) {
 	this.params.actorId = actorId;
-	this.params.director = actorId + "<MettreLeVraiNom>";
+	this.params.actor = Ejbs.person().getPerson(actorId).name;
     }
 
     public void setGenreAlone(Long id) {
@@ -173,4 +177,14 @@ public class SearchProductsManagedBean {
     public Long getClean() {
 	return null;
     }
+    
+
+    public String getGenresMode() {
+	return this.params.genresMode;
+    }
+
+    public void setGenresMode(String genresMode) {
+	this.params.genresMode = genresMode;
+    }
+
 }

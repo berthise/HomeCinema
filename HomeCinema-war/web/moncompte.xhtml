@@ -38,19 +38,19 @@
 		    <h2 class="well-title"><strong>Mon compte</strong></h2>
 
                     <script>
-                        function display(id) {
-                            document.getElementById('box-films').className = "display-none";
-                            document.getElementById('link-films').className = "";
-                            document.getElementById('box-caddie').className = "display-none";
-                            document.getElementById('link-caddie').className = "";
-                            document.getElementById('box-historique').className = "display-none";
-                            document.getElementById('link-historique').className = "";
-                            document.getElementById('box-infos').className = "display-none";
-                            document.getElementById('link-infos').className = "";
-                            document.getElementById('box-' + id).className = "box-right";
-                            document.getElementById('link-' + id).className = "activated";
-                            return false;
-                        }
+			function display(id) {
+			    document.getElementById('box-films').className = "display-none";
+			    document.getElementById('link-films').className = "";
+			    document.getElementById('box-caddie').className = "display-none";
+			    document.getElementById('link-caddie').className = "";
+			    document.getElementById('box-historique').className = "display-none";
+			    document.getElementById('link-historique').className = "";
+			    document.getElementById('box-infos').className = "display-none";
+			    document.getElementById('link-infos').className = "";
+			    document.getElementById('box-' + id).className = "box-right";
+			    document.getElementById('link-' + id).className = "activated";
+			    return false;
+			}
                     </script> 
 
 		    <div id="nav-page-left" class="nav-account">
@@ -61,41 +61,7 @@
 		    </div>
 
                     <div class="#{accountManagedBean.getClassDisplay('films')}" id="box-films">
-                        <h3><img src="img/film-icon.png" title="Films"/>Films</h3>
-
-                        <table>
-
-                            <ui:repeat var="o" value="#{accountManagedBean.getListFilms()}" varStatus="status">
-
-                                <c:set var="simple" value="#{o.get(0) eq 'SIMPLE'}" />
-                                <c:set var="vide" value="#{o.get(0) eq 'EMPTY'}" />
-
-                                <tr>
-
-                                    <h:panelGroup rendered="#{vide}">
-                                        <td>Votre liste de films est vide ... <a href="#">Cliquez ici pour trouver des films !</a></td>                                        
-                                    </h:panelGroup>
-
-                                    <h:panelGroup rendered="#{simple}">
-                                        <td>
-                                            <span class="affiche">
-                                                <img src="img/glass.png" />
-                                                <span>
-                                                    <img src="http://image.tmdb.org/t/p/w396/#{o.get(1)}" />
-                                                </span>
-                                            </span>
-                                        </td>
-                                        <td>                 
-                                            <a title="Voir la fiche du film" href="fiche_film.xhtml?id=#{o.get(4)}">#{o.get(2)} (#{o.get(3)})</a>
-                                        </td>
-                                        <td><a href="visionneuse.xhtml?id=#{o.get(4)}"><img src="img/eye.png" title="Voir le film" /></a></td>
-                                    </h:panelGroup>
-
-                                </tr>
-
-                            </ui:repeat>
-
-                        </table>
+			<ez:films userId="#{sessionManagedBean.id}" />
                     </div>
 
                     <div class="#{accountManagedBean.getClassDisplay('caddie')}" id="box-caddie">

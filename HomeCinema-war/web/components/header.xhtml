@@ -79,8 +79,8 @@
 				    <li class="#{(active == 'moncompte')? 'active' : ''}"><a href="moncompte.xhtml"><i class="decale-right glyphicon glyphicon-folder-open"></i> <h:outputText value="#{msg['menu-compte']}" /></a></li>
 				</h:panelGroup>
 				<h:panelGroup rendered="#{sessionManagedBean.id == null}">
-				    <li class="#{(active == 'login')? 'active' : ''}"><a href="login.xhtml"><i class="decale-right glyphicon glyphicon-folder-open"></i> <h:outputText value="#{msg['connexion']}" /></a></li>
-				    <li class="#{(active == 'signup')? 'active' : ''}"><a href="signup.xhtml"><i class="decale-right glyphicon glyphicon-folder-open"></i> <h:outputText value="#{msg['inscription']}" /></a></li>
+				    <li class="#{(active == 'login')? 'active' : ''}"><a href="login.xhtml"><i class="decale-right glyphicon glyphicon-hand-right"></i> <h:outputText value="#{msg['connexion']}" /></a></li>
+				    <li class="#{(active == 'signup')? 'active' : ''}"><a href="signup.xhtml"><i class="decale-right glyphicon glyphicon-list"></i> <h:outputText value="#{msg['inscription']}" /></a></li>
 
 				</h:panelGroup>
 			    </ul>

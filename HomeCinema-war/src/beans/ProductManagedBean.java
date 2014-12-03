@@ -143,6 +143,10 @@ public class ProductManagedBean {
 	    price += Ejbs.product().getProduct(f.main_product_id).price;
 	}
 	double reduc = pdto.price / price * 100;
-	return (100 - (int) reduc) + "";
+	int pr_reduc = (100 - (int) reduc);
+	if (pr_reduc < 0)
+	    return "+" + Math.abs(pr_reduc);
+	else
+	    return "-" + pr_reduc;
     }
 }

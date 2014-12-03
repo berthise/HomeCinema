@@ -43,13 +43,15 @@
                         <h:outputText value="#{filmManagedBean.getVideo()}" escape="false" />
                         Your browser don't support video element.
                     </video>
-                    <h:form>
+                    <h:form p:style="display: none;">
                         <h:inputText id="currentPosition" p:id="ufCP" value="#{usersFilmsManagedBean.ufdto.currentPosition}" />
-                        <h:commandButton action="#{usersFilmsManagedBean.updateCurrentTime(sessionManagedBean.id, filmManagedBean.id)}" p:id="updateCT">
+                        <h:commandButton action="#{usersFilmsManagedBean.updateCurrentTime}" p:id="updateCT">
+                            <f:param name="film" value="#{filmManagedBean.id}" />
+                            <f:param name="user" value="#{sessionManagedBean.id}" />
                             <f:ajax execute="@form" render="output" />
                         </h:commandButton>
-                    </h:form>
-                    <h:outputText id="output" value="#{usersFilmsManagedBean.updateCurrentTime(sessionManagedBean.id, filmManagedBean.id)})" />
+                    </h:form>                        
+                    <h:outputText id="output" value="#{usersFilmsManagedBean.updateCurrentTime()}" />
                     <script src="js/main.js"></script>
 
                     <a class="go-top" href="#top"><img src="img/arrowUp.png" /></a>

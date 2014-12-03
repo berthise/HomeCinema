@@ -6,11 +6,16 @@
 package ejbs;
 
 import dtos.PersonDto;
+import javax.ejb.Remote;
 
 /**
  *
  * @author titou
  */
+@Remote
 public interface ManagePersonRemote {
- public PersonDto getPerson(String n);   
+
+    public PersonDto getPerson(String n);
+    public PersonDto getPerson(Long id);
+    
 }

@@ -6,8 +6,11 @@
 package beans;
 
 import dtos.UsersFilmsDto;
+import ejbs.Ejbs;
+import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -16,17 +19,31 @@ import javax.faces.bean.RequestScoped;
 @ManagedBean
 @RequestScoped
 public class UsersFilmsManagedBean {
-    
+
     UsersFilmsDto ufdto;
-    
+
     public UsersFilmsManagedBean() {
         ufdto = new UsersFilmsDto();
     }
-    
-    public String updateCurrentTime(Long user, Long film) {
-        ufdto.user = user;
-        ufdto.film = film;
-        return ""+ufdto.user+ufdto.film+ufdto.currentPosition;
+
+    public void updateCurrentTime() {
+        if (ufdto.currentPosition != null) {
+            try {
+                FacesContext fc = FacesContext.getCurrentInstance();
+                Long user = Long.parseLong(getParam(fc, "user"));
+                Long film = Long.parseLong(getParam(fc, "film"));
+                ufdto.user = user;
+                ufdto.film = film;
+                Ejbs.usersFilms().updateCurrentTime(ufdto);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private String getParam(FacesContext fc, String param) {
+        Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
+        return (params.get(param)).trim();
     }
 
     public UsersFilmsDto getUfdto() {
@@ -35,5 +52,5 @@ public class UsersFilmsManagedBean {
 
     public void setUfdto(UsersFilmsDto ufdto) {
         this.ufdto = ufdto;
-    }    
+    }
 }
