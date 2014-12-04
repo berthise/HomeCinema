@@ -26,5 +26,7 @@ public class Pages {
   public final static String PAYMENT = "paiement.xhtml";
   public final static String SIGNUP = "signup.xhtml";
   public final static String VISIONNEUSE = "visionneuse.xhtml";
+  public final static String SITEMAP = "sitemap.xhtml";
+  public final static String CONTACT = "contact.xhtml";
   
 }

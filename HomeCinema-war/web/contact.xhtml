@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+        <title>HomeCinéma - #{msg['contact-title-page']}</title>
+        <meta name="description" content=""/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+        <link rel="stylesheet" href="css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="css/bootstrap-theme.min.css"/>
+        <link rel="stylesheet" href="css/main.css"/>
+        <link rel="stylesheet" href="css/style-plan.css"/>
+
+        <f:metadata>
+	    <f:event type="preRenderView" listener="#{sessionManagedBean.checkRight}"/>
+	    <f:event type="preRenderView" listener="#{contactManagedBean.setEmail(sessionManagedBean.getEmail())}"/>
+	    <f:event type="preRenderView" listener="#{contactManagedBean.setName(sessionManagedBean.getFirstName().concat(' ').concat(sessionManagedBean.getLastName()))}"/>
+	</f:metadata>
+
+    </h:head>
+    <h:body id="top">
+        <ui:insert name="header" >
+            <ui:include src="components/header.xhtml" />
+        </ui:insert>
+        <section>
+            <div class="container">
+
+                <div id="ba" class="well">
+                    <h2 class="well-title"><strong>#{msg['contact-title']}</strong></h2>
+
+		    <div class="well well-sm">
+			<h:form>
+			    <div class="row">
+				<div class="col-md-6">
+				    <div class="form-group">
+					<label for="name">
+					    #{msg['contact-name']} :</label>
+					<h:inputText value="#{contactManagedBean.name}" class="form-control" id="name" required="required" />
+				    </div>
+				    <div class="form-group">
+					<label for="email">#{msg['contact-email']} :</label>
+					<div class="input-group">
+					    <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
+					    <h:inputText p:type="email" value="#{contactManagedBean.email}" class="form-control" id="email" required="required" />
+					</div>
+				    </div>
+				    <div class="form-group">
+					<label for="subject">#{msg['contact-subject']} :</label>
+					<h:selectOneMenu id="subject" class="form-control" value="#{contactManagedBean.object}">
+					    <f:selectItem id="bug" itemLabel="#{msg['contact-sub1']}" itemValue="bug" />
+					    <f:selectItem id="transaction" itemLabel="#{msg['contact-sub2']}" itemValue="transaction" />
+					    <f:selectItem id="ask" itemLabel="#{msg['contact-sub3']}" itemValue="ask" />
+					    <f:selectItem id="thank" itemLabel="#{msg['contact-sub4']}" itemValue="thank" />
+					    <f:selectItem id="autre" itemLabel="#{msg['contact-sub5']}" itemValue="autre" />
+					</h:selectOneMenu>
+				    </div>
+				</div>
+				<div class="col-md-6">
+				    <div class="form-group">
+					<label for="name">#{msg['contact-message']} :</label>				    
+					<h:inputTextarea value="#{contactManagedBean.message}" class="form-control textarea-noresizing" rows="9" cols="25" required="required"/>
+				    </div>
+				</div>
+				<div class="col-md-12">
+				    <h:commandButton value="#{msg['contact-send']}" class="btn btn-primary pull-right" id="btnContactUs" action="#{contactManagedBean.submit()}" />
+				</div>
+			    </div>
+			</h:form>
+		    </div>
+
+		    <div id="bottom">
+			<a class="go-top" href="#top"><img src="img/arrowUp.png" /></a>
+		    </div>
+		</div>
+	    </div>
+	</section>
+
+	<ui:insert name="footer" >
+	    <ui:include src="components/footer.xhtml" />
+	</ui:insert>
+    </h:body>
+
+</html>

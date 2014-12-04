@@ -3,6 +3,8 @@ body {
   color: #fff;
   margin: 0;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
+  body .textarea-noresizing {
+    resize: none; }
   body .badge-faq {
     margin-right: 10px;
     position: relative;
