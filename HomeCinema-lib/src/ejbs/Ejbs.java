@@ -17,14 +17,15 @@ import javax.naming.NamingException;
  */
 public class Ejbs {
 
-    private static InitialContext ic = null;
-    private static ManageProductRemote mpr = null;
-    private static ManageFilmRemote mfr = null;
-    private static ManageListFilmsRemote mlfr = null;
-    private static ManageUserRemote mur = null;
-    private static ManageVideoRemote mvr = null;
-    private static ManageTransactionRemote mtr = null;
-    private static ManagePersonRemote mpsr = null;
+  private static InitialContext ic = null;
+  private static ManageProductRemote mpr = null;
+  private static ManageFilmRemote mfr = null;
+  private static ManageListFilmsRemote mlfr = null;
+  private static ManageUserRemote mur = null;
+  private static ManageVideoRemote mvr = null;
+  private static ManageTransactionRemote mtr = null;
+  private static ManageUsersFilmsRemote mufr = null;
+  private static ManagePersonRemote mpsr = null;
 
     private static void makeContext() {
 	try {
@@ -68,6 +69,20 @@ public class Ejbs {
 	}
 	return mlfr;
     }
+  
+  public static ManageUsersFilmsRemote usersFilms() {
+    if (mufr == null) {
+      try {
+	if (ic == null) {
+	  makeContext();
+	}
+	mufr = (ManageUsersFilmsRemote) ic.lookup("java:global/HomeCinema/HomeCinema-ejb/ManageUsersFilms!ejbs.ManageUsersFilmsRemote");
+      } catch (NamingException ex) {
+	Logger.getLogger(Ejbs.class.getName()).log(Level.SEVERE, null, ex);
+      }
+    }
+    return mufr;
+  }
 
     public static ManageProductRemote product() {
 	if (mpr == null) {

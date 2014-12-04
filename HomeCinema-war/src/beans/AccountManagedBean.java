@@ -10,7 +10,6 @@ import dtos.CaddieDto;
 import dtos.FilmDto;
 import dtos.ProductDto;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -70,31 +69,9 @@ public class AccountManagedBean {
 	    return "box-right";
 	}
     }
-
-    public List<List<String>> getListFilms() {
-        List<List<String>> toReturn = new ArrayList<>();
-        List<FilmDto> list = Ejbs.user().getFilms(idUser);
-
-	if (list.isEmpty()) {
-	    List<String> toAdd = new ArrayList<>();
-	    toAdd.add("EMPTY");
-	    toReturn.add(toAdd);
-	    return toReturn;
-	}
-
-	SimpleDateFormat formater = new SimpleDateFormat("yyyy");
-
-        for (FilmDto f : Ejbs.user().getFilms(idUser)) {
-            List<String> toAdd = new ArrayList<>();
-            toAdd.add("SIMPLE");
-            toAdd.add(f.cover);
-            toAdd.add(f.title);
-            toAdd.add(formater.format(f.release_date));
-            toAdd.add(f.id.toString());
-            toReturn.add(toAdd);
-        }
-
-	return toReturn;
+    
+    public List<FilmDto> getListFilmsOwned (){
+	return Ejbs.user().getFilms(idUser);
     }
 
     private int isInMyFilms(List<Long> ids, Long iduser) {

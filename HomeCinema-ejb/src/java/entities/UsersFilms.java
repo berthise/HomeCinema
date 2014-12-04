@@ -14,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -40,11 +41,11 @@ public class UsersFilms implements Serializable {
 
     @Column(name = "CURRENT_POSITION")
     private Integer currentPosition;
-    
-    public UsersFilms()
-    {
-        this.currentPosition=0;
-        this.state= UsersFilmsStates.Unviewed;
+
+
+    public UsersFilms() {
+        this.currentPosition = 0;
+        this.state = UsersFilmsStates.Unviewed;
     }
 
     public Long getId() {
@@ -79,11 +80,10 @@ public class UsersFilms implements Serializable {
         this.currentPosition = currentPosition;
     }
 
+    
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+        return film.getId().hashCode();
     }
 
     @Override
