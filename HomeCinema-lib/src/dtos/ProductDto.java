@@ -79,6 +79,10 @@ public class ProductDto implements Serializable {
   public void setPrice(Double price) {
     this.price = price;
   }
+  
+  public String getPriceString() {
+    return String.format("%.2f", price);
+  }
 
   public Date getAddDate() {
     return addDate;

@@ -90,7 +90,7 @@ public class CaddieManagedBean {
     return toReturn;
   }
 
-  public Double getTotalPrice() {
+  public String getTotalPrice() {
     Double price = 0D;
     if (cdto == null) {
       this.cdto = Ejbs.transaction().getCaddieDto(session.getId());
@@ -100,7 +100,7 @@ public class CaddieManagedBean {
 	price += pd.price;
       }
     }
-    return price;
+    return String.format("%.2f", price);
   }
 
   public Integer counter() {

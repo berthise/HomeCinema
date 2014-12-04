@@ -60,7 +60,10 @@ public class PaymentManagedBean {
 
   public void buy() {
     SessionManagedBean session = findBean("sessionManagedBean");
-
+    if ( session.checkPaymentCanceled() )
+      return ;
+   //session.checkRight();
+    // TODO
     Long t_id = Ejbs.transaction().validate(session.getId(), pdto);
 
     // TODO do that when we receive payment confirmation.

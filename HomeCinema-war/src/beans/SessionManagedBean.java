@@ -41,7 +41,7 @@ public class SessionManagedBean {
   public void openPaiement() {
     if (getSessionState() == SessionStates.LOGGED && user.caddieSize > 0) {
       user.setState(UserStates.Payment);
-	// TODO change state in ejbs
+      // TODO change state in ejbs
       Redirect.redirectTo(Pages.PAYMENT);
     }
   }
@@ -59,7 +59,7 @@ public class SessionManagedBean {
   public void cancelPaiement() {
     if (getSessionState() == SessionStates.LOGGED_PAY) {
 
-      FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,
+      FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN,
 	      "Annulation du paiement !", null);
       FacesContext.getCurrentInstance().addMessage(null, message);
       // TODO change state in ejbs
@@ -67,7 +67,6 @@ public class SessionManagedBean {
       user.setState(UserStates.Activated);
     }
   }
-
 
   public Boolean login(LoginManagedBean login) {
     try {
@@ -111,6 +110,18 @@ public class SessionManagedBean {
       this.cancelPaiement();
     }
     Redirect.redirectIfNeeded(getSessionState());
+
+  }
+
+  public Boolean checkPaymentCanceled() {
+    if (getSessionState() != SessionStates.LOGGED_PAY && getRequestPage().equals(Pages.PAYMENT)) {
+      FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+	      "Votre paiment à été annulé !", null);
+      FacesContext.getCurrentInstance().addMessage(null, message);
+      Redirect.redirectTo(Pages.MON_COMPTE);
+      return true;
+    }
+    return false;
 
   }
 

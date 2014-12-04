@@ -67,7 +67,7 @@
 		    </h:form>
 		  </td>
 		</c:if>
-		<td class="td-right">#{product.product.price}€</td>
+		<td class="td-right">#{product.product.priceString}€</td>
 	      </tr>
 	    </h:panelGroup>
 	    <h:panelGroup  rendered="#{product.nbRows > 1}">
@@ -88,7 +88,7 @@
 		  </td>
 		</c:if>
 
-		<td class="td-right">#{product.product.price}€</td>
+		<td class="td-right">#{product.product.priceString}€</td>
 	      </tr>
 	      <ui:repeat var="film" value="#{product.films}" varStatus="status_film">
 		<tr>

@@ -95,7 +95,6 @@ public class Redirect {
     String requestPage = getRequestPage();
 
    if (type == SessionStates.LOGGED_PAY && !requestPage.equals("paiement.xhtml")) {
-     System.out.println("paiement");
       requestPage = "*";
     }
     
