@@ -8,8 +8,8 @@ package beans;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
 import static utils.Beans.findBean;
+import utils.Message;
 
 /**
  *
@@ -31,14 +31,12 @@ public class InfoUserManagedBean {
 
   public void changeEmail() {
     SessionManagedBean session = findBean("sessionManagedBean");
-    FacesMessage message;
 
     if (session.changeEmail(this)) {
-      message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Adresse mail changée avec succès", null);
+      Message.Info("Adresse mail changée avec succès");
     } else {
-      message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Mot de passe incorrect !", null);
+      Message.Error("Mot de passe incorrect !");
     }
-    FacesContext.getCurrentInstance().addMessage(null, message);
   }
 
   public void changePassword() {
@@ -46,11 +44,10 @@ public class InfoUserManagedBean {
     FacesMessage message;
     
     if (session.changePassword(this)) {
-      message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Mot de passe changé avec succès", null);
+      Message.Info("Mot de passe changé avec succès");
     } else {
-      message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Votre ancien mot de passe est incorrect !", null);
+      Message.Error("Votre ancien mot de passe est incorrect !");
     }
-    FacesContext.getCurrentInstance().addMessage(null, message);
   }
 
   public String getPassword() {

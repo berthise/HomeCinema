@@ -8,16 +8,12 @@ package beans;
 import ejbs.Ejbs;
 import dtos.UserDtoNoPw;
 import enums.UserStates;
-import java.io.IOException;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.EJBException;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
 import static utils.Beans.getRequestPage;
+import utils.Message;
 import utils.Pages;
 import utils.Redirect;
 
@@ -58,10 +54,7 @@ public class SessionManagedBean {
 
   public void cancelPaiement() {
     if (getSessionState() == SessionStates.LOGGED_PAY) {
-
-      FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN,
-	      "Annulation du paiement !", null);
-      FacesContext.getCurrentInstance().addMessage(null, message);
+      Message.Error("Annulation du paiement !");
       // TODO change state in ejbs
 
       user.setState(UserStates.Activated);
@@ -79,8 +72,7 @@ public class SessionManagedBean {
 
   public void logout() {
 
-    FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Au revoir " + user.nickName + " !", null);
-    FacesContext.getCurrentInstance().addMessage(null, message);
+    Message.Info("Au revoir " + user.nickName + " !");
     user = new UserDtoNoPw();
 
     Redirect.redirectIfNeeded(getSessionState());
@@ -115,9 +107,7 @@ public class SessionManagedBean {
 
   public Boolean checkPaymentCanceled() {
     if (getSessionState() != SessionStates.LOGGED_PAY && getRequestPage().equals(Pages.PAYMENT)) {
-      FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-	      "Votre paiment à été annulé !", null);
-      FacesContext.getCurrentInstance().addMessage(null, message);
+      Message.Error("Votre paiment à été annulé !");
       Redirect.redirectTo(Pages.MON_COMPTE);
       return true;
     }

@@ -5,11 +5,10 @@
  */
 package beans;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.faces.context.FacesContext;
 import static utils.Beans.findBean;
+import utils.Message;
 
 /**
  *
@@ -24,14 +23,12 @@ public class LoginManagedBean {
 
   public void login() {
     SessionManagedBean session = findBean("sessionManagedBean");
-    FacesMessage message;
 
     if (session.login(this)) {
-      message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenue " + session.getNickName() + " !", null);
+      Message.Info("Bienvenue " + session.getNickName() + " !");
     } else {
-      message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Identifiants incorrects !", null);
+      Message.Error("Identifiants incorrects !", "Email, login ou mot de passe incorrect.");
     }
-    FacesContext.getCurrentInstance().addMessage(null, message);
     session.checkRight();
   }
 

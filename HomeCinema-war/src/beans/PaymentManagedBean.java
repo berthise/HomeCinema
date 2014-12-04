@@ -8,19 +8,15 @@ package beans;
 import dtos.PaymentDto;
 import ejbs.Ejbs;
 import enums.CardTypes;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.naming.NamingException;
 import static utils.Beans.findBean;
+import utils.Message;
 import utils.Pages;
 import utils.Redirect;
 
@@ -69,8 +65,7 @@ public class PaymentManagedBean {
     // TODO do that when we receive payment confirmation.
     Ejbs.transaction().validatePayement(t_id, 52L);
 
-    FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Succès de l'achat !", null);
-    FacesContext.getCurrentInstance().addMessage(null, message);
+    Message.Info("Succès de l'achat !");
     session.closePaiement();
 
   }

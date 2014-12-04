@@ -8,16 +8,12 @@ package beans;
 import ejbs.Ejbs;
 import dtos.UserDto;
 import enums.UserStates;
-import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.faces.context.FacesContext;
+import utils.Message;
 import utils.Pages;
 import utils.Redirect;
 
@@ -39,9 +35,7 @@ public class SignUpManagedBean {
   public void singUp() {
     convertDate(birthDay);
     Ejbs.user().signUp(user);
-    FacesMessage message = new FacesMessage("Succès de l'inscription !");
-    message.setSeverity(FacesMessage.SEVERITY_INFO);
-    FacesContext.getCurrentInstance().addMessage(null, message);
+    Message.Info("Succès de l'inscription !");
     Redirect.redirectTo(Pages.INDEX);
   }
 
