@@ -178,20 +178,20 @@ public class ManageProduct implements ManageProductRemote {
 	if (main.equals(ProductTypes.Main))
 	{
 	    	    if (where) {
-		query += " and (";
+		query += " and ";
 		where = true;
 	    } else {
-		query += " where (";
+		query += " where ";
 	    }
 		    query+="size(p.films )=1 ";
 	}
 	else if (main.equals(ProductTypes.Pack))
 	{
 	    	    	    if (where) {
-		query += " and (";
+		query += " and ";
 		where = true;
 	    } else {
-		query += " where (";
+		query += " where ";
 	    }
 		    query+="size(p.films )>1 ";
 	}
