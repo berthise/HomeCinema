@@ -18,8 +18,8 @@
   <!-- IMPLEMENTATION -->
   <cc:implementation>
     <f:view>
-    <f:event type="preRenderComponent" listener="#{sessionManagedBean.checkRight()}"/>
-    <f:event type="preRenderComponent" listener="#{caddieManagedBean.setSession(sessionManagedBean)}"/>
+      <f:event type="preRenderComponent" listener="#{sessionManagedBean.checkRight()}"/>
+      <f:event type="preRenderComponent" listener="#{caddieManagedBean.setSession(sessionManagedBean)}"/>
     </f:view>
     <h:outputStylesheet library="css" name="caddie.css" />
     <div class="#{cc.attrs.style}" id="caddie">
@@ -57,8 +57,16 @@
 		    </span>
 		  </span>
 		</td>
-		<td class="td-right title-film-caddie">   
-		  <a title="Voir la fiche du film" href="fiche_film.xhtml?id=#{product.film.id}">#{product.film.title} (#{product.film.getReleaseDateString("yyyy")})</a>
+		<td class="td-right title-film-caddie">
+		  <c:choose>
+		    <c:when test="#{cc.attrs.recap}">
+		      #{product.film.title} (#{product.film.getReleaseDateString("yyyy")})
+		    </c:when>
+		    <c:otherwise>
+		      <a title="Voir la fiche du film" href="fiche_film.xhtml?id=#{product.film.id}">#{product.film.title} (#{product.film.getReleaseDateString("yyyy")})</a>
+
+		    </c:otherwise>
+		  </c:choose>
 		</td>
 		<c:if test="#{!cc.attrs.recap}" >
 		  <td class="td-right" >
@@ -77,8 +85,15 @@
 
 		<td class="td-right" rowspan="#{product.nbRows}">#{status.index +1}</td>
 		<td class="td-invisible"></td>
-		<td class="td-right title-film-caddie">                                                
-		  <a href="fiche_product.xhtml?id=#{product.product.id}"><b>#{product.product.name}</b></a>
+		<td class="td-right title-film-caddie">  
+		  <c:choose>
+		    <c:when test="#{cc.attrs.recap}">
+		      <b>#{product.product.name}</b>
+		    </c:when>
+		    <c:otherwise>
+		      <a href="fiche_product.xhtml?id=#{product.product.id}"><b>#{product.product.name}</b></a>
+		    </c:otherwise>
+		  </c:choose>
 		</td>
 		<c:if test="#{!cc.attrs.recap}" >
 		  <td class="td-right" >
@@ -100,8 +115,15 @@
 		      </span>
 		    </span>
 		  </td>
-		  <td class="align-left" colspan="${colspan_film}">   
-		    <a title="Voir la fiche du film" href="fiche_film.xhtml?id=#{film.id}">#{film.title} (#{film.getReleaseDateString("yyyy")})</a>
+		  <td class="align-left" colspan="${colspan_film}">  
+		    <c:choose>
+		      <c:when test="#{cc.attrs.recap}">
+			#{film.title} (#{film.getReleaseDateString("yyyy")})
+		      </c:when>
+		      <c:otherwise>
+			<a title="Voir la fiche du film" href="fiche_film.xhtml?id=#{film.id}">#{film.title} (#{film.getReleaseDateString("yyyy")})</a>
+		      </c:otherwise>
+		    </c:choose>
 		  </td>
 		</tr>
 	      </ui:repeat>
