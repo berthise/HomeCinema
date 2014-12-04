@@ -5,7 +5,6 @@
  */
 package ejbs.admin;
 
-import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
 import dtos.FilmDto;
 import dtos.FilteredListProductsDto;
 import dtos.GenreDto;
@@ -17,10 +16,7 @@ import entities.Genre;
 import entities.Product;
 import enums.OrderTypes;
 import enums.ProductTypes;
-import java.security.Timestamp;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
