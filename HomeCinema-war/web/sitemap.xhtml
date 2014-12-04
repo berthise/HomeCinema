@@ -1,0 +1,135 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+        <title></title>
+        <meta name="description" content=""/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+        <link rel="stylesheet" href="css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="css/bootstrap-theme.min.css"/>
+        <link rel="stylesheet" href="css/main.css"/>
+        <link rel="stylesheet" href="css/style-plan.css"/>
+
+        <f:metadata>
+	    <f:event type="preRenderView" listener="#{sessionManagedBean.checkRight}"/>
+	</f:metadata>
+
+    </h:head>
+    <h:body id="top">
+        <ui:insert name="header" >
+            <ui:include src="components/header.xhtml" />
+        </ui:insert>
+        <section>
+            <div class="container">
+
+                <div id="ba" class="well">
+                    <h2 class="well-title"><strong>#{msg['sitemap-title']}</strong></h2>
+
+		    <div id="map" class="row">
+			<div class="primaryNav col-md-4">
+			    <div class="col-md-12"><a href="#{msg['page-index']}.xhtml">#{msg['menu-accueil']}</a></div>
+			</div>
+			<div class="col-md-4"></div>
+			<div class="col-md-4">
+			    <div class="utilityNav row">
+				<div class="col-md-6"><a href="#{msg['page-signup']}.xhtml">#{msg['inscription']}</a></div>
+				<div class="col-md-6"><a href="#{msg['page-login']}.xhtml">#{msg['connexion']}</a></div>
+			    </div>
+			</div>
+		    </div>
+
+		    <div id="map" class="row">
+			<div class="primaryNav col-md-4">
+			    <div class="col-md-12"><a href="#{msg['page-films']}.xhtml">#{msg['menu-films']}</a></div>
+			</div>
+			<div class="primaryNav col-md-4">
+			    <div class="col-md-12"><p>#{msg['menu-help']}</p></div>
+			</div>
+			<div class="primaryNav col-md-4">
+			    <div class="col-md-12"><a href="#{msg['page-account']}.xhtml">#{msg['menu-compte']}*</a></div>
+			</div>
+		    </div>
+
+		    <div id="map" class="row">
+			<div class="primaryNav col-md-4">
+			    <div class="col-md-12"><a class="sub" href="#{msg['page-films']}.xhtml?tab=pack">#{msg['search-pack']}</a></div>
+			</div>
+			<div class="primaryNav col-md-4">
+			    <div class="col-md-12"><a class="sub" href="#{msg['page-faq']}.xhtml">#{msg['menu-faq']}</a></div>
+			</div>
+			<div class="primaryNav col-md-4">
+			    <div class="col-md-12"><a class="sub" href="#{msg['page-account']}.xhtml?box=films">#{msg['compte-films']}*</a></div>
+			</div>
+		    </div>
+
+		    <div id="map" class="row">
+			<div class="primaryNav col-md-4">
+			    <div class="col-md-12"><a class="sub" href="#{msg['page-films']}.xhtml?tab=top">#{msg['search-top10']}</a></div>
+			</div>
+			<div class="primaryNav col-md-4">
+			    <div class="col-md-12"><a class="sub" href="#{msg['page-demo']}.xhtml">#{msg['menu-demo']}</a></div>
+			</div>
+			<div class="primaryNav col-md-4">
+			    <div class="col-md-12"><a class="sub" href="#{msg['page-account']}.xhtml?box=caddie">#{msg['compte-caddie']}*</a></div>
+			</div>
+		    </div>
+
+		    <div id="map" class="row">
+			<div class="primaryNav col-md-4">
+			    <div class="col-md-12"><a class="sub" href="#{msg['page-films']}.xhtml?tab=new">#{msg['search-new']}</a></div>
+			</div>
+			<div class="primaryNav col-md-4">
+			</div>
+			<div class="primaryNav col-md-4">
+			    <div class="col-md-12"><a class="sub" href="#{msg['page-account']}.xhtml?box=historique">#{msg['compte-histo']}*</a></div>
+			</div>
+		    </div>
+
+		    <div id="map" class="row">
+			<div class="primaryNav col-md-4">
+			    <div class="col-md-12"><a class="sub" href="#{msg['page-films']}.xhtml?tab=search">#{msg['search-advanced']}</a></div>
+			</div>
+			<div class="primaryNav col-md-4">
+			</div>
+			<div class="primaryNav col-md-4">
+			    <div class="col-md-12"><a class="sub" href="#{msg['page-account']}.xhtml?box=infos">#{msg['compte-infos']}*</a></div>
+			</div>
+		    </div>
+
+		    <div id="map" class="row last-row">
+			<div class="primaryNav col-md-4">
+			    <div class="col-md-12"><p>#{msg['menu-visio']}</p></div>
+			</div>
+			<div class="primaryNav col-md-4">
+			</div>
+			<div class="col-md-4">
+			    <div class="utilityNav row">
+				<div class="col-md-12"><a href="#{msg['page-sitemap']}.xhtml">#{msg['sitemap-title']}</a></div>
+			    </div>
+			</div>
+		    </div>
+
+		    <div id="msg-etoile">
+			<p>* : #{msg['sitemap-info']}.</p>
+		    </div>
+
+		    <div id="bottom">
+			<a class="go-top" href="#top"><img src="img/arrowUp.png" /></a>
+		    </div>
+                </div>
+            </div>
+        </section>
+
+        <ui:insert name="footer" >
+            <ui:include src="components/footer.xhtml" />
+        </ui:insert>
+    </h:body>
+
+</html>
