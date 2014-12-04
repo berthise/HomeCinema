@@ -66,6 +66,16 @@ public class SearchProductsManagedBean {
 	}
 	return this.params.title;
     }
+    
+    public void setTitleReset(String t) {
+	params = new SearchParams();
+	checked = new HashMap<>();
+	params.title = t;
+    }
+
+    public String getTitleReset() {
+	return null;
+    }
 
     public String getDate() {
 	if (this.params.date != null && this.params.date.length() == 0) {
@@ -168,17 +178,7 @@ public class SearchProductsManagedBean {
     public Long getGenreAlone() {
 	return null;
     }
-
-    public void setClean(Long id) {
-	params = new SearchParams();
-	checked = new HashMap<>();
-    }
-
-    public Long getClean() {
-	return null;
-    }
     
-
     public String getGenresMode() {
 	return this.params.genresMode;
     }

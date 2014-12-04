@@ -138,14 +138,14 @@ public class ManageProduct implements ManageProductRemote {
 	    query += " where  a.id=" + actor;
 	    where=true;
 	}
-	if (director != null && !actor.equals(0L)) {
+	if (director != null && !director.equals(0L)) {
 	    if (where) {
 		query += " and ";
 	    } else {
 		query += " where ";
 		where=true;
 	    }
-	    query += " d.id" + director;
+	    query += " d.id=" + director;
 	}
 	if (lgdto != null && !lgdto.isEmpty()) {
 	    if (where) {

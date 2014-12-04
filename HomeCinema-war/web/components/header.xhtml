@@ -31,10 +31,10 @@
 			    <c:otherwise>
 				<span class="decale-right" style="color: white;"> <h:outputText value="#{msg['header-welcome']}" /> "<b>#{sessionManagedBean.firstName}</b>" </span> | 
 				<a href="moncompte.xhtml" title="#{msg['header-voircompte']}">
-				  <i class="glyphicon glyphicon-folder-open"></i>
+				    <i class="glyphicon glyphicon-folder-open"></i>
 				</a> |
-				  <a href="moncompte.xhtml?box=caddie" title="#{msg['header-voircaddie']}">
-				  <i class="glyphicon glyphicon-shopping-cart"></i> (#{sessionManagedBean.caddySize})
+				<a href="moncompte.xhtml?box=caddie" title="#{msg['header-voircaddie']}">
+				    <i class="glyphicon glyphicon-shopping-cart"></i> (#{sessionManagedBean.caddySize})
 				</a> |
 				<h:form>
 				    <h:commandLink action="#{sessionManagedBean.logout}" value="#{msg['deconnexion']}" />
@@ -44,18 +44,18 @@
 			</c:choose>
 		    </div>
 		    <div class="col-md-2 col-19 col-size-fixed" id="form-login">
-		      	      <ez:login short="true"/>
+			<ez:login short="true"/>
 
-<!--			<h:form role="form">
-			    <h:messages for="login" infoClass="info" />
-			    <div class="form-group">
-				<h:inputText p:type="email" id="email" value="#{loginManagedBean.email}" class="form-control input-sm" p:placeholder="#{msg['header-email']}" />
-			    </div>
-			    <div class="form-group">
-				<h:inputSecret id="password" value="#{loginManagedBean.password}" class="form-control input-sm" p:placeholder="#{msg['header-mdp']}" />
-			    </div>
-			    <h:commandButton class="btn btn-success btn-sm btn-block" value="#{msg['connexion']}" action="#{loginManagedBean.login}"/>
-			</h:form>-->
+			<!--			<h:form role="form">
+						    <h:messages for="login" infoClass="info" />
+						    <div class="form-group">
+							<h:inputText p:type="email" id="email" value="#{loginManagedBean.email}" class="form-control input-sm" p:placeholder="#{msg['header-email']}" />
+						    </div>
+						    <div class="form-group">
+							<h:inputSecret id="password" value="#{loginManagedBean.password}" class="form-control input-sm" p:placeholder="#{msg['header-mdp']}" />
+						    </div>
+						    <h:commandButton class="btn btn-success btn-sm btn-block" value="#{msg['connexion']}" action="#{loginManagedBean.login}"/>
+						</h:form>-->
 		    </div> <!-- /#form-login -->
 		</div>
 		<!-- Fixed navbar -->
