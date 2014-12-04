@@ -83,7 +83,7 @@ public class UsersFilms implements Serializable {
     
     @Override
     public int hashCode() {
-        return film.getId().hashCode();
+        return id.intValue();
     }
 
     @Override
