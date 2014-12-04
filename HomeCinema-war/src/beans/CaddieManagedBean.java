@@ -12,14 +12,11 @@ import dtos.ProductDto;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
 import javax.naming.NamingException;
 import static utils.Beans.getRequestPage;
+import utils.Message;
 import utils.Pages;
 import utils.Redirect;
 
@@ -111,8 +108,7 @@ public class CaddieManagedBean {
     Ejbs.transaction().removeProduct(session.getId(), idProduct);
     this.cdto = Ejbs.transaction().getCaddieDto(session.getId());
     session.caddySizeMinus();
-    FacesMessage message = new FacesMessage("Succès de la suppresion !");
-    FacesContext.getCurrentInstance().addMessage(null, message);
+    Message.Info("Succès de la suppresion !");
     if (getRequestPage().contains(Pages.MON_COMPTE)) {
       // redirect only if on page moncompte (to reload caddie).
       Redirect.redirectTo(Pages.MON_COMPTE + "?box=caddie");
@@ -126,8 +122,7 @@ public class CaddieManagedBean {
     }
     this.cdto = Ejbs.transaction().addProduct(this.session.getId(), idproduct);
     this.session.caddySizePlus();
-    FacesMessage message = new FacesMessage("Succès de l'ajout !");
-    FacesContext.getCurrentInstance().addMessage(null, message);
+    Message.Info("Succès de l'ajout !");
     Redirect.redirectTo(Pages.FICHE_FILM + "?id=" + idfilm);
   }
 
@@ -177,8 +172,7 @@ public class CaddieManagedBean {
 	}
 	break;
     }
-    FacesMessage message = new FacesMessage("Succès de l'ajout !");
-    FacesContext.getCurrentInstance().addMessage(null, message);
+    Message.Info("Succès de l'ajout !");
     Redirect.redirectTo(Pages.FICHE_PRODUCT + "?id=" + idproduct);
   }
 
