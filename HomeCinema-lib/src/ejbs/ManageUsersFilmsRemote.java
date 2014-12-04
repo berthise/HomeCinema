@@ -15,7 +15,8 @@ import javax.ejb.Remote;
 @Remote
 public interface ManageUsersFilmsRemote {
 
-    public void updateCurrentTime(UsersFilmsDto usfdto);
 
     public UsersFilmsDto getCurrentTime(Long user, Long film);
+
+    public void updateCurrentTime(Long user, UsersFilmsDto ufdto);
 }

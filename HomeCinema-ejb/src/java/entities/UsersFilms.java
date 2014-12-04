@@ -42,9 +42,6 @@ public class UsersFilms implements Serializable {
     @Column(name = "CURRENT_POSITION")
     private Integer currentPosition;
 
-    @ManyToOne
-    @JoinColumn(name = "USER_")
-    private User user;
 
     public UsersFilms() {
         this.currentPosition = 0;
@@ -83,19 +80,10 @@ public class UsersFilms implements Serializable {
         this.currentPosition = currentPosition;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
     
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+        return film.getId().hashCode();
     }
 
     @Override

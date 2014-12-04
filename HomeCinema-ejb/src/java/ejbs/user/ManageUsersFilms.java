@@ -11,10 +11,12 @@ import entities.Film;
 import entities.User;
 import entities.UsersFilms;
 import enums.UsersFilmsStates;
+import java.util.Iterator;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import managers.dtos.UsersFilmsDtoManager;
 import static managers.dtos.UsersFilmsDtoManager.getDto;
 
 /**
@@ -28,26 +30,34 @@ public class ManageUsersFilms implements ManageUsersFilmsRemote {
     EntityManager em;
 
     @Override
-    public void updateCurrentTime(UsersFilmsDto ufdto) {
-        
-        TypedQuery<UsersFilms> query = em.createQuery("SELECT uf FROM UsersFilms uf WHERE uf.film.id = :film AND uf.user.id = :user", UsersFilms.class);
-        query.setParameter("film", ufdto.film);
-        query.setParameter("user", ufdto.user);
-        UsersFilms usersFilms = query.getSingleResult();
-        if (usersFilms != null) {
-            usersFilms.setCurrentPosition(ufdto.currentPosition);
-            usersFilms.setState(UsersFilmsStates.Viewed);
-            em.merge(usersFilms);
-        }
+    public void updateCurrentTime(Long user, UsersFilmsDto ufdto) {
+	User u = em.find(User.class, user);
+	Iterator<UsersFilms> ufi = u.getFilms().iterator();
+	boolean cont = true;
+	while (ufi.hasNext() && cont) {
+	    UsersFilms uf = ufi.next();
+	    if (uf != null && uf.getFilm().getId()==ufdto.film) {
+		uf.setCurrentPosition(ufdto.currentPosition);
+		uf.setState(UsersFilmsStates.Viewed);
+		em.merge(uf);
+		cont= false;
+	    }
+	}
     }
 
     @Override
     public UsersFilmsDto getCurrentTime(Long user, Long film) {
-        TypedQuery<UsersFilms> query = em.createQuery("SELECT uf FROM UsersFilms uf WHERE uf.film.id = :film AND uf.user.id = :user", UsersFilms.class);
-        query.setParameter("film", film);
-        query.setParameter("user", user);
-        UsersFilms usersFilms = query.getSingleResult();
-        return getDto(usersFilms);
+	User u = em.find(User.class, user);
+	Iterator<UsersFilms> ufi = u.getFilms().iterator();
+	boolean cont = true;
+	UsersFilms uf=null;
+	while (ufi.hasNext() && cont) {
+	     uf= ufi.next();
+	    if (uf != null && uf.getFilm().getId()==film) {
+		cont= false;
+	    }
+	}
+	return UsersFilmsDtoManager.getDto(uf);
     }
 
 }

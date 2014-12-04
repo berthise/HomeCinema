@@ -32,9 +32,8 @@ public class UsersFilmsManagedBean {
                 FacesContext fc = FacesContext.getCurrentInstance();
                 Long user = Long.parseLong(getParam(fc, "user"));
                 Long film = Long.parseLong(getParam(fc, "film"));
-                ufdto.user = user;
                 ufdto.film = film;
-                Ejbs.usersFilms().updateCurrentTime(ufdto);
+                Ejbs.usersFilms().updateCurrentTime(user,ufdto);
             } catch (Exception e) {
                 e.printStackTrace();
             }

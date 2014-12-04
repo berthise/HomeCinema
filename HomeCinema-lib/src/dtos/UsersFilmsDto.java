@@ -17,7 +17,7 @@ public class UsersFilmsDto implements Serializable {
     public Integer currentPosition;
     public UsersFilmsStates state;
     public Long film;
-    public Long user;
+
 
     public Long getId() {
         return id;
@@ -51,11 +51,4 @@ public class UsersFilmsDto implements Serializable {
         this.film = film;
     }
 
-    public Long getUser() {
-        return user;
-    }
-
-    public void setUser(Long user) {
-        this.user = user;
-    }
 }
