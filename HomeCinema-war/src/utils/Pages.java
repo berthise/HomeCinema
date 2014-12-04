@@ -31,5 +31,7 @@ public class Pages {
   public final static String VISIONNEUSE = "visionneuse.xhtml";
   public final static String ACTIVATE = "activate.xhtml";
 
+  public final static String SITEMAP = "sitemap.xhtml";
+  public final static String CONTACT = "contact.xhtml";
   
 }

@@ -7,6 +7,10 @@ body {
     margin: 0;
     font-family: $font;
 
+    .textarea-noresizing {
+	resize:none;
+    }
+    
     .badge-faq {
 	margin-right: 10px;
 	position: relative;

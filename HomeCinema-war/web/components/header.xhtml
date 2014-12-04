@@ -31,10 +31,10 @@
 			    <c:otherwise>
 				<span class="decale-right" style="color: white;"> <h:outputText value="#{msg['header-welcome']}" /> "<b>#{sessionManagedBean.firstName}</b>" </span> | 
 				<a href="moncompte.xhtml" title="#{msg['header-voircompte']}">
-				  <i class="glyphicon glyphicon-folder-open"></i>
+				    <i class="glyphicon glyphicon-folder-open"></i>
 				</a> |
-				  <a href="moncompte.xhtml?box=caddie" title="#{msg['header-voircaddie']}">
-				  <i class="glyphicon glyphicon-shopping-cart"></i> (#{sessionManagedBean.caddySize})
+				<a href="moncompte.xhtml?box=caddie" title="#{msg['header-voircaddie']}">
+				    <i class="glyphicon glyphicon-shopping-cart"></i> (#{sessionManagedBean.caddySize})
 				</a> |
 				<h:form>
 				    <h:commandLink action="#{sessionManagedBean.logout}" value="#{msg['deconnexion']}" />
@@ -44,7 +44,7 @@
 			</c:choose>
 		    </div>
 		    <div class="col-md-2 col-19 col-size-fixed" id="form-login">
-		      	      <ez:login  short="true"  tabidx="101" />
+			<ez:login  short="true" tabidx="101" />
 		    </div> <!-- /#form-login -->
 		</div>
 		<!-- Fixed navbar -->
