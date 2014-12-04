@@ -3,6 +3,15 @@ body {
   color: #fff;
   margin: 0;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
+  body .badge-faq {
+    margin-right: 10px;
+    position: relative;
+    top: -2px; }
+  body .panel-title-faq {
+    font-weight: bold;
+    font-size: 17px;
+    position: relative;
+    top: 2px; }
   body .navbar-noborder {
     border-bottom: 1px solid #333 !important; }
   body .col-size-fixed {

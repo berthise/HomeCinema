@@ -1,24 +1,25 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html
-  xmlns="http://www.w3.org/1999/xhtml"
-  xmlns:ui="http://java.sun.com/jsf/facelets"
-  xmlns:h="http://java.sun.com/jsf/html"
-  xmlns:f="http://xmlns.jcp.org/jsf/core">
-  <h:head>
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title></title>
-    <meta name="description" content=""/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+	<meta charset="utf-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+	<title></title>
+	<meta name="description" content=""/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-    <link rel="stylesheet" href="css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="css/bootstrap-theme.min.css"/>
-    <link rel="stylesheet" href="css/main.css"/>
+	<link rel="stylesheet" href="css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="css/bootstrap-theme.min.css"/>
+	<link rel="stylesheet" href="css/main.css"/>
 
         <f:metadata>
-      <f:event type="preRenderView" listener="#{sessionManagedBean.checkRight()}"/>
-    </f:metadata>
+	    <f:event type="preRenderView" listener="#{sessionManagedBean.checkRight()}"/>
+	</f:metadata>
     </h:head>
     <h:body id="top" onload="initVideo()">
         <ui:insert name="header" >
@@ -29,19 +30,28 @@
         <section>
             <div class="container">
 
-	<div id="ba" class="well">
-	  <h2 class="well-title"><strong>Foire aux Questions (FAQ)</strong></h2>
+		<div id="ba" class="well">
+		    <h2 class="well-title"><strong>#{msg['faq-title']}</strong></h2>
 
-	  
-	  
-	  <a class="go-top" href="#top"><img src="img/arrowUp.png" /></a>
-	</div>
-      </div>
-    </section>
-    
-    <ui:insert name="footer" >
-      <ui:include src="components/footer.xhtml" />
-    </ui:insert>
-  </h:body>
+		    <c:forEach var="i" begin="1" end="2" >
+			<div class="panel panel-success">
+			    <div class="panel-heading">
+				<h3 class="panel-title panel-title-faq"><span class="badge badge-faq">#{i}</span>#{msg['faq-Q'.concat(i)]}</h3>
+			    </div>
+			    <div class="panel-body">
+				#{msg['faq-R'.concat(i)]}
+			    </div>
+			</div>
+		    </c:forEach>
+
+		    <a class="go-top" href="#top"><img src="img/arrowUp.png" /></a>
+		</div>
+	    </div>
+	</section>
+
+	<ui:insert name="footer" >
+	    <ui:include src="components/footer.xhtml" />
+	</ui:insert>
+    </h:body>
 
 </html>
