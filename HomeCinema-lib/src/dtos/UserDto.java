@@ -16,6 +16,7 @@ import java.util.Date;
 public class UserDto extends UserDtoNoPw implements Serializable {
 
   public String password;
+  public String activationCode;
 
   public String getPassword() {
     return password;
@@ -24,5 +25,15 @@ public class UserDto extends UserDtoNoPw implements Serializable {
   public void setPassword(String password) {
     this.password = password;
   }
+
+  public String getActivationCode() {
+    return activationCode;
+  }
+
+  public void setActivationCode(String activationCode) {
+    this.activationCode = activationCode;
+  }
+  
+  
 
 }

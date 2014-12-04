@@ -8,9 +8,14 @@ package beans;
 import ejbs.Ejbs;
 import dtos.UserDto;
 import enums.UserStates;
+import exception.SignupEmailException;
+import exception.SignupNickNameException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import utils.Message;
@@ -34,9 +39,17 @@ public class SignUpManagedBean {
 
   public void singUp() {
     convertDate(birthDay);
-    Ejbs.user().signUp(user);
-    Message.Info("Succès de l'inscription !");
-    Redirect.redirectTo(Pages.INDEX);
+    try {
+      user = Ejbs.user().signUp(user);
+      Message.Info("Succès de l'inscription ! url: "
+	      + ActivateUserManagedBean.getUrl(user.id, user.activationCode));
+      Redirect.redirectTo(Pages.INDEX);
+    } catch (SignupEmailException ex) {
+      Message.Warning("Email déja utilisé");
+    } catch (SignupNickNameException ex) {
+      Message.Warning("Login déja utilisé");
+    }
+
   }
 
   public void convertDate(String birthDay) {

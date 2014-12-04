@@ -89,6 +89,7 @@ public class UserDtoManager {
 	} else {
 	    udto.caddieSize = 0;
 	}
+	udto.activationCode = null;
 	return udto;
     }
 
