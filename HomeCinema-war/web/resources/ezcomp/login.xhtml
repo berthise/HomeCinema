@@ -8,6 +8,7 @@
 
   <!-- INTERFACE -->
   <cc:interface>
+    <cc:attribute name="tabidx" type="Integer" default="1000"/>
     <cc:attribute name="short" type="Boolean" default="false"/>
   </cc:interface>
 
@@ -58,12 +59,12 @@
 	<h:form role="form">
 	  <h:messages for="login" infoClass="info" />
 	  <div class="form-group">
-	    <h:inputText p:type="email" id="email" value="#{loginManagedBean.email}" class="form-control input-sm" p:placeholder="#{msg['header-email']}" />
+	    <h:inputText id="email" value="#{loginManagedBean.email}" class="form-control input-sm" p:placeholder="#{msg['header-email']}" tabindex="#{cc.attrs.tabidx}"/>
 	  </div>
 	  <div class="form-group">
-	    <h:inputSecret id="password" value="#{loginManagedBean.password}" class="form-control input-sm" p:placeholder="#{msg['header-mdp']}" />
+	    <h:inputSecret id="password" value="#{loginManagedBean.password}" class="form-control input-sm" p:placeholder="#{msg['header-mdp']}" tabindex="#{cc.attrs.tabidx+1}"/>
 	  </div>
-	  <h:commandButton class="btn btn-success btn-sm btn-block" value="#{msg['connexion']}" action="#{loginManagedBean.login}"/>
+	  <h:commandButton class="btn btn-success btn-sm btn-block" value="#{msg['connexion']}" action="#{loginManagedBean.login}" tabindex="#{cc.attrs.tabidx+2}"/>
 	</h:form>
       </c:otherwise>
     </c:choose>
