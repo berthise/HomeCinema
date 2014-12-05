@@ -163,12 +163,9 @@ a.control_next {
     margin: 0 0 15px 0;
 }
 
-.form-liste-film {
-    margin: auto;
+.form-liste-pack {
+    margin: 15px auto;
     width: 262px;
-}
-.col-margin-bot-pack {
-    margin-bottom: 80px;
 }
 
 .film-reduc {
