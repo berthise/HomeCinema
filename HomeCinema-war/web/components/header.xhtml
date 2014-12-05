@@ -9,88 +9,113 @@
     xmlns:ez="http://xmlns.jcp.org/jsf/composite/ezcomp">
 
     <h:body>
-	<ui:composition>
-	    <f:view locale="#{languageManagedBean.localeCode}" />
-	    <header>
-		<div id="banner">
-		    <div id="logo">
-			<a href="/HomeCinema-war/">
-			    <img src="img/logo.png" />
-			</a>
-		    </div>
-		    <div id="banner-img">
-			<img src="img/bann.png" />
-		    </div>
-		    <div class="userTools">
-			<c:choose>
-			    <c:when test="#{sessionManagedBean.firstName == null}" >
-			      <a href="#" id="login" tabindex="100"><h:outputText value="#{msg['connexion']}"/></a> | 
-			      <a href="signup.xhtml" id="signup" tabindex="110"><h:outputText value="#{msg['inscription']}" /></a> |
-				<ez:lang />
-			    </c:when>
-			    <c:otherwise>
-				<span class="decale-right" style="color: white;"> <h:outputText value="#{msg['header-welcome']}" /> "<b>#{sessionManagedBean.firstName}</b>" </span> | 
-				<a href="moncompte.xhtml" title="#{msg['header-voircompte']}">
-				    <i class="glyphicon glyphicon-folder-open"></i>
-				</a> |
-				<a href="moncompte.xhtml?box=caddie" title="#{msg['header-voircaddie']}">
-				    <i class="glyphicon glyphicon-shopping-cart"></i> (#{sessionManagedBean.caddySize})
-				</a> |
-				<h:form>
-				    <h:commandLink action="#{sessionManagedBean.logout}" value="#{msg['deconnexion']}" />
-				</h:form> |
-				<ez:lang />
-			    </c:otherwise>
-			</c:choose>
-		    </div>
-		    <div class="col-md-2 col-19 col-size-fixed" id="form-login">
-			<ez:login  short="true" tabidx="101" />
-		    </div> <!-- /#form-login -->
-		</div>
-		<!-- Fixed navbar -->
-		<nav class="navbar navbar-default navbar-static-top navbar-noborder" role="navigation">
-		    <div class="container">
-			<div class="navbar-header">
-			    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
-				<span class="sr-only">Toggle navigation</span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			    </button>
-			</div>
-			<div class="navbar-collapse collapse">
-			    <ul class="nav navbar-nav">
-				<li class="#{(active == 'index')? 'active' : ''}"><a href="/HomeCinema-war/"><i class="decale-right glyphicon glyphicon-home"></i> <h:outputText value="#{msg['menu-accueil']}" /></a></li>
-				<li class="#{(active == 'films')? 'active' : ''}"><a href="films.xhtml?tab=all"><i class="decale-right glyphicon glyphicon-facetime-video"></i> <h:outputText value="#{msg['menu-films']}" /></a></li>
-				<li class="#{(active == 'faq')? 'active' : ''}"><a href="faq.xhtml"><i class="decale-right glyphicon glyphicon-info-sign"></i> <h:outputText value="#{msg['menu-faq']}" /></a></li>
-				<li class="#{(active == 'demo')? 'active' : ''}"><a href="demo.xhtml"><i class="decale-right glyphicon glyphicon-wrench"></i> <h:outputText value="#{msg['menu-demo']}" /></a></li>
-				<h:panelGroup rendered="#{sessionManagedBean.id != null}">
-				    <li class="#{(active == 'moncompte')? 'active' : ''}"><a href="moncompte.xhtml"><i class="decale-right glyphicon glyphicon-folder-open"></i> <h:outputText value="#{msg['menu-compte']}" /></a></li>
-				</h:panelGroup>
-				<h:panelGroup rendered="#{sessionManagedBean.id == null}">
-				    <li class="#{(active == 'login')? 'active' : ''}"><a href="login.xhtml"><i class="decale-right glyphicon glyphicon-hand-right"></i> <h:outputText value="#{msg['connexion']}" /></a></li>
-				    <li class="#{(active == 'signup')? 'active' : ''}"><a href="signup.xhtml"><i class="decale-right glyphicon glyphicon-list"></i> <h:outputText value="#{msg['inscription']}" /></a></li>
-
-				</h:panelGroup>
-			    </ul>
-			    <div class="col-sm-3 col-md-3 pull-right">
-				<form class="navbar-form" role="search" id="search-form" action="films.xhtml">
-				    <div class="input-group">
-					<input type="hidden" name="tab" value="search" />
-					<input type="search" class="form-control" placeholder="#{msg['menu-recherche']}" name="title"/>
-					<div class="input-group-btn">
-					    <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
-					</div>
-				    </div>
-				</form>
-			    </div>
-			</div><!--/.nav-collapse -->
-		    </div>
-		</nav>
-	    </header>
-	    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
-	    <script src="js/vendor/bootstrap.min.js"></script>
-	    <script src="js/main.js"></script>
+        <ui:composition>
+            <f:view locale="#{languageManagedBean.localeCode}" />
+            <header>
+                <div id="banner">
+                    <div id="logo">
+                        <a href="/HomeCinema-war/">
+                            <img src="img/logo.png" />
+                        </a>
+                    </div>
+                    <div id="banner-img">
+                        <img src="img/bann.png" />
+                    </div>
+                    <div class="userTools">
+                        <c:choose>
+                            <c:when test="#{sessionManagedBean.firstName == null}" >
+                                <a href="#" id="login" tabindex="100"><h:outputText value="#{msg['connexion']}"/></a> | 
+                                <a href="signup.xhtml" id="signup" tabindex="110"><h:outputText value="#{msg['inscription']}" /></a> |
+                                <ez:lang />
+                            </c:when>
+                            <c:otherwise>
+                                <span class="decale-right" style="color: white;"> <h:outputText value="#{msg['header-welcome']}" /> "<b>#{sessionManagedBean.firstName}</b>" </span> | 
+                                <a href="moncompte.xhtml" title="#{msg['header-voircompte']}">
+                                    <i class="glyphicon glyphicon-folder-open"></i>
+                                </a> |
+                                <a href="moncompte.xhtml?box=caddie" title="#{msg['header-voircaddie']}">
+                                    <i class="glyphicon glyphicon-shopping-cart"></i> (#{sessionManagedBean.caddySize})
+                                </a> |
+                                <h:form>
+                                    <h:commandLink action="#{sessionManagedBean.logout}" value="#{msg['deconnexion']}" />
+                                </h:form> |
+                                <ez:lang />
+                            </c:otherwise>
+                        </c:choose>
+                    </div>
+                    <div class="col-md-2 col-19 col-size-fixed" id="form-login">
+                        <ez:login  short="true" tabidx="101" />
+                    </div> <!-- /#form-login -->
+                </div>
+                <!-- Fixed navbar -->
+                <nav id="header" class="navbar navbar-default navbar-static-top navbar-noborder" role="navigation">
+                    <div class="container">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                        </div>
+                        <div id="navbar" class="navbar-collapse collapse">
+                            <ul class="nav navbar-nav">
+                                <li class="#{(active == 'index')? 'active' : ''}"><a href="/HomeCinema-war/"><i class="decale-right glyphicon glyphicon-home"></i> <h:outputText value="#{msg['menu-accueil']}" /></a></li>
+                                <li class="#{(active == 'films')? 'active' : ''}"><a href="films.xhtml?tab=all"><i class="decale-right glyphicon glyphicon-facetime-video"></i> <h:outputText value="#{msg['menu-films']}" /></a></li>
+                                <li class="#{(active == 'faq')? 'active' : ''}"><a href="faq.xhtml"><i class="decale-right glyphicon glyphicon-info-sign"></i> <h:outputText value="#{msg['menu-faq']}" /></a></li>
+                                <li class="#{(active == 'demo')? 'active' : ''}"><a href="demo.xhtml"><i class="decale-right glyphicon glyphicon-wrench"></i> <h:outputText value="#{msg['menu-demo']}" /></a></li>
+                                <h:panelGroup rendered="#{sessionManagedBean.id != null}">
+                                    <li class="#{(active == 'moncompte')? 'active' : ''}"><a href="moncompte.xhtml"><i class="decale-right glyphicon glyphicon-folder-open"></i> <h:outputText value="#{msg['menu-compte']}" /></a></li>
+                                </h:panelGroup>
+                                <h:panelGroup rendered="#{sessionManagedBean.id == null}" style="display: none">
+                                    <li class="#{(active == 'login')? 'active' : ''}"><a href="login.xhtml"><i class="decale-right glyphicon glyphicon-hand-right"></i> <h:outputText value="#{msg['connexion']}" /></a></li>
+                                    <li class="#{(active == 'signup')? 'active' : ''}"><a href="signup.xhtml"><i class="decale-right glyphicon glyphicon-list"></i> <h:outputText value="#{msg['inscription']}" /></a></li>
+                                </h:panelGroup>
+                            </ul>
+                            <ul class="nav navbar-nav navbar-right animated" style="display: none">
+                                <h:panelGroup rendered="#{sessionManagedBean.id == null}">
+                                    <li class="#{(active == 'login')? 'active' : ''}"><a href="login.xhtml"><i class="decale-right glyphicon glyphicon-hand-right"></i> <h:outputText value="#{msg['connexion']}" /></a></li>
+                                    <li class="#{(active == 'signup')? 'active' : ''}"><a href="signup.xhtml"><i class="decale-right glyphicon glyphicon-list"></i> <h:outputText value="#{msg['inscription']}" /></a></li>
+                                </h:panelGroup>
+                                <h:panelGroup rendered="#{sessionManagedBean.id != null}">
+                                    <li>
+                                        <a href="moncompte.xhtml?box=caddie" title="#{msg['header-voircaddie']}">
+                                            <i class="glyphicon glyphicon-shopping-cart"></i> Panier
+                                            <span class="badge">#{sessionManagedBean.caddySize}</span>
+                                        </a>
+                                    </li>
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">                                                
+                                            <i class="glyphicon glyphicon-user"></i>
+                                            #{sessionManagedBean.firstName} <span class="caret"></span>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <i class="glyphicon glyphicon-off"></i>
+                                                <h:form>
+                                                    <h:commandLink action="#{sessionManagedBean.logout}" value="#{msg['deconnexion']}" />
+                                                </h:form>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </h:panelGroup>
+                            </ul>
+                            <form class="navbar-form navbar-right" role="search" id="search-form" action="films.xhtml">
+                                <div class="input-group">
+                                    <input type="hidden" name="tab" value="search" />
+                                    <input type="search" class="form-control" placeholder="#{msg['menu-recherche']}" name="title"/>
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div><!--/.nav-collapse -->
+                    </div>
+                </nav>
+            </header>
+            <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
+            <script src="js/vendor/bootstrap.min.js"></script>
+            <script src="js/main.js"></script>
 
             <div class="messages container">
                 <h:messages globalOnly="true" infoClass="alert alert-success" errorClass="alert alert-danger"

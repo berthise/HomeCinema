@@ -23,6 +23,8 @@ import utils.Message;
 import utils.Pages;
 import utils.Redirect;
 import utils.Securite;
+import utils.SendMail;
+import utils.SendMailException;
 
 /**
  *
@@ -44,13 +46,22 @@ public class SignUpManagedBean {
     user.password = Securite.crypte(user.password);
     try {
       user = Ejbs.user().signUp(user);
-      Message.Info("Succès de l'inscription ! url: "
-	      + ActivateUserManagedBean.getUrl(user.id, user.activationCode));
+      SendMail.send(user.email, "[HomeCinema] Confirmation d'inscription",
+	      "Bonjour \n\n"
+	      + "votre code de confirmation de compte:\n"
+	      + ActivateUserManagedBean.getUrl(user.id, user.activationCode)
+	      + "\n\n"
+	      + "Merci,\n"
+	      + "HomeCinema");
+      Message.Info("Succès de l'inscription ! \n"+
+	      " Vous allez recevoir un mail afin de confirmer votre compte.");
       Redirect.redirectTo(Pages.INDEX);
     } catch (SignupEmailException ex) {
       Message.Warning("Email déja utilisé");
     } catch (SignupNickNameException ex) {
       Message.Warning("Login déja utilisé");
+    } catch (SendMailException ex) {
+      Logger.getLogger(SignUpManagedBean.class.getName()).log(Level.SEVERE, null, ex);
     }
 
   }
