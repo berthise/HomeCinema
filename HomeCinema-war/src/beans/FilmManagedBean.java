@@ -20,6 +20,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.naming.NamingException;
+import utils.Lang;
 import utils.Pages;
 
 /**
@@ -107,16 +108,15 @@ public class FilmManagedBean {
     }
 
     public String getLinkToFiche() {
-	return "<a title=\"Voir la fiche du film\" href=\""+Pages.FICHE_FILM+"?id=" + fdto.id + "\"/>" + fdto.title + "</a>";
-    }
-
-    public String getLinkToVisionneuse() {
-	return "<a class=\"btn btn-success col-md-3 b21\" href=\""+Pages.VISIONNEUSE+"?id=" + fdto.id + "\">Voir en Streaming</a>";
+	return "<a title=\"" + Lang.getString("fiche-film-see") + "\" href=\""+Pages.FICHE_FILM+"?id=" + fdto.id + "\"/>" + fdto.title + "</a>";
     }
 
     public String getLinkToDownload() {
-	String url = fdto.files.get(0).url;
-	return "<a class=\"btn btn-primary col-md-3 b22\" href=\"" + url + "\" download=\"" + fdto.title.replaceAll(" ", "_") + ".mp4" + "\">Téléchargement</a>";
+	return this.fdto.title.replaceAll(" ", "_") + ".mp4";
+    }
+    
+    public String getUrlDownload(){
+	return this.fdto.files.get(0).url;
     }
 
     public String getVideo() {
@@ -163,12 +163,12 @@ public class FilmManagedBean {
 	List<PersonDto> list = Ejbs.film().getDirector(fdto.id);
 	String toReturn = "";
 	for (PersonDto s : list) {
-	    toReturn += "<a href=\"films.xhtml?tab=search&clean=&director=" + s.id + "\" class=\"list-genres-crew\">" + s.name + "</a> ";
+	    toReturn += "<a href=\"" + Pages.FILMS + "?tab=search&clean=&director=" + s.id + "\" class=\"list-genres-crew\">" + s.name + "</a> ";
 	}
 	if (toReturn.length() > 0) {
 	    return toReturn;
 	} else {
-	    return "<span class=\"list-genres-crew\">Inconnu</span>";
+	    return "<span class=\"list-genres-crew\">" + Lang.getString("inconnu") +"</span>";
 	}
     }
 
@@ -176,12 +176,12 @@ public class FilmManagedBean {
 	List<PersonDto> list = Ejbs.film().getCasting(fdto.id);
 	String toReturn = "";
 	for (PersonDto s : list) {
-	    toReturn += "<a href=\"films.xhtml?tab=search&clean=&actor=" + s.id + "\" class=\"list-genres-crew\">" + s.name + "</a> ";
+	    toReturn += "<a href=\"" + Pages.FILMS + "?tab=search&clean=&actor=" + s.id + "\" class=\"list-genres-crew\">" + s.name + "</a> ";
 	}
 	if (toReturn.length() > 0) {
 	    return toReturn;
 	} else {
-	    return "<span class=\"list-genres-crew\">Inconnu</span>";
+	    return "<span class=\"list-genres-crew\">" + Lang.getString("inconnu") +"</span>";
 	}
     }
 
@@ -189,13 +189,13 @@ public class FilmManagedBean {
 	Set<GenreDto> set = Ejbs.film().getGenre(fdto.id);
 	String toReturn = "";
 	for (GenreDto s : set) {
-	    toReturn += "<a href=\"films.xhtml?tab=search&clean=&genre=" + s.id + "\" class=\"list-genres-crew\">" + s.name + "</a> ";
+	    toReturn += "<a href=\"" + Pages.FILMS + "?tab=search&clean=&genre=" + s.id + "\" class=\"list-genres-crew\">" + s.name + "</a> ";
 	}
 	if (toReturn.length() > 0) {
 	    return toReturn;
 	} else {
-	    return "<span class=\"list-genres-crew\">Inconnu</span>";
+	    return "<span class=\"list-genres-crew\">" + Lang.getString("inconnu") +"</span>";
 	}
     }
-
+    
 }

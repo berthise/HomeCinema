@@ -13,6 +13,7 @@ import dtos.UserDtoNoPw;
 import exception.ActivatedCodeException;
 import exception.SignupEmailException;
 import exception.SignupNickNameException;
+import exception.UncorrectPasswordException;
 import java.util.List;
 import java.util.Set;
 import javax.ejb.Remote;
@@ -28,7 +29,7 @@ public interface ManageUserRemote {
     
     public void save(UserDtoNoPw user);
     
-    public UserDto login(String email, String password);
+    public UserDto login(String email, String password)  throws UncorrectPasswordException;
     
     public Set<SimpleUserDto> getAllUser();
     
