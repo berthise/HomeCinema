@@ -10,6 +10,7 @@ import dtos.ProductDto;
 import dtos.UserDtoNoPw;
 import ejbs.ManageFilmRemote;
 import ejbs.ManageProductRemote;
+import enums.ProductStates;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -43,23 +44,25 @@ public class ProductManagedBean {
     public ProductManagedBean() throws NamingException {
 	productManager = (ManageProductRemote) new InitialContext().lookup("java:global/HomeCinema/HomeCinema-ejb/ManageProduct!ejbs.ManageProductRemote");
 	this.pdto = new ProductDto();
-    filmManager = (ManageFilmRemote) new InitialContext().lookup("java:global/HomeCinema/HomeCinema-ejb/ManageFilm!ejbs.ManageFilmRemote");
+	filmManager = (ManageFilmRemote) new InitialContext().lookup("java:global/HomeCinema/HomeCinema-ejb/ManageFilm!ejbs.ManageFilmRemote");
     }
 
     public void setDtoFromId() throws IOException {
-	if (pdto.id != null && pdto.id!=0) {
+	if (pdto != null && pdto.id != null && pdto.id != 0) {
 
 	    ProductDto f = productManager.getProduct(pdto.id);
 	    pdto = f;
 	    this.filmsProduct = this.productManager.getFilms(pdto.id);
 	    List<FilmDto> lfdto = filmManager.getAllFilm();
+	    if (lfdto == null) {
+		lfdto = new ArrayList<>();
+	    }
 	    lfdto.removeAll(filmsProduct);
-	    this.films=lfdto;
-	}
-	else
-	{
+	    this.films = lfdto;
+	} else {
 	    pdto = new ProductDto();
-	    this.filmsProduct= new ArrayList<>();
+	    pdto.state = ProductStates.Unactivated;
+	    this.filmsProduct = new ArrayList<>();
 	    this.films = filmManager.getAllFilm();
 	}
 
@@ -108,8 +111,8 @@ public class ProductManagedBean {
     public Integer getTotalFilm() {
 	return this.films.size();
     }
-    
-        private List<FilmDto> filmsProduct;
+
+    private List<FilmDto> filmsProduct;
 
     public List<FilmDto> getFilmsProduct() {
 	return this.filmsProduct;
@@ -122,9 +125,24 @@ public class ProductManagedBean {
     public Integer getTotalProduct() {
 	return this.filmsProduct.size();
     }
-    
-    public void addFilm(Long fid)
-    {
+
+    public ProductStates getState() {
+	return this.pdto.state;
+    }
+
+    public boolean isActivate() {
+	return this.pdto.state == ProductStates.Activated;
+    }
+
+    public void activate() {
+	this.productManager.activate(this.pdto.id);
+    }
+
+    public void deactivate() {
+	this.productManager.deactivate(this.pdto.id);
+    }
+
+    public void addFilm(Long fid) {
 	this.productManager.addExistingFilm(this.getId(), fid, false);
     }
 }
