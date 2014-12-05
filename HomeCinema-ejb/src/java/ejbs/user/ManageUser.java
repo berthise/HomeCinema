@@ -19,8 +19,7 @@ import enums.UserStates;
 import exception.ActivatedCodeException;
 import exception.SignupEmailException;
 import exception.SignupNickNameException;
-import java.math.BigInteger;
-import java.security.SecureRandom;
+import exception.UncorrectPasswordException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -38,6 +37,7 @@ import javax.persistence.TypedQuery;
 import managers.dtos.FilmDtoManager;
 import managers.dtos.TransactionDtoManager;
 import managers.dtos.UserDtoManager;
+import utils.Securite;
 import utils.Tools;
 
 /**
@@ -126,14 +126,18 @@ public class ManageUser implements ManageUserRemote {
 
   //TODO userDto => userDtoNoPw
   @Override
-  public UserDto login(String email, String password) {
+  public UserDto login(String email, String crypted_password) throws UncorrectPasswordException {
     Long id = 1L;
-    TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE (u.email = :email OR u.nickName = :email) AND u.password = :password AND u.state=:active", User.class);
+    TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE (u.email = :email OR u.nickName = :email)AND u.state=:active", User.class);
     query.setParameter("email", email);
-    query.setParameter("password", password);
     query.setParameter("active", UserStates.Activated);
     User user = query.getSingleResult();
-    return UserDtoManager.getUser(user);
+    
+    /* verification du password */
+    if (Securite.equale(crypted_password, user.getPassword())) {
+      return UserDtoManager.getUser(user);
+    }
+    throw new UncorrectPasswordException();
   }
 
   @Override

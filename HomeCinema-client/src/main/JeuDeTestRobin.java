@@ -12,6 +12,7 @@ import dtos.UserDto;
 import dtos.VideoDto;
 import exception.SignupEmailException;
 import exception.SignupNickNameException;
+import exception.UncorrectPasswordException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.Date;
@@ -149,7 +150,11 @@ public class JeuDeTestRobin {
 	  } catch (SignupNickNameException ex) {
 	    Logger.getLogger(JeuDeTestRobin.class.getName()).log(Level.SEVERE, null, ex);
 	  }
-            u = a.getManageUserRemote().login(u.email, u.password);
+	  try {
+	    u = a.getManageUserRemote().login(u.email, u.password);
+	  } catch (UncorrectPasswordException ex) {
+	    Logger.getLogger(JeuDeTestRobin.class.getName()).log(Level.SEVERE, null, ex);
+	  }
 
             UserDto u2 = new UserDto();
             u2.birthDate = new Date();
@@ -165,7 +170,10 @@ public class JeuDeTestRobin {
 	  } catch (SignupNickNameException ex) {
 	    Logger.getLogger(JeuDeTestRobin.class.getName()).log(Level.SEVERE, null, ex);
 	  }
-            Long u_id = a.getManageUserRemote().login(u2.email, u2.password).id;
+	  	  try {
+            Long u_id;
+	    u_id = a.getManageUserRemote().login(u2.email, u2.password).id;
+
 
             //remove u2 apres achat 
             a.getManageTransactionRemote().addProduct(u_id, pdto.id);
@@ -173,6 +181,9 @@ public class JeuDeTestRobin {
             a.getManageTransactionRemote().validatePayement(trans2, 42L);
             a.getManageUserRemote().removeUser(u_id);
 
+	  } catch (UncorrectPasswordException ex) {
+	    Logger.getLogger(JeuDeTestRobin.class.getName()).log(Level.SEVERE, null, ex);
+	  }
             //achat american beauty
             a.getManageTransactionRemote().addProduct(u.id, pdto.id);
             Long trans = a.getManageTransactionRemote().validate(u.id, null);

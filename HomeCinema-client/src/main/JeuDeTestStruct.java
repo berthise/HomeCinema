@@ -11,6 +11,7 @@ import dtos.UserDto;
 import dtos.VideoDto;
 import exception.SignupEmailException;
 import exception.SignupNickNameException;
+import exception.UncorrectPasswordException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -171,6 +172,7 @@ public class JeuDeTestStruct {
     }
 
     private static UserDto createAndPushUser(Admin a, String nickname, String email, String firstname, String lastname) {
+      try {
 	//creer user robin
 	System.out.print("create user : " + nickname);
 	UserDto u = new UserDto();
@@ -180,16 +182,20 @@ public class JeuDeTestStruct {
 	u.lastName = lastname;
 	u.nickName = nickname;
 	u.password = "password";
-      try {
-	a.getManageUserRemote().signUp(u);
-      } catch (SignupEmailException ex) {
-	Logger.getLogger(JeuDeTestStruct.class.getName()).log(Level.SEVERE, null, ex);
-      } catch (SignupNickNameException ex) {
-	Logger.getLogger(JeuDeTestStruct.class.getName()).log(Level.SEVERE, null, ex);
-      }
+	try {
+	  a.getManageUserRemote().signUp(u);
+	} catch (SignupEmailException ex) {
+	  Logger.getLogger(JeuDeTestStruct.class.getName()).log(Level.SEVERE, null, ex);
+	} catch (SignupNickNameException ex) {
+	  Logger.getLogger(JeuDeTestStruct.class.getName()).log(Level.SEVERE, null, ex);
+	}
 	u = a.getManageUserRemote().login(u.email, u.password);
 	System.out.println(" ...  done");
 	return u;
+      } catch (UncorrectPasswordException ex) {
+	Logger.getLogger(JeuDeTestStruct.class.getName()).log(Level.SEVERE, null, ex);
+      }
+      return null;
     }
 
     private static ProductDto createAndPushProduct(Admin a, List<FilmDto> films, String name, double price, boolean main) {

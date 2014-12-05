@@ -12,6 +12,7 @@ import dtos.UserDto;
 import dtos.VideoDto;
 import exception.SignupEmailException;
 import exception.SignupNickNameException;
+import exception.UncorrectPasswordException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -300,8 +301,12 @@ public class JeuDeTestStructActivation {
 	Logger.getLogger(JeuDeTestStructActivation.class.getName()).log(Level.SEVERE, null, ex);
       }
 	if (activation) {
+	  try {
 	    a.getManageUserRemote().activate(u.getId());
 	    u = a.getManageUserRemote().login(u.email, u.password);
+	  } catch (UncorrectPasswordException ex) {
+	    Logger.getLogger(JeuDeTestStructActivation.class.getName()).log(Level.SEVERE, null, ex);
+	  }
 	}
 	System.out.println(" ...  done");
 	return u;
