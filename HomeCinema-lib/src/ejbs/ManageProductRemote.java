@@ -63,5 +63,7 @@ public interface ManageProductRemote {
     public void activate(Long pid);
 
     public void deactivate(Long pid);
+
+    public void removeFilm(Long pid, Long fid);
     
 }

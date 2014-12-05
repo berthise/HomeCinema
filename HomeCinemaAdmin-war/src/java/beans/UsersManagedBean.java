@@ -46,8 +46,8 @@ public class UsersManagedBean {
   }
 
   public void delUser(Long id) {
-    // userManager.removeUser(id);
-    FacesMessage message = new FacesMessage("Succès de la suppresion ! TODO: decommenter instruction");
+    userManager.removeUser(id);
+    FacesMessage message = new FacesMessage("Succès de la suppresion !");
     FacesContext.getCurrentInstance().addMessage(null, message);
   }
 
