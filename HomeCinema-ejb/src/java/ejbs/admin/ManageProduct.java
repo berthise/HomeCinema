@@ -175,25 +175,22 @@ public class ManageProduct implements ManageProductRemote {
 	    }
 	    query += "  f.title like '%" + str + "%' or p.name like '%" + str + "%' ) ";
 	}
-	if (main.equals(ProductTypes.Main))
-	{
-	    	    if (where) {
+	if (main.equals(ProductTypes.Main)) {
+	    if (where) {
 		query += " and ";
 		where = true;
 	    } else {
 		query += " where ";
 	    }
-		    query+="size(p.films )=1 ";
-	}
-	else if (main.equals(ProductTypes.Pack))
-	{
-	    	    	    if (where) {
+	    query += "size(p.films )=1 ";
+	} else if (main.equals(ProductTypes.Pack)) {
+	    if (where) {
 		query += " and ";
 		where = true;
 	    } else {
 		query += " where ";
 	    }
-		    query+="size(p.films )>1 ";
+	    query += "size(p.films )>1 ";
 	}
 	Query qnb = em.createQuery("select COUNT(distinct p) " + query);
 	Long nb = (Long) qnb.getSingleResult();
