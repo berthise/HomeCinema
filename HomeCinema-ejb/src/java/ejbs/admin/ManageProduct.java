@@ -216,6 +216,7 @@ public class ManageProduct implements ManageProductRemote {
 	}
 
 	Query q = em.createQuery("select distinct p " + query, Product.class);
+	if ( row < 0 ) row = 0;
 	q.setFirstResult(row);
 	q.setMaxResults(limit);
 	List<Product> lpdto = q.getResultList();

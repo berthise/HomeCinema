@@ -32,7 +32,7 @@ public class ActivateUserManagedBean {
   private final static String CODE = "c";
 
   public static String getUrl(Long id, String code) {
-    return Pages.ACTIVATE + "?" + ActivateUserManagedBean.USER + "="
+    return "http://"+ Pages.DOMAIN + Pages.ROOT + Pages.ACTIVATE + "?" + ActivateUserManagedBean.USER + "="
 	    + id + "&" + ActivateUserManagedBean.CODE + "=" + code;
   }
 
