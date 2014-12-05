@@ -140,9 +140,7 @@ public class ManageProduct implements ManageProductRemote {
 	    query += "and d.id=" + director;
 	}
 	if (lgdto != null && !lgdto.isEmpty()) {
-
 	    query += " and (";
-
 	    boolean first = true;
 	    for (Long g : lgdto) {
 		if (first) {
@@ -155,11 +153,9 @@ public class ManageProduct implements ManageProductRemote {
 	    query += " ) ";
 	}
 	if (str != null && !str.equals("")) {
-
-	    query += " and  f.title like '%" + str + "%' or p.name like '%" + str + "%' ) ";
+	    query += " and ( f.title like '%" + str + "%' or p.name like '%" + str + "%' ) ";
 	}
 	if (main.equals(ProductTypes.Main)) {
-
 	    query += " and size(p.films )=1 ";
 	} else if (main.equals(ProductTypes.Pack)) {
 
@@ -167,7 +163,6 @@ public class ManageProduct implements ManageProductRemote {
 	} else {
 	    query += " and size(p.films )>=1 ";
 	}
-
 	Query qnb = em.createQuery("select COUNT(distinct p) " + query);
 	qnb.setParameter("active", ProductStates.Activated);
 	Long nb = (Long) qnb.getSingleResult();
