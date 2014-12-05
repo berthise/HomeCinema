@@ -13,7 +13,7 @@ and open the template in the editor.
     <h:head>
 	<meta charset="utf-8"/>
 	<meta http-equiv="X-UA-Compatible" />
-	<title>HomeCinéma - </title>
+	<title>HomeCinéma - #{msg['films-title']}</title>
 	<meta name="description" content=""/>
 	<meta name="viewport" content="width=device-width, initial-scale=1"/>
 
@@ -75,7 +75,7 @@ and open the template in the editor.
 	<section>
 	    <div class="container">
 		<div class="well">
-		    <h2 class="well-title"><strong>Films</strong></h2>
+		    <h2 class="well-title"><strong>#{msg['films-title']}</strong></h2>
 
 		    <div class="row">
 			<div class="col-lg-3 col-md-4 col-left-space">
@@ -83,7 +83,7 @@ and open the template in the editor.
 				<h:form id="form-random">
 				    <div class="col-md-12 col-no-padding col-hover border-radius-first">
 					<p class="#{((listProductsManagedBean.getTabFilms() eq 'all')? 'activated' : '')}">
-					    <h:commandLink onclick="javascript:loader('all');" value="Tous les films" action="#{listProductsManagedBean.setTabFilms('allLOCALE')}">
+					    <h:commandLink onclick="javascript:loader('all');" value="#{msg['films-all']}" action="#{listProductsManagedBean.setTabFilms('allLOCALE')}">
 						<f:ajax execute="@form" render=":form-random :panel-random :form-nav-page" onevent="handleAjaxClose"/>
 						<img id="loader-all" class="films-loader" src="img/loader.gif"/>
 					    </h:commandLink>
@@ -91,7 +91,7 @@ and open the template in the editor.
 				    </div>
 				    <div class="col-md-12 col-hover col-no-padding">
 					<p class="#{((listProductsManagedBean.getTabFilms() eq 'pack')? 'activated' : '')}">
-					    <h:commandLink onclick="javascript:loader('pack');" value="Tous les packs" action="#{listProductsManagedBean.setTabFilms('packLOCALE')}">
+					    <h:commandLink onclick="javascript:loader('pack');" value="#{msg['search-pack']}" action="#{listProductsManagedBean.setTabFilms('packLOCALE')}">
 						<f:ajax execute="@form" render=":form-random :panel-random :form-nav-page" onevent="handleAjaxClose"/>
 						<img id="loader-pack" class="films-loader" src="img/loader.gif"/>
 					    </h:commandLink>
@@ -99,7 +99,7 @@ and open the template in the editor.
 				    </div>
 				    <div class="col-md-12 col-hover col-no-padding">
 					<p class="#{((listProductsManagedBean.getTabFilms() eq 'top')? 'activated' : '')}">
-					    <h:commandLink onclick="javascript:loader('top');" value="Top 10" action="#{listProductsManagedBean.setTabFilms('topLOCALE')}">
+					    <h:commandLink onclick="javascript:loader('top');" value="#{msg['search-top10']}" action="#{listProductsManagedBean.setTabFilms('topLOCALE')}">
 						<f:ajax execute="@form" render=":form-random :panel-random :form-nav-page" onevent="handleAjaxClose"/>
 						<img id="loader-top" class="films-loader" src="img/loader.gif"/>
 					    </h:commandLink>
@@ -107,7 +107,7 @@ and open the template in the editor.
 				    </div>
 				    <div class="col-md-12 col-hover col-no-padding">
 					<p class="#{((listProductsManagedBean.getTabFilms() eq 'new')? 'activated' : '')}">
-					    <h:commandLink onclick="javascript:loader('new');" value="Nouveautés" action="#{listProductsManagedBean.setTabFilms('newLOCALE')}">
+					    <h:commandLink onclick="javascript:loader('new');" value="#{msg['search-new']}" action="#{listProductsManagedBean.setTabFilms('newLOCALE')}">
 						<f:ajax execute="@form" render=":form-random :panel-random :form-nav-page" onevent="handleAjaxClose"/>
 						<img id="loader-new" class="films-loader" src="img/loader.gif"/>
 					    </h:commandLink>
@@ -115,7 +115,7 @@ and open the template in the editor.
 				    </div>
 				    <div class="col-md-12 col-no-padding col-hover border-radius-last">
 					<p class="#{((listProductsManagedBean.getTabFilms() eq 'search')? 'activated' : '')}">
-					    <h:commandLink onclick="javascript:loader('search');" value="Recherche avancée" action="#{listProductsManagedBean.setTabFilms('searchLOCALE')}">
+					    <h:commandLink onclick="javascript:loader('search');" value="#{msg['search-advanced']}" action="#{listProductsManagedBean.setTabFilms('searchLOCALE')}">
 						<f:ajax execute="@form" render=":form-random :panel-random :form-nav-page" onevent="handleAjaxOpen"/>
 						<img id="loader-search" class="films-loader" src="img/loader.gif"/>
 					    </h:commandLink>
@@ -124,7 +124,7 @@ and open the template in the editor.
 
 						<div class="row">
 						    <div class="col-md-6 col-xs-5 col-no-padding-search">
-							<h:outputLabel class="label-search" for="title">Titre :</h:outputLabel>
+							<h:outputLabel class="label-search" for="title">#{msg['films-search-title']} :</h:outputLabel>
 						    </div>
 						    <div class="col-md-5 col-xs-6 col-no-padding-search-input">
 							<h:inputText class="form-control input-search" id="title" value="#{searchProductsManagedBean.title}" />
@@ -136,7 +136,7 @@ and open the template in the editor.
 
 						<div class="row">
 						    <div class="col-md-6 col-xs-5 col-no-padding-search col-hover">
-							<h:outputLabel class="label-search" for="date">Date :</h:outputLabel>
+							<h:outputLabel class="label-search" for="date">#{msg['films-search-date']} :</h:outputLabel>
 						    </div>
 						    <div class="col-md-5 col-xs-6 col-no-padding-search-input">
 							<h:inputText class="form-control input-search" id="date" value="#{searchProductsManagedBean.date}" />
@@ -148,7 +148,7 @@ and open the template in the editor.
 
 						<div class="row">
 						    <div class="col-md-6 col-xs-5 col-no-padding-search">
-							<h:outputLabel class="label-search" for="director">Réalisateur :</h:outputLabel>
+							<h:outputLabel class="label-search" for="director">#{msg['films-search-dir']} :</h:outputLabel>
 						    </div>
 						    <div class="col-md-5 col-xs-6 col-no-padding-search-input">
 							<h:inputText class="form-control input-search" id="director" value="#{searchProductsManagedBean.director}" />
@@ -160,7 +160,7 @@ and open the template in the editor.
 
 						<div class="row">
 						    <div class="col-md-6 col-xs-5 col-no-padding-search">
-							<h:outputLabel class="label-search" for="actor">Acteur :</h:outputLabel>
+							<h:outputLabel class="label-search" for="actor">#{msg['films-search-act']} :</h:outputLabel>
 						    </div>
 						    <div class="col-md-5 col-xs-6 col-no-padding-search-input">
 							<h:inputText class="form-control input-search" id="actor" value="#{searchProductsManagedBean.actor}" />
@@ -172,12 +172,12 @@ and open the template in the editor.
 
 						<div class="row">
 						    <div class="col-md-6 col-xs-5 col-no-padding-search">
-							<h:outputLabel class="label-search">Genres :</h:outputLabel>
+							<h:outputLabel class="label-search">#{msg['films-search-genres']} :</h:outputLabel>
 						    </div>
 						    <div id="selectANDOR" class="col-md-6 col-xs-7 col-no-padding-search">
 							<h:selectOneRadio value="#{searchProductsManagedBean.genresMode}">
-							    <f:selectItem class="itemselect" itemValue="OR" itemLabel="OU" />
-							    <f:selectItem class="itemselect" itemValue="AND" itemLabel="ET" />
+							    <f:selectItem class="itemselect" itemValue="OR" itemLabel="#{msg['films-search-or']}" />
+							    <f:selectItem class="itemselect" itemValue="AND" itemLabel="#{msg['films-search-and']}" />
 							</h:selectOneRadio>
 						    </div>
 						</div>
@@ -195,7 +195,7 @@ and open the template in the editor.
 
 						<div class="row">
 						    <div class="col-xs-12">
-							<h:commandButton onclick="javascript:loader('search');" class="btn btn-success btn-xs btn-search" value="Rechercher" >
+							<h:commandButton onclick="javascript:loader('search');" class="btn btn-success btn-xs btn-search" value="#{msg['films-search-search']}" >
 							    <f:actionListener binding="#{listProductsManagedBean.setPage(1)}"/>
 							    <f:ajax execute="@form" render=":form-random :panel-random :form-nav-page"/>
 							</h:commandButton>
@@ -211,7 +211,7 @@ and open the template in the editor.
 			<div class="col-lg-9 col-md-8">
 			    <div class="films-col-display">
 
-				<h3><img src="img/list-icon.png" title="Produits"/>Liste des produits</h3>
+				<h3><img src="img/list-icon.png"/>#{msg['films-search-list']}</h3>
 
 				<c:set var="list" scope="view" value="#{listProductsManagedBean.getFilms(searchProductsManagedBean.searchParams)}" />
 
@@ -232,7 +232,7 @@ and open the template in the editor.
 					    </div>
 					</c:when>
 					<c:otherwise>
-					    Aucun produit ne correspond à votre recherche ...
+					    #{msg['films-search-noresult']}
 					</c:otherwise>
 				    </c:choose>
 				</h:panelGroup>
@@ -276,7 +276,7 @@ and open the template in the editor.
 		    </div>
 
 		    <div id="bottom">
-			<a class="go-top" href="#top" title="Vers le haut"><img src="img/arrowUp.png" /></a>                        
+			<a class="go-top" href="#top" title="#{msg['allpage-top']}"><img src="img/arrowUp.png" /></a>                        
 		    </div>
 
 		</div>
