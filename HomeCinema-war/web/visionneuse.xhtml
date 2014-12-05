@@ -20,7 +20,7 @@
         <f:metadata>
             <f:viewParam name="id" value="#{filmManagedBean.id}" />
 	    <f:event type="preRenderView" listener="#{sessionManagedBean.checkRight}"/>
-            <f:event type="preRenderView" listener="#{loginManagedBean.tmpLogin()}"/>
+            <!--<f:event type="preRenderView" listener="#{loginManagedBean.tmpLogin()}"/>-->
             <f:event type="preRenderView" listener="#{filmManagedBean.setDtoFromId()}"/>
             <f:event type="preRenderView" listener="#{accountManagedBean.checkIsMyFilm(filmManagedBean.id, sessionManagedBean.id)}"/>
         </f:metadata>
