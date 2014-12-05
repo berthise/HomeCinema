@@ -5,12 +5,9 @@
  */
 package beans;
 
-import java.util.ResourceBundle;
-import javax.faces.application.Application;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
-import javax.faces.context.FacesContext;
+import utils.Lang;
 import utils.Message;
 import utils.Pages;
 import utils.Redirect;
@@ -62,16 +59,12 @@ public class ContactManagedBean {
     }
 
     public void submit() {
-	FacesContext context = FacesContext.getCurrentInstance();
-	Application app = context.getApplication();
-	ResourceBundle backendText = app.getResourceBundle(context, "msg");
-
 	boolean state = true;
 	if (state) {
-	    Message.Info(backendText.getString("contact-success"));
+	    Message.Info(Lang.getString("contact-success"));
 	    Redirect.redirectTo(Pages.CONTACT);
 	} else {
-	    Message.Error(backendText.getString("contact-fail"));
+	    Message.Error(Lang.getString("contact-fail"));
 	}
     }
 }
