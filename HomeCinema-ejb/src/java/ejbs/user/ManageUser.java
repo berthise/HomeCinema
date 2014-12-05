@@ -60,13 +60,12 @@ public class ManageUser implements ManageUserRemote {
 	try {
 	    User u = UserDtoManager.createUser(udto);
 
-	    em.persist(u);
-	    SecureRandom random = new SecureRandom();
-	    udto.activationCode = (new BigInteger(130, random)).toString(64);
-	    udto.id = u.getId();
-	    UserActivation ua = new UserActivation(udto.getActivationCode(), u);
-	    em.persist(ua);
-	    em.flush();
+      em.persist(u);
+      udto.activationCode = Tools.generateString(new Random(), 32);
+      udto.id = u.getId();
+      UserActivation ua = new UserActivation(udto.getActivationCode(), u);
+      em.persist(ua);
+      em.flush();
 	    return udto;
 	} catch (PersistenceException ex) {
 	    if (ex.getCause() instanceof DatabaseException) {
@@ -84,15 +83,6 @@ public class ManageUser implements ManageUserRemote {
 	    }
 	    return null;
 	}
-      em.persist(u);
-      udto.activationCode = Tools.generateString(new Random(), 32);
-      udto.id = u.getId();
-      UserActivation ua = new UserActivation(udto.getActivationCode(), u);
-      em.persist(ua);
-      em.flush();
-      return udto;
-    } catch (PersistenceException ex) {
-      throw new SignupNickNameException();
     }
 
     @Override
@@ -110,12 +100,7 @@ public class ManageUser implements ManageUserRemote {
 	}
     }
 
-    @Override
-    public void activate(Long user) {
-	User u = em.find(User.class, user);
-	u.setState(UserStates.Activated);
-	em.merge(u);
-    }
+
 
   @Override
   public void activate(Long user) {
@@ -147,19 +132,7 @@ public class ManageUser implements ManageUserRemote {
     UserDtoManager.mergeOrSave(udto, em);
   }
 
-  @Override
-  public List<TransactionDto> getTransaction(Long user) {
-    User u = em.find(User.class, user);
-    List<TransactionDto> res = new ArrayList<>();
-    for (Transaction t : u.getTransactions()) {
-      res.add(TransactionDtoManager.getDto(t));
-    }
-
     @Override
-    public void save(UserDtoNoPw udto) {
-	UserDtoManager.mergeOrSave(udto, em);
-  //TODO userDto => userDtoNoPw
-  @Override
   public UserDto login(String email, String crypted_password) throws UncorrectPasswordException {
     Long id = 1L;
     TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE (u.email = :email OR u.nickName = :email)AND u.state=:active", User.class);
@@ -173,6 +146,20 @@ public class ManageUser implements ManageUserRemote {
     }
     throw new UncorrectPasswordException();
   }
+      @Override
+    public List<TransactionDto> getTransaction(Long user) {
+	User u = em.find(User.class, user);
+	List<TransactionDto> res = new ArrayList<>();
+	for (Transaction t : u.getTransactions()) {
+	    res.add(TransactionDtoManager.getDto(t));
+	}
+	return res;
+    }
+  
+
+
+  //TODO userDto => userDtoNoPw
+
 
   @Override
   public Set<SimpleUserDto> getAllUser() {
@@ -184,27 +171,11 @@ public class ManageUser implements ManageUserRemote {
     for (User u : lu) {
       ludto.add(UserDtoManager.getSimpleDto(u));
     }
+return ludto;
+  }
 
-    @Override
-    public List<TransactionDto> getTransaction(Long user) {
-	User u = em.find(User.class, user);
-	List<TransactionDto> res = new ArrayList<>();
-	for (Transaction t : u.getTransactions()) {
-	    res.add(TransactionDtoManager.getDto(t));
-	}
-	return res;
-    }
 
-    //TODO userDto => userDtoNoPw
-    @Override
-    public UserDto login(String email, String password) {
-	Long id = 1L;
-	TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE (u.email = :email OR u.nickName = :email) AND u.password = :password AND u.state=:active", User.class);
-	query.setParameter("email", email);
-	query.setParameter("password", password);
-	query.setParameter("active", UserStates.Activated);
-	User user = query.getSingleResult();
-	return UserDtoManager.getUser(user);
+
   @Override
   public void removeUser(Long id) {
     try {
@@ -232,18 +203,7 @@ public class ManageUser implements ManageUserRemote {
     }
   }
 
-    @Override
-    public Set<SimpleUserDto> getAllUser() {
-	Query q;
 
-	q = em.createQuery("select u From User u ", User.class);
-	List<User> lu = q.getResultList();
-	Set<SimpleUserDto> ludto = new HashSet<>();
-	for (User u : lu) {
-	    ludto.add(UserDtoManager.getSimpleDto(u));
-	}
-	return ludto;
-    }
 
     @Override
     public UserDtoNoPw getUser(Long id) {
@@ -251,21 +211,7 @@ public class ManageUser implements ManageUserRemote {
 	return UserDtoManager.getUserNoPw(u);
     }
 
-    @Override
-    public void removeUser(Long id) {
-	User u = em.find(User.class, id);
-	for (Transaction t : u.getTransactions()) {
-	    t.setUser(null);
-	    em.merge(t);
-	}
-	for (UsersFilms uf : u.getFilms()) {
-	    em.remove(uf);
-	}
-	if (u.getCaddy() != null) {
-	    em.remove(u.getCaddy());
-	}
-	em.remove(u);
-    }
+
 
     @Override
     public void mergeOrSave(UserDtoNoPw udto) {
