@@ -25,20 +25,22 @@ public class Redirect {
 	    {
 	      put(SessionStates.NOT_LOGGED, new HashMap<String, String>() {
 		{
-		  put("moncompte.xhtml", "index.xhtml");
-		  put("paiement.xhtml", "index.xhtml");
+		  put(Pages.MON_COMPTE, Pages.INDEX);
+		  put(Pages.PAYMENT, Pages.INDEX);
 		}
 	      });
 	      put(SessionStates.LOGGED, new HashMap<String, String>() {
 		{
-		  put("login.xhtml", "moncompte.xhtml");
-		  put("signup.xhtml", "moncompte.xhtml");
-		  put("paiement.xhtml", "moncompte.xhtml");
+		  put(Pages.LOGIN, Pages.MON_COMPTE);
+		  put(Pages.SIGNUP, Pages.MON_COMPTE);
+		  put(Pages.PAYMENT, Pages.MON_COMPTE);
+		  put(Pages.ACTIVATE, Pages.MON_COMPTE);
+
 		}
 	      });
 	      put(SessionStates.LOGGED_PAY, new HashMap<String, String>() {
 		{
-		  put("*", "paiement.xhtml");
+		  put("*", Pages.PAYMENT);
 		}
 	      });
 	    }
@@ -50,7 +52,7 @@ public class Redirect {
     
     String requestPage = getRequestPage();
 
-   if (type == SessionStates.LOGGED_PAY && !requestPage.equals("paiement.xhtml")) {
+   if (type == SessionStates.LOGGED_PAY && !requestPage.equals(Pages.PAYMENT)) {
       requestPage = "*";
     }
     

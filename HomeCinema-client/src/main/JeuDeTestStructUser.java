@@ -72,7 +72,7 @@ public class JeuDeTestStructUser {
 	u.lastName = lastname;
 	u.nickName = nickname;
 	u.password = "password";
-	u.id = a.getManageUserRemote().signUp(u);
+	u = a.getManageUserRemote().signUp(u);
 	if (activation) {
 	    a.getManageUserRemote().activate(u.getId());
 	    u = a.getManageUserRemote().login(u.email, u.password);

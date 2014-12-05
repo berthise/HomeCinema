@@ -126,7 +126,7 @@ public class ManageProduct implements ManageProductRemote {
 
     @Override
     public FilteredListProductsDto getFilteredProducts(Long actor, Long director, List<Long> lgdto, String str, String year, OrderTypes sort, Integer limit, Integer row, ProductTypes main) {
-	String query = "select distinct p From Product p join p.films f join f.genre g join f.actors a join f.directors d ";
+	String query = " From Product p join p.films f join f.genre g join f.actors a join f.directors d ";
 	if (row == null) {
 	    row = 0;
 	}
@@ -136,62 +136,86 @@ public class ManageProduct implements ManageProductRemote {
 	boolean where = false;
 	if (actor != null && !actor.equals(0L)) {
 	    query += " where  a.id=" + actor;
-	    where=true;
+	    where = true;
 	}
 	if (director != null && !director.equals(0L)) {
 	    if (where) {
 		query += " and ";
 	    } else {
 		query += " where ";
-		where=true;
+		where = true;
 	    }
 	    query += " d.id=" + director;
 	}
 	if (lgdto != null && !lgdto.isEmpty()) {
 	    if (where) {
 		query += " and (";
-		
+
 	    } else {
 		query += " where (";
-		where=true;
+		where = true;
 	    }
 	    boolean first = true;
-	    for ( Long g : lgdto)
-	    {
-		if (first )
-		    first=false;
-		else
-		    query+=" or ";
-		query += " g.id="+g;
+	    for (Long g : lgdto) {
+		if (first) {
+		    first = false;
+		} else {
+		    query += " or ";
+		}
+		query += " g.id=" + g;
 	    }
-	    query+=" ) ";
+	    query += " ) ";
 	}
-	if (str!=null && !str.equals("")  )
-	{
-	    	    if (where) {
+	if (str != null && !str.equals("")) {
+	    if (where) {
 		query += " and (";
-		where=true;
+		where = true;
 	    } else {
 		query += " where (";
 	    }
-		    query += "  f.title like '%"+str+"%' or p.name like '%"+str+"%' ) "; 
+	    query += "  f.title like '%" + str + "%' or p.name like '%" + str + "%' ) ";
 	}
-	switch (sort)
+	if (main.equals(ProductTypes.Main))
 	{
-	    case RATING :
+	    	    if (where) {
+		query += " and ";
+		where = true;
+	    } else {
+		query += " where ";
+	    }
+		    query+="size(p.films )=1 ";
+	}
+	else if (main.equals(ProductTypes.Pack))
+	{
+	    	    	    if (where) {
+		query += " and ";
+		where = true;
+	    } else {
+		query += " where ";
+	    }
+		    query+="size(p.films )>1 ";
+	}
+	Query qnb = em.createQuery("select COUNT(distinct p) " + query);
+	Long nb = (Long) qnb.getSingleResult();
+	switch (sort) {
+	    case RATING:
 		query += "group by p order by  AVG(f.rating) desc ";
 		break;
-	    case SALES :
-		query+= "order by p.nbSales desc";
+	    case SALES:
+		query += "order by p.nbSales desc";
 		break;
-	    case ALPH :
+	    case ALPH:
 		query += "order by p.name ";
 		break;
-	    case NEW :
+	    case NEW:
 		query += "order by p.addDate desc";
 		break;
+	    case RAND:
+		row = (int) (Math.random() * (getNbProduct() - limit));
+		break;
 	}
-	Query q = em.createQuery(query, Product.class);
+
+	Query q = em.createQuery("select distinct p " + query, Product.class);
 	q.setFirstResult(row);
 	q.setMaxResults(limit);
 	List<Product> lpdto = q.getResultList();
@@ -199,7 +223,13 @@ public class ManageProduct implements ManageProductRemote {
 	for (Product p : lpdto) {
 	    res.add(ProductDtoManager.getDto(p));
 	}
-	return new FilteredListProductsDto(res, 3500);
+	return new FilteredListProductsDto(res, nb.intValue());
+    }
+
+    public Long getNbProduct() {
+	String sql = "SELECT COUNT(p) FROM Product p";
+	Query q = em.createQuery(sql);
+	return (long) q.getSingleResult();
     }
 
     @Override

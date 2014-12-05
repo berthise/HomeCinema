@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 public class Beans {
 
   // TODO
-  private final static String prefix = "/HomeCinema-war/";
+  private final static String prefix = Pages.ROOT;
 
   @SuppressWarnings("unchecked")
   public static <T> T findBean(String beanName) {

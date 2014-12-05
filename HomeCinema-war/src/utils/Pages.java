@@ -13,6 +13,9 @@ import javax.faces.bean.ManagedBean;
  * @author seb
  */
 public class Pages {
+  
+  public final static String ROOT = "/HomeCinema-war/";
+
 
   public final static String NOT_FOUND = "404.xhtml";
   public final static String DEMO = "demo.xhtml";
@@ -26,6 +29,8 @@ public class Pages {
   public final static String PAYMENT = "paiement.xhtml";
   public final static String SIGNUP = "signup.xhtml";
   public final static String VISIONNEUSE = "visionneuse.xhtml";
+  public final static String ACTIVATE = "activate.xhtml";
+
   public final static String SITEMAP = "sitemap.xhtml";
   public final static String CONTACT = "contact.xhtml";
   

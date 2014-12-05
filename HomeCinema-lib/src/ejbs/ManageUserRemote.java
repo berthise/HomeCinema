@@ -10,6 +10,9 @@ import dtos.SimpleUserDto;
 import dtos.TransactionDto;
 import dtos.UserDto;
 import dtos.UserDtoNoPw;
+import exception.ActivatedCodeException;
+import exception.SignupEmailException;
+import exception.SignupNickNameException;
 import java.util.List;
 import java.util.Set;
 import javax.ejb.Remote;
@@ -21,7 +24,7 @@ import javax.ejb.Remote;
 @Remote
 public interface ManageUserRemote {
 
-    public Long signUp(UserDto user);
+    public UserDto signUp(UserDto user) throws SignupEmailException, SignupNickNameException;
     
     public void save(UserDtoNoPw user);
     
@@ -43,6 +46,8 @@ public interface ManageUserRemote {
     
     public boolean changeEmail(Long id, String email, String newPassword);
 
+    public void activate(Long user, String code) throws ActivatedCodeException;
+    
     public void activate(Long user);
 
     public void deactivate(Long user);
