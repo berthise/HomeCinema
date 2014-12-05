@@ -25,7 +25,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -35,6 +38,7 @@ import javax.persistence.TypedQuery;
 import managers.dtos.FilmDtoManager;
 import managers.dtos.TransactionDtoManager;
 import managers.dtos.UserDtoManager;
+import utils.Tools;
 
 /**
  *
@@ -54,14 +58,13 @@ public class ManageUser implements ManageUserRemote {
       User u = UserDtoManager.createUser(udto);
 
       em.persist(u);
-      SecureRandom random = new SecureRandom();
-      udto.activationCode = (new BigInteger(130, random)).toString(64);
+      udto.activationCode = Tools.generateString(new Random(), 32);
       udto.id = u.getId();
       UserActivation ua = new UserActivation(udto.getActivationCode(), u);
       em.persist(ua);
       em.flush();
       return udto;
-    } catch (PersistenceException ex) { 
+    } catch (PersistenceException ex) {
       throw new SignupNickNameException();
     }
   }
@@ -83,9 +86,20 @@ public class ManageUser implements ManageUserRemote {
 
   @Override
   public void activate(Long user) {
-    User u = em.find(User.class, user);
-    u.setState(UserStates.Activated);
-    em.merge(u);
+    try {
+      User u = em.find(User.class, user);
+      TypedQuery<UserActivation> query = em.createQuery("FROM UserActivation ua join ua.user u WHERE u.id = " + u.getId(), UserActivation.class);
+      UserActivation ua = query.getSingleResult();
+      if (ua != null) {
+	em.remove(ua);
+      }
+      u.setState(UserStates.Activated);
+      em.merge(u);
+      em.flush();
+    } catch (PersistenceException ex) {
+      Logger.getLogger(ManageUser.class.getName()).log(Level.SEVERE, null, ex);
+
+    }
   }
 
   @Override
@@ -143,18 +157,29 @@ public class ManageUser implements ManageUserRemote {
 
   @Override
   public void removeUser(Long id) {
-    User u = em.find(User.class, id);
-    for (Transaction t : u.getTransactions()) {
-      t.setUser(null);
-      em.merge(t);
+    try {
+      User u = em.find(User.class, id);
+      for (Transaction t : u.getTransactions()) {
+	t.setUser(null);
+	em.merge(t);
+      }
+      for (UsersFilms uf : u.getFilms()) {
+	em.remove(uf);
+      }
+      if (u.getCaddy() != null) {
+	em.remove(u.getCaddy());
+      }
+      TypedQuery<UserActivation> query = em.createQuery("FROM UserActivation ua join ua.user u WHERE u.id = " + u.getId(), UserActivation.class);
+      UserActivation ua = query.getSingleResult();
+      if (ua != null) {
+	em.remove(ua);
+      }
+      em.remove(u);
+      em.flush();
+    } catch (PersistenceException ex) {
+      Logger.getLogger(ManageUser.class.getName()).log(Level.SEVERE, null, ex);
+
     }
-    for (UsersFilms uf : u.getFilms()) {
-      em.remove(uf);
-    }
-    if (u.getCaddy() != null) {
-      em.remove(u.getCaddy());
-    }
-    em.remove(u);
   }
 
   @Override

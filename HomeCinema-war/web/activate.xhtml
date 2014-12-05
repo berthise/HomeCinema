@@ -21,7 +21,7 @@
       <f:event type="preRenderView" listener="#{sessionManagedBean.checkRight()}"/>
       <f:viewParam name="u" value="#{activateUserManagedBean.id}" />
       <f:viewParam name="c" value="#{activateUserManagedBean.code}" />
-      <f:event type="preRenderView" listener="#{activateUserManagedBean.activate()}"/>
+      <f:event type="preValidate" listener="#{activateUserManagedBean.activate()}"/>
     </f:metadata>
 
   </h:head>
@@ -31,6 +31,16 @@
 	<ui:param name="active" value="activate" />
       </ui:include>
     </ui:insert>
+    <section>
+      <div class="container">
+	<!--<div class="well">-->
+	<center>
+	  <a href="index.xhtml" class="btn btn-success btn-lg btn-space">Accueil</a>
+	  <a href="login.xhtml" class="btn btn-success btn-lg">Connexion</a>
+	</center>
+	<!--</div>-->
+      </div>
+    </section>
     <ui:insert name="footer" >
       <ui:include src="components/footer.xhtml" />
     </ui:insert>
