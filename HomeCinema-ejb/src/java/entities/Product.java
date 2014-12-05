@@ -164,6 +164,10 @@ public class Product implements Serializable {
   public String toString() {
     return "Product{" + "id=" + id + ", films= , price=" + price + ", addDate=" + addDate + ", name=" + name + ", state=" + state + ", nbSales=" + nbSales + '}';
   }
+
+    public void removeFilm(Film f) {
+	this.films.remove(f);
+    }
   
   
 

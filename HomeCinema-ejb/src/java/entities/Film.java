@@ -274,4 +274,8 @@ public class Film implements Serializable {
         return "Film{" + "id=" + id + ", products=" + products + ", main_product=" + main_product + ", title=" + title + ", overview=" + overview + ", coverId=" + coverId + ", releaseDate=" + releaseDate + ", countries=" + countries + ", rating=" + rating + ", videoFile=" + videoFile + ", trailler=" + trailler + ", actors=" + actors + ", directors=" + directors + ", genre=" + genre + '}';
     }
 
+    public void removeProduct(Product p) {
+	this.products.remove(p);
+    }
+
 }

@@ -32,21 +32,7 @@ public class ManageEntitieProduct {
 	return p;
     }
 
-    public static Comparator<Product> getComparator(OrderTypes ot) {
-	switch (ot) {
-	    case SALES:
-		return new comp_sales();
-	    case NEW:
-		return new comp_new();
-	    case ALPH:
-		return new comp_alph();
-	    case RATING:
-		return new comp_rating();
-	    default:
-		throw new AssertionError(ot.name());
 
-	}
-    }
 
     public static Double getRating(Product p) {
 	Double s = 0D;
@@ -55,40 +41,11 @@ public class ManageEntitieProduct {
 	}
 	return s / p.getFilms().size();
     }
-}
 
-class comp_sales implements Comparator<Product> {
-
-    @Override
-    public int compare(Product t, Product t1) {
-	return t.getNbSales().compareTo(t1.getNbSales());
+    public static void unlinkProductFilm(Film f, Product p) {
+	f.removeProduct(p);
+	p.removeFilm(f);
     }
 
-}
-
-class comp_new implements Comparator<Product> {
-
-    @Override
-    public int compare(Product t, Product t1) {
-	return t.getAddDate().compareTo(t1.getAddDate());
-    }
-
-}
-
-class comp_alph implements Comparator<Product> {
-
-    @Override
-    public int compare(Product t, Product t1) {
-	return t.getName().compareTo(t1.getName());
-    }
-
-}
-
-class comp_rating implements Comparator<Product> {
-
-    @Override
-    public int compare(Product t1, Product t) {
-	return ManageEntitieProduct.getRating(t).compareTo(ManageEntitieProduct.getRating(t1));
-    }
 
 }

@@ -19,6 +19,7 @@ import enums.ProductStates;
 import enums.ProductTypes;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -104,6 +105,21 @@ public class ManageProduct implements ManageProductRemote {
     }
 
     @Override
+    public void removeFilm(Long pid, Long fid) {
+	Product p = em.find(Product.class, pid);
+	Film f = em.find(Film.class, pid);
+	ManageEntitieProduct.unlinkProductFilm(f, p);
+	if (Objects.equals(f.getMain_product().getId(), pid)) {
+	    f.setMain_product(null);
+	}
+	if (p.getFilms().isEmpty()) {
+	    p.setState(ProductStates.Unactivated);
+	}
+	em.merge(f);
+	em.merge(p);
+    }
+
+    @Override
     public List<FilmDto> getFilms(Long pid) {
 	Product p = em.find(Product.class, pid);
 	List<FilmDto> lfdto = new ArrayList<>();
@@ -126,6 +142,7 @@ public class ManageProduct implements ManageProductRemote {
 
     @Override
     public FilteredListProductsDto getFilteredProducts(Long actor, Long director, List<Long> lgdto, String str, String year, OrderTypes sort, Integer limit, Integer row, ProductTypes main) {
+	boolean or = true;
 	String query = " From Product p join p.films f join f.genre g join f.actors a join f.directors d where p.state=:active ";
 	if (row == null) {
 	    row = 0;
@@ -140,26 +157,26 @@ public class ManageProduct implements ManageProductRemote {
 	    query += "and d.id=" + director;
 	}
 	if (lgdto != null && !lgdto.isEmpty()) {
-
 	    query += " and (";
-
 	    boolean first = true;
 	    for (Long g : lgdto) {
 		if (first) {
 		    first = false;
 		} else {
-		    query += " or ";
+		    if (or) {
+			query += " or ";
+		    } else {
+			query += " and ";
+		    }
 		}
 		query += " g.id=" + g;
 	    }
 	    query += " ) ";
 	}
 	if (str != null && !str.equals("")) {
-
-	    query += " and  f.title like '%" + str + "%' or p.name like '%" + str + "%' ) ";
+	    query += " and ( f.title like '%" + str + "%' or p.name like '%" + str + "%' ) ";
 	}
 	if (main.equals(ProductTypes.Main)) {
-
 	    query += " and size(p.films )=1 ";
 	} else if (main.equals(ProductTypes.Pack)) {
 
@@ -167,7 +184,6 @@ public class ManageProduct implements ManageProductRemote {
 	} else {
 	    query += " and size(p.films )>=1 ";
 	}
-
 	Query qnb = em.createQuery("select COUNT(distinct p) " + query);
 	qnb.setParameter("active", ProductStates.Activated);
 	Long nb = (Long) qnb.getSingleResult();
