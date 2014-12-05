@@ -1,8 +1,10 @@
+@import url("animate.css");
 body {
   background: -webkit-linear-gradient(left, #111, #666, #666, #666, #111);
   color: #fff;
   margin: 0;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  min-height: 800px; }
   body .textarea-noresizing {
     resize: none; }
   body .badge-faq {
@@ -20,8 +22,6 @@ body {
     width: 215px !important; }
   body .btn-space {
     margin-right: 10px; }
-  body .index-box {
-    height: 320px; }
   body .text-sitetitle {
     font-weight: bold;
     color: #419641; }
@@ -37,6 +37,11 @@ body {
   body header {
     margin-bottom: 20px;
     margin-top: 0; }
+    body header .fixed {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%; }
     body header #logo {
       display: inline-block; }
     body header #banner-img {
@@ -69,6 +74,8 @@ body {
         color: #fff;
         text-decoration: none;
         padding: 0 10px; }
+    body header nav ul form {
+      display: inline; }
     body header #form-login {
       z-index: 10000;
       display: none;
@@ -79,16 +86,15 @@ body {
       padding: 10px; }
     body header .col-19 {
       width: 19%; }
-    body header .navbar-nav > li:hover {
-      background: #ADD881; }
-    body header .navbar-collapse .pull-right {
-      margin-right: -30px; }
   body .messages ul {
     margin: 0;
     padding: 0;
     list-style: none; }
-  body #search-form input[type="search"] {
-    padding: 6px 6px; }
+  body #search-form {
+    display: inline-block;
+    padding: 0; }
+    body #search-form input[type="search"] {
+      padding: 6px 6px; }
   body section .well-exclus {
     margin-top: 5px; }
   body section .exclus .film {

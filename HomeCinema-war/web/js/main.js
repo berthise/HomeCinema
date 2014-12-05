@@ -34,4 +34,18 @@ $(function () {
     if($("#lastPosition").length > 0) {
         vid.currentTime = $("#lastPosition").text();
     }
+    $(window).scroll(function () {
+        var header = $('#header'), scroll = $(window).scrollTop();
+
+        if (scroll >= 80) {
+            header.addClass('fixed');
+            $(".userTools").slideUp();
+            $("#search-form").prev().show().removeClass("bounceOutRight").addClass("bounceInRight");
+            $("#form-login").slideUp();
+        } else {
+            header.removeClass('fixed');
+            $(".userTools").slideDown();
+            $("#search-form").prev().removeClass("bounceInRight").addClass("bounceOutRight").slideUp("slow");
+        }
+    });
 });
