@@ -8,7 +8,9 @@ package managers.dtos;
 import dtos.ProductDto;
 import entities.Product;
 import enums.OrderTypes;
+import enums.ProductStates;
 import java.util.Comparator;
+import java.util.Date;
 import javax.persistence.EntityManager;
 
 /**
@@ -30,7 +32,7 @@ public class ProductDtoManager {
 	pdto.price = p.getPrice();
 	pdto.state = p.getState();
 	if (p.getFilms()==null || p.getFilms().isEmpty())
-	    return null;
+	    pdto.cover=null;
 	else
 	    pdto.cover=p.getFilms().get(0).getCoverId();
 	return pdto;
@@ -50,13 +52,15 @@ public class ProductDtoManager {
 
 	Product p = null;
 	if (pdto.id != null) {
-	    em.find(Product.class, pdto.id);
+	    p = em.find(Product.class, pdto.id);
 	}
 	if (p == null) {
 	    p = makeProduct(pdto);
 	    em.persist(p);
 	} else {
 	    p.setName(pdto.name);
+	    p.setAddDate(new Date());
+	    p.setState(pdto.getState());
 	    p.setPrice(pdto.price);
 	    p.setState(pdto.state);
 	    em.merge(p);

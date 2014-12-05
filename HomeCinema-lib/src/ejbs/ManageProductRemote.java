@@ -59,5 +59,9 @@ public interface ManageProductRemote {
      */
 
     public FilteredListProductsDto getFilteredProducts(Long actor, Long director, List<Long> lgdto, String str, String year, OrderTypes sort, Integer limit, Integer row, ProductTypes main);
+
+    public void activate(Long pid);
+
+    public void deactivate(Long pid);
     
 }
