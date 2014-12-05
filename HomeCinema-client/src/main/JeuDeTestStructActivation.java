@@ -22,6 +22,7 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.JSONException;
+import utils.Securite;
 
 /**
  *
@@ -293,6 +294,8 @@ public class JeuDeTestStructActivation {
 	u.lastName = lastname;
 	u.nickName = nickname;
 	u.password = "password";
+	u.password = Securite.crypte(u.password);
+
       try {
 	u = a.getManageUserRemote().signUp(u);
       } catch (SignupEmailException ex) {
