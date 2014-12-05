@@ -110,19 +110,6 @@ public class ListProductsManagedBean {
 	staticTopProduct = Ejbs.product().getFilteredProducts(null, null, null, null, null, OrderTypes.RATING, 9, null, ProductTypes.All).list;
     }
 
-    private List<List<ProductDto>> splitListFilmDto(List<ProductDto> l) {
-	List<List<ProductDto>> toReturn = new ArrayList<>();
-	int i = 0;
-	while (i + 3 < l.size()) {
-	    toReturn.add(l.subList(i, i + 3));
-	    i += 3;
-	}
-	if (i < l.size()) {
-	    toReturn.add(l.subList(i, l.size()));
-	}
-	return toReturn;
-    }
-
     public boolean isPack(Long id) {
 	return Ejbs.product().getFilms(id).size() > 1;
     }
@@ -146,32 +133,32 @@ public class ListProductsManagedBean {
 	this.lastPage = Math.max(1, flpdto.size / N_PER_PAGE + ((flpdto.size % N_PER_PAGE != 0) ? 1 : 0));
     }
 
-    private List<List<ProductDto>> getAllFilms() {
+    private List<ProductDto> getAllFilms() {
 	FilteredListProductsDto flpdto = Ejbs.product().getFilteredProducts(null, null, null, null, null, OrderTypes.ALPH, N_PER_PAGE, (page - 1) * N_PER_PAGE, ProductTypes.Main);
 	updateLastPage(flpdto);
-	return splitListFilmDto(flpdto.list);
+	return flpdto.list;
     }
 
-    private List<List<ProductDto>> getAllProducts() {
+    private List<ProductDto> getAllProducts() {
 	FilteredListProductsDto flpdto = Ejbs.product().getFilteredProducts(null, null, null, null, null, OrderTypes.ALPH, N_PER_PAGE, (page - 1) * N_PER_PAGE, ProductTypes.Pack);
 	updateLastPage(flpdto);
-	return splitListFilmDto(flpdto.list);
+	return flpdto.list;
     }
 
-    private List<List<ProductDto>> getSearchProducts(SearchParams params) {
+    private List<ProductDto> getSearchProducts(SearchParams params) {
 	FilteredListProductsDto flpdto = Ejbs.product().getFilteredProducts(params.actorId, params.directorId, params.genres, params.title, params.date, OrderTypes.NO, N_PER_PAGE, (page - 1) * N_PER_PAGE, ProductTypes.All);
 	updateLastPage(flpdto);
-	return splitListFilmDto(flpdto.list);
+	return flpdto.list;
     }
 
-    public List<List<ProductDto>> getFilms(SearchParams params) {
+    public List<ProductDto> getFilms(SearchParams params) {
 	switch (tabFilms) {
 	    case "new":
 		lastPage = 1;
-		return splitListFilmDto(staticNewProduct);
+		return staticNewProduct;
 	    case "top":
 		lastPage = 1;
-		return splitListFilmDto(staticTopProduct);
+		return staticTopProduct;
 	    case "pack":
 		return getAllProducts();
 	    case "search":

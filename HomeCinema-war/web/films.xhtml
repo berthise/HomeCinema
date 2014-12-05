@@ -13,7 +13,7 @@ and open the template in the editor.
     <h:head>
 	<meta charset="utf-8"/>
 	<meta http-equiv="X-UA-Compatible" />
-	<title>Display films </title>
+	<title>HomeCinéma - </title>
 	<meta name="description" content=""/>
 	<meta name="viewport" content="width=device-width, initial-scale=1"/>
 
@@ -77,143 +77,202 @@ and open the template in the editor.
 		<div class="well">
 		    <h2 class="well-title"><strong>Films</strong></h2>
 
-		    <div id="nav-page-left">
-			<h:form id="form-random">
-			    <p class="#{((listProductsManagedBean.getTabFilms() eq 'all')? 'activated' : '')}">
-				<h:commandLink onclick="javascript:loader('all');" value="Tous les films" action="#{listProductsManagedBean.setTabFilms('allLOCALE')}">
-				    <f:ajax execute="@form" render=":form-random :panel-random :form-nav-page" onevent="handleAjaxClose"/>
-				    <img id="loader-all" class="films-loader" src="img/loader.gif"/>
-				</h:commandLink>
-			    </p>
-			    <p class="#{((listProductsManagedBean.getTabFilms() eq 'pack')? 'activated' : '')}">
-				<h:commandLink onclick="javascript:loader('pack');" value="Tous les packs" action="#{listProductsManagedBean.setTabFilms('packLOCALE')}">
-				    <f:ajax execute="@form" render=":form-random :panel-random :form-nav-page" onevent="handleAjaxClose"/>
-				    <img id="loader-pack" class="films-loader" src="img/loader.gif"/>
-				</h:commandLink>
-			    </p>
-			    <p class="#{((listProductsManagedBean.getTabFilms() eq 'top')? 'activated' : '')}">
-				<h:commandLink onclick="javascript:loader('top');" value="Top 10" action="#{listProductsManagedBean.setTabFilms('topLOCALE')}">
-				    <f:ajax execute="@form" render=":form-random :panel-random :form-nav-page" onevent="handleAjaxClose"/>
-				    <img id="loader-top" class="films-loader" src="img/loader.gif"/>
-				</h:commandLink>
-			    </p>
-			    <p class="#{((listProductsManagedBean.getTabFilms() eq 'new')? 'activated' : '')}">
-				<h:commandLink onclick="javascript:loader('new');" value="Nouveautés" action="#{listProductsManagedBean.setTabFilms('newLOCALE')}">
-				    <f:ajax execute="@form" render=":form-random :panel-random :form-nav-page" onevent="handleAjaxClose"/>
-				    <img id="loader-new" class="films-loader" src="img/loader.gif"/>
-				</h:commandLink>
-			    </p>
+		    <div class="row">
+			<div class="col-lg-3 col-md-4 col-left-space">
+			    <div class="films-col-nav">
+				<h:form id="form-random">
+				    <div class="col-md-12 col-no-padding col-hover border-radius-first">
+					<p class="#{((listProductsManagedBean.getTabFilms() eq 'all')? 'activated' : '')}">
+					    <h:commandLink onclick="javascript:loader('all');" value="Tous les films" action="#{listProductsManagedBean.setTabFilms('allLOCALE')}">
+						<f:ajax execute="@form" render=":form-random :panel-random :form-nav-page" onevent="handleAjaxClose"/>
+						<img id="loader-all" class="films-loader" src="img/loader.gif"/>
+					    </h:commandLink>
+					</p>
+				    </div>
+				    <div class="col-md-12 col-hover col-no-padding">
+					<p class="#{((listProductsManagedBean.getTabFilms() eq 'pack')? 'activated' : '')}">
+					    <h:commandLink onclick="javascript:loader('pack');" value="Tous les packs" action="#{listProductsManagedBean.setTabFilms('packLOCALE')}">
+						<f:ajax execute="@form" render=":form-random :panel-random :form-nav-page" onevent="handleAjaxClose"/>
+						<img id="loader-pack" class="films-loader" src="img/loader.gif"/>
+					    </h:commandLink>
+					</p>
+				    </div>
+				    <div class="col-md-12 col-hover col-no-padding">
+					<p class="#{((listProductsManagedBean.getTabFilms() eq 'top')? 'activated' : '')}">
+					    <h:commandLink onclick="javascript:loader('top');" value="Top 10" action="#{listProductsManagedBean.setTabFilms('topLOCALE')}">
+						<f:ajax execute="@form" render=":form-random :panel-random :form-nav-page" onevent="handleAjaxClose"/>
+						<img id="loader-top" class="films-loader" src="img/loader.gif"/>
+					    </h:commandLink>
+					</p>
+				    </div>
+				    <div class="col-md-12 col-hover col-no-padding">
+					<p class="#{((listProductsManagedBean.getTabFilms() eq 'new')? 'activated' : '')}">
+					    <h:commandLink onclick="javascript:loader('new');" value="Nouveautés" action="#{listProductsManagedBean.setTabFilms('newLOCALE')}">
+						<f:ajax execute="@form" render=":form-random :panel-random :form-nav-page" onevent="handleAjaxClose"/>
+						<img id="loader-new" class="films-loader" src="img/loader.gif"/>
+					    </h:commandLink>
+					</p>
+				    </div>
+				    <div class="col-md-12 col-no-padding col-hover border-radius-last">
+					<p class="#{((listProductsManagedBean.getTabFilms() eq 'search')? 'activated' : '')}">
+					    <h:commandLink onclick="javascript:loader('search');" value="Recherche avancée" action="#{listProductsManagedBean.setTabFilms('searchLOCALE')}">
+						<f:ajax execute="@form" render=":form-random :panel-random :form-nav-page" onevent="handleAjaxOpen"/>
+						<img id="loader-search" class="films-loader" src="img/loader.gif"/>
+					    </h:commandLink>
 
-			    <p class="#{((listProductsManagedBean.getTabFilms() eq 'search')? 'activated' : '')}">
-				<h:commandLink onclick="javascript:loader('search');" value="Recherche avancée" action="#{listProductsManagedBean.setTabFilms('searchLOCALE')}">
-				    <f:ajax execute="@form" render=":form-random :panel-random :form-nav-page" onevent="handleAjaxOpen"/>
-				    <img id="loader-search" class="films-loader" src="img/loader.gif"/>
-				</h:commandLink>
+					    <div class="#{((listProductsManagedBean.getTabFilms() eq 'search')? 'activated-search' : '')}" id="search-attributs" style="max-height: #{((listProductsManagedBean.searchOpened == 0)? '2000' : '0')}px;">
 
-				<div class="#{((listProductsManagedBean.getTabFilms() eq 'search')? 'activated-search' : '')}" id="search-attributs" style="max-height: #{((listProductsManagedBean.searchOpened == 0)? '2000' : '0')}px;">
-				    <h:outputLabel for="title">Titre :</h:outputLabel><h:inputText class="form-control input-search" id="title" value="#{searchProductsManagedBean.title}" />
-				    <span class="clean" onclick="clean('title');">×</span>
+						<div class="row">
+						    <div class="col-md-6 col-xs-5 col-no-padding-search">
+							<h:outputLabel class="label-search" for="title">Titre :</h:outputLabel>
+						    </div>
+						    <div class="col-md-5 col-xs-6 col-no-padding-search-input">
+							<h:inputText class="form-control input-search" id="title" value="#{searchProductsManagedBean.title}" />
+						    </div>
+						    <div class="col-xs-1 col-no-padding-search">
+							<span class="clean" onclick="clean('title');">×</span>
+						    </div>
+						</div>
 
-				    <h:outputLabel for="date">Date :</h:outputLabel><h:inputText class="form-control input-search" id="date" value="#{searchProductsManagedBean.date}" />
-				    <span class="clean" onclick="clean('date');">×</span>
+						<div class="row">
+						    <div class="col-md-6 col-xs-5 col-no-padding-search col-hover">
+							<h:outputLabel class="label-search" for="date">Date :</h:outputLabel>
+						    </div>
+						    <div class="col-md-5 col-xs-6 col-no-padding-search-input">
+							<h:inputText class="form-control input-search" id="date" value="#{searchProductsManagedBean.date}" />
+						    </div>
+						    <div class="col-xs-1 col-no-padding-search">
+							<span class="clean" onclick="clean('date');">×</span>
+						    </div>
+						</div>
 
-				    <h:outputLabel for="director">Réalisateur :</h:outputLabel><h:inputText class="form-control input-search" id="director" value="#{searchProductsManagedBean.director}" />
-				    <span class="clean" onclick="clean('director');">×</span>
+						<div class="row">
+						    <div class="col-md-6 col-xs-5 col-no-padding-search">
+							<h:outputLabel class="label-search" for="director">Réalisateur :</h:outputLabel>
+						    </div>
+						    <div class="col-md-5 col-xs-6 col-no-padding-search-input">
+							<h:inputText class="form-control input-search" id="director" value="#{searchProductsManagedBean.director}" />
+						    </div>
+						    <div class="col-xs-1 col-no-padding-search">
+							<span class="clean" onclick="clean('director');">×</span>
+						    </div>
+						</div>
 
-				    <h:outputLabel for="actor">Acteur :</h:outputLabel><h:inputText class="form-control input-search" id="actor" value="#{searchProductsManagedBean.actor}" />
-				    <span class="clean" onclick="clean('actor');">×</span>
+						<div class="row">
+						    <div class="col-md-6 col-xs-5 col-no-padding-search">
+							<h:outputLabel class="label-search" for="actor">Acteur :</h:outputLabel>
+						    </div>
+						    <div class="col-md-5 col-xs-6 col-no-padding-search-input">
+							<h:inputText class="form-control input-search" id="actor" value="#{searchProductsManagedBean.actor}" />
+						    </div>
+						    <div class="col-xs-1 col-no-padding-search">
+							<span class="clean" onclick="clean('actor');">×</span>
+						    </div>
+						</div>
 
-				    <h:outputLabel class="label-genres-title">Genres :</h:outputLabel>
+						<div class="row">
+						    <div class="col-md-6 col-xs-5 col-no-padding-search">
+							<h:outputLabel class="label-search">Genres :</h:outputLabel>
+						    </div>
+						    <div id="selectANDOR" class="col-md-6 col-xs-7 col-no-padding-search">
+							<h:selectOneRadio value="#{searchProductsManagedBean.genresMode}">
+							    <f:selectItem class="itemselect" itemValue="OR" itemLabel="OU" />
+							    <f:selectItem class="itemselect" itemValue="AND" itemLabel="ET" />
+							</h:selectOneRadio>
+						    </div>
+						</div>
 
-				    <h:selectOneRadio class="radio-search" value="#{searchProductsManagedBean.genresMode}">
-					<f:selectItem itemValue="OR" itemLabel="OU" />
-					<f:selectItem itemValue="AND" itemLabel="ET" />
-				    </h:selectOneRadio>
+						<div class="row">
+						    <c:forEach items="#{listProductsManagedBean.getAllGenres()}" var="g" varStatus="loop">
+							<div class="col-xs-6 col-checkbox-search">
+							    <h:selectBooleanCheckbox id="genres-id-#{loop.index}" value="#{searchProductsManagedBean.checked[g.id]}" >
+								<f:ajax listener="#{searchProductsManagedBean.majGenres()}" />
+							    </h:selectBooleanCheckbox>
+							    <h:outputLabel class="label-genres" for="genres-id-#{loop.index}" >#{g.name}</h:outputLabel>
+							</div>
+						    </c:forEach>
+						</div>
 
-				    <c:forEach items="#{listProductsManagedBean.getAllGenres()}" var="g" varStatus="loop">
-					<h:selectBooleanCheckbox id="genres-id-#{loop.index}" value="#{searchProductsManagedBean.checked[g.id]}" >
-					    <f:ajax listener="#{searchProductsManagedBean.majGenres()}" />
-					</h:selectBooleanCheckbox>
-					<h:outputLabel class="label-genres" for="genres-id-#{loop.index}" >#{g.name}</h:outputLabel>
-				    </c:forEach>
-				    <br />
+						<div class="row">
+						    <div class="col-xs-12">
+							<h:commandButton onclick="javascript:loader('search');" class="btn btn-success btn-xs btn-search" value="Rechercher" >
+							    <f:actionListener binding="#{listProductsManagedBean.setPage(1)}"/>
+							    <f:ajax execute="@form" render=":form-random :panel-random :form-nav-page"/>
+							</h:commandButton>
+						    </div>
+						</div>
+					    </div>
+					</p>
+				    </div>
+				</h:form>
+				<div class="clear-both"></div>
+			    </div>
+			</div>
+			<div class="col-lg-9 col-md-8">
+			    <div class="films-col-display">
 
-				    <h:commandButton onclick="javascript:loader('search');" class="btn btn-success btn-xs btn-search" value="Rechercher" >
-					<f:actionListener binding="#{listProductsManagedBean.setPage(1)}"/>
-					<f:ajax execute="@form" render=":form-random :panel-random :form-nav-page"/>
-				    </h:commandButton>
-				</div>
-			    </p>
-			</h:form>
-		    </div>
+				<h3><img src="img/list-icon.png" title="Produits"/>Liste des produits</h3>
 
-		    <div class="box-right">
-			<h3><img src="img/list-icon.png" title="Produits"/>Liste des produits</h3>
+				<c:set var="list" scope="view" value="#{listProductsManagedBean.getFilms(searchProductsManagedBean.searchParams)}" />
 
-			<c:set var="list" scope="view" value="#{listProductsManagedBean.getFilms(searchProductsManagedBean.searchParams)}" />
-
-			<h:panelGroup id="panel-random">
-			    <c:choose>
-				<c:when test="#{list.size() > 0}" >
-				    <table class="table-borderless">
-					<ui:repeat var="o" value="#{list}">
-					    <tr>
-						<ui:repeat var="f" value="#{o}">
-						    <td>
-							<a class="table-td-background" href="fiche_product.xhtml?id=#{f.id}">					
+				<h:panelGroup id="panel-random">
+				    <c:choose>
+					<c:when test="#{list.size() > 0}" >
+					    <div class="row row-display">
+						<ui:repeat var="f" value="#{list}">
+						    <div class="col-lg-4 col-md-6 col-sm-6 col-row-display">
+							<a href="fiche_product.xhtml?id=#{f.id}">					
 							    <span class="#{((listProductsManagedBean.isPack(f.id))? 'background-pack' : '')}">
-								<img class="table-cover-film" src="http://image.tmdb.org/t/p/w396/#{f.cover}" title="#{f.name}"/>
+								<img class="table-cover-film" src="http://image.tmdb.org/t/p/w92/#{f.cover}" title="#{f.name}"/>
 							    </span>
 							    <p class="table-title-film">#{f.name}</p>
-							</a>				
-						    </td>
+							</a>
+						    </div>
 						</ui:repeat>
-						<h:outputText value="#{listProductsManagedBean.getEmptyTd(list)}" escape="false" />
-					    </tr>
-					</ui:repeat>
-				    </table>
-				</c:when>
-				<c:otherwise>
-
-				    Aucun produit ne correspond à votre recherche ...
-				</c:otherwise>
-			    </c:choose>
-			</h:panelGroup>
-
-			<h:form id="form-nav-page" >
-			    <nav class="nav-right">
-				<ul class="pagination">
-				    <c:choose>
-					<c:when test="#{listProductsManagedBean.page eq 1}" >
-					    <li class="disabled cursor-normal"><a href="#" onclick="return false;"><span aria-hidden="true">«</span><span class="sr-only">Previous</span></a></li>
+					    </div>
 					</c:when>
 					<c:otherwise>
-					    <li>
-						<h:commandLink action="#{listProductsManagedBean.setPagePrevious()}">
-						    <span aria-hidden="true">«</span><span class="sr-only">Previous</span>
-						    <f:ajax execute="@form" render=":form-nav-page :panel-random" />
-						</h:commandLink>
-					    </li>
+					    Aucun produit ne correspond à votre recherche ...
 					</c:otherwise>
 				    </c:choose>
-				    <li class="active cursor-normal"><a href="" onclick="return false;">#{listProductsManagedBean.page}</a></li>
-				    <c:choose>
-					<c:when test="#{listProductsManagedBean.isLastPage()}" >
-					    <li class="disabled cursor-normal"><a href="#" onclick="return false;"><span aria-hidden="true">»</span><span class="sr-only">Next</span></a></li>
-					</c:when>
-					<c:otherwise>
-					    <li>
-						<h:commandLink action="#{listProductsManagedBean.setPageNext()}">
-						    <span aria-hidden="true">»</span><span class="sr-only">Next</span>
-						    <f:ajax execute="@form" render=":form-nav-page :panel-random" />
-						</h:commandLink>
-					    </li>
-					</c:otherwise>
-				    </c:choose>
-				</ul>
-			    </nav>
-			</h:form>
+				</h:panelGroup>
 
+				<h:form id="form-nav-page" >
+				    <nav class="nav-right">
+					<ul class="pagination">
+					    <c:choose>
+						<c:when test="#{listProductsManagedBean.page eq 1}" >
+						    <li class="disabled cursor-normal"><a href="#" onclick="return false;"><span aria-hidden="true">«</span><span class="sr-only">Previous</span></a></li>
+						</c:when>
+						<c:otherwise>
+						    <li>
+							<h:commandLink action="#{listProductsManagedBean.setPagePrevious()}">
+							    <span aria-hidden="true">«</span><span class="sr-only">Previous</span>
+							    <f:ajax execute="@form" render=":form-nav-page :panel-random" />
+							</h:commandLink>
+						    </li>
+						</c:otherwise>
+					    </c:choose>
+					    <li class="active cursor-normal"><a href="" onclick="return false;">#{listProductsManagedBean.page}</a></li>
+					    <c:choose>
+						<c:when test="#{listProductsManagedBean.isLastPage()}" >
+						    <li class="disabled cursor-normal"><a href="#" onclick="return false;"><span aria-hidden="true">»</span><span class="sr-only">Next</span></a></li>
+						</c:when>
+						<c:otherwise>
+						    <li>
+							<h:commandLink action="#{listProductsManagedBean.setPageNext()}">
+							    <span aria-hidden="true">»</span><span class="sr-only">Next</span>
+							    <f:ajax execute="@form" render=":form-nav-page :panel-random" />
+							</h:commandLink>
+						    </li>
+						</c:otherwise>
+					    </c:choose>
+					</ul>
+				    </nav>
+				</h:form>
+				<div class="clear-both"></div>				
+			    </div>		
+			</div>
 		    </div>
 
 		    <div id="bottom">
