@@ -10,17 +10,19 @@ import dtos.UserDto;
 import enums.UserStates;
 import exception.SignupEmailException;
 import exception.SignupNickNameException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import utils.Message;
 import utils.Pages;
 import utils.Redirect;
+import utils.Securite;
 
 /**
  *
@@ -39,6 +41,7 @@ public class SignUpManagedBean {
 
   public void singUp() {
     convertDate(birthDay);
+    user.password = Securite.crypte(user.password);
     try {
       user = Ejbs.user().signUp(user);
       Message.Info("Succès de l'inscription ! url: "

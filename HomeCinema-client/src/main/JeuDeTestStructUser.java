@@ -11,10 +11,13 @@ import dtos.UserDto;
 import dtos.VideoDto;
 import exception.SignupEmailException;
 import exception.SignupNickNameException;
+import exception.UncorrectPasswordException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.json.JSONException;
 
 /**
@@ -69,10 +72,20 @@ public class JeuDeTestStructUser {
 	u.lastName = lastname;
 	u.nickName = nickname;
 	u.password = "password";
+      try {
 	u = a.getManageUserRemote().signUp(u);
+      } catch (SignupEmailException ex) {
+	Logger.getLogger(JeuDeTestStructUser.class.getName()).log(Level.SEVERE, null, ex);
+      } catch (SignupNickNameException ex) {
+	Logger.getLogger(JeuDeTestStructUser.class.getName()).log(Level.SEVERE, null, ex);
+      }
 	if (activation) {
+	  try {
 	    a.getManageUserRemote().activate(u.getId());
 	    u = a.getManageUserRemote().login(u.email, u.password);
+	  } catch (UncorrectPasswordException ex) {
+	    Logger.getLogger(JeuDeTestStructUser.class.getName()).log(Level.SEVERE, null, ex);
+	  }
 	}
 	System.out.println(" ...  done");
 	return u;

@@ -20,13 +20,15 @@ import enums.UserStates;
 import exception.ActivatedCodeException;
 import exception.SignupEmailException;
 import exception.SignupNickNameException;
-import java.math.BigInteger;
-import java.security.SecureRandom;
+import exception.UncorrectPasswordException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -37,6 +39,8 @@ import javax.persistence.TypedQuery;
 import managers.dtos.FilmDtoManager;
 import managers.dtos.TransactionDtoManager;
 import managers.dtos.UserDtoManager;
+import utils.Securite;
+import utils.Tools;
 import org.eclipse.persistence.exceptions.DatabaseException;
 
 /**
@@ -80,6 +84,15 @@ public class ManageUser implements ManageUserRemote {
 	    }
 	    return null;
 	}
+      em.persist(u);
+      udto.activationCode = Tools.generateString(new Random(), 32);
+      udto.id = u.getId();
+      UserActivation ua = new UserActivation(udto.getActivationCode(), u);
+      em.persist(ua);
+      em.flush();
+      return udto;
+    } catch (PersistenceException ex) {
+      throw new SignupNickNameException();
     }
 
     @Override
@@ -104,16 +117,72 @@ public class ManageUser implements ManageUserRemote {
 	em.merge(u);
     }
 
-    @Override
-    public void deactivate(Long user) {
-	User u = em.find(User.class, user);
-	u.setState(UserStates.Deactivated);
-	em.merge(u);
+  @Override
+  public void activate(Long user) {
+    try {
+      User u = em.find(User.class, user);
+      TypedQuery<UserActivation> query = em.createQuery("FROM UserActivation ua join ua.user u WHERE u.id = " + u.getId(), UserActivation.class);
+      UserActivation ua = query.getSingleResult();
+      if (ua != null) {
+	em.remove(ua);
+      }
+      u.setState(UserStates.Activated);
+      em.merge(u);
+      em.flush();
+    } catch (PersistenceException ex) {
+      Logger.getLogger(ManageUser.class.getName()).log(Level.SEVERE, null, ex);
+
+    }
+  }
+
+  @Override
+  public void deactivate(Long user) {
+    User u = em.find(User.class, user);
+    u.setState(UserStates.Deactivated);
+    em.merge(u);
+  }
+
+  @Override
+  public void save(UserDtoNoPw udto) {
+    UserDtoManager.mergeOrSave(udto, em);
+  }
+
+  @Override
+  public List<TransactionDto> getTransaction(Long user) {
+    User u = em.find(User.class, user);
+    List<TransactionDto> res = new ArrayList<>();
+    for (Transaction t : u.getTransactions()) {
+      res.add(TransactionDtoManager.getDto(t));
     }
 
     @Override
     public void save(UserDtoNoPw udto) {
 	UserDtoManager.mergeOrSave(udto, em);
+  //TODO userDto => userDtoNoPw
+  @Override
+  public UserDto login(String email, String crypted_password) throws UncorrectPasswordException {
+    Long id = 1L;
+    TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE (u.email = :email OR u.nickName = :email)AND u.state=:active", User.class);
+    query.setParameter("email", email);
+    query.setParameter("active", UserStates.Activated);
+    User user = query.getSingleResult();
+    
+    /* verification du password */
+    if (Securite.equale(crypted_password, user.getPassword())) {
+      return UserDtoManager.getUser(user);
+    }
+    throw new UncorrectPasswordException();
+  }
+
+  @Override
+  public Set<SimpleUserDto> getAllUser() {
+    Query q;
+
+    q = em.createQuery("select u From User u ", User.class);
+    List<User> lu = q.getResultList();
+    Set<SimpleUserDto> ludto = new HashSet<>();
+    for (User u : lu) {
+      ludto.add(UserDtoManager.getSimpleDto(u));
     }
 
     @Override
@@ -136,7 +205,32 @@ public class ManageUser implements ManageUserRemote {
 	query.setParameter("active", UserStates.Activated);
 	User user = query.getSingleResult();
 	return UserDtoManager.getUser(user);
+  @Override
+  public void removeUser(Long id) {
+    try {
+      User u = em.find(User.class, id);
+      for (Transaction t : u.getTransactions()) {
+	t.setUser(null);
+	em.merge(t);
+      }
+      for (UsersFilms uf : u.getFilms()) {
+	em.remove(uf);
+      }
+      if (u.getCaddy() != null) {
+	em.remove(u.getCaddy());
+      }
+      TypedQuery<UserActivation> query = em.createQuery("FROM UserActivation ua join ua.user u WHERE u.id = " + u.getId(), UserActivation.class);
+      UserActivation ua = query.getSingleResult();
+      if (ua != null) {
+	em.remove(ua);
+      }
+      em.remove(u);
+      em.flush();
+    } catch (PersistenceException ex) {
+      Logger.getLogger(ManageUser.class.getName()).log(Level.SEVERE, null, ex);
+
     }
+  }
 
     @Override
     public Set<SimpleUserDto> getAllUser() {

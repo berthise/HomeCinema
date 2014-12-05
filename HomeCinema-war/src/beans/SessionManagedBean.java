@@ -8,7 +8,10 @@ package beans;
 import ejbs.Ejbs;
 import dtos.UserDtoNoPw;
 import enums.UserStates;
+import exception.UncorrectPasswordException;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -16,6 +19,7 @@ import static utils.Beans.getRequestPage;
 import utils.Message;
 import utils.Pages;
 import utils.Redirect;
+import utils.Securite;
 
 /**
  *
@@ -63,11 +67,14 @@ public class SessionManagedBean {
 
   public Boolean login(LoginManagedBean login) {
     try {
-      user = (UserDtoNoPw) Ejbs.user().login(login.getEmail(), login.getPassword());
+      String ep = Securite.crypte(login.getPassword());
+
+      user = (UserDtoNoPw) Ejbs.user().login(login.getEmail(), ep);
       return true;
-    } catch (EJBException e) {
-      return false;
+    } catch (UncorrectPasswordException ex) {
+      Logger.getLogger(SessionManagedBean.class.getName()).log(Level.SEVERE, null, ex);
     }
+    return false;
   }
 
   public void logout() {
