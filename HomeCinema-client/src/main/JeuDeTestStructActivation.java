@@ -10,6 +10,8 @@ import dtos.ProductDto;
 import dtos.SimpleUserDto;
 import dtos.UserDto;
 import dtos.VideoDto;
+import exception.SignupEmailException;
+import exception.SignupNickNameException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -290,7 +292,13 @@ public class JeuDeTestStructActivation {
 	u.lastName = lastname;
 	u.nickName = nickname;
 	u.password = "password";
+      try {
 	u = a.getManageUserRemote().signUp(u);
+      } catch (SignupEmailException ex) {
+	Logger.getLogger(JeuDeTestStructActivation.class.getName()).log(Level.SEVERE, null, ex);
+      } catch (SignupNickNameException ex) {
+	Logger.getLogger(JeuDeTestStructActivation.class.getName()).log(Level.SEVERE, null, ex);
+      }
 	if (activation) {
 	    a.getManageUserRemote().activate(u.getId());
 	    u = a.getManageUserRemote().login(u.email, u.password);

@@ -10,6 +10,8 @@ import dtos.ProductDto;
 import dtos.SimpleUserDto;
 import dtos.UserDto;
 import dtos.VideoDto;
+import exception.SignupEmailException;
+import exception.SignupNickNameException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.Date;
@@ -140,7 +142,13 @@ public class JeuDeTestRobin {
             u.nickName = "grandchamp";
             u.password = "password";
 
-            a.getManageUserRemote().signUp(u);
+	  try {
+	    a.getManageUserRemote().signUp(u);
+	  } catch (SignupEmailException ex) {
+	    Logger.getLogger(JeuDeTestRobin.class.getName()).log(Level.SEVERE, null, ex);
+	  } catch (SignupNickNameException ex) {
+	    Logger.getLogger(JeuDeTestRobin.class.getName()).log(Level.SEVERE, null, ex);
+	  }
             u = a.getManageUserRemote().login(u.email, u.password);
 
             UserDto u2 = new UserDto();
@@ -150,7 +158,13 @@ public class JeuDeTestRobin {
             u2.nickName = "grandchamp2";
             u2.password = "password";
 
-            a.getManageUserRemote().signUp(u2);
+	  try {
+	    a.getManageUserRemote().signUp(u2);
+	  } catch (SignupEmailException ex) {
+	    Logger.getLogger(JeuDeTestRobin.class.getName()).log(Level.SEVERE, null, ex);
+	  } catch (SignupNickNameException ex) {
+	    Logger.getLogger(JeuDeTestRobin.class.getName()).log(Level.SEVERE, null, ex);
+	  }
             Long u_id = a.getManageUserRemote().login(u2.email, u2.password).id;
 
             //remove u2 apres achat 
