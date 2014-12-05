@@ -9,6 +9,8 @@ import dtos.FilmDto;
 import dtos.ProductDto;
 import dtos.UserDto;
 import dtos.VideoDto;
+import exception.SignupEmailException;
+import exception.SignupNickNameException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -24,7 +26,7 @@ import org.json.JSONException;
  */
 public class JeuDeTestStruct {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SignupEmailException, SignupNickNameException {
 	try {
 	    Admin a = new Admin();
 
@@ -168,7 +170,7 @@ public class JeuDeTestStruct {
 	System.out.println(" ...  done");
     }
 
-    private static UserDto createAndPushUser(Admin a, String nickname, String email, String firstname, String lastname) {
+    private static UserDto createAndPushUser(Admin a, String nickname, String email, String firstname, String lastname) throws SignupEmailException, SignupNickNameException {
 	//creer user robin
 	System.out.print("create user : " + nickname);
 	UserDto u = new UserDto();

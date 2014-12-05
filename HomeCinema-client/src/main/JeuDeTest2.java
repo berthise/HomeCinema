@@ -10,6 +10,8 @@ import dtos.ProductDto;
 import dtos.SimpleUserDto;
 import dtos.UserDto;
 import dtos.VideoDto;
+import exception.SignupEmailException;
+import exception.SignupNickNameException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.Date;
@@ -25,7 +27,7 @@ import org.json.JSONException;
  */
 public class JeuDeTest2 {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SignupEmailException, SignupNickNameException {
         try {
             Admin a = new Admin();
             /*
