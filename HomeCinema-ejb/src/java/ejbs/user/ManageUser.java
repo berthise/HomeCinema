@@ -15,12 +15,15 @@ import ejbs.ManageUserRemote;
 import entities.Transaction;
 import entities.User;
 import entities.UserActivation;
+import entities.UserRetrieve;
 import entities.UsersFilms;
 import enums.UserStates;
 import exception.ActivatedCodeException;
+import exception.RetrieveCodeException;
 import exception.SignupEmailException;
 import exception.SignupNickNameException;
 import exception.UncorrectPasswordException;
+import exception.UnknownAccountException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -87,6 +90,7 @@ public class ManageUser implements ManageUserRemote {
 
     @Override
     public void activate(Long user, String code) throws ActivatedCodeException {
+      try {
 	UserActivation ua = em.find(UserActivation.class, code);
 	if (ua == null) {
 	    throw new ActivatedCodeException();
@@ -98,6 +102,10 @@ public class ManageUser implements ManageUserRemote {
 	    em.remove(ua);
 	    em.flush();
 	}
+	    } catch (PersistenceException ex) {
+      Logger.getLogger(ManageUser.class.getName()).log(Level.SEVERE, null, ex);
+
+    }
     }
 
 
@@ -134,17 +142,35 @@ public class ManageUser implements ManageUserRemote {
 
     @Override
   public UserDto login(String email, String crypted_password) throws UncorrectPasswordException {
+    try {
     Long id = 1L;
-    TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE (u.email = :email OR u.nickName = :email)AND u.state=:active", User.class);
+    TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE (u.email = :email OR u.nickName = :email)AND (u.state=:active OR u.state=:retrieve)", User.class);
     query.setParameter("email", email);
     query.setParameter("active", UserStates.Activated);
-    User user = query.getSingleResult();
+    query.setParameter("retrieve", UserStates.Retrieve);
+    User u = query.getSingleResult();
     
+    if ( u.getState().equals(UserStates.Retrieve)) {
+      TypedQuery<UserRetrieve> q = em.createQuery("FROM UserRetrieve ur join ur.user u WHERE u.id = " + u.getId(), UserRetrieve.class);
+      UserRetrieve ur = q.getSingleResult();
+      if (ur != null) {
+	em.remove(ur);
+      }
+      u.setState(UserStates.Activated);
+      em.merge(u);
+      em.flush();
+
+    }
+      
     /* verification du password */
-    if (Securite.equale(crypted_password, user.getPassword())) {
-      return UserDtoManager.getUser(user);
+    if (Securite.equale(crypted_password, u.getPassword())) {
+      return UserDtoManager.getUser(u);
     }
     throw new UncorrectPasswordException();
+        } catch (PersistenceException ex) {
+	  // TOOD change exception
+	      throw new UncorrectPasswordException();
+    }
   }
       @Override
     public List<TransactionDto> getTransaction(Long user) {
@@ -229,9 +255,9 @@ return ludto;
     }
 
     @Override
-    public boolean changePassword(Long id, String oldPassword, String newPassword) {
+    public boolean changePassword(Long id, String newPassword, String oldPassword) {
 	User u = em.find(User.class, id);
-	if (!u.getPassword().equals(oldPassword)) {
+	if (!Securite.equale(oldPassword, u.getPassword())) {
 	    return false;
 	} else {
 	    u.setPassword(newPassword);
@@ -239,11 +265,55 @@ return ludto;
 	    return true;
 	}
     }
+    
+    
+    @Override
+    public String retrievePassword(String email) throws UnknownAccountException{
+        try {
+	  TypedQuery<User> query = em.createQuery("FROM User u WHERE u.email = :email AND u.state=:active", User.class);
+	  // TODO et non logge
+	  query.setParameter("email", email);
+	  query.setParameter("active", UserStates.Retrieve);
+	  if (query.getMaxResults() == 0) {
+	    throw new UnknownAccountException();
+	  }
+	  User u = query.getSingleResult();
+    
+	  String code = Tools.generateString(new Random(), 32);
+	  UserRetrieve ur = new UserRetrieve(code, u);
+	  em.persist(ur);
+	  u.setState(UserStates.Retrieve);
+	  em.merge(u);
+	    em.flush();
+	    return code;
+	} catch (PersistenceException ex) {
+	  Logger.getLogger(ManageUser.class.getName()).log(Level.SEVERE, null, ex);
+      }
+	return null;
+    }
+    
+        @Override
+    public void changePasswordRetrieve(String code, String newPassword) throws RetrieveCodeException {
+      try {
+      	UserRetrieve ur = em.find(UserRetrieve.class, code);
+	if (ur == null) {
+	    throw new RetrieveCodeException();
+	}
+	User u = ur.getUser();
+	u.setPassword(newPassword);
+	u.setState(UserStates.Activated);
+	    em.merge(u);
+	    em.remove(ur);
+	    em.flush();
+	    } catch (PersistenceException ex) {
+      Logger.getLogger(ManageUser.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    }
 
     @Override
-    public boolean changeEmail(Long id, String email, String newPassword) {
+    public boolean changeEmail(Long id, String email, String oldPassword) {
 	User u = em.find(User.class, id);
-	if (!u.getPassword().equals(newPassword)) {
+	if (!Securite.equale(oldPassword, u.getPassword())) {
 	    return false;
 	} else {
 	    u.setEmail(email);

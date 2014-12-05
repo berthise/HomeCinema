@@ -11,9 +11,11 @@ import dtos.TransactionDto;
 import dtos.UserDto;
 import dtos.UserDtoNoPw;
 import exception.ActivatedCodeException;
+import exception.RetrieveCodeException;
 import exception.SignupEmailException;
 import exception.SignupNickNameException;
 import exception.UncorrectPasswordException;
+import exception.UnknownAccountException;
 import java.util.List;
 import java.util.Set;
 import javax.ejb.Remote;
@@ -52,4 +54,8 @@ public interface ManageUserRemote {
     public void activate(Long user);
 
     public void deactivate(Long user);
+    
+    public String retrievePassword(String email) throws UnknownAccountException;
+    
+    public void changePasswordRetrieve(String code, String newPassword) throws RetrieveCodeException;
 }

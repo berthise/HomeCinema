@@ -3,18 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package enums;
+package exception;
 
-import java.io.Serializable;
+import javax.ejb.ApplicationException;
 
 /**
  *
- * @author seb
+ * @author titou
  */
-public enum UserStates implements Serializable {
-  Activated,
-  Pending,
-  Deactivated,
-  Payment,
-  Retrieve;
+@ApplicationException(rollback=true)
+public class UnknownAccountException extends Exception {
+
 }
