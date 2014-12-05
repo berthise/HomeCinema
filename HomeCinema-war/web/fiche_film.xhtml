@@ -36,10 +36,10 @@
 		    <h2 class="well-title bold">
 
 			<div class="row">
-			    <div class="col-md-6">
+			    <div class="col-md-8">
 				<h:outputText value="#{filmManagedBean.title} (#{filmManagedBean.year})" />
 			    </div>
-			    <div class="col-md-6">
+			    <div class="col-md-4">
 				<div class="rating">
 				    <h:outputText value="#{filmManagedBean.getRating()}" escape="false"/>
 				</div>
@@ -84,7 +84,7 @@
 					    <div class="row">
 						<div class="col-xs-12">
 						    <h:form>
-							<h:commandButton class="btn btn-success b" value="#{msg['fiche-add']}" action="#{caddieManagedBean.addProductFilmToCaddie(sessionManagedBean, filmManagedBean.mainProductId,filmManagedBean.id)}" />
+							<h:commandButton class="btn btn-success b" value="#{msg['fiche-add']}" action="#{caddieManagedBean.addProductFilmToCaddie(filmManagedBean.mainProductId,filmManagedBean.id)}" />
 						    </h:form>
 						</div>						
 					    </div>

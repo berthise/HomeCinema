@@ -29,13 +29,21 @@
     padding-right: 15px;
 }
 
+.col-no-padding {
+    padding: 0;
+}
+
+.col-margin-bot {
+    margin-bottom: 10px;
+}
+
 .b {
     font-weight: bold;
     font-size: 15px;
     width: 100%;
 }
 
-.info-fiche-film h3 {
+.info-fiche-film h3, .pack-info-film h3 {
     font-size: 26px;
     font-weight: 400;
 }
@@ -65,4 +73,118 @@
     font-size: 17px;
     position: relative;
     top: 11px;
+}
+
+/*** PACK ***/
+
+.col-292 {
+    width: 277px;
+    padding-left: 15px;
+}
+
+#slider {
+    position: relative;
+    overflow: hidden;
+    margin: auto;
+}
+
+#slider ul {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    height: 200px;
+    list-style: none;
+}
+
+#slider ul li {
+    position: relative;
+    display: block;
+    float: left;
+    margin: 0;
+    padding: 0;
+    width: 262px;
+    height: 393px;
+    background: #ccc;
+    text-align: center;
+    line-height: 300px;
+}
+
+a.control_prev, a.control_next {
+    position: absolute;
+    top: 45%;
+    z-index: 999;
+    display: block;
+    padding: 4% 3%;
+    width: auto;
+    height: auto;
+    background: #2a2a2a;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 18px;
+    opacity: 0;
+    cursor: pointer;
+}
+
+#slider:hover a {
+    opacity: 0.5;		
+}
+
+#slider a {
+    -webkit-transition: all 0.2s ease;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+}
+
+a.control_prev:hover, a.control_next:hover {
+    opacity: 1 !important;
+}
+
+a.control_prev {
+    border-radius: 0 2px 2px 0;
+}
+
+a.control_next {
+    right: 0;
+    border-radius: 2px 0 0 2px;
+}
+
+.pack-info-film {
+    text-align: justify;
+    margin: auto;
+}
+
+.pack-info-film ul {
+    padding-left: 0px;
+}
+
+.pack-info-film li {
+    list-style: none;
+    margin: 0 0 15px 0;
+}
+
+.form-liste-film {
+    margin: auto;
+    width: 262px;
+}
+.col-margin-bot-pack {
+    margin-bottom: 80px;
+}
+
+.film-reduc {
+    background: url(../img/reduc.png) no-repeat;
+    height: 69px;
+    width: 55px;
+    display: inline-block;
+    position: relative;
+    top: -13px;
+    text-align: center;
+}
+
+.film-reduc span {
+    color: #457215;
+    font-weight: bold;
+    font-size: 13px;
+    position: relative;
+    top: 7px;
 }
