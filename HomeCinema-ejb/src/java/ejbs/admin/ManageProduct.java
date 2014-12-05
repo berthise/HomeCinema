@@ -141,7 +141,7 @@ public class ManageProduct implements ManageProductRemote {
 	}
 	if (lgdto != null && !lgdto.isEmpty()) {
 
-		query += " and (";
+	    query += " and (";
 
 	    boolean first = true;
 	    for (Long g : lgdto) {
@@ -164,11 +164,10 @@ public class ManageProduct implements ManageProductRemote {
 	} else if (main.equals(ProductTypes.Pack)) {
 
 	    query += " and size(p.films )>1 ";
-	}
-	else{
+	} else {
 	    query += " and size(p.films )>=1 ";
 	}
-	    
+
 	Query qnb = em.createQuery("select COUNT(distinct p) " + query);
 	qnb.setParameter("active", ProductStates.Activated);
 	Long nb = (Long) qnb.getSingleResult();
@@ -189,7 +188,9 @@ public class ManageProduct implements ManageProductRemote {
 		row = (int) (Math.random() * (getNbProduct() - limit));
 		break;
 	}
-
+	if (row < 0) {
+	    row = 0;
+	}
 	Query q = em.createQuery("select distinct p " + query, Product.class);
 	q.setParameter("active", ProductStates.Activated);
 	q.setFirstResult(row);
@@ -218,18 +219,17 @@ public class ManageProduct implements ManageProductRemote {
 	}
 	return lgdto;
     }
-    
+
     @Override
-    public void activate (Long pid)
-    {
-	Product p = em.find(Product.class,pid);
+    public void activate(Long pid) {
+	Product p = em.find(Product.class, pid);
 	p.setState(ProductStates.Activated);
 	em.merge(p);
     }
+
     @Override
-        public void deactivate (Long pid)
-    {
-	Product p = em.find(Product.class,pid);
+    public void deactivate(Long pid) {
+	Product p = em.find(Product.class, pid);
 	p.setState(ProductStates.Unactivated);
 	em.merge(p);
     }
