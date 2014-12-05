@@ -29,7 +29,7 @@ import org.json.JSONException;
  */
 public class JeuDeTestStructActivation {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SignupEmailException, SignupNickNameException {
 	try {
 	    Admin a = new Admin();
 
@@ -283,7 +283,7 @@ public class JeuDeTestStructActivation {
 	System.out.println(" ...  done");
     }
 
-    private static UserDto createAndPushUser(Admin a, String nickname, String email, String firstname, String lastname, boolean activation) {
+    private static UserDto createAndPushUser(Admin a, String nickname, String email, String firstname, String lastname, boolean activation) throws SignupEmailException, SignupNickNameException {
 	//creer user robin
 	System.out.print("create user : " + nickname);
 	UserDto u = new UserDto();

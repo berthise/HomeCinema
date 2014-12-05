@@ -28,7 +28,7 @@ import org.json.JSONException;
  */
 public class JeuDeTestRobin {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SignupEmailException, SignupNickNameException {
         try {
             Admin a = new Admin();
             /*

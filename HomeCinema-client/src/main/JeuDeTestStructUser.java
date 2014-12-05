@@ -7,7 +7,6 @@ package main;
 
 import dtos.FilmDto;
 import dtos.ProductDto;
-import dtos.SimpleUserDto;
 import dtos.UserDto;
 import dtos.VideoDto;
 import exception.SignupEmailException;
@@ -15,12 +14,8 @@ import exception.SignupNickNameException;
 import exception.UncorrectPasswordException;
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.json.JSONException;
 
 /**
@@ -29,7 +24,7 @@ import org.json.JSONException;
  */
 public class JeuDeTestStructUser {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SignupEmailException, SignupNickNameException {
 
 	    Admin a = new Admin();
 
@@ -65,7 +60,7 @@ public class JeuDeTestStructUser {
 	System.out.println(" ...  done");
     }
 
-    private static UserDto createAndPushUser(Admin a, String nickname, String email, String firstname, String lastname, boolean activation) {
+    private static UserDto createAndPushUser(Admin a, String nickname, String email, String firstname, String lastname, boolean activation) throws SignupEmailException, SignupNickNameException {
 	//creer user robin
 	System.out.print("create user : " + nickname);
 	UserDto u = new UserDto();
