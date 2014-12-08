@@ -35,7 +35,8 @@ public class Redirect {
 		  put(Pages.SIGNUP, Pages.MON_COMPTE);
 		  put(Pages.PAYMENT, Pages.MON_COMPTE);
 		  put(Pages.ACTIVATE, Pages.MON_COMPTE);
-
+		  put(Pages.FORGOT_PASS, Pages.MON_COMPTE);
+		  put(Pages.RETRIEVE_PASS, Pages.MON_COMPTE);
 		}
 	      });
 	      put(SessionStates.LOGGED_PAY, new HashMap<String, String>() {
