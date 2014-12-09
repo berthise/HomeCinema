@@ -10,8 +10,6 @@ import dtos.UserDto;
 import enums.UserStates;
 import exception.SignupEmailException;
 import exception.SignupNickNameException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
