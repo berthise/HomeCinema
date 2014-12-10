@@ -14,19 +14,25 @@
 	<link rel="stylesheet" href="css/bootstrap.min.css"/>
 	<link rel="stylesheet" href="css/bootstrap-theme.min.css"/>
 	<link rel="stylesheet" href="css/main.css"/>
+	<link rel="stylesheet" href="css/style-404.css"/>
 
     </h:head>
+
     <h:body>
 	<ui:insert name="header" >
 	    <ui:include src="components/header.xhtml" />
 	</ui:insert>
-	<section>
-	    <div class="container">
-		<div class="well">
-		    <h2 class="well-title">404 - Page non trouvé</h2>
+
+	<script src="js/404.js"></script>
+	
+	<div class="container">
+	    <div class="well well-black">
+		<div class="board404">
+		    <p id="error404">#{msg['erreur']}</p>
+		    <p id="code404">404</p>
 		</div>
 	    </div>
-	</section>
+	</div>
 
 	<ui:insert name="footer" >
 	    <ui:include src="components/footer.xhtml" />

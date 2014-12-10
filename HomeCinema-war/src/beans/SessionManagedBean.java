@@ -14,7 +14,6 @@ import exception.UnknownAccountException;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import static utils.Beans.getRequestPage;

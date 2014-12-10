@@ -8,7 +8,6 @@ package beans;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import static utils.Beans.findBean;
-import utils.Message;
 import utils.Pages;
 
 /**

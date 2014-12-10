@@ -5,7 +5,6 @@
  */
 package utils;
 
-import java.util.HashMap;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
