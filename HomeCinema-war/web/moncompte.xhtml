@@ -18,6 +18,7 @@
         <link rel="stylesheet" href="css/bootstrap.min.css"/>
         <link rel="stylesheet" href="css/bootstrap-theme.min.css"/>
         <link rel="stylesheet" href="css/main.css"/>
+        <link rel="stylesheet" href="css/dashboard.css"/>
 
         <f:metadata>
             <f:viewParam name="box" value="#{accountManagedBean.initBox}" />
@@ -27,140 +28,244 @@
 
     </h:head>
     <h:body id="top">
-	<ui:insert name="header" >
-	    <ui:include src="components/header.xhtml">
-		<ui:param name="active" value="moncompte" />
-	    </ui:include>
-	</ui:insert>
-	<section>
-	    <div class="container">
-		<div class="well">
-		    <h2 class="well-title"><strong>Mon compte</strong></h2>
-
-                    <script>
-			function display(id) {
-			    document.getElementById('box-films').className = "display-none";
-			    document.getElementById('link-films').className = "";
-			    document.getElementById('box-caddie').className = "display-none";
-			    document.getElementById('link-caddie').className = "";
-			    document.getElementById('box-historique').className = "display-none";
-			    document.getElementById('link-historique').className = "";
-			    document.getElementById('box-infos').className = "display-none";
-			    document.getElementById('link-infos').className = "";
-			    document.getElementById('box-' + id).className = "box-right";
-			    document.getElementById('link-' + id).className = "activated";
-			    return false;
-			}
-                    </script> 
-
-		    <div id="nav-page-left" class="nav-account">
-			<h:outputText value="#{accountManagedBean.getHtmlForLink('films', 'Mes films')}" escape="false" />
-			<h:outputText value="#{accountManagedBean.getHtmlForLink('caddie', 'Mon Caddie')}" escape="false" />
-			<h:outputText value="#{accountManagedBean.getHtmlForLink('historique', 'Mon historique')}" escape="false" />
-			<h:outputText value="#{accountManagedBean.getHtmlForLink('infos', 'Mes informations')}" escape="false" />
-		    </div>
-
-                    <div class="#{accountManagedBean.getClassDisplay('films')}" id="box-films">
-			<ez:films userId="#{sessionManagedBean.id}" />
-                    </div>
-
-                    <div class="#{accountManagedBean.getClassDisplay('caddie')}" id="box-caddie">
-                        <ez:caddie title="Caddie" userId="#{sessionManagedBean.id}" recap="false"/>
-                    </div>
-
-                    <div class="#{accountManagedBean.getClassDisplay('historique')}" id="box-historique">
-                        <ez:history userId="#{sessionManagedBean.id}" />
-                    </div>
-
-                    <div class="#{accountManagedBean.getClassDisplay('infos')}" id="box-infos">
-                        <h3><img src="img/info-icon.png" title="Informations"/>Informations</h3>
-
-                        <a href="#" id="edit_mail" class="toggle-btn">Changer mon adresse mail</a>
-
-                        <div class="row toggle-row">
-                            <div class="col-md-10">
-                                <h:form role="form">
-                                    <h:messages id="output" globalOnly="true" infoClass="alert alert-success" errorClass="alert alert-warning"
-                                                fatalClass="alert alert-danger" warnClass="alert alert-warning" />
-                                    <div class="row">
-                                        <div class="form-group">
-                                            <h:outputLabel class="col-md-5 form-label" for="email">Email <i class="required">*</i> : </h:outputLabel>
-                                            <div class="col-md-7">
-                                                <h:inputText p:type="email" id="newEmail" class="form-control" value="#{infoUserManagedBean.newEmail}" p:placeholder="Adresse e-mail" p:required="required" />
+        <!--
+            <ui:insert name="header" >
+                <ui:include src="components/header.xhtml">
+                    <ui:param name="active" value="moncompte" />
+                </ui:include>
+            </ui:insert>
+            <section>
+                <div class="container">
+                    <div class="well">
+                        <h2 class="well-title"><strong>Mon compte</strong></h2>
+    
+                        <script>
+                            function display(id) {
+                                document.getElementById('box-films').className = "display-none";
+                                document.getElementById('link-films').className = "";
+                                document.getElementById('box-caddie').className = "display-none";
+                                document.getElementById('link-caddie').className = "";
+                                document.getElementById('box-historique').className = "display-none";
+                                document.getElementById('link-historique').className = "";
+                                document.getElementById('box-infos').className = "display-none";
+                                document.getElementById('link-infos').className = "";
+                                document.getElementById('box-' + id).className = "box-right";
+                                document.getElementById('link-' + id).className = "activated";
+                                return false;
+                            }
+                        </script> 
+    
+                        <div id="nav-page-left" class="nav-account">
+                            <h:outputText value="#{accountManagedBean.getHtmlForLink('films', 'Mes films')}" escape="false" />
+                            <h:outputText value="#{accountManagedBean.getHtmlForLink('caddie', 'Mon Caddie')}" escape="false" />
+                            <h:outputText value="#{accountManagedBean.getHtmlForLink('historique', 'Mon historique')}" escape="false" />
+                            <h:outputText value="#{accountManagedBean.getHtmlForLink('infos', 'Mes informations')}" escape="false" />
+                        </div>
+    
+                        <div class="#{accountManagedBean.getClassDisplay('films')}" id="box-films">
+                            <ez:films userId="#{sessionManagedBean.id}" />
+                        </div>
+    
+                        <div class="#{accountManagedBean.getClassDisplay('caddie')}" id="box-caddie">
+                            <ez:caddie title="Caddie" userId="#{sessionManagedBean.id}" recap="false"/>
+                        </div>
+    
+                        <div class="#{accountManagedBean.getClassDisplay('historique')}" id="box-historique">
+                            <ez:history userId="#{sessionManagedBean.id}" />
+                        </div>
+    
+                        <div class="#{accountManagedBean.getClassDisplay('infos')}" id="box-infos">
+                            <h3><img src="img/info-icon.png" title="Informations"/>Informations</h3>
+    
+                            <a href="#" id="edit_mail" class="toggle-btn">Changer mon adresse mail</a>
+    
+                            <div class="row toggle-row">
+                                <div class="col-md-10">
+                                    <h:form role="form">
+                                        <h:messages id="output" globalOnly="true" infoClass="alert alert-success" errorClass="alert alert-warning"
+                                                    fatalClass="alert alert-danger" warnClass="alert alert-warning" />
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <h:outputLabel class="col-md-5 form-label" for="email">Email <i class="required">*</i> : </h:outputLabel>
+                                                <div class="col-md-7">
+                                                    <h:inputText p:type="email" id="newEmail" class="form-control" value="#{infoUserManagedBean.newEmail}" p:placeholder="Adresse e-mail" p:required="required" />
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-group">
-                                            <h:outputLabel class="col-md-5 form-label" for="password">Mot de passe <i class="required">*</i> : </h:outputLabel>
-                                            <div class="col-md-7">
-                                                <h:inputSecret id="oldPassword" class="form-control" value="#{infoUserManagedBean.password}" p:placeholder="Mot de passe" />
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <h:outputLabel class="col-md-5 form-label" for="password">Mot de passe <i class="required">*</i> : </h:outputLabel>
+                                                <div class="col-md-7">
+                                                    <h:inputSecret id="oldPassword" class="form-control" value="#{infoUserManagedBean.password}" p:placeholder="Mot de passe" />
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row" style="margin-top: 5px">
-                                        <span class="col-md-5"></span>
-                                        <div class="col-md-7">
-                                            <h:commandButton class="btn btn-primary" value="Changer mon email" action="#{infoUserManagedBean.changeEmail}">
-                                                <f:ajax execute="@form" render="output" />
-                                            </h:commandButton>
+                                        <div class="row" style="margin-top: 5px">
+                                            <span class="col-md-5"></span>
+                                            <div class="col-md-7">
+                                                <h:commandButton class="btn btn-primary" value="Changer mon email" action="#{infoUserManagedBean.changeEmail}">
+                                                    <f:ajax execute="@form" render="output" />
+                                                </h:commandButton>
+                                            </div>
                                         </div>
-                                    </div>
-                                </h:form>
+                                    </h:form>
+                                </div>
+                            </div>
+                            <br /><a href="#" id="edit_mail" class="toggle-btn">Changer de mot de passe</a>
+                            <div class="row toggle-row">
+                                <div class="col-md-10">
+                                    <h:form>
+                                        <h:messages id="output" globalOnly="true" infoClass="alert alert-success" errorClass="alert alert-warning"
+                                                    fatalClass="alert alert-danger" warnClass="alert alert-warning" />
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <h:outputLabel class="col-md-5 form-label" for="newPassword">Nouveau mot de passe <i class="required">*</i> : </h:outputLabel>
+                                                <div class="col-md-7">
+                                                    <h:inputSecret id="newPassword" class="form-control" value="#{infoUserManagedBean.newPassword}" p:placeholder="Mot de passe" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <h:outputLabel class="col-md-5 form-label" for="conf_pass">Confirmation mot de passe <i class="required">*</i> : </h:outputLabel>
+                                                <div class="col-md-7">
+                                                    <h:inputSecret id="conf_password" class="form-control" value="#{infoUserManagedBean.confPassword}"  p:placeholder="Confirmation mot de passe" p:required="required" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <h:outputLabel class="col-md-5 form-label" for="oldPassword">Ancien mot de passe <i class="required">*</i> : </h:outputLabel>
+                                                <div class="col-md-7">
+                                                    <h:inputSecret id="oldPassword" class="form-control" value="#{infoUserManagedBean.password}" p:placeholder="Ancien mot de passe" p:required="required" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row" style="margin-top: 5px">
+                                            <span class="col-md-5"></span>
+                                            <div class="col-md-7">
+                                                <h:commandButton class="btn btn-primary" value="Changer de mot de passe" action="#{infoUserManagedBean.changePassword}">
+                                                    <f:ajax execute="@form" render="output" />
+                                                </h:commandButton>
+                                            </div>
+                                        </div>
+                                    </h:form>
+                                </div>
                             </div>
                         </div>
-                        <br /><a href="#" id="edit_mail" class="toggle-btn">Changer de mot de passe</a>
-                        <div class="row toggle-row">
-                            <div class="col-md-10">
-                                <h:form>
-                                    <h:messages id="output" globalOnly="true" infoClass="alert alert-success" errorClass="alert alert-warning"
-                                                fatalClass="alert alert-danger" warnClass="alert alert-warning" />
-                                    <div class="row">
-                                        <div class="form-group">
-                                            <h:outputLabel class="col-md-5 form-label" for="newPassword">Nouveau mot de passe <i class="required">*</i> : </h:outputLabel>
-                                            <div class="col-md-7">
-                                                <h:inputSecret id="newPassword" class="form-control" value="#{infoUserManagedBean.newPassword}" p:placeholder="Mot de passe" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-group">
-                                            <h:outputLabel class="col-md-5 form-label" for="conf_pass">Confirmation mot de passe <i class="required">*</i> : </h:outputLabel>
-                                            <div class="col-md-7">
-                                                <h:inputSecret id="conf_password" class="form-control" value="#{infoUserManagedBean.confPassword}"  p:placeholder="Confirmation mot de passe" p:required="required" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-group">
-                                            <h:outputLabel class="col-md-5 form-label" for="oldPassword">Ancien mot de passe <i class="required">*</i> : </h:outputLabel>
-                                            <div class="col-md-7">
-                                                <h:inputSecret id="oldPassword" class="form-control" value="#{infoUserManagedBean.password}" p:placeholder="Ancien mot de passe" p:required="required" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row" style="margin-top: 5px">
-                                        <span class="col-md-5"></span>
-                                        <div class="col-md-7">
-                                            <h:commandButton class="btn btn-primary" value="Changer de mot de passe" action="#{infoUserManagedBean.changePassword}">
-                                                <f:ajax execute="@form" render="output" />
-                                            </h:commandButton>
-                                        </div>
-                                    </div>
-                                </h:form>
-                            </div>
-                        </div>
+    
+                        <div id="bottom">
+                            <a class="go-top" href="#top" title="Vers le haut"><img src="img/arrowUp.png" /></a>                        
+                        </div>                        
                     </div>
+                </div>
+            </section>
+            <script src="js/moncompte.js"></script>
+            <ui:insert name="footer" >
+                <ui:include src="components/footer.xhtml" />
+            </ui:insert>
+        </h:body
+        -->
+        <!-- Fixed navbar -->
+        <header>
+            <nav id="header" class="navbar navbar-default navbar-static-top navbar-noborder" role="navigation">
+                <div class="row">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <div class="col-sm-3 col-md-2"></div>
+                    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2">
+                        <div id="navbar" class="navbar-collapse collapse">
+                            <ul class="nav navbar-nav">
+                                <li class="#{(active == 'index')? 'active' : ''}"><a href="/HomeCinema-war/"><i class="decale-right glyphicon glyphicon-home"></i> <h:outputText value="#{msg['menu-accueil']}" /></a></li>
+                                <li class="#{(active == 'films')? 'active' : ''}"><a href="films.xhtml?tab=all"><i class="decale-right glyphicon glyphicon-facetime-video"></i> <h:outputText value="#{msg['menu-films']}" /></a></li>
+                                <li class="#{(active == 'faq')? 'active' : ''}"><a href="faq.xhtml"><i class="decale-right glyphicon glyphicon-info-sign"></i> <h:outputText value="#{msg['menu-faq']}" /></a></li>
+                                <li class="#{(active == 'demo')? 'active' : ''}"><a href="demo.xhtml"><i class="decale-right glyphicon glyphicon-wrench"></i> <h:outputText value="#{msg['menu-demo']}" /></a></li>
+                                <h:panelGroup rendered="#{sessionManagedBean.id != null}">
+                                    <li class="#{(active == 'moncompte')? 'active' : ''}"><a href="moncompte.xhtml"><i class="decale-right glyphicon glyphicon-folder-open"></i> <h:outputText value="#{msg['menu-compte']}" /></a></li>
+                                </h:panelGroup>
+                                <h:panelGroup rendered="#{sessionManagedBean.id == null}" style="display: none">
+                                    <li class="#{(active == 'login')? 'active' : ''}"><a href="login.xhtml"><i class="decale-right glyphicon glyphicon-hand-right"></i> <h:outputText value="#{msg['connexion']}" /></a></li>
+                                    <li class="#{(active == 'signup')? 'active' : ''}"><a href="signup.xhtml"><i class="decale-right glyphicon glyphicon-list"></i> <h:outputText value="#{msg['inscription']}" /></a></li>
+                                </h:panelGroup>
+                            </ul>
+                            <ul class="nav navbar-nav navbar-right animated" style="display: none">
+                                <h:panelGroup rendered="#{sessionManagedBean.id == null}">
+                                    <li class="#{(active == 'login')? 'active' : ''}"><a href="login.xhtml"><i class="decale-right glyphicon glyphicon-hand-right"></i> <h:outputText value="#{msg['connexion']}" /></a></li>
+                                    <li class="#{(active == 'signup')? 'active' : ''}"><a href="signup.xhtml"><i class="decale-right glyphicon glyphicon-list"></i> <h:outputText value="#{msg['inscription']}" /></a></li>
+                                </h:panelGroup>
+                                <h:panelGroup rendered="#{sessionManagedBean.id != null}">
+                                    <li>
+                                        <a href="moncompte.xhtml?box=caddie" title="#{msg['header-voircaddie']}">
+                                            <i class="glyphicon glyphicon-shopping-cart"></i> Panier
+                                            <span class="badge">#{sessionManagedBean.caddySize}</span>
+                                        </a>
+                                    </li>
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">                                                
+                                            <i class="glyphicon glyphicon-user"></i>
+                                            #{sessionManagedBean.firstName} <span class="caret"></span>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <i class="glyphicon glyphicon-off"></i>
+                                                <h:form>
+                                                    <h:commandLink action="#{sessionManagedBean.logout}" value="#{msg['deconnexion']}" />
+                                                </h:form>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </h:panelGroup>
+                            </ul>
+                            <form class="navbar-form navbar-right col-md-3" role="search" id="search-form" action="films.xhtml">
+                                <div class="input-group">
+                                    <input type="hidden" name="tab" value="search" />
+                                    <input type="search" class="form-control" placeholder="#{msg['menu-recherche']}" name="title"/>
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div><!--/.nav-collapse -->
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
+        <script src="js/vendor/bootstrap.min.js"></script>
 
-                    <div id="bottom">
-                        <a class="go-top" href="#top" title="Vers le haut"><img src="img/arrowUp.png" /></a>                        
-                    </div>                        
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-3 col-md-2 sidebar">
+                    <ul class="nav nav-sidebar">
+                        <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
+                        <li><a href="#">Reports</a></li>
+                        <li><a href="#">Analytics</a></li>
+                        <li><a href="#">Export</a></li>
+
+                        <h:outputText value="#{accountManagedBean.getHtmlForLink('films', 'Mes films')}" escape="false" />
+                        <h:outputText value="#{accountManagedBean.getHtmlForLink('caddie', 'Mon Caddie')}" escape="false" />
+                        <h:outputText value="#{accountManagedBean.getHtmlForLink('historique', 'Mon historique')}" escape="false" />
+                        <h:outputText value="#{accountManagedBean.getHtmlForLink('infos', 'Mes informations')}" escape="false" />
+
+                    </ul>
+                </div>
+                <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+
                 </div>
             </div>
-        </section>
-        <script src="js/moncompte.js"></script>
-        <ui:insert name="footer" >
-            <ui:include src="components/footer.xhtml" />
-        </ui:insert>
+        </div>
+        <script>
+            $(function () {
+                $('#header').addClass('fixed');
+                $("#banner").remove();
+                $("#search-form").prev().show().removeClass("bounceOutRight").addClass("bounceInRight");
+            });
+        </script>
     </h:body>
 </html>

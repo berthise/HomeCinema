@@ -9,9 +9,9 @@ body {
     font-family: $font;
     min-height: 800px;
     .textarea-noresizing {
-	resize:none;
+        resize:none;
     }
-    
+
     .badge-faq {
         margin-right: 10px;
         position: relative;
@@ -688,4 +688,28 @@ body {
         padding-bottom: 10px !important;
         padding-right: 15px !important;
     }
+}
+
+/* customize scrollbars -----------*/
+
+::-webkit-scrollbar {
+    width: 0.6em;
+    height: 0.6em;
+}
+
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 4px rgba(100, 100, 100, 0.3);
+    border-radius:1px;
+    padding:2px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #666;
+    background: rgba(180, 180, 180, 0.4);
+    border-radius:1px;
+}
+
+::-webkit-scrollbar-corner,
+::-webkit-srollbar-thumb:window-inactive {
+    background: rgba(160, 160, 160, 0.4);
 }
