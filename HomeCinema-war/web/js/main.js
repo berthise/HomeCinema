@@ -1,7 +1,16 @@
 $(function () {
     $("#login").click(function () {
+        if (window.location.protocol != "https:")
+	  $("#warning-http").show();
         console.log($("#form-login").length);
         $("#form-login").slideToggle();
+    });
+    
+    $("#warning-http-lien").on("click", function (e) {
+	e.preventDefault();
+        if (window.location.protocol != "https:")
+	  window.location.href = "https:" + 
+		window.location.href.substring(window.location.protocol.length);
     });
 
     var vid = document.getElementById("myVideo");

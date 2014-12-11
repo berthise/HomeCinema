@@ -103,19 +103,20 @@ public class AccountManagedBean {
 	return toReturn;
     }
 
-    public String getCodeButtonsFilm(Long idfilm, Long iduser) {	
+    public String getCodeButtonsFilm(Long idfilm, Long iduser) {
 	int caddie = isInMyCaddie(Arrays.asList(idfilm), iduser);
 	int films = isInMyFilms(Arrays.asList(idfilm), iduser);
-	
-	if (caddie == 0 && films == 0)
+
+	if (caddie == 0 && films == 0) {
 	    return "FREE";
-	else if (caddie == 1)
+	} else if (caddie == 1) {
 	    return "CADDIE";
-	else
+	} else {
 	    return "OWNED";
+	}
     }
-    
-    public String getCodeButtonsProduct(Long idproduct, Long iduser) {	
+
+    public String getCodeButtonsProduct(Long idproduct, Long iduser) {
 	List<Long> l = new ArrayList<>();
 	for (FilmDto f : Ejbs.product().getFilms(idproduct,lang.getLang()))
 	    l.add(f.id);
@@ -124,24 +125,25 @@ public class AccountManagedBean {
 	
 	int caddie = isInMyCaddie(l, iduser);
 	int films = isInMyFilms(l, iduser);
-	
-	if (caddie == 0 && films == 0)
+
+	if (caddie == 0 && films == 0) {
 	    return "FREE";
-	else if (caddie == n || caddie + films == n)
+	} else if (caddie == n || caddie + films == n) {
 	    return "CADDIE";
-	else if (caddie == 0 && films < n)
+	} else if (caddie == 0 && films < n) {
 	    return "PART_FILM";
-	else if (caddie < n && films == 0)
+	} else if (caddie < n && films == 0) {
 	    return "PART_CADDIE";
-	else if (caddie < n && films < n)
+	} else if (caddie < n && films < n) {
 	    return "PART";
-	else
+	} else {
 	    return "OWNED";
+	}
     }
 
     public void checkIsMyFilm(Long idfilm, Long iduser) throws IOException {
 	if (isInMyFilms(Arrays.asList(idfilm), iduser) == 0) {
-	  Redirect.redirectTo(Pages.MON_COMPTE);
+	    Redirect.redirectTo(Pages.MON_COMPTE);
 	}
     }
 }

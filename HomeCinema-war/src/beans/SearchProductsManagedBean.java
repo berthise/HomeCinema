@@ -66,7 +66,7 @@ public class SearchProductsManagedBean {
 	}
 	return this.params.title;
     }
-    
+
     public void setTitleReset(String t) {
 	params = new SearchParams();
 	checked = new HashMap<>();
@@ -101,8 +101,7 @@ public class SearchProductsManagedBean {
 	    PersonDto p = Ejbs.person().getPerson(director);
 	    if (p != null) {
 		this.params.directorId = p.id;
-	    }
-	    else {
+	    } else {
 		this.params.directorId = -1L;
 	    }
 	} else {
@@ -178,7 +177,7 @@ public class SearchProductsManagedBean {
     public Long getGenreAlone() {
 	return null;
     }
-    
+
     public String getGenresMode() {
 	return this.params.genresMode;
     }

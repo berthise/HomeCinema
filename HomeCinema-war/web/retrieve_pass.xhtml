@@ -1,68 +1,69 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html
-  xmlns="http://www.w3.org/1999/xhtml"
-  xmlns:ui="http://java.sun.com/jsf/facelets"
-  xmlns:h="http://java.sun.com/jsf/html"
-  xmlns:f="http://xmlns.jcp.org/jsf/core"
-  xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
-  <h:head>
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title></title>
-    <meta name="description" content=""/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+	<meta charset="utf-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+	<title>HomeCinéma - #{msg['retrieve-pass-title']}</title>
+	<meta name="description" content=""/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-    <link rel="stylesheet" href="css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="css/bootstrap-theme.min.css"/>
-    <link rel="stylesheet" href="css/main.css"/>
+	<link rel="stylesheet" href="css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="css/bootstrap-theme.min.css"/>
+	<link rel="stylesheet" href="css/main.css"/>
 
-    <f:metadata>
-      <f:viewParam name="c" value="#{forgotPassManagedBean.code}" />
-      <f:event type="preRenderView" listener="#{sessionManagedBean.checkRight()}"/>
-    </f:metadata>
-  </h:head>
-  <h:body>
-    <ui:insert name="header" >
-      <ui:include src="components/header.xhtml" />
-    </ui:insert>
-    <section>
-      <div class="container">
-	<div class="well">
-	  <h2 class="form-signin-heading">Recuperation du mot de passe</h2>
-	  <h:form>
-	    <div class="row">
-	      <div class="form-group">
-		<h:outputLabel class="col-md-5 form-label" for="newPassword">Nouveau mot de passe <i class="required">*</i> : </h:outputLabel>
-		<div class="col-md-7">
-		  <h:inputSecret id="newPassword" class="form-control" value="#{forgotPassManagedBean.p1}" p:placeholder="Mot de passe" />
+	<f:metadata>
+	    <f:viewParam name="c" value="#{forgotPassManagedBean.code}" />
+	    <f:event type="preRenderView" listener="#{forgotPassManagedBean.checkParam()}"/>
+	    <f:event type="preRenderView" listener="#{sessionManagedBean.checkRight()}"/>
+	</f:metadata>
+    </h:head>
+    <h:body>
+	<ui:insert name="header" >
+	    <ui:include src="components/header.xhtml" />
+	</ui:insert>
+	<section>
+	    <div class="container">
+		<div class="well">
+		    <h2 class="well-title">#{msg['retrieve-pass-title']}</h2>
+		    <h:form>
+			<div class="row">
+			    <div class="form-group">
+				<h:outputLabel class="col-md-5 form-label" for="newPassword">#{msg['retrieve-pass-new']} <i class="required">*</i> : </h:outputLabel>
+				<div class="col-md-7">
+				    <h:inputSecret id="newPassword" class="form-control" value="#{forgotPassManagedBean.p1}" p:placeholder="#{msg['password']}" />
+				</div>
+			    </div>
+			</div>
+			<div class="row row-margin-top">
+			    <div class="form-group">
+				<h:outputLabel class="col-md-5 form-label" for="conf_pass">#{msg['retrieve-pass-conf']} <i class="required">*</i> : </h:outputLabel>
+				<div class="col-md-7">
+				    <h:inputSecret id="conf_password" class="form-control" value="#{forgotPassManagedBean.p2}"  p:placeholder="#{msg['password']}" p:required="required" />
+				</div>
+			    </div>
+			</div>
+			<h:inputHidden id="code" class="form-control" value="#{forgotPassManagedBean.code}" />
+			<div class="row row-margin-top">
+			    <span class="col-md-5"></span>
+			    <div class="col-md-7">
+				<a href="#{msg['page-index']}.xhtml" class="btn btn-primary col-md-3  btn-space">#{msg['cancel']}</a>
+				<h:commandButton class="btn btn-primary" value="#{msg['retrieve-pass-change']}" action="#{forgotPassManagedBean.change()}"/>
+			    </div>
+			</div>
+		    </h:form>
+
 		</div>
-	      </div>
 	    </div>
-	    <div class="row">
-	      <div class="form-group">
-		<h:outputLabel class="col-md-5 form-label" for="conf_pass">Confirmation mot de passe <i class="required">*</i> : </h:outputLabel>
-		<div class="col-md-7">
-		  <h:inputSecret id="conf_password" class="form-control" value="#{forgotPassManagedBean.p2}"  p:placeholder="Confirmation mot de passe" p:required="required" />
-		</div>
-	      </div>
-	    </div>
-	    <h:inputHidden id="code" class="form-control" value="#{forgotPassManagedBean.code}" />
-	    <div class="row" style="margin-top: 5px">
-	      <span class="col-md-5"></span>
-	      <div class="col-md-7">
-		<a href="index.xhtml" class="btn btn-primary col-md-3  btn-space">Annuler</a>
-		<h:commandButton class="btn btn-primary" value="Changer de mot de passe" action="#{forgotPassManagedBean.change()}"/>
-	      </div>
-	    </div>
-	  </h:form>
-	 
-	</div>
-      </div>
-    </section>
-    <script src="js/signup.js"></script>
-    <ui:insert name="footer" >
-      <ui:include src="components/footer.xhtml" />
-    </ui:insert>
-  </h:body>
+	</section>
+	<script src="js/signup.js"></script>
+	<ui:insert name="footer" >
+	    <ui:include src="components/footer.xhtml" />
+	</ui:insert>
+    </h:body>
 </html>

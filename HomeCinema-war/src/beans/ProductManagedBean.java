@@ -144,9 +144,10 @@ public class ProductManagedBean {
 	}
 	double reduc = pdto.price / price * 100;
 	int pr_reduc = (100 - (int) reduc);
-	if (pr_reduc < 0)
+	if (pr_reduc < 0) {
 	    return "+" + Math.abs(pr_reduc);
-	else
+	} else {
 	    return "-" + pr_reduc;
+	}
     }
 }

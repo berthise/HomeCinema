@@ -4,12 +4,11 @@
   xmlns="http://www.w3.org/1999/xhtml"
   xmlns:ui="http://java.sun.com/jsf/facelets"
   xmlns:h="http://java.sun.com/jsf/html"
-  xmlns:f="http://java.sun.com/jsf/core"
-  xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+  xmlns:f="http://java.sun.com/jsf/core">
   <h:head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title></title>
+    <title>HomeCinéma - #{msg['activate-title']}</title>
     <meta name="description" content=""/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
@@ -35,8 +34,8 @@
       <div class="container">
 	<!--<div class="well">-->
 	<center>
-	  <a href="index.xhtml" class="btn btn-success btn-lg btn-space">Accueil</a>
-	  <a href="login.xhtml" class="btn btn-success btn-lg">Connexion</a>
+	    <a href="#{msg['page-index']}.xhtml" class="btn btn-success btn-lg btn-space">#{msg['menu-accueil']}</a>
+	    <a href="#{msg['page-login']}.xhtml" class="btn btn-success btn-lg">#{msg['connexion']}</a>
 	</center>
 	<!--</div>-->
       </div>

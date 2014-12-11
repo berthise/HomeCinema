@@ -111,14 +111,14 @@ public class FilmManagedBean {
     }
 
     public String getLinkToFiche() {
-	return "<a title=\"" + Lang.getString("fiche-film-see") + "\" href=\""+Pages.FICHE_FILM+"?id=" + fdto.id + "\"/>" + fdto.title + "</a>";
+	return "<a title=\"" + Lang.getString("fiche-film-see") + "\" href=\"" + Pages.FICHE_FILM + "?id=" + fdto.id + "\"/>" + fdto.title + "</a>";
     }
 
     public String getLinkToDownload() {
 	return this.fdto.title.replaceAll(" ", "_") + ".mp4";
     }
-    
-    public String getUrlDownload(){
+
+    public String getUrlDownload() {
 	return this.fdto.files.get(0).url;
     }
 
@@ -171,7 +171,7 @@ public class FilmManagedBean {
 	if (toReturn.length() > 0) {
 	    return toReturn;
 	} else {
-	    return "<span class=\"list-genres-crew\">" + Lang.getString("inconnu") +"</span>";
+	    return "<span class=\"list-genres-crew\">" + Lang.getString("inconnu") + "</span>";
 	}
     }
 
@@ -184,7 +184,7 @@ public class FilmManagedBean {
 	if (toReturn.length() > 0) {
 	    return toReturn;
 	} else {
-	    return "<span class=\"list-genres-crew\">" + Lang.getString("inconnu") +"</span>";
+	    return "<span class=\"list-genres-crew\">" + Lang.getString("inconnu") + "</span>";
 	}
     }
 
@@ -197,8 +197,8 @@ public class FilmManagedBean {
 	if (toReturn.length() > 0) {
 	    return toReturn;
 	} else {
-	    return "<span class=\"list-genres-crew\">" + Lang.getString("inconnu") +"</span>";
+	    return "<span class=\"list-genres-crew\">" + Lang.getString("inconnu") + "</span>";
 	}
     }
-    
+
 }

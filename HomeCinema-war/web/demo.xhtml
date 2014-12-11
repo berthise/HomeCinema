@@ -8,7 +8,7 @@
   <h:head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title></title>
+    <title>HomeCinéma - #{msg['demo-title']}</title>
     <meta name="description" content=""/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
@@ -30,13 +30,13 @@
       <div class="container">
 
 	<div id="ba" class="well">
-	  <h2 class="well-title"><strong>Vidéo de démonstration</strong></h2>
+	  <h2 class="well-title"><strong>#{msg['demo-title']}</strong></h2>
 
 	  <video id="myVideo" width="100%" controls="controls">
 	    <source src="http://techslides.com/demos/sample-videos/small.mp4" type="video/mp4" />
 	  </video>
 
-	  <a class="go-top" href="#top"><img src="img/arrowUp.png" /></a>
+	  <a class="go-top" title="#{msg['allpage-top']}" href="#top"><img src="img/arrowUp.png" /></a>
 
 	</div>
       </div>

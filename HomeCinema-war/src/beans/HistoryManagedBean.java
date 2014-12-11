@@ -36,7 +36,7 @@ public class HistoryManagedBean {
 	this.ltdto = Ejbs.user().getTransaction(idUser,lang.getLang());
 	return ltdto.size();
     }
-    
+
     public List<TransactionDto> getListTransaction() {
 	return ltdto;
     }

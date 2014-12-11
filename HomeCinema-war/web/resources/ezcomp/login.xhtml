@@ -6,68 +6,80 @@
       xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
-  <!-- INTERFACE -->
-  <cc:interface>
-    <cc:attribute name="tabidx" type="Integer" default="1000"/>
-    <cc:attribute name="short" type="Boolean" default="false"/>
-  </cc:interface>
+    <!-- INTERFACE -->
+    <cc:interface>
+	<cc:attribute name="tabidx" type="Integer" default="1000"/>
+	<cc:attribute name="short" type="Boolean" default="false"/>
+    </cc:interface>
 
-  <!-- IMPLEMENTATION -->
-  <cc:implementation>
-    <!--    <f:view>
-	      <f:event type="preRenderComponent" listener="#{!sessionManagedBean.checkRight()}"/>
-	</f:view>-->
-    <c:choose>
-      <c:when test="#{!cc.attrs.short}">
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+	<c:choose>
+	    <c:when test="#{!cc.attrs.short}">
 
-	<h:form role="form">
-	  <div class="row">
-	    <div class="col-md-6 col-md-offset-3">
-	      <legend>Informations compte</legend>
-	      <div class="row">
-		<div class="form-group">
-		  <h:outputLabel class="col-md-5 form-label" for="email">Email/Login <i class="required">*</i> : </h:outputLabel>
-		  <div class="col-md-7">
-		    <h:inputText id="email" class="form-control" value="#{loginManagedBean.email}" tabindex="500" p:placeholder="Adresse e-mail" p:required="required" />
-		  </div>
-		</div>
-	      </div>
-	      <div class="row">
-		<div class="form-group">
-		  <h:outputLabel class="col-md-5 form-label" for="password">Mot de passe <i class="required">*</i> : </h:outputLabel>
-		  <div class="col-md-7">
-		    <h:inputSecret id="password" class="form-control" value="#{loginManagedBean.password}" tabindex="510"  p:placeholder="Mot de passe" 
-				   p:required="required" p:pattern=".{6,}" p:title="6 caractères minimum" />
-		  </div>
-		</div>
-	      </div>
-	      <div class="row">
-		<span class="pull-right forgot">
-		  <a href="forgot_pass.xhtml" tabindex="600" >Mot de passe oublié ?</a>
-		</span>
-	      </div>
-	      <div class="row">
-		<div class="col-md-3"></div>
-		<h:commandButton class="btn btn-primary col-md-4" p:type="reset" value="Réinitialiser" tabindex="530" />
-		<h:commandButton class="btn btn-success col-md-4" value="Connexion" action="#{loginManagedBean.login}" tabindex="520" />
-	      </div>
-	    </div>
-	  </div>
-	</h:form>
-      </c:when>
-      <c:otherwise>
-	<h:form role="form">
-	  <h:messages for="login" infoClass="info" />
-	  <div class="form-group">
-	    <h:inputText id="email" value="#{loginManagedBean.email}" class="form-control input-sm" p:placeholder="#{msg['header-email']}" tabindex="#{cc.attrs.tabidx}"/>
-	  </div>
-	  <div class="form-group">
-	    <h:inputSecret id="password" value="#{loginManagedBean.password}" class="form-control input-sm" p:placeholder="#{msg['header-mdp']}" tabindex="#{cc.attrs.tabidx+1}"/>
-	  </div>
-	  <h:commandButton class="btn btn-success btn-sm btn-block" value="#{msg['connexion']}" action="#{loginManagedBean.login}" tabindex="#{cc.attrs.tabidx+2}"/>
-	</h:form>
-      </c:otherwise>
-    </c:choose>
+		<h:form role="form">
+		    <div class="row">
+			<div class="col-md-6 col-md-offset-3">
+			    <legend>#{msg['login-infos']}</legend>
+			    <div class="row">
+				<div class="form-group">
+				    <h:outputLabel class="col-md-5 form-label" for="email">#{msg['email']} <i class="required">*</i> : </h:outputLabel>
+				    <div class="col-md-7">
+					<h:inputText id="email" class="form-control" value="#{loginManagedBean.email}" tabindex="500" p:placeholder="#{msg['email-placeholder']}" p:required="required" />
+				    </div>
+				</div>
+			    </div>
+			    <div class="row">
+				<div class="form-group">
+				    <h:outputLabel class="col-md-5 form-label" for="password">#{msg['password']} <i class="required">*</i> : </h:outputLabel>
+				    <div class="col-md-7">
+					<h:inputSecret id="password" class="form-control" value="#{loginManagedBean.password}" tabindex="510"  p:placeholder="#{msg['password']}" 
+						       p:required="required" p:pattern=".{6,}" p:title="#{msg['password-required']}" />
+				    </div>
+				</div>
+			    </div>
+			    <div class="row">
+				<span class="pull-right forgot">
+				    <a href="#{msg['page-forgot-pass']}.xhtml" tabindex="600" >#{msg['forgot-ask']}?</a>
+				</span>
+			    </div>
+			    <div class="row">
+				<div class="col-md-3"></div>
+				<h:commandButton class="btn btn-primary col-md-4" p:type="reset" value="#{msg['reset']}" tabindex="530" />
+				<h:commandButton class="btn btn-success col-md-4" value="#{msg['connexion']}" action="#{loginManagedBean.login}" tabindex="520" />
+			    </div>
+			</div>
+		    </div>
+		</h:form>
+	    </c:when>
+	    <c:otherwise>
+		<h:form role="form">
+		    <h:messages for="login" infoClass="info" />
+		    <div id="warning-http" style="display: none" class="alert alert-danger">
+		      #{msg['header-warning-http']} <br/>
+		      <a id="warning-http-lien" href="#">#{msg['header-warning-http-lien']}</a>
+		    </div>
+		    <div class="form-group">
+			<h:inputText id="email" value="#{loginManagedBean.email}" class="form-control input-sm" p:placeholder="#{msg['header-email']}" tabindex="#{cc.attrs.tabidx}"/>
+		    </div>
+		    <div class="form-group">
+			<h:inputSecret id="password" value="#{loginManagedBean.password}" class="form-control input-sm" p:placeholder="#{msg['header-mdp']}" tabindex="#{cc.attrs.tabidx+1}"/>
+		    </div>
+		    <h:commandButton class="btn btn-success btn-sm btn-block" value="#{msg['connexion']}" action="#{loginManagedBean.login}" tabindex="#{cc.attrs.tabidx+2}"/>
+		    <ul>
+		      <li>
+		        <a href="#{msg['page-forgot-pass']}.xhtml" 
+			   tabindex="#{cc.attrs.tabidx+3}" >#{msg['forgot-ask']}?</a>
+		      </li>
+		      <li>
+		        <a href="#{msg['page-login']}.xhtml" 
+			   tabindex="#{cc.attrs.tabidx+4}" >#{msg['header-got-to-connexion-page']}</a>
+		      </li>
+		    </ul>
 
-  </cc:implementation>
+		</h:form>
+	    </c:otherwise>
+	</c:choose>
+
+    </cc:implementation>
 </html>

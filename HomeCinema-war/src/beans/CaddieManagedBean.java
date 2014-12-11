@@ -17,6 +17,7 @@ import javax.faces.bean.ViewScoped;
 import javax.naming.NamingException;
 import static utils.Beans.findBean;
 import static utils.Beans.getRequestPage;
+import utils.Lang;
 import utils.Message;
 import utils.Pages;
 import utils.Redirect;
@@ -58,7 +59,6 @@ LanguageManagedBean lang = findBean("languageManagedBean");
 
 	public Integer getNbRows() {
 	    return (this.films.size() > 1) ? this.films.size() + 1 : 1;
-	    //return this.films.size() + 1; // Si produit + film
 	}
     }
 
@@ -122,7 +122,7 @@ LanguageManagedBean lang = findBean("languageManagedBean");
 	SessionManagedBean session = findBean("sessionManagedBean");
 	this.cdto = Ejbs.transaction().addProduct(session.getId(), idproduct,lang.getLang());
 	session.caddySizePlus();
-	Message.Info("Succès de l'ajout !");
+	Message.Info(Lang.getString("caddie-bean-info"));
 	Redirect.redirectTo(Pages.FICHE_FILM + "?id=" + idfilm);
     }
 
@@ -172,7 +172,7 @@ LanguageManagedBean lang = findBean("languageManagedBean");
 		}
 		break;
 	}
-	Message.Info("Succès de l'ajout !");
+	Message.Info(Lang.getString("caddie-bean-info"));
 	Redirect.redirectTo(Pages.FICHE_PRODUCT + "?id=" + idproduct);
     }
 
