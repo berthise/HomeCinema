@@ -63,7 +63,9 @@
                                 <li class="#{(active == 'index')? 'active' : ''}"><a href="/HomeCinema-war/"><i class="decale-right glyphicon glyphicon-home"></i> <h:outputText value="#{msg['menu-accueil']}" /></a></li>
                                 <li class="#{(active == 'films')? 'active' : ''}"><a href="films.xhtml?tab=all"><i class="decale-right glyphicon glyphicon-facetime-video"></i> <h:outputText value="#{msg['menu-films']}" /></a></li>
                                 <li class="#{(active == 'faq')? 'active' : ''}"><a href="faq.xhtml"><i class="decale-right glyphicon glyphicon-info-sign"></i> <h:outputText value="#{msg['menu-faq']}" /></a></li>
-                                <li class="#{(active == 'demo')? 'active' : ''}"><a href="demo.xhtml"><i class="decale-right glyphicon glyphicon-wrench"></i> <h:outputText value="#{msg['menu-demo']}" /></a></li>
+                                <h:panelGroup rendered="#{sessionManagedBean.id == null}">
+                                    <li class="#{(active == 'demo')? 'active' : ''}"><a href="demo.xhtml"><i class="decale-right glyphicon glyphicon-wrench"></i> <h:outputText value="#{msg['menu-demo']}" /></a></li>
+                                </h:panelGroup>
                                 <h:panelGroup rendered="#{sessionManagedBean.id != null}">
                                     <li class="#{(active == 'moncompte')? 'active' : ''}"><a href="moncompte.xhtml"><i class="decale-right glyphicon glyphicon-folder-open"></i> <h:outputText value="#{msg['menu-compte']}" /></a></li>
                                 </h:panelGroup>

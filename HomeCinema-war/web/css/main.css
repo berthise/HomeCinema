@@ -74,6 +74,11 @@ body {
         color: #fff;
         text-decoration: none;
         padding: 0 10px; }
+    body header .navbar-nav {
+      border-right: 1px solid #ced1d4; }
+      body header .navbar-nav a {
+        border-left: 1px solid #ced1d4;
+        margin: 0; }
     body header nav ul form {
       display: inline; }
     body header #form-login {

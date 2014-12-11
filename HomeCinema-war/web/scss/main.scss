@@ -107,6 +107,13 @@ body {
                 padding: 0 10px;
             }
         }
+        .navbar-nav {
+            a {
+                border-left: 1px solid #ced1d4;
+                margin: 0;
+            }
+            border-right: 1px solid #ced1d4;
+        }
         nav ul form {
             display: inline;
         }
