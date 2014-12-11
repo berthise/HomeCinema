@@ -34,7 +34,11 @@
         <web-resource-collection>
             <web-resource-name>secure</web-resource-name>
             <description/>
-            <url-pattern>/secure/*</url-pattern>
+            <url-pattern>/signup.xhtml</url-pattern>
+	    <url-pattern>/login.xhtml</url-pattern>
+            <url-pattern>/paiement.xhtml</url-pattern>
+            <url-pattern>/retrieve_pass.xhtml</url-pattern>
+            <url-pattern>/forgot_pass.xhtml</url-pattern>
         </web-resource-collection>
         <user-data-constraint>
             <description/>
