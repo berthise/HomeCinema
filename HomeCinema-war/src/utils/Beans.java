@@ -15,7 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 public class Beans {
 
   // TODO
-  private final static String prefix = Pages.ROOT;
+  private final static String prefix = 
+	  FacesContext.getCurrentInstance().getExternalContext().getApplicationContextPath() + '/';
 
   @SuppressWarnings("unchecked")
   public static <T> T findBean(String beanName) {

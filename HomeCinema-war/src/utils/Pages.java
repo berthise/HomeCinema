@@ -5,16 +5,21 @@
  */
 package utils;
 
+import javax.faces.context.FacesContext;
+
 /**
  *
  * @author seb
  */
 public class Pages {
-
-    //public final static String DOMAIN = "www-homecinema.ddns.net";
-    public final static String DOMAIN = "localhost";
-
-    public final static String ROOT = "/HomeCinema-war/";
+  
+  public static String getURI(Boolean sec) {
+    String server_name =  FacesContext.getCurrentInstance().getExternalContext().getRequestServerName();
+    Integer server_port = FacesContext.getCurrentInstance().getExternalContext().getRequestServerPort();
+    String context = FacesContext.getCurrentInstance().getExternalContext().getApplicationContextPath();
+    String prot = (server_port == 443 || sec ) ? "https://" : "http://";
+    return prot + server_name  + context;
+  }
 
     public final static String NOT_FOUND = "404.xhtml";
     public final static String DEMO = "demo.xhtml";

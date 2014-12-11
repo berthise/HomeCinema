@@ -33,7 +33,7 @@ public class ActivateUserManagedBean {
     private final static String CODE = "c";
 
     public static String getUrl(Long id, String code) {
-	return "http://" + Pages.DOMAIN + Pages.ROOT + Pages.ACTIVATE + "?" + ActivateUserManagedBean.USER + "="
+	return Pages.getURI(true) + "/" + Pages.ACTIVATE + "?" + ActivateUserManagedBean.USER + "="
 		+ id + "&" + ActivateUserManagedBean.CODE + "=" + code;
     }
 
