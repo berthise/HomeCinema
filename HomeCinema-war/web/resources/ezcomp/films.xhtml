@@ -13,10 +13,10 @@
     <!-- IMPLEMENTATION -->
     <cc:implementation>
 	<div>
-	    <h3><img src="img/film-icon.png" title="Films"/>Films</h3>
+	    <h3><img src="img/film-icon.png" title="Films"/>#{msg['compte-films']}</h3>
 	    <c:choose>
 		<c:when test="#{historyManagedBean.counter(cc.attrs.userId) eq 0}" >
-		    <td>Votre liste de films est vide ... <a href="films.xhtml">Cliquez ici pour trouver des films !</a></td>                                        
+		    <td>#{msg['account-films']} <a href="#{msg['page-films']}.xhtml">#{msg['account-films-link']}</a></td>                                        
 		</c:when>
 		<c:otherwise>
 		    <table>
@@ -31,9 +31,9 @@
 				    </span>
 				</td>
 				<td>                 
-				    <a title="Voir la fiche du film" href="fiche_film.xhtml?id=#{o.id}">#{o.title} (#{o.getReleaseDateString('YYYY')})</a>
+				    <a title="#{msg['fiche-film-see']}" href="#{msg['page-fiche-film']}.xhtml?id=#{o.id}">#{o.title} (#{o.getReleaseDateString('YYYY')})</a>
 				</td>
-				<td><a href="visionneuse.xhtml?id=#{o.id}"><img src="img/eye.png" title="Voir le film" /></a></td>
+				<td><a href="#{msg['page-visio']}.xhtml?id=#{o.id}"><img src="img/eye.png" title="#{msg['account-films-voir']}" /></a></td>
 			    </tr>
 			</ui:repeat>
 		    </table>

@@ -7,6 +7,10 @@ body {
   min-height: 800px; }
   body .textarea-noresizing {
     resize: none; }
+  body .row-margin-top {
+    margin-top: 15px; }
+  body i.required {
+    color: red; }
   body .badge-faq {
     margin-right: 10px;
     position: relative;
@@ -145,8 +149,6 @@ body {
       width: 80%; }
     body section .form-signin input[type="reset"] {
       margin: 0 15px; }
-    body section .form-signin i.required {
-      color: red; }
   body section .toggle-row {
     margin-top: 5px;
     margin-bottom: 5px;

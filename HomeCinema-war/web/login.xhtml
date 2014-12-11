@@ -1,45 +1,45 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html
-  xmlns="http://www.w3.org/1999/xhtml"
-  xmlns:ui="http://java.sun.com/jsf/facelets"
-  xmlns:h="http://java.sun.com/jsf/html"
-  xmlns:ez="http://xmlns.jcp.org/jsf/composite/ezcomp"
-  xmlns:f="http://xmlns.jcp.org/jsf/core">
-  <h:head>
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title></title>
-    <meta name="description" content=""/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ez="http://xmlns.jcp.org/jsf/composite/ezcomp"
+    xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+	<meta charset="utf-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+	<title>HomeCinéma - #{msg['connexion']}</title>
+	<meta name="description" content=""/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-    <link rel="stylesheet" href="css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="css/bootstrap-theme.min.css"/>
-    <link rel="stylesheet" href="css/main.css"/>
+	<link rel="stylesheet" href="css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="css/bootstrap-theme.min.css"/>
+	<link rel="stylesheet" href="css/main.css"/>
 
-    <f:metadata>
-      <f:event type="preRenderView" listener="#{sessionManagedBean.checkRight()}"/>
-    </f:metadata>
-  </h:head>
-  <h:body>
-    <ui:insert name="header" >
-      <ui:include src="components/header.xhtml" />
-    </ui:insert>
-    <section>
-      <div class="container">
-	<div class="well">
-	  <div class="row">
-	    <div class="col-lg-10 form-signin">
-	      <h2 class="form-signin-heading">S'identifier</h2>
-	      <ez:login short="false"/>
+	<f:metadata>
+	    <f:event type="preRenderView" listener="#{sessionManagedBean.checkRight()}"/>
+	</f:metadata>
+    </h:head>
+    <h:body>
+	<ui:insert name="header" >
+	    <ui:include src="components/header.xhtml" />
+	</ui:insert>
+	<section>
+	    <div class="container">
+		<div class="well">
+		    <div class="row">
+			<div class="col-lg-10 form-signin">
+			    <h2 class="form-signin-heading">#{msg['login-identification']}</h2>
+			    <ez:login short="false"/>
+			</div>
+		    </div>
+		</div>
 	    </div>
-	  </div>
-	</div>
-      </div>
-    </section>
-    <script src="js/signup.js"></script>
-    <ui:insert name="footer" >
-      <ui:include src="components/footer.xhtml" />
-    </ui:insert>
-  </h:body>
+	</section>
+	<script src="js/signup.js"></script>
+	<ui:insert name="footer" >
+	    <ui:include src="components/footer.xhtml" />
+	</ui:insert>
+    </h:body>
 </html>

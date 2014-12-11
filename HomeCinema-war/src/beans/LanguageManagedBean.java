@@ -38,7 +38,7 @@ public class LanguageManagedBean {
 
     public void countryLocaleCodeChanged(String newLocaleValue) {
 	setLocaleCode(newLocaleValue);
-	
+
 	for (Map.Entry<String, Object> entry : countries.entrySet()) {
 	    if (entry.getValue().toString().equals(newLocaleValue)) {
 		FacesContext.getCurrentInstance().getViewRoot().setLocale((Locale) entry.getValue());

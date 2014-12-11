@@ -1,117 +1,115 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html
-  xmlns="http://www.w3.org/1999/xhtml"
-  xmlns:ui="http://java.sun.com/jsf/facelets"
-  xmlns:h="http://java.sun.com/jsf/html"
-  xmlns:f="http://java.sun.com/jsf/core"
-  xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
-  xmlns:ez="http://xmlns.jcp.org/jsf/composite/ezcomp">
-  <h:head>
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title></title>
-    <meta name="description" content=""/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+    xmlns:ez="http://xmlns.jcp.org/jsf/composite/ezcomp">
+    <h:head>
+	<meta charset="utf-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+	<title>HomeCinéma - #{msg['paiement-title']}</title>
+	<meta name="description" content=""/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-    <link rel="stylesheet" href="css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="css/bootstrap-theme.min.css"/>
-    <link rel="stylesheet" href="css/main.css"/>
+	<link rel="stylesheet" href="css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="css/bootstrap-theme.min.css"/>
+	<link rel="stylesheet" href="css/main.css"/>
 
-    <h:outputStylesheet library="css" name="paiement.css" />
+	<h:outputStylesheet library="css" name="paiement.css" />
 
-    <f:metadata>
-      <!--<f:event type="preRenderView" listener="#{sessionManagedBean.tmpLogin()}"/>-->
-      <f:event type="preRenderView" listener="#{sessionManagedBean.checkRight()}"/>
-      <!--<f:event type="preRenderView" listener="#{sessionManagedBean.checkCaddyPaiement()}"/>-->
-    </f:metadata>
+	<f:metadata>
+	    <f:event type="preRenderView" listener="#{sessionManagedBean.checkRight()}"/>
+	</f:metadata>
 
-  </h:head>
-  <h:body id="top">
-    <ui:insert name="header" >
-      <ui:include src="components/header.xhtml" />
-    </ui:insert>
+    </h:head>
+    <h:body id="top">
+	<ui:insert name="header" >
+	    <ui:include src="components/header.xhtml" />
+	</ui:insert>
 
-    <section>
-      <div class="container">
+	<section>
+	    <div class="container">
 
-	<div class="well">
-	  <h2 class="well-title">Paiement</h2>
+		<div class="well">
+		    <h2 class="well-title">#{msg['paiement-title']}</h2>
 
-	  <div class="box-left" id="box-paiement">
-	    <h3><img src="img/cart-icon.png" title="Paiement"/>Paiement</h3>
-	    <h:form role="form" id="paiement">
-	      <div class="row">
-		<div class="form-group">
-		  <h:outputLabel class="col-md-5 form-label" for="type">Type de carte <i class="required">*</i> : </h:outputLabel>
-		  <div class="col-md-7">
-		    <h:selectOneRadio id="typeCarte" value="#{paymentManagedBean.pdto.type}" p:required="required">
-		      <f:selectItems value="#{paymentManagedBean.cardTypes}" var="currentType"  itemValue="#{currentType}" itemLabel="#{currentType.label}"/>
-		    </h:selectOneRadio>
-		  </div>
+		    <div class="box-left" id="box-paiement">
+			<h3><img src="img/buy-icon.png"/>#{msg['paiement-title']}</h3>
+			<h:form role="form" id="paiement">
+			    <div class="row">
+				<div class="form-group">
+				    <h:outputLabel class="col-md-5 form-label" for="type">#{msg['paiement-card']} <i class="required">*</i> : </h:outputLabel>
+				    <div class="col-md-7">
+					<h:selectOneRadio id="typeCarte" value="#{paymentManagedBean.pdto.type}" p:required="required">
+					    <f:selectItems value="#{paymentManagedBean.cardTypes}" var="currentType"  itemValue="#{currentType}" itemLabel="#{currentType.label}"/>
+					</h:selectOneRadio>
+				    </div>
+				</div>
+			    </div>
+			    <div class="row">
+				<div class="form-group">
+				    <h:outputLabel class="col-md-5 form-label" for="numCarte">#{msg['paiement-num-card']} <i class="required">*</i> : </h:outputLabel>
+				    <div class="col-md-7">
+					<h:inputText tabindex="20" id="numCarte" class="form-control" value="#{paymentManagedBean.pdto.numCarte}"
+						     p:placeholder="#{msg['paiement-num-card-placeholder']}" p:required="required" maxlength="16"
+						     p:pattern="[0-9]{16}" p:title="#{msg['paiement-num-card-required']}"/>
+				    </div>
+				</div>
+			    </div>
+			    <div class="row">
+				<div class="form-group">
+				    <h:outputLabel class="col-md-5 form-label" for="cryptogramme">#{msg['paiement-num-card-crypto']} <i class="required">*</i> : </h:outputLabel>
+				    <div class="col-md-7">
+					<h:inputText tabindex="25" id="cryptogramme" class="form-control" value="#{paymentManagedBean.pdto.cryptogramme}" 
+						     p:placeholder="#{msg['paiement-num-card-crypto']}" p:required="required"  maxlength="3"
+						     p:pattern="[0-9]{3}" p:title="#{msg['paiement-num-card-crypto-required']}"/>
+				    </div>
+				</div>
+			    </div>
+			    <div class="row">
+				<div class="form-group">
+				    <h:outputLabel class="col-md-5 form-label" for="expireDate">#{msg['paiement-num-card-date']} <i class="required">*</i> : </h:outputLabel>
+				    <div class="col-md-7">
+					<h:selectOneMenu id="expireDateMonth" value="#{paymentManagedBean.pdto.month}" p:required="required" tabindex="30">
+					    <f:selectItems value="#{paymentManagedBean.months}" var="currentMonth" itemValue="#{currentMonth}" itemLabel="#{currentMonth}" />
+					</h:selectOneMenu>/
+					<h:selectOneMenu id="expireDateYear" value="#{paymentManagedBean.pdto.year}" p:required="required" tabindex="31">
+					    <f:selectItems value="#{paymentManagedBean.years}" var="currentYear" itemValue="#{currentYear}" itemLabel="#{currentYear}" />
+					</h:selectOneMenu>
+				    </div>
+				</div>
+			    </div>
+			    <div class="row">
+				<span class="col-md-3"></span>
+				<h:commandButton action="#{paymentManagedBean.cancel()}" value="#{msg['cancel']}"
+						 title="#{msg['paiment-cancel']}" class="btn btn-primary col-md-3  btn-space" 
+						 tabindex="52">
+				    <f:ajax/>
+				</h:commandButton>
+
+				<h:commandButton action="#{paymentManagedBean.buy()}" value="#{msg['valider']}"
+						 title="#{msg['paiment-valider']}" class="btn btn-success col-md-3" 
+						 tabindex="50"/>
+			    </div>
+			</h:form>
+		    </div>
+
+
+		    <div class="box-right">
+			<ez:caddie title="#{msg['compte-caddie']}" userId="#{sessionManagedBean.id}" recap="true"/>
+		    </div>
+		    <div id="bottom">
+			<a class="go-top" href="#top" title="#{msg['allpage-top']}"><img src="img/arrowUp.png" /></a>                        
+		    </div>                        
 		</div>
-	      </div>
-	      <div class="row">
-		<div class="form-group">
-		  <h:outputLabel class="col-md-5 form-label" for="numCarte">Numero de carte <i class="required">*</i> : </h:outputLabel>
-		  <div class="col-md-7">
-		    <h:inputText tabindex="20" id="numCarte" class="form-control" value="#{paymentManagedBean.pdto.numCarte}"
-				 p:placeholder="Numero de la carte bancaire" p:required="required" maxlength="16"
-				 p:pattern="[0-9]{16}" p:title="16 ciffres collés"/>
-		  </div>
-		</div>
-	      </div>
-	      <div class="row">
-		<div class="form-group">
-		  <h:outputLabel class="col-md-5 form-label" for="cryptogramme">Cryptogramme <i class="required">*</i> : </h:outputLabel>
-		  <div class="col-md-7">
-		    <h:inputText tabindex="25" id="cryptogramme" class="form-control" value="#{paymentManagedBean.pdto.cryptogramme}" 
-				 p:placeholder="Crypto code" p:required="required"  maxlength="3"
-				 p:pattern="[0-9]{3}" p:title="3 chiffres"/>
-		  </div>
-		</div>
-	      </div>
-	      <div class="row">
-		<div class="form-group">
-		  <h:outputLabel class="col-md-5 form-label" for="expireDate">Date d'expiration <i class="required">*</i> : </h:outputLabel>
-		  <div class="col-md-7">
-		    <h:selectOneMenu id="expireDateMonth" value="#{paymentManagedBean.pdto.month}" p:required="required" tabindex="30">
-		      <f:selectItems value="#{paymentManagedBean.months}" var="currentMonth" itemValue="#{currentMonth}" itemLabel="#{currentMonth}" />
-		    </h:selectOneMenu>/
-		    <h:selectOneMenu id="expireDateYear" value="#{paymentManagedBean.pdto.year}" p:required="required" tabindex="31">
-		      <f:selectItems value="#{paymentManagedBean.years}" var="currentYear" itemValue="#{currentYear}" itemLabel="#{currentYear}" />
-		    </h:selectOneMenu>
-		  </div>
-		</div>
-	      </div>
-	      <div class="row">
-		<span class="col-md-3"></span>
-		<h:commandButton action="#{paymentManagedBean.cancel()}" value="Annuler"
-				 title="Annuler le paiement" class="btn btn-primary col-md-3  btn-space" 
-				 tabindex="52">
-		  <f:ajax/>
-		</h:commandButton>
-		  
-		<h:commandButton action="#{paymentManagedBean.buy()}" value="Payer"
-				 title="Valider le paiement" class="btn btn-success col-md-3" 
-				 tabindex="50"/>
-	      </div>
-	    </h:form>
-	  </div>
 
-
-	  <div class="box-right">
-	    <ez:caddie title="Caddie" userId="#{sessionManagedBean.id}" recap="true"/>
-	  </div>
-	  <div id="bottom">
-	    <a class="go-top" href="#top" title="Vers le haut"><img src="img/arrowUp.png" /></a>                        
-	  </div>                        
-	</div>
-
-      </div>
-    </section>
-    <ui:insert name="footer" >
-      <ui:include src="components/footer.xhtml" />
-    </ui:insert>
-  </h:body>
+	    </div>
+	</section>
+	<ui:insert name="footer" >
+	    <ui:include src="components/footer.xhtml" />
+	</ui:insert>
+    </h:body>
 </html>

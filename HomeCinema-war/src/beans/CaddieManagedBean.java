@@ -17,6 +17,7 @@ import javax.faces.bean.ViewScoped;
 import javax.naming.NamingException;
 import static utils.Beans.findBean;
 import static utils.Beans.getRequestPage;
+import utils.Lang;
 import utils.Message;
 import utils.Pages;
 import utils.Redirect;
@@ -56,7 +57,6 @@ public class CaddieManagedBean {
 
 	public Integer getNbRows() {
 	    return (this.films.size() > 1) ? this.films.size() + 1 : 1;
-	    //return this.films.size() + 1; // Si produit + film
 	}
     }
 
@@ -120,7 +120,7 @@ public class CaddieManagedBean {
 	SessionManagedBean session = findBean("sessionManagedBean");
 	this.cdto = Ejbs.transaction().addProduct(session.getId(), idproduct);
 	session.caddySizePlus();
-	Message.Info("Succès de l'ajout !");
+	Message.Info(Lang.getString("caddie-bean-info"));
 	Redirect.redirectTo(Pages.FICHE_FILM + "?id=" + idfilm);
     }
 
@@ -170,7 +170,7 @@ public class CaddieManagedBean {
 		}
 		break;
 	}
-	Message.Info("Succès de l'ajout !");
+	Message.Info(Lang.getString("caddie-bean-info"));
 	Redirect.redirectTo(Pages.FICHE_PRODUCT + "?id=" + idproduct);
     }
 

@@ -11,6 +11,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -40,12 +41,12 @@ public class Person implements Serializable {
   private String name;
   
 @JoinTable(name="ACTORS")
-  @ManyToMany(mappedBy = "actors")
+  @ManyToMany(mappedBy = "actors",fetch=FetchType.LAZY)
   @JoinColumn(name = "IS_ACTOR_OF")
   private Set<Film> is_actor_of;
 
   @JoinTable(name="DIRECTORS")
-  @ManyToMany(mappedBy = "directors")
+  @ManyToMany(mappedBy = "directors" ,fetch=FetchType.LAZY)
   @JoinColumn(name = "IS_DIRECTOR_OF")
   private Set<Film> is_director_of;
 

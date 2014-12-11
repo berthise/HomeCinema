@@ -18,7 +18,7 @@ import javax.faces.bean.RequestScoped;
 @ManagedBean
 @RequestScoped
 public class HistoryManagedBean {
-    
+
     public List<TransactionDto> ltdto;
 
     public HistoryManagedBean() {
@@ -33,7 +33,7 @@ public class HistoryManagedBean {
 	this.ltdto = Ejbs.user().getTransaction(idUser);
 	return ltdto.size();
     }
-    
+
     public List<TransactionDto> getListTransaction() {
 	return ltdto;
     }
