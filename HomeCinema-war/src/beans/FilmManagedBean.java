@@ -20,6 +20,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.naming.NamingException;
+import static utils.Beans.findBean;
 import utils.Lang;
 import utils.Pages;
 
@@ -33,6 +34,8 @@ public class FilmManagedBean {
 
     public FilmFicheDto fdto;
 
+    LanguageManagedBean lang = findBean("languageManagedBean");
+    
     public FilmManagedBean() throws NamingException {
 	this.fdto = new FilmFicheDto();
     }
@@ -41,7 +44,7 @@ public class FilmManagedBean {
 	if (fdto.id == null) {
 	    FacesContext.getCurrentInstance().getExternalContext().dispatch(Pages.NOT_FOUND);
 	}
-	FilmFicheDto f = Ejbs.film().getDtoFromId(fdto.id);
+	FilmFicheDto f = Ejbs.film().getDtoFromId(fdto.id,lang.getLang());
 	if (f == null) {
 	    FacesContext.getCurrentInstance().getExternalContext().dispatch(Pages.NOT_FOUND);
 	}
@@ -186,7 +189,7 @@ public class FilmManagedBean {
     }
 
     public String getGenres() {
-	Set<GenreDto> set = Ejbs.film().getGenre(fdto.id);
+	Set<GenreDto> set = Ejbs.film().getGenre(fdto.id,lang.getLang());
 	String toReturn = "";
 	for (GenreDto s : set) {
 	    toReturn += "<a href=\"" + Pages.FILMS + "?tab=search&clean=&genre=" + s.id + "\" class=\"list-genres-crew\">" + s.name + "</a> ";

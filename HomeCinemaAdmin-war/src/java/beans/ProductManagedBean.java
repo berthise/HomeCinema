@@ -10,6 +10,7 @@ import dtos.ProductDto;
 import dtos.UserDtoNoPw;
 import ejbs.ManageFilmRemote;
 import ejbs.ManageProductRemote;
+import enums.Lang;
 import enums.ProductStates;
 import java.io.IOException;
 import java.text.ParseException;
@@ -50,10 +51,10 @@ public class ProductManagedBean {
     public void setDtoFromId() throws IOException {
 	if (pdto != null && pdto.id != null && pdto.id != 0) {
 
-	    ProductDto f = productManager.getProduct(pdto.id);
+	    ProductDto f = productManager.getProduct(pdto.id,Lang.EN);
 	    pdto = f;
-	    this.filmsProduct = this.productManager.getFilms(pdto.id);
-	    List<FilmDto> lfdto = filmManager.getAllFilm();
+	    this.filmsProduct = this.productManager.getFilms(pdto.id,Lang.EN);
+	    List<FilmDto> lfdto = filmManager.getAllFilm(Lang.EN);
 	    if (lfdto == null) {
 		lfdto = new ArrayList<>();
 	    }
@@ -63,7 +64,7 @@ public class ProductManagedBean {
 	    pdto = new ProductDto();
 	    pdto.state = ProductStates.Unactivated;
 	    this.filmsProduct = new ArrayList<>();
-	    this.films = filmManager.getAllFilm();
+	    this.films = filmManager.getAllFilm(Lang.EN);
 	}
 
     }
@@ -93,7 +94,7 @@ public class ProductManagedBean {
     }
 
     public void save() {
-	this.pdto = productManager.mergeOrSave(pdto);
+	this.pdto = productManager.mergeOrSave(pdto,Lang.EN);
 	FacesMessage message = new FacesMessage("Succès de la modification !");
 	FacesContext.getCurrentInstance().addMessage(null, message);
     }

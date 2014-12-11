@@ -10,6 +10,7 @@ import dtos.TransactionDto;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import static utils.Beans.findBean;
 
 /**
  *
@@ -19,6 +20,8 @@ import javax.faces.bean.RequestScoped;
 @RequestScoped
 public class HistoryManagedBean {
     
+        LanguageManagedBean lang = findBean("languageManagedBean");
+	
     public List<TransactionDto> ltdto;
 
     public HistoryManagedBean() {
@@ -30,7 +33,7 @@ public class HistoryManagedBean {
 	    return null;
 	}
 
-	this.ltdto = Ejbs.user().getTransaction(idUser);
+	this.ltdto = Ejbs.user().getTransaction(idUser,lang.getLang());
 	return ltdto.size();
     }
     

@@ -5,6 +5,7 @@
  */
 package beans;
 
+import enums.Lang;
 import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -51,6 +52,14 @@ public class LanguageManagedBean {
 	countries = new LinkedHashMap<>();
 	countries.put("fr", Locale.FRENCH);
 	countries.put("en", Locale.ENGLISH);
+    }
+    
+    public Lang getLang()
+    {
+	if (isFR())
+	    return Lang.FR;
+	else
+	    return Lang.EN;
     }
 
     public boolean isFR() {

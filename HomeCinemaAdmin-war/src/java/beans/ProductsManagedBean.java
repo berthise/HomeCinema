@@ -9,6 +9,7 @@ package beans;
 
 import dtos.ProductDto;
 import ejbs.ManageProductRemote;
+import enums.Lang;
 import java.util.List;
 import java.util.Set;
 import javax.faces.application.FacesMessage;
@@ -32,7 +33,7 @@ public class ProductsManagedBean {
 
   public ProductsManagedBean() throws NamingException {
     productManager = (ManageProductRemote) new InitialContext().lookup("java:global/HomeCinema/HomeCinema-ejb/ManageProduct!ejbs.ManageProductRemote");
-    this.products = productManager.getAllProduct();
+    this.products = productManager.getAllProduct(Lang.EN);
   }
 
   public List<ProductDto> getProducts() {

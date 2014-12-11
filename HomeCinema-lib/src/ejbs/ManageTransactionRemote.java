@@ -7,6 +7,7 @@ package ejbs;
 
 import dtos.CaddieDto;
 import dtos.PaymentDto;
+import enums.Lang;
 import javax.ejb.Remote;
 
 /**
@@ -16,13 +17,17 @@ import javax.ejb.Remote;
 @Remote
 public interface ManageTransactionRemote {
 
-    public CaddieDto getCaddieDto (Long id_user);
+    //public CaddieDto getCaddieDto (Long id_user);
     
-    public CaddieDto addProduct(Long user, Long id);
+    public CaddieDto addProduct(Long user, Long id,Lang lang);
     
     public Long validate(Long user, PaymentDto pdto);
     
     public void validatePayement(Long id,Long btn);
     
-     public CaddieDto removeProduct(Long user ,Long id);
+     public CaddieDto removeProduct(Long user ,Long id, Lang lang);
+
+   // public CaddieDto getCaddieDto(Long id_user, Lang lang);
+
+    public CaddieDto getCaddieDto(Long id_user, Lang lang);
 }

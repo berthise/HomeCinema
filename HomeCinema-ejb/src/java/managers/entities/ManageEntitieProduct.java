@@ -8,6 +8,7 @@ package managers.entities;
 import dtos.ProductDto;
 import entities.Film;
 import entities.Product;
+import enums.Lang;
 import enums.OrderTypes;
 import enums.ProductStates;
 import java.util.Comparator;
@@ -25,8 +26,8 @@ public class ManageEntitieProduct {
 	p.addFilm(f);
     }
 
-    public static Product createProduct(ProductDto pdto, EntityManager em) {
-	Product p = ProductDtoManager.makeProduct(pdto);
+    public static Product createProduct(ProductDto pdto,Lang lang, EntityManager em) {
+	Product p = ProductDtoManager.makeProduct(pdto,lang);
 	p.setState(ProductStates.Activated);
 	em.persist(p);
 	return p;

@@ -14,6 +14,7 @@ import ejbs.ManageProductRemote;
 import entities.Film;
 import entities.Genre;
 import entities.Product;
+import enums.Lang;
 import enums.OrderTypes;
 import enums.ProductStates;
 import enums.ProductTypes;
@@ -41,35 +42,34 @@ public class ManageProduct implements ManageProductRemote {
     public EntityManager em;
 
     @Override
-    public Long createProductWithFilm(FilmDto fdto, VideoDto trailer, VideoDto vid, Double price) {
-	Film f = ManageEntitieFilm.createFilmWithVideo(fdto, trailer, vid, em);
+    public Long createProductWithFilm(FilmDto fdto, VideoDto trailer, VideoDto vid, Double price,Lang lang) {
+	Film f = ManageEntitieFilm.createFilmWithVideo(fdto, trailer, vid,lang, em);
 	Product p = new Product(f, price);
 	f.setMain_product(p);
 	em.merge(f);
 	em.persist(p);
 	return p.getId();
     }
-
     @Override
-    public List<ProductDto> getAllProduct() {
+    public List<ProductDto> getAllProduct(Lang lang) {
 	Query q = em.createQuery("From Product p", Product.class);
 	List<Product> lp = q.getResultList();
 	List<ProductDto> lpdto = new ArrayList<ProductDto>();
 	for (Product p : lp) {
-	    lpdto.add(ProductDtoManager.getDto(p));
+	    lpdto.add(ProductDtoManager.getDto(p,lang));
 	}
 	return lpdto;
     }
 
     @Override
-    public Long createProduct(ProductDto pdto) {
-	return ManageEntitieProduct.createProduct(pdto, em).getId();
+    public Long createProduct(ProductDto pdto,Lang lang) {
+	return ManageEntitieProduct.createProduct(pdto,lang, em).getId();
     }
 
     @Override
-    public void addFilms(Long pid, List<FilmDto> lfdto) {
+    public void addFilms(Long pid,Lang lang ,List<FilmDto> lfdto) {
 	for (FilmDto fdto : lfdto) {
-	    addFilm(pid, fdto, false);
+	    addFilm(pid, fdto,lang, false);
 	}
     }
 
@@ -93,9 +93,9 @@ public class ManageProduct implements ManageProductRemote {
     }
 
     @Override
-    public void addFilm(Long pid, FilmDto fdto, boolean main) {
+    public void addFilm(Long pid, FilmDto fdto,Lang lang, boolean main) {
 	Product p = em.find(Product.class, pid);
-	Film f = ManageEntitieFilm.createFilm(fdto, em);
+	Film f = ManageEntitieFilm.createFilm(fdto,lang, em);
 	ManageEntitieProduct.linkProductFilm(f, p);
 	if (main) {
 	    f.setMain_product(p);
@@ -120,30 +120,30 @@ public class ManageProduct implements ManageProductRemote {
     }
 
     @Override
-    public List<FilmDto> getFilms(Long pid) {
+    public List<FilmDto> getFilms(Long pid,Lang lang) {
 	Product p = em.find(Product.class, pid);
 	List<FilmDto> lfdto = new ArrayList<>();
 	for (Film f : p.getFilms()) {
-	    lfdto.add(FilmDtoManager.getDto(f));
+	    lfdto.add(FilmDtoManager.getDto(f,lang));
 	}
 	return lfdto;
     }
 
     @Override
-    public ProductDto getProduct(Long pid) {
+    public ProductDto getProduct(Long pid,Lang lang) {
 	Product p = em.find(Product.class, pid);
-	return ProductDtoManager.getDto(p);
+	return ProductDtoManager.getDto(p,lang);
     }
 
     @Override
-    public ProductDto mergeOrSave(ProductDto pdto) {
-	return ProductDtoManager.getDto(ProductDtoManager.mergeOrSave(pdto, em));
+    public ProductDto mergeOrSave(ProductDto pdto,Lang lang) {
+	return ProductDtoManager.getDto(ProductDtoManager.mergeOrSave(pdto,lang, em),lang);
     }
 
     @Override
-    public FilteredListProductsDto getFilteredProducts(Long actor, Long director, List<Long> lgdto, String str, String year, OrderTypes sort, Integer limit, Integer row, ProductTypes main) {
-	boolean or = true;
-	String query = " From Product p join p.films f join f.genre g join f.actors a join f.directors d where p.state=:active ";
+    public FilteredListProductsDto getFilteredProducts(Long actor, Long director, List<Long> lgdto, String str, String year, OrderTypes sort, Integer limit, Integer row, ProductTypes main,Lang lang) {
+	boolean or = true;//join p.name pn      join f.title t
+	String query = "From Product p join p.films f left join f.genre g left join f.actors a left join f.directors d where p.state=:active ";
 	if (row == null) {
 	    row = 0;
 	}
@@ -174,17 +174,15 @@ public class ManageProduct implements ManageProductRemote {
 	    query += " ) ";
 	}
 	if (str != null && !str.equals("")) {
-	    query += " and ( f.title like '%" + str + "%' or p.name like '%" + str + "%' ) ";
+	    query += " and (  VALUE(t) LIKE '%"+str+"%'  ) ";//or VALUE(pn) LIKE '%"+str+"%'
 	}
 	if (main.equals(ProductTypes.Main)) {
 	    query += " and size(p.films )=1 ";
 	} else if (main.equals(ProductTypes.Pack)) {
 
 	    query += " and size(p.films )>1 ";
-	} else {
-	    query += " and size(p.films )>=1 ";
-	}
-	Query qnb = em.createQuery("select COUNT(distinct p) " + query);
+	} 
+	Query qnb = em.createQuery("select COUNT(distinct p) "+ query);
 	qnb.setParameter("active", ProductStates.Activated);
 	Long nb = (Long) qnb.getSingleResult();
 	switch (sort) {
@@ -195,7 +193,7 @@ public class ManageProduct implements ManageProductRemote {
 		query += "order by p.nbSales desc";
 		break;
 	    case ALPH:
-		query += "order by p.name ";
+		//query += "order by VALUE(pn) ";
 		break;
 	    case NEW:
 		query += "order by p.addDate desc";
@@ -207,14 +205,14 @@ public class ManageProduct implements ManageProductRemote {
 	if (row < 0) {
 	    row = 0;
 	}
-	Query q = em.createQuery("select distinct p " + query, Product.class);
+	Query q = em.createQuery("select distinct p  "+query, Product.class);
 	q.setParameter("active", ProductStates.Activated);
 	q.setFirstResult(row);
 	q.setMaxResults(limit);
 	List<Product> lpdto = q.getResultList();
 	List<ProductDto> res = new ArrayList<>();
 	for (Product p : lpdto) {
-	    res.add(ProductDtoManager.getDto(p));
+	    res.add(ProductDtoManager.getDto(p,lang));
 	}
 	return new FilteredListProductsDto(res, nb.intValue());
     }
@@ -226,12 +224,12 @@ public class ManageProduct implements ManageProductRemote {
     }
 
     @Override
-    public List<GenreDto> getAllGenres() {
+    public List<GenreDto> getAllGenres(Lang lang) {
 	Query q = em.createQuery("From Genre g", Genre.class);
 	List<Genre> lg = q.getResultList();
 	List<GenreDto> lgdto = new ArrayList<>();
 	for (Genre g : lg) {
-	    lgdto.add(GenreDtoManager.getDto(g));
+	    lgdto.add(GenreDtoManager.getDto(g,lang));
 	}
 	return lgdto;
     }

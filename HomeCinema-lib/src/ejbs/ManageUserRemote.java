@@ -10,6 +10,7 @@ import dtos.SimpleUserDto;
 import dtos.TransactionDto;
 import dtos.UserDto;
 import dtos.UserDtoNoPw;
+import enums.Lang;
 import exception.ActivatedCodeException;
 import exception.RetrieveCodeException;
 import exception.SignupEmailException;
@@ -41,9 +42,9 @@ public interface ManageUserRemote {
     
     public void mergeOrSave (UserDtoNoPw udto);
     
-    public List<FilmDto> getFilms(Long id);
+
     
-    public  List<TransactionDto> getTransaction (Long user);
+    //public  List<TransactionDto> getTransaction (Long user);
 
     public boolean changePassword(Long id, String oldPassword, String newPassword);
     
@@ -58,4 +59,8 @@ public interface ManageUserRemote {
     public String retrievePassword(String email) throws UnknownAccountException;
     
     public void changePasswordRetrieve(String code, String newPassword) throws RetrieveCodeException;
+
+    public List<FilmDto> getFilms(Long id, Lang lang);
+
+    public List<TransactionDto> getTransaction(Long user, Lang lang);
 }

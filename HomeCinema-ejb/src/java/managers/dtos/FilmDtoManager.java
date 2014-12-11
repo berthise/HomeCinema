@@ -9,6 +9,7 @@ import dtos.FilmDto;
 import dtos.FilmFicheDto;
 import entities.Film;
 import entities.Video;
+import enums.Lang;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.persistence.EntityManager;
@@ -19,15 +20,15 @@ import javax.persistence.EntityManager;
  */
 public class FilmDtoManager {
 
-    public static FilmDto getDto(Film f) {
+    public static FilmDto getDto(Film f,Lang lang) {
 	if (f == null) {
 	    return null;
 	}
 
 	FilmDto fdto = new FilmDto();
 	fdto.id = f.getId();
-	fdto.title = f.getTitle();
-	fdto.overview = f.getOverview();
+	fdto.title = f.getTitle(lang);
+	fdto.overview = f.getOverview(lang);
 	fdto.release_date = new Date(f.getReleaseDate().getTime());
 	fdto.cover = f.getCoverId();
 	fdto.rating = f.getRating();
@@ -38,15 +39,15 @@ public class FilmDtoManager {
 	return fdto;
     }
 
-    public static FilmFicheDto getDtoForFiche(Film f) {
+    public static FilmFicheDto getDtoForFiche(Film f,Lang lang) {
 	if (f == null) {
 	    return null;
 	}
 
 	FilmFicheDto fdto = new FilmFicheDto();
 	fdto.id = f.getId();
-	fdto.title = f.getTitle();
-	fdto.overview = f.getOverview();
+	fdto.title = f.getTitle(lang);
+	fdto.overview = f.getOverview(lang);
 	fdto.release_date = new Date(f.getReleaseDate().getTime());
 	fdto.cover = f.getCoverId();
 	fdto.rating = f.getRating();
@@ -63,11 +64,11 @@ public class FilmDtoManager {
 	return fdto;
     }
 
-    public static Film makeFilm(FilmDto fdto) {
+    public static Film makeFilm(FilmDto fdto,Lang lang) {
 	Film f = new Film();
 	f.setId(fdto.id);
-	f.setTitle(fdto.title);
-	f.setOverview(fdto.overview);
+	f.setTitle(lang,fdto.title);
+	f.setOverview(lang,fdto.overview);
 	f.setReleaseDate(fdto.release_date);
 	f.setCoverId(fdto.cover);
 	f.setRating(fdto.rating);
@@ -76,18 +77,18 @@ public class FilmDtoManager {
 	return f;
     }
 
-    public static Film mergeOrSave(FilmDto fdto, EntityManager em) {
+    public static Film mergeOrSave(FilmDto fdto,Lang lang, EntityManager em) {
 	Film f = em.find(Film.class, fdto.id);
 	if (f != null) {
-	    f.setTitle(fdto.title);
-	    f.setOverview(fdto.overview);
+	    f.setTitle(lang,fdto.title);
+	    f.setOverview(lang,fdto.overview);
 	    f.setReleaseDate(fdto.release_date);
 	    f.setCoverId(fdto.cover);
 	    f.setRating(fdto.rating);
 	    f.setRuntime(fdto.runtime);
 	    em.merge(f);
 	} else {
-	    f = makeFilm(fdto);
+	    f = makeFilm(fdto,lang);
 	    em.persist(f);
 	}
 	return f;

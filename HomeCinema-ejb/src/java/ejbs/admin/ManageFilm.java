@@ -21,6 +21,7 @@ import entities.Genre;
 import entities.Person;
 import entities.Product;
 import entities.Video;
+import enums.Lang;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -47,12 +48,12 @@ public class ManageFilm implements ManageFilmRemote {
     private Object ManageEntitiesFilm;
 
     @Override
-    public Long createFilm(FilmDto fdto) {
-	return ManageEntitieFilm.createFilm(fdto, em).getId();
+    public Long createFilm(FilmDto fdto,Lang lang) {
+	return ManageEntitieFilm.createFilm(fdto,lang, em).getId();
     }
 
     @Override
-    public List<FilmDto> getAllFilm() {
+    public List<FilmDto> getAllFilm(Lang lang) {
 	Query q = em.createQuery("From Film f", Film.class);
 	//q.setMaxResults(100);
 	
@@ -60,21 +61,21 @@ public class ManageFilm implements ManageFilmRemote {
 	System.out.println(lf.size());
 	List<FilmDto> lfdto = new ArrayList<>();
 	for (Film f : lf) {
-	    lfdto.add(FilmDtoManager.getDto(f));
+	    lfdto.add(FilmDtoManager.getDto(f,lang));
 	}
 	return lfdto;
     }
 
     @Override
-    public FilmFicheDto getDtoFromId(Long id) {
+    public FilmFicheDto getDtoFromId(Long id,Lang lang ) {
 	Film f = em.find(Film.class, id);
-	return FilmDtoManager.getDtoForFiche(f);
+	return FilmDtoManager.getDtoForFiche(f,lang);
     }
 
     @Override
-    public FilmDto getFilmFromId(Long id) {
+    public FilmDto getFilmFromId(Long id,Lang lang) {
 	Film f = em.find(Film.class, id);
-	return FilmDtoManager.getDto(f);
+	return FilmDtoManager.getDto(f,lang);
     }
 
     @Override
@@ -122,17 +123,17 @@ public class ManageFilm implements ManageFilmRemote {
     }
 
     @Override
-    public void addGenres(Long fid, Set<GenreDto> lgdto) {
+    public void addGenres(Long fid,Set<GenreDto> lgdto, Lang lang) {
 	for (GenreDto gdto : lgdto) {
-	    addGenre(fid, gdto);
+	    addGenre(fid, gdto,lang);
 	}
     }
     
 
 
     @Override
-    public void addGenre(Long fid, GenreDto gdto) {
-	Genre g = ManageEntitieGenre.getGenre(gdto, em);
+    public void addGenre(Long fid, GenreDto gdto,Lang lang) {
+	Genre g = ManageEntitieGenre.getGenre(gdto,lang , em);
 	Film f = em.find(Film.class, fid);
 	f.addGenre(g);
 	em.merge(f);
@@ -200,34 +201,34 @@ public class ManageFilm implements ManageFilmRemote {
     }
 
     @Override
-    public Set<GenreDto> getGenre(Long fid) {
+    public Set<GenreDto> getGenre(Long fid,Lang lang) {
 	Set<GenreDto> lgdto = new HashSet<>();
 	Film f = em.find(Film.class, fid);
 	for (Genre g : f.getGenre()) {
-	    lgdto.add(GenreDtoManager.getDto(g));
+	    lgdto.add(GenreDtoManager.getDto(g,lang));
 	}
 	return lgdto;
     }
 
     @Override
-    public void mergeOrSave(FilmDto fdto) {
-	FilmDtoManager.mergeOrSave(fdto, em);
+    public void mergeOrSave(FilmDto fdto,Lang lang) {
+	FilmDtoManager.mergeOrSave(fdto,lang, em);
     }
 
     @Override
-    public Set<ProductDto> getProducts(Long fid) {
+    public Set<ProductDto> getProducts(Long fid,Lang lang) {
 	Set<ProductDto> lgdto = new HashSet<>();
 	Film f = em.find(Film.class, fid);
 	for (Product p : f.getProducts()) {
-	    lgdto.add(ProductDtoManager.getDto(p));
+	    lgdto.add(ProductDtoManager.getDto(p,lang));
 	}
 	return lgdto;
     }
 
     @Override
-    public ProductDto getMainProduct(long fid) {
+    public ProductDto getMainProduct(long fid,Lang lang) {
 	Film f = em.find(Film.class, fid);
-	return ProductDtoManager.getDto(f.getMain_product());
+	return ProductDtoManager.getDto(f.getMain_product(),lang);
     }
 
     @Override
@@ -238,7 +239,7 @@ public class ManageFilm implements ManageFilmRemote {
 	em.merge(f);
     }
 
-    
+    /*
     @Override
     public List<FilmDto> findFilms(Long actor, Long director, List<Long> lgdto, String str, String year) {
 	Query q = em.createQuery("From Film f", Film.class);
@@ -250,6 +251,6 @@ public class ManageFilm implements ManageFilmRemote {
 		res.add(FilmDtoManager.getDto(f));
 	}
 	return res;
-    }
+    }*/
 
 }
