@@ -5,12 +5,10 @@
  */
 package main;
 
-import UtilsJson.JsonReader;
+import Utils.UtilsJson.JsonReader;
 import dtos.FilmDto;
 import dtos.GenreDto;
 import dtos.PersonDto;
-import java.text.DateFormat;
-import dtos.VideoDto;
 import ejbs.ManageFilmRemote;
 import ejbs.ManageProductRemote;
 import ejbs.ManageTransactionRemote;
@@ -21,11 +19,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import org.json.JSONObject;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 import java.util.logging.Level;
