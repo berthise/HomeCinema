@@ -14,10 +14,10 @@
     <!-- IMPLEMENTATION -->
     <cc:implementation>
 	<div>
-	    <h3><img src="img/clock-icon.png" title="Historique"/>Historique</h3>
+	    <h3><img src="img/clock-icon.png" title="Historique"/>#{msg['account-historique']}</h3>
 	    <c:choose>
 		<c:when test="#{historyManagedBean.counter(cc.attrs.userId) eq 0}" >
-		    <td>Votre historique est vide ... </td>                                        
+		    <td>#{msg['account-historique-vide']}</td>                                        
 		</c:when>
 		<c:otherwise>
 		    <table>
@@ -25,7 +25,7 @@
 			    <tr>
 				<td>
 				    <ui:repeat var="f" value="#{o.products}" varStatus="status">
-					<a href="fiche_product.xhtml?id=#{f.id}">#{f.name}</a><br/>
+					<a href="#{msg['page-fiche-product']}.xhtml?id=#{f.id}">#{f.name}</a><br/>
 				    </ui:repeat>
 				</td>
 				<td>
@@ -35,9 +35,9 @@
 				    <b>#{o.totalPrice}€</b>
 				</td>				    
 				<td>
-				    <h:graphicImage value="img/done.png" title="Effectuée" rendered="#{o.state eq 'Done'}" />
-				    <h:graphicImage value="img/canceled.png" title="Annulée" rendered="#{o.state eq 'Canceled'}" />
-				    <h:graphicImage value="img/prepared.png" title="Préparée" rendered="#{o.state eq 'Prepared'}" />
+				    <h:graphicImage value="img/done.png" title="#{msg['account-historique-eff']}" rendered="#{o.state eq 'Done'}" />
+				    <h:graphicImage value="img/canceled.png" title="#{msg['account-historique-ann']}" rendered="#{o.state eq 'Canceled'}" />
+				    <h:graphicImage value="img/prepared.png" title="#{msg['account-historique-prep']}" rendered="#{o.state eq 'Prepared'}" />
 				</td>
 			    </tr>				
 			</ui:repeat>

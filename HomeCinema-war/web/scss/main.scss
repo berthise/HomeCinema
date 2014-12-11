@@ -12,6 +12,14 @@ body {
         resize:none;
     }
 
+    .row-margin-top {
+	margin-top: 15px;
+    }
+
+    i.required {
+	color: red;
+    }
+
     .badge-faq {
         margin-right: 10px;
         position: relative;
@@ -215,9 +223,6 @@ body {
             }
             input[type="reset"] {
                 margin: 0 15px;
-            }
-            i.required {
-                color: red;
             }
         }
         .toggle-row {

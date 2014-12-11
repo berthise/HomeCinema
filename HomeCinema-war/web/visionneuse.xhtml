@@ -9,7 +9,7 @@
     <h:head>
         <meta charset="utf-8"/>
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-        <title></title>
+        <title>HomeCinéma - #{msg['menu-visio']}</title>
         <meta name="description" content=""/>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
@@ -20,7 +20,6 @@
         <f:metadata>
             <f:viewParam name="id" value="#{filmManagedBean.id}" />
 	    <f:event type="preRenderView" listener="#{sessionManagedBean.checkRight}"/>
-            <!--<f:event type="preRenderView" listener="#{loginManagedBean.tmpLogin()}"/>-->
             <f:event type="preRenderView" listener="#{filmManagedBean.setDtoFromId()}"/>
             <f:event type="preRenderView" listener="#{accountManagedBean.checkIsMyFilm(filmManagedBean.id, sessionManagedBean.id)}"/>
         </f:metadata>
@@ -34,7 +33,7 @@
             <div class="container">
 
                 <div id="ba" class="well">
-                    <h2 class="well-title"><strong>Visionneuse : </strong><h:outputText value="#{filmManagedBean.getLinkToFiche()}" escape="false"/>
+                    <h2 class="well-title"><strong>#{msg['visio-subtitle']}: </strong><h:outputText value="#{filmManagedBean.getLinkToFiche()}" escape="false"/>
                         <div class="form-download-film">
                             <h:outputText value="#{filmManagedBean.getLinkToDownload()}" escape="false" />
                         </div>
@@ -42,7 +41,7 @@
 
                     <video id="myVideo" width="100%" controls="controls" autoplay="autoplay">
                         <h:outputText value="#{filmManagedBean.getVideo()}" escape="false" />
-                        Your browser don't support video element.
+			#{msg['ba-not-supported']}
                     </video>
                     <h:form p:style="display: none;">
                         <h:inputText id="currentPosition" p:id="ufCP" value="#{usersFilmsManagedBean.ufdto.currentPosition}" />
@@ -55,7 +54,8 @@
                     <h:outputText id="output" value="#{usersFilmsManagedBean.updateCurrentTime()}" />
                     #{usersFilmsManagedBean.getCurrentTime(sessionManagedBean.id, filmManagedBean.id)}
                     <span id="lastPosition" style="display: none">#{usersFilmsManagedBean.ufdto.currentPosition}</span>
-                    <a class="go-top" href="#top"><img src="img/arrowUp.png" /></a>
+
+		    <a class="go-top" title="#{msg['allpage-top']}" href="#top"><img src="img/arrowUp.png" /></a>
 
                 </div>
             </div>

@@ -9,7 +9,7 @@
     <h:head>
         <meta charset="utf-8"/>
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-        <title></title>
+        <title>HomeCinéma - #{msg['menu-accueil']}</title>
         <meta name="description" content=""/>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
@@ -29,41 +29,39 @@
         </ui:insert>
         <section>
             <div class="container">
-                <c:if test="#{sessionManagedBean.firstName == null}">
-                    <div class="row">
-                        <div class="col-md-7">
-                            <div class="well index-box">
-                                <h2 class="well-title"><h:outputText value="#{msg['index-welcome']}" /></h2>
-                                <p class="text-justify">
-                                    <span class="text-sitetitle">HomeCinéma</span> est un site de vente de films accessible en streaming et en téléchargement. 
-                                    Ce site vous propose une grande variété de films de toutes les époques et de tous les genres. Vous trouverez également
-                                    des pack de films vous offrant des superbes réductions sur une liste de films ! Sur <span class="text-sitetitle">HomeCinéma</span>, un film acheté est disponible à vie !
-                                </p>
-                                <p class="text-justify">
-                                    Pour plus d'informations sur le fonctionnement de <span class="text-sitetitle">HomeCinéma</span>, n'hésitez pas à regarde la vidéo de <a href="demo.xhtml">démonstration</a>. 
-                                    Si vous avez besoin d'aide, rendez-vous sur la page <a href="faq.xhtml">FAQ</a>.
-                                    <p>Inscrivez-vous dès maintenant :</p>
-                                </p>
+		<div class="row">
+		    <div class="col-md-7">
+			<div class="well index-box">
+			    <h2 class="well-title"><h:outputText value="#{msg['index-welcome']}" /></h2>
+			    <p class="text-justify">
+				<span class="text-sitetitle">HomeCinéma</span> #{msg['index-text-p1']} <span class="text-sitetitle">HomeCinéma</span>, #{msg['index-text-p2']}
+			    </p>
+			    <p class="text-justify">
+				#{msg['index-text-p3']} <span class="text-sitetitle">HomeCinéma</span>, #{msg['index-text-p4']} <a href="demo.xhtml">#{msg['index-text-p5']}</a>. 
+				#{msg['index-text-p7']} <a href="faq.xhtml">FAQ</a>.
+			    </p>
+			    <c:if test="#{sessionManagedBean.firstName == null}">
+				<p>#{msg['index-text-p7']}:</p>
                                 <center>
-                                    <a href="login.xhtml" class="btn btn-success btn-lg btn-space">Connexion</a>
-                                    <a href="signup.xhtml" class="btn btn-primary btn-lg">Inscription</a>
+                                    <a href="#{msg['page-login']}.xhtml" class="btn btn-success btn-lg btn-space">#{msg['connexion']}</a>
+                                    <a href="#{msg['page-signup']}.xhtml" class="btn btn-primary btn-lg">#{msg['inscription']}</a>
                                 </center>
-                            </div>
-                        </div>
-                        <div class="col-md-5">
-                            <div class="well index-box">
-                                <h2 class="well-title">Démonstration</h2>
-                                <video id="myVideo" width="100%" height="212px" controls="controls">
-                                    <source src="http://techslides.com/demos/sample-videos/small.mp4" type="video/mp4" />
-                                </video>
-                            </div>
-                        </div>
-                    </div>
-                </c:if>
+			    </c:if>
+			</div>
+		    </div>
+		    <div class="col-md-5">
+			<div class="well index-box">
+			    <h2 class="well-title">#{msg['demo-title']}</h2>
+			    <video id="myVideo" width="100%" height="212px" controls="controls">
+				<source src="http://techslides.com/demos/sample-videos/small.mp4" type="video/mp4" />
+			    </video>
+			</div>
+		    </div>
+		</div>
 
                 <div id="random" class="row exclus">
                     <h:form id="form-random">
-                        <h1>Idées de films
+                        <h1>#{msg['index-idea']}
                             <h:commandLink>
                                 <img src="img/refresh.png" />
                                 <f:ajax execute="@form" render=":form-random:panel-random" />
@@ -73,7 +71,7 @@
                         <h:panelGroup id="panel-random">
                             <ui:repeat var="o" value="#{listProductsManagedBean.getSelectionFilms(6)}">
                                 <div class="col-md-2 col-sm-4 col-xs-6 film">
-                                    <a href="fiche_product.xhtml?id=#{o.id}">
+                                    <a href="#{msg['page-fiche-product']}.xhtml?id=#{o.id}">
                                         <img class="cover" src="http://image.tmdb.org/t/p/w300/#{o.cover}" />
                                         <span class="film_title">#{o.name}</span>
                                     </a>

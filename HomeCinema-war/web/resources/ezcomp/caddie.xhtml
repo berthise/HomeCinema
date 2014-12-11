@@ -23,14 +23,13 @@
 	<h:outputStylesheet library="css" name="caddie.css" />
 	<div class="#{cc.attrs.style}" id="caddie">
 	    <h3><img src="img/cart-icon.png" title="#{cc.attrs.title}"/>#{cc.attrs.title}</h3>
-	    <!--      <c:choose>
-		    <c:when test="#{caddieManagedBean.counter() eq 0}" >-->
+
 	    <h:panelGroup  rendered="#{caddieManagedBean.counter() eq 0}" >
-		<td>Votre caddie est vide ... <a href="films.xhtml">Cliquez ici pour trouver des films !</a></td>                                        
+		<td>#{msg['account-caddie-vide']} <a href="films.xhtml">#{msg['account-films-link']}</a></td>                                        
 	    </h:panelGroup>
+
 	    <h:panelGroup  rendered="#{caddieManagedBean.counter() gt 0}" >
 		<table>
-
 		    <c:choose>
 			<c:when test="#{cc.attrs.recap}" >
 			    <c:set var="colspan_film" value="2" />
@@ -62,7 +61,7 @@
 					    #{product.film.title} (#{product.film.getReleaseDateString("yyyy")})
 					</c:when>
 					<c:otherwise>
-					    <a title="Voir la fiche du film" href="fiche_film.xhtml?id=#{product.film.id}">#{product.film.title} (#{product.film.getReleaseDateString("yyyy")})</a>
+					    <a title="#{msg['fiche-film-see']}" href="#{msg['page-fiche-film']}.xhtml?id=#{product.film.id}">#{product.film.title} (#{product.film.getReleaseDateString("yyyy")})</a>
 
 					</c:otherwise>
 				    </c:choose>
@@ -70,7 +69,7 @@
 				<c:if test="#{!cc.attrs.recap}" >
 				    <td class="td-right" >
 					<h:form>
-					    <h:commandButton action="#{caddieManagedBean.deleteFromCaddie(product.product.id)}" class="button-delete" value="" title="Enlever du caddie"  />
+					    <h:commandButton action="#{caddieManagedBean.deleteFromCaddie(product.product.id)}" class="button-delete" value="" title="#{msg['account-caddie-remove']}"  />
 					</h:form>
 				    </td>
 				</c:if>
@@ -90,14 +89,14 @@
 					    <b>#{product.product.name}</b>
 					</c:when>
 					<c:otherwise>
-					    <a href="fiche_product.xhtml?id=#{product.product.id}"><b>#{product.product.name}</b></a>
+					    <a href="#{msg['page-fiche-product']}.xhtml?id=#{product.product.id}"><b>#{product.product.name}</b></a>
 					</c:otherwise>
 				    </c:choose>
 				</td>
 				<c:if test="#{!cc.attrs.recap}" >
 				    <td class="td-right" >
 					<h:form>
-					    <h:commandButton action="#{caddieManagedBean.deleteFromCaddie(product.product.id)}" class="button-delete" value="" title="Enlever du caddie"  />
+					    <h:commandButton action="#{caddieManagedBean.deleteFromCaddie(product.product.id)}" class="button-delete" value="" title="#{msg['account-caddie-remove']}" />
 					</h:form>
 				    </td>
 				</c:if>
@@ -120,7 +119,7 @@
 						#{film.title} (#{film.getReleaseDateString("yyyy")})
 					    </c:when>
 					    <c:otherwise>
-						<a title="Voir la fiche du film" href="fiche_film.xhtml?id=#{film.id}">#{film.title} (#{film.getReleaseDateString("yyyy")})</a>
+						<a title="#{msg['fiche-film-see']}" href="#{msg['page-fiche-film']}.xhtml?id=#{film.id}">#{film.title} (#{film.getReleaseDateString("yyyy")})</a>
 					    </c:otherwise>
 					</c:choose>
 				    </td>
@@ -138,7 +137,7 @@
 		<c:if test="#{!cc.attrs.recap}" >
 		    <h:panelGroup rendered="#{caddieManagedBean.counter() gt 0}" >
 			<h:form>
-			    <h:commandButton action="#{sessionManagedBean.openPaiement()}" value="Valider mon caddie" class="btn btn-success to-right"/>
+			    <h:commandButton action="#{sessionManagedBean.openPaiement()}" value="#{msg['account-caddie-valider']}" class="btn btn-success to-right"/>
 			</h:form>
 		    </h:panelGroup>
 		</c:if>
