@@ -107,7 +107,7 @@ public class ManageProduct implements ManageProductRemote {
     @Override
     public void removeFilm(Long pid, Long fid) {
 	Product p = em.find(Product.class, pid);
-	Film f = em.find(Film.class, pid);
+	Film f = em.find(Film.class, fid);
 	ManageEntitieProduct.unlinkProductFilm(f, p);
 	if (Objects.equals(f.getMain_product().getId(), pid)) {
 	    f.setMain_product(null);
@@ -239,8 +239,11 @@ public class ManageProduct implements ManageProductRemote {
     @Override
     public void activate(Long pid) {
 	Product p = em.find(Product.class, pid);
+	if (!p.getFilms().isEmpty())
+	{
 	p.setState(ProductStates.Activated);
 	em.merge(p);
+	}
     }
 
     @Override

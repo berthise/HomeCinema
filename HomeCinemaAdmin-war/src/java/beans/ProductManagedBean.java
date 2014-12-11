@@ -143,9 +143,9 @@ public class ProductManagedBean {
     }
 
     public void addFilm(Long fid) {
-	this.productManager.addExistingFilm(this.getId(), fid, false);
+	this.productManager.addExistingFilm(this.pdto.id, fid, false);
     }
      public void removeFilm(Long fid) {
-	this.productManager.removeFilm(this.getId(), fid);
+	this.productManager.removeFilm(this.pdto.id, fid);
     }
 }
