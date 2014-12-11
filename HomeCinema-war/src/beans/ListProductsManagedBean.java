@@ -43,8 +43,8 @@ public class ListProductsManagedBean {
 
     private List<GenreDto> allGenres;
 
-    private List<ProductDto> staticNewProduct;
-    private List<ProductDto> staticTopProduct;
+    private final List<ProductDto> staticNewProduct;
+    private final List<ProductDto> staticTopProduct;
 
     public Integer getSearchOpened() {
 	if (searchOpened == OPENING) {

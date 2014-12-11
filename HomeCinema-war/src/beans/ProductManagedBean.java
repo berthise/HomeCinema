@@ -39,9 +39,8 @@ public class ProductManagedBean {
 	ProductDto p = Ejbs.product().getProduct(pdto.id);
 	if (p == null) {
 	    FacesContext.getCurrentInstance().getExternalContext().dispatch(Pages.NOT_FOUND);
-	}
-	else if (Ejbs.product().getFilms(p.id).size() == 1){
-	    String url = Pages.FICHE_FILM+"?id="+Ejbs.product().getFilms(p.id).get(0).id;
+	} else if (Ejbs.product().getFilms(p.id).size() == 1) {
+	    String url = Pages.FICHE_FILM + "?id=" + Ejbs.product().getFilms(p.id).get(0).id;
 	    FacesContext.getCurrentInstance().getExternalContext().redirect(url);
 	}
 	pdto = p;
@@ -142,9 +141,10 @@ public class ProductManagedBean {
 	}
 	double reduc = pdto.price / price * 100;
 	int pr_reduc = (100 - (int) reduc);
-	if (pr_reduc < 0)
+	if (pr_reduc < 0) {
 	    return "+" + Math.abs(pr_reduc);
-	else
+	} else {
 	    return "-" + pr_reduc;
+	}
     }
 }

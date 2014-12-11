@@ -23,37 +23,37 @@ public class UsersFilmsManagedBean {
     UsersFilmsDto ufdto;
 
     public UsersFilmsManagedBean() {
-        ufdto = new UsersFilmsDto();
+	ufdto = new UsersFilmsDto();
     }
 
     public void updateCurrentTime() {
-        if (ufdto.currentPosition != null) {
-            try {
-                FacesContext fc = FacesContext.getCurrentInstance();
-                Long user = Long.parseLong(getParam(fc, "user"));
-                Long film = Long.parseLong(getParam(fc, "film"));
-                ufdto.film = film;
-                Ejbs.usersFilms().updateCurrentTime(user,ufdto);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+	if (ufdto.currentPosition != null) {
+	    try {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		Long user = Long.parseLong(getParam(fc, "user"));
+		Long film = Long.parseLong(getParam(fc, "film"));
+		ufdto.film = film;
+		Ejbs.usersFilms().updateCurrentTime(user, ufdto);
+	    } catch (Exception e) {
+		e.printStackTrace();
+	    }
+	}
     }
-    
+
     public void getCurrentTime(Long user, Long film) {
-        ufdto = Ejbs.usersFilms().getCurrentTime(user, film);
+	ufdto = Ejbs.usersFilms().getCurrentTime(user, film);
     }
 
     private String getParam(FacesContext fc, String param) {
-        Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
-        return (params.get(param)).trim();
+	Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
+	return (params.get(param)).trim();
     }
 
     public UsersFilmsDto getUfdto() {
-        return ufdto;
+	return ufdto;
     }
 
     public void setUfdto(UsersFilmsDto ufdto) {
-        this.ufdto = ufdto;
+	this.ufdto = ufdto;
     }
 }

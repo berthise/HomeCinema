@@ -8,6 +8,7 @@ package beans;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import static utils.Beans.findBean;
+import utils.Lang;
 import utils.Message;
 
 /**
@@ -18,40 +19,40 @@ import utils.Message;
 @RequestScoped
 public class LoginManagedBean {
 
-  private String email = "";
-  private String password = "";
+    private String email = "";
+    private String password = "";
 
-  public void login() {
-    SessionManagedBean session = findBean("sessionManagedBean");
+    public void login() {
+	SessionManagedBean session = findBean("sessionManagedBean");
 
-    if (session.login(this)) {
-      Message.Info("Bienvenue " + session.getNickName() + " !");
-    } else {
-      Message.Error("Identifiants incorrects !", "Email, login ou mot de passe incorrect.");
+	if (session.login(this)) {
+	    Message.Info(Lang.getString("login-bean-bienvenue") + " " + session.getNickName() + " !");
+	} else {
+	    Message.Error(Lang.getString("login-bean-error-1"), Lang.getString("login-bean-error-1"));
+	}
+	session.checkRight();
     }
-    session.checkRight();
-  }
 
-  public void tmpLogin() {
-    this.email = "rob@mail.net";
-    this.password = "password";
-    this.login();
-  }
+    /*public void tmpLogin() {
+	this.email = "rob@mail.net";
+	this.password = "password";
+	this.login();
+    }*/
 
-  public String getPassword() {
-    return this.password;
-  }
+    public String getPassword() {
+	return this.password;
+    }
 
-  public void setPassword(String password) {
-    this.password = password;
-  }
+    public void setPassword(String password) {
+	this.password = password;
+    }
 
-  public String getEmail() {
-    return this.email;
-  }
+    public String getEmail() {
+	return this.email;
+    }
 
-  public void setEmail(String email) {
-    this.email = email;
-  }
+    public void setEmail(String email) {
+	this.email = email;
+    }
 
 }
