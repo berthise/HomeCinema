@@ -10,8 +10,6 @@ import dtos.UserDto;
 import enums.UserStates;
 import exception.SignupEmailException;
 import exception.SignupNickNameException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -36,6 +34,7 @@ public class SignUpManagedBean {
 
   private UserDto user;
   private String birthDay;
+  private String confPassword;
 
   public SignUpManagedBean() {
     user = new UserDto();
@@ -44,11 +43,15 @@ public class SignUpManagedBean {
   public void singUp() {
     convertDate(birthDay);
     user.password = Securite.crypte(user.password);
+    if ( user.password != confPassword ) {
+            Message.Warning("Confirmation du mot de passe incorrect");
+return ;
+    }
     try {
       user = Ejbs.user().signUp(user);
       SendMail.send(user.email, "[HomeCinema] Confirmation d'inscription",
 	      "Bonjour \n\n"
-	      + "votre code de confirmation de compte:\n"
+	      + "Votre code de confirmation de compte:\n"
 	      + ActivateUserManagedBean.getUrl(user.id, user.activationCode)
 	      + "\n\n"
 	      + "Merci,\n"
@@ -74,6 +77,16 @@ public class SignUpManagedBean {
       ex.printStackTrace();
     }
   }
+
+  public String getConfPassword() {
+    return confPassword;
+  }
+
+  public void setConfPassword(String confPassword) {
+    this.confPassword = confPassword;
+  }
+  
+  
 
   public Long getId() {
     return user.id;

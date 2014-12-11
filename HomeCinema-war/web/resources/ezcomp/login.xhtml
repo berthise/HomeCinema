@@ -26,9 +26,9 @@
 	      <legend>Informations compte</legend>
 	      <div class="row">
 		<div class="form-group">
-		  <h:outputLabel class="col-md-5 form-label" for="email">Email <i class="required">*</i> : </h:outputLabel>
+		  <h:outputLabel class="col-md-5 form-label" for="email">Email/Login <i class="required">*</i> : </h:outputLabel>
 		  <div class="col-md-7">
-		    <h:inputText p:type="email" id="email" class="form-control" value="#{loginManagedBean.email}" tabindex="500" p:placeholder="Adresse e-mail" p:required="required" />
+		    <h:inputText id="email" class="form-control" value="#{loginManagedBean.email}" tabindex="500" p:placeholder="Adresse e-mail" p:required="required" />
 		  </div>
 		</div>
 	      </div>
@@ -43,7 +43,7 @@
 	      </div>
 	      <div class="row">
 		<span class="pull-right forgot">
-		  <a href="#" tabindex="600" >E-mail ou mot de passe oublié ?</a>
+		  <a href="forgot_pass.xhtml" tabindex="600" >Mot de passe oublié ?</a>
 		</span>
 	      </div>
 	      <div class="row">

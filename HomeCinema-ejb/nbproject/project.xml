@@ -6,6 +6,7 @@
             <name>HomeCinema-ejb</name>
             <minimum-ant-version>1.6.5</minimum-ant-version>
             <included-library dirs="200">reference.HomeCinema-lib.jar</included-library>
+            <included-library dirs="200">file.reference.mysql-connector-java-5.1.23-bin.jar</included-library>
             <included-library dirs="200">libs.eclipselink.classpath</included-library>
             <included-library dirs="200">libs.MySQLDriver.classpath</included-library>
             <source-roots>
