@@ -3,14 +3,14 @@
 @import url('http://fonts.googleapis.com/css?family=Monoton');
 
 .board404 {
-    margin: 20px auto 20px;
+    margin: -10px auto -20px;
     padding: 20px;
     font: 75px/75px Monoton, cursive;
     text-align: center;
     text-transform: uppercase;
     text-shadow: 0 0 80px green, 0 0 30px green, 0 0 6px DarkGreen;
     color: green;
-    font-size: 60px;
+    font-size: 50px;
 }
 
 #error404 {

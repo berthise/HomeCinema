@@ -73,7 +73,7 @@
 	</section>
         <section>
 	    <h:form rendered="#{productManagedBean.id ne null}">
-                <h:dataTable id="filmsProductTable" value="#{productManagedBean.filmsProduct}" var="film" border="1">
+                <h:dataTable id="filmsProductTable" value="#{productManagedBean.filmsProduct}" var="filmp" border="1">
                     <f:facet name="header">
                         <h:outputText value="Films du produit" />
                     </f:facet>
@@ -81,27 +81,27 @@
                         <f:facet name="header">
                             <h:outputText value="Id" />
                         </f:facet>
-                        <h:outputText value="#{film.id}" />
+                        <h:outputText value="#{filmp.id}" />
                     </h:column>
                     <h:column>
                         <f:facet name="header">
                             <h:outputText value="Title" />
                         </f:facet>
-                        <a href="film.xhtml?id=#{film.id}">
-                            <h:outputText value="#{film.title}" />
+                        <a href="film.xhtml?id=#{filmp.id}">
+                            <h:outputText value="#{filmp.title}" />
                         </a>
                     </h:column>
                     <h:column>
                         <f:facet name="header">
                             <h:outputText value="Release" />
                         </f:facet>
-                        <h:outputText value="#{film.release_date}" />
+                        <h:outputText value="#{filmp.release_date}" />
                     </h:column>
 		    <h:column>
                         <f:facet name="header">
                             <h:outputText value="remove" />
                         </f:facet>
-                        <h:commandLink onclick="return confirm('Are you sure ?')" action="#{productManagedBean.removeFilm(film.id)}" value="remove" />
+                        <h:commandLink onclick="return confirm('Are you sure ?')" action="#{productManagedBean.removeFilm(filmp.id)}" value="remove" />
                     </h:column>
                     <f:facet name="footer">
                         <h:outputText value="Total: #{productManagedBean.totalProduct}" />
