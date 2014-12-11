@@ -12,7 +12,7 @@ package utils;
 public class Pages {
 
     //public final static String DOMAIN = "www-homecinema.ddns.net";
-    public final static String DOMAIN = "localhost:8080";
+    public final static String DOMAIN = "localhost";
 
     public final static String ROOT = "/HomeCinema-war/";
 

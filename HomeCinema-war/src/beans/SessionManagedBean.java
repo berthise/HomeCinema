@@ -16,6 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import static utils.Beans.getRequestPage;
 import utils.Message;
 import utils.Pages;
@@ -69,6 +70,7 @@ public class SessionManagedBean {
   }
 
   public Boolean login(LoginManagedBean login) {
+    System.out.println(FacesContext.getCurrentInstance().getExternalContext().getInitParameterMap());
     try {
       String ep = Securite.crypte(login.getPassword());
 
