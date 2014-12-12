@@ -15,12 +15,13 @@ body {
 @media (min-width: 768px) {
   .sidebar {
     position: fixed;
-    top: 51px;
+    top: 52px;
     bottom: 0;
     left: 0;
     z-index: 1000;
     display: block;
     padding: 20px;
+    padding-top: 2px;
     overflow-x: hidden;
     overflow-y: auto;
     /* Scrollable contents if viewport is shorter than content. */
@@ -35,17 +36,20 @@ body {
 .nav-sidebar > li > a {
   margin: 0;
   height: 40px;
-  padding: 1px 0 0 0;
   color: #7c848d;
   border: 0;
   border-bottom: 1px solid #dbdee0;
   background: transparent;
-  -webkit-border-radius: 0;
-  -moz-border-radius: 0;
   border-radius: 0;
   text-decoration: none;
   display: block;
-  position: relative; }
+  position: relative;
+  padding-left: 2px; }
+  .nav-sidebar > li > a i {
+    width: 40px;
+    display: inline-block;
+    text-align: center;
+    border-right: 1px solid #dbdee0; }
 
 .nav-sidebar > .active > a,
 .nav-sidebar > .active > a:hover,

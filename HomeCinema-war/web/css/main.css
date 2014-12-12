@@ -1,9 +1,9 @@
 @import url("animate.css");
+@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro);
 body {
   background: -webkit-linear-gradient(left, #111, #666, #666, #666, #111);
-  color: #fff;
   margin: 0;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
   min-height: 800px; }
   body .textarea-noresizing {
     resize: none; }
@@ -83,6 +83,11 @@ body {
       body header .navbar-nav a {
         border-left: 1px solid #ced1d4;
         margin: 0; }
+      body header .navbar-nav i + span {
+        display: none; }
+      @media (min-width: 1000px) {
+        body header .navbar-nav i + span {
+          display: inline-block; } }
     body header nav ul form {
       display: inline; }
     body header #form-login {
@@ -104,60 +109,98 @@ body {
     padding: 0; }
     body #search-form input[type="search"] {
       padding: 6px 6px; }
-  body section .well-exclus {
-    margin-top: 5px; }
-  body section .exclus .film {
-    position: relative; }
-    body section .exclus .film img {
-      width: 100%;
-      border-radius: 5px;
-      box-shadow: 2px 2px 3px #080808; }
-      body section .exclus .film imghover {
-        top: 2px; }
-  body section .exclus a {
-    color: white !important;
-    font-weight: bold; }
-  body section .exclus .film:hover a {
-    color: #9FF89F !important; }
-  body section .well {
-    color: #333; }
-    body section .well .well-title {
-      margin: 0 auto 20px 0;
-      padding-bottom: 10px;
-      border-bottom: 1px solid #729d47; }
-  body section .film_title {
-    margin-top: 5px;
-    display: inline-block;
-    text-align: center;
-    width: 100%; }
-  body section .form-signin {
-    padding: 15px;
-    float: none;
-    margin: 0 auto;
-    color: #000; }
-    body section .form-signin .form-signin-heading, body section .form-signin .checkbox {
-      margin-bottom: 10px;
+  body section {
+    /*-------- Caddie table ----------*/
+    /* ---------- 3D buttons ----------*/ }
+    body section .panel .panel-body {
+      color: #000; }
+    body section .panel .panel-heading h1, body section .panel .panel-heading h2, body section .panel .panel-heading h3, body section .panel .panel-heading h4, body section .panel .panel-heading h5, body section .panel .panel-heading h6 {
+      margin: 5px; }
+    body section .panel .panel-footer {
+      text-align: right; }
+    body section td.center {
       text-align: center; }
-    body section .form-signin legend {
-      text-align: center; }
-    body section .form-signin .checkbox {
-      font-weight: normal; }
-      body section .form-signin .checkbox input[type="checkbox"] {
-        float: none;
-        margin: 0 5px; }
-    body section .form-signin .form-group > .form-label {
-      font-weight: normal;
-      text-align: right;
-      padding: 2px;
-      line-height: 2; }
-    body section .form-signin input[type="date"] {
-      width: 80%; }
-    body section .form-signin input[type="reset"] {
-      margin: 0 15px; }
-  body section .toggle-row {
-    margin-top: 5px;
-    margin-bottom: 5px;
-    display: none; }
+    body section td.right {
+      text-align: right; }
+    body section .well-exclus {
+      margin-top: 5px; }
+    body section .exclus .film {
+      position: relative; }
+      body section .exclus .film img {
+        width: 100%;
+        border-radius: 5px;
+        box-shadow: 2px 2px 3px #080808; }
+        body section .exclus .film imghover {
+          top: 2px; }
+    body section .exclus a {
+      color: #276427 !important;
+      font-weight: bold; }
+    body section .well {
+      color: #333; }
+      body section .well .well-title {
+        margin: 0 auto 20px 0;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #729d47; }
+    body section .film_title {
+      margin-top: 5px;
+      display: inline-block;
+      text-align: center;
+      width: 100%; }
+    body section .form-signin {
+      padding: 15px;
+      float: none;
+      margin: 0 auto;
+      color: #000; }
+      body section .form-signin .form-signin-heading, body section .form-signin .checkbox {
+        margin-bottom: 10px;
+        text-align: center; }
+      body section .form-signin legend {
+        text-align: center; }
+      body section .form-signin .checkbox {
+        font-weight: normal; }
+        body section .form-signin .checkbox input[type="checkbox"] {
+          float: none;
+          margin: 0 5px; }
+      body section .form-signin .form-group > .form-label {
+        font-weight: normal;
+        text-align: right;
+        padding: 2px;
+        line-height: 2; }
+      body section .form-signin input[type="date"] {
+        width: 80%; }
+      body section .form-signin input[type="reset"] {
+        margin: 0 15px; }
+    body section .toggle-row {
+      margin-top: 5px;
+      margin-bottom: 5px;
+      display: none; }
+    body section .btn3d, body section .btn {
+      transition: all .08s linear;
+      position: relative;
+      outline: medium none;
+      border: 0px; }
+      body section .btn3d:focus, body section .btn:focus {
+        outline: medium none; }
+      body section .btn3d:active, body section .btn:active {
+        top: 6px; }
+    body section .btn-default {
+      box-shadow: 0 0 0 1px #ebebeb inset, 0 0 0 2px rgba(255, 255, 255, 0.15) inset, 0 5px 0 0 #adadad, 0 5px 0 1px rgba(0, 0, 0, 0.4), 0 5px 5px 1px rgba(0, 0, 0, 0.5);
+      background-color: #fff; }
+    body section .btn-primary {
+      box-shadow: 0 0 0 1px #428bca inset, 0 0 0 2px rgba(255, 255, 255, 0.15) inset, 0 5px 0 0 #357ebd, 0 5px 0 1px rgba(0, 0, 0, 0.4), 0 5px 5px 1px rgba(0, 0, 0, 0.5);
+      background-color: #428bca; }
+    body section .btn-success {
+      box-shadow: 0 0 0 1px #5cb85c inset, 0 0 0 2px rgba(255, 255, 255, 0.15) inset, 0 5px 0 0 #4cae4c, 0 5px 0 1px rgba(0, 0, 0, 0.4), 0 5px 5px 1px rgba(0, 0, 0, 0.5);
+      background-color: #5cb85c; }
+    body section .btn-info {
+      box-shadow: 0 0 0 1px #5bc0de inset, 0 0 0 2px rgba(255, 255, 255, 0.15) inset, 0 5px 0 0 #46b8da, 0 5px 0 1px rgba(0, 0, 0, 0.4), 0 5px 5px 1px rgba(0, 0, 0, 0.5);
+      background-color: #5bc0de; }
+    body section .btn-warning {
+      box-shadow: 0 0 0 1px #f0ad4e inset, 0 0 0 2px rgba(255, 255, 255, 0.15) inset, 0 5px 0 0 #eea236, 0 5px 0 1px rgba(0, 0, 0, 0.4), 0 5px 5px 1px rgba(0, 0, 0, 0.5);
+      background-color: #f0ad4e; }
+    body section .btn-danger {
+      box-shadow: 0 0 0 1px #c63702 inset, 0 0 0 2px rgba(255, 255, 255, 0.15) inset, 0 5px 0 0 #C24032, 0 5px 0 1px rgba(0, 0, 0, 0.4), 0 5px 5px 1px rgba(0, 0, 0, 0.5);
+      background-color: #c63702; }
   body footer .footer-elem {
     margin: auto;
     text-align: center; }
@@ -312,13 +355,6 @@ body {
     background: -moz-linear-gradient(left, #62a53c 0%, #95c640 100%) !important;
     background: -webkit-gradient(linear, left top, right top, color-stop(0%, #62a53c), color-stop(100%, #95c640)) !important;
     background: -webkit-linear-gradient(left, #62a53c 0%, #95c640 100%) !important; }
-  body .box-right {
-    width: 73%;
-    border: 1px solid grey;
-    float: right;
-    border-radius: 5px;
-    padding: 15px;
-    background: #fafafa; }
   body .box-right h3 {
     padding: 0 0 10px 0;
     margin: 0 0 15px 0;
@@ -336,14 +372,6 @@ body {
     margin-bottom: 5px; }
   body .display-none {
     display: none; }
-  body .box-right table {
-    width: 100%;
-    text-align: center;
-    margin-bottom: 15px; }
-  body .box-right table, body .box-right tr, body .box-right td {
-    padding: 3px; }
-  body .box-right table, body .box-right tr, body .tr-solo td {
-    border: 1px solid #777; }
   body #box-caddie tr td:nth-of-type(1) {
     width: 5%; }
   body #box-caddie tr td:nth-of-type(2) {

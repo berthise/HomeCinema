@@ -65,17 +65,21 @@
 				    <c:set var="deco" value="#{sessionManagedBean.id eq null}" />
 				    <c:set var="type" value="#{accountManagedBean.getCodeButtonsFilm(filmManagedBean.id, sessionManagedBean.id)}" />
 
-				    <c:set var="deco" value="#{true}"/>
-
 				    <div class="form-liste-film">
 
 					<h:panelGroup rendered="#{!deco and type eq 'OWNED'}">
 					    <div class="row">
 						<div class="col-xs-6 col-low-padding-left">
-						    <a class="btn btn-primary b" href="#{msg['page-visio']}.xhtml?id=#{filmManagedBean.id}">#{msg['fiche-film-stream']}</a>
+						    <a class="btn btn-primary b" href="#{msg['page-visio']}.xhtml?id=#{filmManagedBean.id}">
+                                                        <i class="glyphicon glyphicon-play-circle"></i> 
+                                                        #{msg['fiche-film-stream']}
+                                                    </a>
 						</div>
 						<div class="col-xs-6 col-low-padding-right">
-						    <a class="btn btn-success b" href="#{filmManagedBean.getUrlDownload()}" download="#{filmManagedBean.getLinkToDownload()}">#{msg['fiche-film-download']}</a>
+						    <a class="btn btn-success b" href="#{filmManagedBean.getUrlDownload()}" download="#{filmManagedBean.getLinkToDownload()}">
+                                                        <i class="glyphicon glyphicon-download-alt"></i> 
+                                                        #{msg['fiche-film-download']}
+                                                    </a>
 						</div>
 					    </div>
 					</h:panelGroup>
@@ -93,7 +97,7 @@
 					<h:panelGroup rendered="#{!deco and type eq 'CADDIE'}">
 					    <div class="row">
 						<div class="col-xs-12">
-						    <a href="#{msg['page-account']}.xhtml?box=caddie" class="btn btn-primary b" >#{msg['fiche-caddie']}</a>
+						    <a href="#{msg['page-account']}.xhtml#caddie" class="btn btn-primary b" >#{msg['fiche-caddie']}</a>
 						</div>						
 					    </div>
 					</h:panelGroup>

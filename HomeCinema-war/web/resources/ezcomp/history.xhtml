@@ -13,14 +13,14 @@
 
     <!-- IMPLEMENTATION -->
     <cc:implementation>
-	<div>
-	    <h3><img src="img/clock-icon.png" title="Historique"/>#{msg['account-historique']}</h3>
+	<div class="panel panel-default">
+	    <div class="panel-heading">#{msg['account-historique']}</div>
 	    <c:choose>
 		<c:when test="#{historyManagedBean.counter(cc.attrs.userId) eq 0}" >
 		    <td>#{msg['account-historique-vide']}</td>                                        
 		</c:when>
 		<c:otherwise>
-		    <table>
+		    <table class="table table-bordered table-striped table-condensed">
 			<ui:repeat var="o" value="#{historyManagedBean.getListTransaction()}" varStatus="status">
 			    <tr>
 				<td>

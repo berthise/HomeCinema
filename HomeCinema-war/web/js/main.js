@@ -1,6 +1,5 @@
 $(function () {
-    $("#login").click(function () {
-        console.log($("#form-login").length);
+    $("#login").on("click", function () {
         $("#form-login").slideToggle();
     });
 
