@@ -170,6 +170,9 @@ body {
                 h1,h2,h3,h4,h5,h6 {
                     margin: 5px;
                 }
+                i {
+                    margin-right: 15px;
+                }
             }
             .panel-footer {
                 text-align: right;
@@ -178,7 +181,13 @@ body {
         .sidebar .panel-body {
             padding: 0;
             li > a {
-                border-bottom: 1px solid #ddd;                
+                border-bottom: 1px solid #ddd;
+                i {
+                    border-right: 1px solid #ddd;
+                    display: inline-block;
+                    width: 30px;
+                    margin-right: 10px;
+                }
             }
         }
         /*-------- Caddie table ----------*/

@@ -116,12 +116,19 @@ body {
       color: #000; }
     body section .panel .panel-heading h1, body section .panel .panel-heading h2, body section .panel .panel-heading h3, body section .panel .panel-heading h4, body section .panel .panel-heading h5, body section .panel .panel-heading h6 {
       margin: 5px; }
+    body section .panel .panel-heading i {
+      margin-right: 15px; }
     body section .panel .panel-footer {
       text-align: right; }
     body section .sidebar .panel-body {
       padding: 0; }
       body section .sidebar .panel-body li > a {
         border-bottom: 1px solid #ddd; }
+        body section .sidebar .panel-body li > a i {
+          border-right: 1px solid #ddd;
+          display: inline-block;
+          width: 30px;
+          margin-right: 10px; }
     body section td.center {
       text-align: center; }
     body section td.right {

@@ -14,7 +14,7 @@
     <!-- IMPLEMENTATION -->
     <cc:implementation>
 	<div class="panel panel-default">
-            <div class="panel-heading"><h4>#{msg['account-historique']}</h4></div>
+            <div class="panel-heading"><h4><i class="glyphicon glyphicon-time" />#{msg['account-historique']}</h4></div>
 	    <c:choose>
 		<c:when test="#{historyManagedBean.counter(cc.attrs.userId) eq 0}" >
 		    <td>#{msg['account-historique-vide']}</td>                                        
