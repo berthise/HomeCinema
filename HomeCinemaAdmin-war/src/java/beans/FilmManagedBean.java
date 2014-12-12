@@ -12,6 +12,7 @@ import dtos.ProductDto;
 import dtos.UserDtoNoPw;
 import ejbs.ManageFilmRemote;
 import ejbs.ManageProductRemote;
+import enums.Lang;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -101,11 +102,11 @@ public class FilmManagedBean {
 
     public void setDtoFromId() throws IOException {
 	if (fdto.id != null && fdto.id != 0) {
-	    FilmDto f = filmManager.getFilmFromId(fdto.id);
+	    FilmDto f = filmManager.getFilmFromId(fdto.id,Lang.EN);
 	    fdto = f;
-	    products = filmManager.getProducts(fdto.id);
-	    main = filmManager.getMainProduct(fdto.id);
-	    genres = this.filmManager.getGenre(fdto.id);
+	    products = filmManager.getProducts(fdto.id,Lang.EN);
+	    main = filmManager.getMainProduct(fdto.id,Lang.EN);
+	    genres = this.filmManager.getGenre(fdto.id,Lang.EN);
 	    directors = this.filmManager.getDirector(fdto.id);
 	    actors = this.filmManager.getCasting(fdto.id);
 	} else {
@@ -195,7 +196,7 @@ public class FilmManagedBean {
     }
 
     public void save() {
-	filmManager.mergeOrSave(fdto);
+	filmManager.mergeOrSave(fdto,Lang.EN);
 	FacesMessage message = new FacesMessage("Succès de la modification !");
 	FacesContext.getCurrentInstance().addMessage(null, message);
     }

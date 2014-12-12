@@ -18,6 +18,14 @@
     text-shadow: 0 0 80px #ffffff, 0 0 30px green, 0 0 6px green;
 }
 
+#title404 {
+    color: #fff;
+    font-size: 20px;
+    text-shadow: 0 0 10px #ffffff;
+    margin-top: -30px;
+    word-spacing: 10px;
+}
+
 .well-black {
     background: #111;
 }

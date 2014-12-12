@@ -8,6 +8,7 @@ package managers.dtos;
 import dtos.TransactionDto;
 import entities.Product;
 import entities.Transaction;
+import enums.Lang;
 import java.util.ArrayList;
 
 /**
@@ -16,7 +17,7 @@ import java.util.ArrayList;
  */
 public class TransactionDtoManager {
 
-    public static TransactionDto getDto(Transaction t) {
+    public static TransactionDto getDto(Transaction t,Lang lang) {
         if (t == null) {
             return null;
         }
@@ -31,7 +32,7 @@ public class TransactionDtoManager {
 	tdto.products= new ArrayList<>();
 	for ( Product p : t.getProducts())
 	{
-	    tdto.products.add(ProductDtoManager.getDto(p));
+	    tdto.products.add(ProductDtoManager.getDto(p,lang));
 	}
         return tdto;
     }

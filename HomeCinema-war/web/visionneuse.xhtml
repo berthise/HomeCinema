@@ -38,7 +38,10 @@
                 <div id="ba" class="well">
                     <h2 class="well-title"><strong>#{msg['visio-subtitle']}: </strong><h:outputText value="#{filmManagedBean.getLinkToFiche()}" escape="false"/>
                         <div class="form-download-film">
-                            <h:outputText value="#{filmManagedBean.getLinkToDownload()}" escape="false" />
+                            <a class="btn btn-success b" href="#{filmManagedBean.getUrlDownload()}" download="#{filmManagedBean.getLinkToDownload()}">
+				<i class="glyphicon glyphicon-download-alt"></i> 
+				#{msg['fiche-film-download']}
+			    </a>
                         </div>
                     </h2>
 
@@ -59,7 +62,6 @@
                     <h:outputText id="output" value="#{usersFilmsManagedBean.updateCurrentTime()}" />
                     #{usersFilmsManagedBean.getCurrentTime(sessionManagedBean.id, filmManagedBean.id)}
                     <span id="lastPosition" style="display: none">#{usersFilmsManagedBean.ufdto.currentPosition}</span>
-
 		    <a class="go-top" title="#{msg['allpage-top']}" href="#top"><img src="img/arrowUp.png" /></a>
 
 <!--		    <div>

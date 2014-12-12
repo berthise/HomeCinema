@@ -5,6 +5,7 @@
  */
 package beans;
 
+import enums.Lang;
 import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -13,6 +14,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.Cookie;
 import utils.Cookies;
+
 
 /**
  *
@@ -49,8 +51,9 @@ public class LanguageManagedBean {
 	    }
 	}
 	
-	Cookies.setCookie(LanguageManagedBean.localeCookieName, localeCode, 
-		LanguageManagedBean.localeCookieExpire);
+	Cookies.setCookie(LanguageManagedBean.localeCookieName, localeCode, LanguageManagedBean.localeCookieExpire);
+    
+	utils.Lang.reset();
     }
 
     public LanguageManagedBean() {
@@ -65,6 +68,14 @@ public class LanguageManagedBean {
 	countries = new LinkedHashMap<>();
 	countries.put("fr", Locale.FRENCH);
 	countries.put("en", Locale.ENGLISH);
+    }
+    
+    public Lang getLang()
+    {
+	if (isFR())
+	    return Lang.FR;
+	else
+	    return Lang.EN;
     }
 
     public boolean isFR() {

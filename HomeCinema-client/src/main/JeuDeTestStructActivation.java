@@ -313,14 +313,14 @@ public class JeuDeTestStructActivation {
     private static void userCaddyProduct(Admin a, UserDto rob_user, ProductDto sw_product) {
 
 	System.out.print(rob_user.nickName + " caddy : " + sw_product.name);
-	a.getManageTransactionRemote().addProduct(rob_user.id, sw_product.id);
+	a.getManageTransactionRemote().addProduct(rob_user.id, sw_product.id,Lang.EN);
 	System.out.println(" ...  done");
     }
 
     private static void userBuyProduct(Admin a, UserDto rob_user, ProductDto ab_product, long btn) {
 	//achat american beauty
 	System.out.print(rob_user.nickName + " buy : " + ab_product.name);
-	a.getManageTransactionRemote().addProduct(rob_user.id, ab_product.id);
+	a.getManageTransactionRemote().addProduct(rob_user.id, ab_product.id,Lang.EN);
 	Long trans = a.getManageTransactionRemote().validate(rob_user.id, null);
 	a.getManageTransactionRemote().validatePayement(trans, btn);
 	System.out.println(" ...  done");
@@ -363,7 +363,7 @@ public class JeuDeTestStructActivation {
 	ProductDto pdto = new ProductDto();
 	pdto.name = name;
 	pdto.price = price;
-	pdto.id = a.getManageProductRemote().createProduct(pdto);
+	pdto.id = a.getManageProductRemote().createProduct(pdto,Lang.EN);
 	for (FilmDto f : films) {
 	    a.getManageProductRemote().addExistingFilm(pdto.id, f.id, main);
 	}
@@ -378,7 +378,7 @@ public class JeuDeTestStructActivation {
 	ProductDto pdto = new ProductDto();
 	pdto.name = name;
 	pdto.price = price;
-	pdto.id = a.getManageProductRemote().createProduct(pdto);
+	pdto.id = a.getManageProductRemote().createProduct(pdto,Lang.EN);
 	a.getManageProductRemote().addExistingFilm(pdto.id, f.id, main);
 	System.out.println(" ...  done");
 
@@ -390,10 +390,10 @@ public class JeuDeTestStructActivation {
 	System.out.print("create film : ");
 	FilmDto f = a.createFilm(film_id);
 	System.out.print(f.title);
-	a.getManageFilmRemote().createFilm(f);
+	a.getManageFilmRemote().createFilm(f,Lang.EN);
 	a.getManageFilmRemote().addExistingVideo(f.id, video_id);
 	a.getManageFilmRemote().setExistingTrailer(f.id, trailer_id);
-	a.getManageFilmRemote().addGenres(film_id, a.getGenre(film_id));
+	a.getManageFilmRemote().addGenres(film_id, a.getGenre(film_id),Lang.EN);
 	a.getManageFilmRemote().addActors(film_id, a.getCast(film_id));
 	a.getManageFilmRemote().addDirectors(film_id, a.getDirectors(film_id));
 	System.out.println(" ...  done");

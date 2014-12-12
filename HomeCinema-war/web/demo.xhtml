@@ -1,76 +1,50 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html
-  xmlns="http://www.w3.org/1999/xhtml"
-  xmlns:ui="http://java.sun.com/jsf/facelets"
-  xmlns:h="http://java.sun.com/jsf/html"
-  xmlns:f="http://xmlns.jcp.org/jsf/core">
-  <h:head>
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>HomeCinéma - #{msg['demo-title']}</title>
-    <meta name="description" content=""/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+        <title>HomeCinéma - #{msg['demo-title']}</title>
+        <meta name="description" content=""/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-    <link rel="stylesheet" href="css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="css/bootstrap-theme.min.css"/>
-    <link rel="stylesheet" href="css/main.css"/>
+        <link rel="stylesheet" href="css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="css/bootstrap-theme.min.css"/>
+        <link rel="stylesheet" href="css/main.css"/>
 
-<!--    	    <script language="JavaScript" type="text/javascript">
-	      function changeVideo(newUrl, type) {
-		var v = document.getElementById("myVideo");
-		//v.pause();
-		var time = v.currentTime;
-		console.log("current time : " + v.currentTime);
+        <f:metadata>
+            <f:event type="preRenderView" listener="#{sessionManagedBean.checkRight()}"/>
+        </f:metadata>
+    </h:head>
+    <h:body>
+        <ui:insert name="header" >
+            <ui:include src="components/header.xhtml">
+                <ui:param name="active" value="demo" />
+            </ui:include>
+        </ui:insert>
+        <section>
+            <div class="container">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3>#{msg['demo-title']}</h3>
+                    </div>
+                    <div class="panel-body">
+                        <video id="myVideo" width="100%" controls="controls">
+                            <source src="http://techslides.com/demos/sample-videos/small.mp4" type="video/mp4" />
+                        </video>
+                    </div>
+                    <a class="go-top" title="#{msg['allpage-top']}" href="#top"><img src="img/arrowUp.png" /></a>
+                </div>
+            </div>
+        </section>
 
-		while (v.firstChild) {
-		  v.removeChild(v.firstChild);
-		}
-		var s = document.createElement("source");
-		s.setAttribute("src", newUrl);
-		s.setAttribute("type", type);
-		v.appendChild(s);
-		v.load();
-		v.play();
-//		v.pause();
-		v2.currentTime=5;
-
-		
-	      }
-	    </script>-->
-    <f:metadata>
-      <f:event type="preRenderView" listener="#{sessionManagedBean.checkRight()}"/>
-    </f:metadata>
-  </h:head>
-  <h:body id="top">
-    <ui:insert name="header" >
-      <ui:include src="components/header.xhtml">
-	<ui:param name="active" value="demo" />
-      </ui:include>
-    </ui:insert>
-    <section>
-      <div class="container">
-
-	<div id="ba" class="well">
-	  <h2 class="well-title"><strong>#{msg['demo-title']}</strong></h2>
-
-
-	  <video id="myVideo" width="100%" controls="controls">
-	    <source src="http://techslides.com/demos/sample-videos/small.mp4" type="video/mp4" />
-	    <source src="http://techslides.com/demos/sample-videos/small.webm" type="video/webm" />
-	    <source src="http://techslides.com/demos/sample-videos/small.ogv" type="video/ogg" /> 
-	  </video>
-
-	  <a class="go-top" title="#{msg['allpage-top']}" href="#top"><img src="img/arrowUp.png" /></a>
-	</div>
-
-      </div>
-      
-    </section>
-
-    <ui:insert name="footer" >
-      <ui:include src="components/footer.xhtml" />
-    </ui:insert>
-  </h:body>
+        <ui:insert name="footer" >
+            <ui:include src="components/footer.xhtml" />
+        </ui:insert>
+    </h:body>
 
 </html>

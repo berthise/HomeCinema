@@ -29,56 +29,73 @@
         </ui:insert>
         <section>
             <div class="container">
-		<div class="row">
-		    <div class="col-md-7">
-			<div class="well index-box">
-			    <h2 class="well-title"><h:outputText value="#{msg['index-welcome']}" /></h2>
-			    <p class="text-justify">
-				<span class="text-sitetitle">HomeCinéma</span> #{msg['index-text-p1']} <span class="text-sitetitle">HomeCinéma</span>, #{msg['index-text-p2']}
-			    </p>
-			    <p class="text-justify">
-				#{msg['index-text-p3']} <span class="text-sitetitle">HomeCinéma</span>, #{msg['index-text-p4']} <a href="demo.xhtml">#{msg['index-text-p5']}</a>. 
-				#{msg['index-text-p6']} <a href="faq.xhtml">FAQ</a>.
-			    </p>
-			    <c:if test="#{sessionManagedBean.firstName == null}">
-				<p>#{msg['index-text-p7']}:</p>
-                                <center>
-                                    <a href="#{msg['page-login']}.xhtml" class="btn btn-success btn-lg btn-space">#{msg['connexion']}</a>
-                                    <a href="#{msg['page-signup']}.xhtml" class="btn btn-primary btn-lg">#{msg['inscription']}</a>
-                                </center>
-			    </c:if>
-			</div>
-		    </div>
-		    <div class="col-md-5">
-			<div class="well index-box">
-			    <h2 class="well-title">#{msg['demo-title']}</h2>
-			    <video id="myVideo" width="100%" height="212px" controls="controls">
-				<source src="http://techslides.com/demos/sample-videos/small.mp4" type="video/mp4" />
-			    </video>
-			</div>
-		    </div>
-		</div>
+                <div class="row">
+                    <div class="col-md-7">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3><h:outputText value="#{msg['index-welcome']}" /></h3>
+                            </div>
+                            <div class="panel-body">
+                                <p class="text-justify">
+                                    <span class="text-sitetitle">HomeCinéma</span> #{msg['index-text-p1']} <span class="text-sitetitle">HomeCinéma</span>, #{msg['index-text-p2']}
+                                </p>
+                                <p class="text-justify">
+                                    #{msg['index-text-p3']} <span class="text-sitetitle">HomeCinéma</span>, #{msg['index-text-p4']} <a href="demo.xhtml">#{msg['index-text-p5']}</a>. 
+                                    #{msg['index-text-p7']} <a href="faq.xhtml">FAQ</a>.
+                                </p>
+                                <c:if test="#{sessionManagedBean.firstName == null}">
+                                    <p>#{msg['index-text-p7']}:</p>
+                                    <center>
+                                        <a href="#{msg['page-login']}.xhtml" class="btn btn-success btn-lg btn-space">#{msg['connexion']}</a>
+                                        <a href="#{msg['page-signup']}.xhtml" class="btn btn-primary btn-lg">#{msg['inscription']}</a>
+                                    </center>
+                                </c:if>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-5">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3><h:outputText value="#{msg['demo-title']}" /></h3>
+                            </div>
+                            <div class="panel-body">
+                                <video id="myVideo" width="100%" height="212px" controls="controls">
+                                    <source src="http://techslides.com/demos/sample-videos/small.mp4" type="video/mp4" />
+                                </video>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <div id="random" class="row exclus">
-                    <h:form id="form-random">
-                        <h1>#{msg['index-idea']}
-                            <h:commandLink>
-                                <img src="img/refresh.png" />
-                                <f:ajax execute="@form" render=":form-random:panel-random" />
-                            </h:commandLink>
-                        </h1>
-                        <hr />
-                        <h:panelGroup id="panel-random">
-                            <ui:repeat var="o" value="#{listProductsManagedBean.getSelectionFilms(6)}">
-                                <div class="col-md-2 col-sm-4 col-xs-6 film">
-                                    <a href="#{msg['page-fiche-product']}.xhtml?id=#{o.id}">
-                                        <img class="cover" src="http://image.tmdb.org/t/p/w300/#{o.cover}" />
-                                        <span class="film_title">#{o.name}</span>
-                                    </a>
+                    <div class="col-xs-12">
+                        <h:form id="form-random">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3>#{msg['index-idea']}
+                                        <h:commandLink>
+                                            <img src="img/refresh.png" />
+                                            <f:ajax execute="@form" render=":form-random:panel-random" />
+                                        </h:commandLink>
+                                    </h3>
                                 </div>
-                            </ui:repeat>
-                        </h:panelGroup> 
-                    </h:form>
+                                <div class="panel-body">
+                                    <h:panelGroup id="panel-random">
+                                        <ui:repeat var="o" value="#{listProductsManagedBean.getSelectionFilms(6)}">
+                                            <div class="col-md-2 col-sm-4 col-xs-6 film">
+                                                <a href="#{msg['page-fiche-product']}.xhtml?id=#{o.id}">
+                                                    <img class="cover" src="http://image.tmdb.org/t/p/w300/#{o.cover}" />
+                                                    <span class="film_title">#{o.name}</span>
+                                                </a>
+                                            </div>
+                                        </ui:repeat>
+                                    </h:panelGroup> 
+                                </div>
+                            </div>
+                        </h:form>
+                    </div>
+
                 </div>
             </div>
         </section>

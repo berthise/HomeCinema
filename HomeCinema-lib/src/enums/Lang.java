@@ -3,15 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package exception;
+package enums;
 
-import javax.ejb.ApplicationException;
+import java.io.Serializable;
 
 /**
  *
- * @author titou
+ * @author seb
  */
-@ApplicationException(rollback=true)
-public class UnknownAccountException extends Exception {
-
+public enum Lang implements Serializable {
+  EN,
+  FR
 }

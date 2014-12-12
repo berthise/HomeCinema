@@ -10,6 +10,7 @@ import dtos.SimpleUserDto;
 import ejbs.ManageFilmRemote;
 
 import ejbs.ManageUserRemote;
+import enums.Lang;
 import java.util.List;
 import java.util.Set;
 import javax.faces.application.FacesMessage;
@@ -33,7 +34,7 @@ public class FilmsManagedBean {
 
   public FilmsManagedBean() throws NamingException {
     filmManager = (ManageFilmRemote) new InitialContext().lookup("java:global/HomeCinema/HomeCinema-ejb/ManageFilm!ejbs.ManageFilmRemote");
-    this.films = filmManager.getAllFilm();
+    this.films = filmManager.getAllFilm(Lang.EN);
   }
 
   public List<FilmDto> getFilms() {

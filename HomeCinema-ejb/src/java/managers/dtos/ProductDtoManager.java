@@ -7,6 +7,7 @@ package managers.dtos;
 
 import dtos.ProductDto;
 import entities.Product;
+import enums.Lang;
 import enums.OrderTypes;
 import enums.ProductStates;
 import java.util.Comparator;
@@ -19,7 +20,7 @@ import javax.persistence.EntityManager;
  */
 public class ProductDtoManager {
 
-    public static ProductDto getDto(Product p) {
+    public static ProductDto getDto(Product p,Lang lang) {
 	if (p == null) {
 	    return null;
 	}
@@ -27,7 +28,7 @@ public class ProductDtoManager {
 	ProductDto pdto = new ProductDto();
 	pdto.id = p.getId();
 	pdto.addDate = p.getAddDate();
-	pdto.name = p.getName();
+	pdto.name = p.getName(lang);
 	pdto.nbSales = p.getNbSales();
 	pdto.price = p.getPrice();
 	pdto.state = p.getState();
@@ -38,27 +39,27 @@ public class ProductDtoManager {
 	return pdto;
     }
 
-    public static Product makeProduct(ProductDto pdto) {
+    public static Product makeProduct(ProductDto pdto,Lang lang) {
 	Product p = new Product();
 	p.setId(pdto.id);
-	p.setName(pdto.name);
+	p.setName(pdto.name,lang);
 	p.setPrice(pdto.price);
 	p.setState(pdto.state);
 
 	return p;
     }
 
-    public static Product mergeOrSave(ProductDto pdto, EntityManager em) {
+    public static Product mergeOrSave(ProductDto pdto,Lang lang , EntityManager em) {
 
 	Product p = null;
 	if (pdto.id != null) {
 	    p = em.find(Product.class, pdto.id);
 	}
 	if (p == null) {
-	    p = makeProduct(pdto);
+	    p = makeProduct(pdto,lang);
 	    em.persist(p);
 	} else {
-	    p.setName(pdto.name);
+	    p.setName(pdto.name,lang);
 	    p.setAddDate(new Date());
 	    p.setState(pdto.getState());
 	    p.setPrice(pdto.price);

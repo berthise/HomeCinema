@@ -13,6 +13,7 @@ import ejbs.ManageFilmRemote;
 
 import ejbs.ManageUserRemote;
 import ejbs.ManageVideoRemote;
+import enums.Lang;
 import java.util.List;
 import java.util.Set;
 import javax.faces.application.FacesMessage;
@@ -87,7 +88,7 @@ public class VideoManagedBean {
 
     public void makeVideo() {
 	if (film != null) {
-	    FilmFicheDto f = filmManager.getDtoFromId(film);
+	    FilmFicheDto f = filmManager.getDtoFromId(film,Lang.EN);
 	    this.title = f.title;
 	    this.videos = f.videos;
 	    this.trailer = f.trailler;

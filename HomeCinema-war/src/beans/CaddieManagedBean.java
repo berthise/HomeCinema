@@ -29,9 +29,11 @@ import utils.Redirect;
 @ManagedBean
 @ViewScoped
 public class CaddieManagedBean {
-
+LanguageManagedBean lang = findBean("languageManagedBean");
     public class Product {
 
+	
+	
 	private ProductDto product;
 	private List<FilmDto> films;
 
@@ -70,13 +72,13 @@ public class CaddieManagedBean {
 	SessionManagedBean session = findBean("sessionManagedBean");
 	List<Product> toReturn = new ArrayList<>();
 	if (cdto == null) {
-	    this.cdto = Ejbs.transaction().getCaddieDto(session.getId());
+	    this.cdto = Ejbs.transaction().getCaddieDto(session.getId(),lang.getLang());
 	}
 
 	for (ProductDto pd : cdto.films) {
 	    Product p = new Product();
 	    p.setProduct(pd);
-	    List<FilmDto> list_films = Ejbs.product().getFilms(pd.id);
+	    List<FilmDto> list_films = Ejbs.product().getFilms(pd.id,lang.getLang());
 	    p.setFilms(list_films);
 	    toReturn.add(p);
 
@@ -88,7 +90,7 @@ public class CaddieManagedBean {
 	SessionManagedBean session = findBean("sessionManagedBean");
 	Double price = 0D;
 	if (cdto == null) {
-	    this.cdto = Ejbs.transaction().getCaddieDto(session.getId());
+	    this.cdto = Ejbs.transaction().getCaddieDto(session.getId(),lang.getLang());
 	}
 	if (cdto != null) {
 	    for (ProductDto pd : cdto.films) {
@@ -105,20 +107,20 @@ public class CaddieManagedBean {
 
     public void deleteFromCaddie(Long idProduct) {
 	SessionManagedBean session = findBean("sessionManagedBean");
-	Ejbs.transaction().removeProduct(session.getId(), idProduct);
-	this.cdto = Ejbs.transaction().getCaddieDto(session.getId());
+	Ejbs.transaction().removeProduct(session.getId(), idProduct,lang.getLang());
+	this.cdto = Ejbs.transaction().getCaddieDto(session.getId(),lang.getLang());
 	session.caddySizeMinus();
 	Message.Info("Succès de la suppresion !");
 	if (getRequestPage().contains(Pages.MON_COMPTE)) {
 	    // redirect only if on page moncompte (to reload caddie).
-	    Redirect.redirectTo(Pages.MON_COMPTE + "?box=caddie");
+	    Redirect.redirectTo(Pages.MON_COMPTE + "#caddie");
 	}
 
     }
 
     public void addProductFilmToCaddie(Long idproduct, Long idfilm) throws IOException {
 	SessionManagedBean session = findBean("sessionManagedBean");
-	this.cdto = Ejbs.transaction().addProduct(session.getId(), idproduct);
+	this.cdto = Ejbs.transaction().addProduct(session.getId(), idproduct,lang.getLang());
 	session.caddySizePlus();
 	Message.Info(Lang.getString("caddie-bean-info"));
 	Redirect.redirectTo(Pages.FICHE_FILM + "?id=" + idfilm);
@@ -127,7 +129,7 @@ public class CaddieManagedBean {
     private int isInMyFilms(Long ids) {
 	SessionManagedBean session = findBean("sessionManagedBean");
 	int toReturn = 0;
-	for (FilmDto l : Ejbs.user().getFilms(session.getId())) {
+	for (FilmDto l : Ejbs.user().getFilms(session.getId(),lang.getLang())) {
 	    if (l.id.equals(ids)) {
 		toReturn++;
 	    }
@@ -138,8 +140,8 @@ public class CaddieManagedBean {
     private int isInMyCaddie(Long ids) {
 	SessionManagedBean session = findBean("sessionManagedBean");
 	int toReturn = 0;
-	for (ProductDto l : Ejbs.transaction().getCaddieDto(session.getId()).films) {
-	    for (FilmDto f : Ejbs.product().getFilms(l.id)) {
+	for (ProductDto l : Ejbs.transaction().getCaddieDto(session.getId(),lang.getLang()).films) {
+	    for (FilmDto f : Ejbs.product().getFilms(l.id,lang.getLang())) {
 		if (f.id.equals(ids)) {
 		    toReturn++;
 		}
@@ -152,19 +154,19 @@ public class CaddieManagedBean {
 	SessionManagedBean session = findBean("sessionManagedBean");
 	switch (_switch) {
 	    case "FREE":
-		this.cdto = Ejbs.transaction().addProduct(session.getId(), idproduct);
+		this.cdto = Ejbs.transaction().addProduct(session.getId(), idproduct,lang.getLang());
 		session.caddySizePlus();
 		break;
 	    case "PART_CADDIE":
-		this.cdto = Ejbs.transaction().addProduct(session.getId(), idproduct);
-		for (FilmDto f : Ejbs.product().getFilms(idproduct)) {
-		    Ejbs.transaction().removeProduct(session.getId(), f.main_product_id);
+		this.cdto = Ejbs.transaction().addProduct(session.getId(), idproduct,lang.getLang());
+		for (FilmDto f : Ejbs.product().getFilms(idproduct,lang.getLang())) {
+		    Ejbs.transaction().removeProduct(session.getId(), f.main_product_id,lang.getLang());
 		}
 		break;
 	    default:
-		for (FilmDto f : Ejbs.product().getFilms(idproduct)) {
+		for (FilmDto f : Ejbs.product().getFilms(idproduct,lang.getLang())) {
 		    if (isInMyFilms(f.id) == 0 && isInMyCaddie(f.id) == 0) {
-			this.cdto = Ejbs.transaction().addProduct(session.getId(), f.main_product_id);
+			this.cdto = Ejbs.transaction().addProduct(session.getId(), f.main_product_id,lang.getLang());
 			session.caddySizePlus();
 		    }
 		}
