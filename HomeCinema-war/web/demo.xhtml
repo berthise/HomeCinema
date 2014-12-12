@@ -16,11 +16,33 @@
     <link rel="stylesheet" href="css/bootstrap-theme.min.css"/>
     <link rel="stylesheet" href="css/main.css"/>
 
+<!--    	    <script language="JavaScript" type="text/javascript">
+	      function changeVideo(newUrl, type) {
+		var v = document.getElementById("myVideo");
+		//v.pause();
+		var time = v.currentTime;
+		console.log("current time : " + v.currentTime);
+
+		while (v.firstChild) {
+		  v.removeChild(v.firstChild);
+		}
+		var s = document.createElement("source");
+		s.setAttribute("src", newUrl);
+		s.setAttribute("type", type);
+		v.appendChild(s);
+		v.load();
+		v.play();
+//		v.pause();
+		v2.currentTime=5;
+
+		
+	      }
+	    </script>-->
     <f:metadata>
       <f:event type="preRenderView" listener="#{sessionManagedBean.checkRight()}"/>
     </f:metadata>
   </h:head>
-  <h:body id="top" onload="initVideo()">
+  <h:body id="top">
     <ui:insert name="header" >
       <ui:include src="components/header.xhtml">
 	<ui:param name="active" value="demo" />
@@ -32,14 +54,18 @@
 	<div id="ba" class="well">
 	  <h2 class="well-title"><strong>#{msg['demo-title']}</strong></h2>
 
+
 	  <video id="myVideo" width="100%" controls="controls">
 	    <source src="http://techslides.com/demos/sample-videos/small.mp4" type="video/mp4" />
+	    <source src="http://techslides.com/demos/sample-videos/small.webm" type="video/webm" />
+	    <source src="http://techslides.com/demos/sample-videos/small.ogv" type="video/ogg" /> 
 	  </video>
 
 	  <a class="go-top" title="#{msg['allpage-top']}" href="#top"><img src="img/arrowUp.png" /></a>
-
 	</div>
+
       </div>
+      
     </section>
 
     <ui:insert name="footer" >

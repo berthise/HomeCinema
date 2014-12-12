@@ -89,7 +89,7 @@ public class VideoManagedBean {
 	if (film != null) {
 	    FilmFicheDto f = filmManager.getDtoFromId(film);
 	    this.title = f.title;
-	    this.videos = f.files;
+	    this.videos = f.videos;
 	    this.trailer = f.trailler;
 	    if (trailer == null) {
 		this.trailer = new VideoDto();

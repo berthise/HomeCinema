@@ -5,6 +5,8 @@
  */
 package entities;
 
+import enums.Langs;
+import enums.VideoFormat;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -31,6 +33,12 @@ public class Video implements Serializable {
 
   @Column(name = "RESOLUTION")
   private Integer resolution;
+  
+  @Column(name = "LANG")
+  private Langs audio;
+  
+  @Column(name = "FORMAT")
+  private VideoFormat format;
 
   @Size(max = 255)
   @Column(name = "URL")
@@ -60,6 +68,23 @@ public class Video implements Serializable {
     this.url = url;
   }
 
+  public Langs getAudio() {
+    return audio;
+  }
+
+  public void setAudio(Langs audio) {
+    this.audio = audio;
+  }
+
+  public VideoFormat getFormat() {
+    return format;
+  }
+
+  public void setFormat(VideoFormat format) {
+    this.format = format;
+  }
+  
+
   @Override
   public int hashCode() {
     int hash = 0;
@@ -82,7 +107,8 @@ public class Video implements Serializable {
 
   @Override
   public String toString() {
-    return "VideoFile{" + "id=" + id + ", resolution=" + resolution + ", url=" + url + '}';
+    return "Video{" + "id=" + id + ", resolution=" + resolution + ", audio=" + audio + ", format=" + format + ", url=" + url + '}';
   }
+
 
 }

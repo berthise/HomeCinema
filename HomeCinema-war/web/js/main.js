@@ -6,6 +6,10 @@ $(function () {
         $("#form-login").slideToggle();
     });
     
+    $("#dt_button").click(function () {
+        $("#dl_popup").show();
+    });
+    
     $("#warning-http-lien").on("click", function (e) {
 	e.preventDefault();
         if (window.location.protocol != "https:")
@@ -58,3 +62,74 @@ $(function () {
         }
     });
 });
+
+var myLang;
+var myQuality;
+var myFormat;
+
+function chargeLang(lang,quality,format) {
+  /*if (videos != null )
+    console.log("llllllllll"+videos); */
+  console.log("charge lang=" + lang + " quality="+quality+ " format="+format);
+     document.getElementById('format-'+lang).style.display = '';
+     document.getElementById('format-'+lang+'-'+quality).style.display = '';
+   myLang = lang;
+   myQuality = quality;
+   myFormat = format;
+}
+function selectLang(value) {
+
+  console.log("myLang = " + myLang);
+  console.log('format-' + value);
+
+   /* Hide unused form elem */
+   document.getElementById('format-'+myLang).style.display = 'none';
+   if (myQuality != null)
+     document.getElementById('format-'+myLang+'-'+myQuality).style.display = 'none';
+   myLang = value;
+      
+   /* show newly use form elem */
+   var qualityNode = document.getElementById('format-'+myLang);
+   qualityNode.style.display = '';
+   var selectQuality = qualityNode.getElementsByTagName("select");
+   console.log(selectQuality[0].value);
+   myQuality = selectQuality[0].value;
+   
+   var formatNode = document.getElementById('format-'+myLang+'-'+myQuality);
+   formatNode.style.display = '';
+   var selectFormat = formatNode.getElementsByTagName("select");
+   myFormat = selectFormat[0].value;
+   
+
+}
+function selectQuality(value) {
+
+  console.log("myQuality = " + myLang);
+  console.log('format-'+myLang+'-' + value);
+
+   if (myQuality != null)
+    document.getElementById('format-'+myLang+'-'+ myQuality).style.display = 'none';
+   myQuality = value;
+   
+   var formatNode = document.getElementById('format-'+myLang+'-'+myQuality);
+   formatNode.style.display = '';
+   var selectFormat = formatNode.getElementsByTagName("select");
+   myFormat = selectFormat[0].value;
+
+}
+
+function selectFormat(value) {
+
+  console.log("myFormat = " + myFormat);
+   myFormat = value;
+}
+
+function valideVideo() {
+  console.log('valideVideo');
+  var st = 'video-'+myLang+'-'+myQuality+'-'+myFormat;
+  var link = document.getElementById(st);
+  if (link != null) {
+	link.click();
+  }
+
+}

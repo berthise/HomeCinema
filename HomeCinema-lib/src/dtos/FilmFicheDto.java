@@ -14,7 +14,7 @@ import java.util.List;
 public class FilmFicheDto extends FilmDto {
 
   public VideoDto trailler;
-  public List<VideoDto> files;
+  public List<VideoDto> videos;
 
   public VideoDto getTrailler() {
     return trailler;
@@ -25,11 +25,11 @@ public class FilmFicheDto extends FilmDto {
   }
 
   public List<VideoDto> getFiles() {
-    return files;
+    return videos;
   }
 
   public void setFiles(List<VideoDto> files) {
-    this.files = files;
+    this.videos = files;
   }
 
 }

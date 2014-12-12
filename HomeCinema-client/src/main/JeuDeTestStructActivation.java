@@ -7,9 +7,10 @@ package main;
 
 import dtos.FilmDto;
 import dtos.ProductDto;
-import dtos.SimpleUserDto;
 import dtos.UserDto;
 import dtos.VideoDto;
+import enums.Langs;
+import enums.VideoFormat;
 import exception.SignupEmailException;
 import exception.SignupNickNameException;
 import exception.UncorrectPasswordException;
@@ -18,7 +19,6 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.JSONException;
@@ -43,6 +43,27 @@ public class JeuDeTestStructActivation {
 		    "http://geekompagny.ddns.net/ECOM/AmericanBeautyTrailer.mp4");
 	    FilmDto ab_film = createAndPushFilm(a, 14L, ab_video.id, ab_trailer.id);
 	    ProductDto ab_product = createAndPushProduct(a, ab_film, "American beauty", 10.0, true);
+	    	    
+	    List<Long> ab_videos = new ArrayList<>();
+	    ab_videos.add(createAndPushVideo(a, 480,
+		    "http://geekompagny.ddns.net/ECOM/AmericanBeautyFilm.mp4",
+		    Langs.FR, VideoFormat.MP4).id);
+	    ab_videos.add(createAndPushVideo(a, 480,
+		    "http://geekompagny.ddns.net/ECOM/AmericanBeautyFilm.mp4", 
+		    Langs.FR, VideoFormat.MP4).id);
+	    ab_videos.add(createAndPushVideo(a, 1080,
+		    "http://geekompagny.ddns.net/ECOM/AmericanBeautyFilm.mp4",
+		    Langs.EN, VideoFormat.MP4).id);
+	    ab_videos.add(createAndPushVideo(a, 1080,
+		    "http://geekompagny.ddns.net/ECOM/AmericanBeautyFilm.mp4",
+		    Langs.FR, VideoFormat.MP4).id);
+	    ab_videos.add(createAndPushVideo(a, 640,
+		    "http://geekompagny.ddns.net/ECOM/AmericanBeautyFilm.mp4", 
+		    Langs.EN,VideoFormat.WEBM).id);
+	    ab_videos.add(createAndPushVideo(a, 640,
+		    "http://geekompagny.ddns.net/ECOM/AmericanBeautyFilm.mp4", 
+		    Langs.FR,VideoFormat.WEBM).id);
+	    a.getManageFilmRemote().addExistingVideos(ab_film.id, ab_videos);
 	    /*
 	     ********************** */
 
@@ -114,6 +135,27 @@ public class JeuDeTestStructActivation {
 		    "http://geekompagny.ddns.net/ECOM/FightClubTrailer.mp4");
 	    FilmDto fc_film = createAndPushFilm(a, 550L, fc_video.id, fc_trailer.id);
 	    ProductDto fc_product = createAndPushProduct(a, fc_film, "Fight Club", 10.0, true);
+	    
+	    List<Long> fc_videos = new ArrayList<>();
+	    fc_videos.add(createAndPushVideo(a, 480,
+		    "http://geekompagny.ddns.net/ECOM/FightClubFilm.mp4",
+		    Langs.EN, VideoFormat.MP4).id);
+	    fc_videos.add(createAndPushVideo(a, 480,
+		    "http://geekompagny.ddns.net/ECOM/FightClubFilm.mp4",
+		    Langs.FR, VideoFormat.MP4).id);
+	    fc_videos.add(createAndPushVideo(a, 1080,
+		    "http://geekompagny.ddns.net/ECOM/FightClubFilm.mp4",
+		    Langs.EN, VideoFormat.MP4).id);
+	    fc_videos.add(createAndPushVideo(a, 1080,
+		    "http://geekompagny.ddns.net/ECOM/FightClubFilm.mp4",
+		    Langs.FR, VideoFormat.MP4).id);
+	    fc_videos.add(createAndPushVideo(a, 640,
+		    "http://geekompagny.ddns.net/ECOM/FightClubFilm.mp4",
+		    Langs.EN,VideoFormat.WEBM).id);
+	    fc_videos.add(createAndPushVideo(a, 640,
+		    "http://geekompagny.ddns.net/ECOM/FightClubFilm.mp4",
+		    Langs.FR,VideoFormat.WEBM).id);
+	    a.getManageFilmRemote().addExistingVideos(fc_film.id, fc_videos);
 	    /*
 	     ********************** */
 
@@ -359,9 +401,14 @@ public class JeuDeTestStructActivation {
     }
 
     private static VideoDto createAndPushVideo(Admin a, int resolution, String url) {
+	  return createAndPushVideo(a, resolution, url, Langs.EN, VideoFormat.MP4);
+	}
+    private static VideoDto createAndPushVideo(Admin a, int resolution, String url, Langs audio, VideoFormat format) {
 	System.out.print("create video : " + url);
 	VideoDto v = new VideoDto();
 	v.resolution = resolution;
+	v.audio = audio;
+	v.format = format;
 	v.url = url;
 	v.id = a.getManageVideoRemote().createVideo(v);
 	System.out.println(" ...  done");

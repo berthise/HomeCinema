@@ -11,7 +11,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -75,7 +74,7 @@ public class Film implements Serializable {
     private Integer runtime;
 
     @OneToMany
-    @JoinColumn(name = "VIDEO_FILES")
+    @JoinColumn(name = "VIDEO_FILE")
     private Set<Video> videoFile;
 
     @OneToOne

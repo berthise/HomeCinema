@@ -9,9 +9,14 @@ import dtos.FilmDto;
 import dtos.FilmFicheDto;
 import dtos.GenreDto;
 import dtos.PersonDto;
+import dtos.VideoDto;
 import ejbs.Ejbs;
+import enums.Langs;
+import enums.VideoFormat;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
 
 import java.util.Date;
 import java.util.List;
@@ -116,12 +121,46 @@ public class FilmManagedBean {
     }
 
     public String getUrlDownload() {
-	return this.fdto.files.get(0).url;
+	return this.fdto.videos.get(0).url;
     }
 
-    public String getVideo() {
-	String url = fdto.files.get(0).url;
-	return "<source src=\"" + url + "\" type=\"video/mp4\" />";
+    public List<VideoDto> getVideos() {
+//	String url = fdto.files.get(0).url;
+//	return "<source src=\"" + url + "\" type=\"video/mp4\" />";
+      return fdto.videos;
+    }
+    
+    
+    public List<Langs> getVideoLangs() {
+      ArrayList<Langs> langs = new ArrayList<>();
+      for ( VideoDto v: fdto.videos) {
+	if (!langs.contains(v.audio))
+	langs.add(v.audio);
+      }
+      Collections.sort(langs);
+      return langs;
+    }
+    
+    public List<Integer> getVideoQualities(Langs lang) {
+      ArrayList<Integer> qualities = new ArrayList<>();
+      for ( VideoDto v: fdto.videos ) {
+	if ( !qualities.contains(v.resolution) && v.audio == lang)
+	  qualities.add(v.resolution);
+      }
+      Collections.sort(qualities);
+      return qualities;
+    }
+    
+    public List<VideoFormat> getVideoFormat(Langs lang, Integer quality) {
+      ArrayList<VideoFormat> formats = new ArrayList<>();
+      for ( VideoDto v: fdto.videos ) {
+	if ( !formats.contains(v.format) 
+		&& v.audio == lang &&
+		(quality == null || v.resolution.equals(quality) ))
+	  formats.add(v.format);
+      }
+      Collections.sort(formats);
+      return formats;
     }
 
     public String getTrailer() {

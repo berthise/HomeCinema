@@ -34,7 +34,9 @@
                                     <i class="glyphicon glyphicon-folder-open"></i>
                                 </a> |
                                 <a href="#{msg['page-account']}.xhtml?box=caddie" title="#{msg['header-voircaddie']}">
-                                    <i class="glyphicon glyphicon-shopping-cart"></i> (#{sessionManagedBean.caddySize})
+                                    <i class="glyphicon glyphicon-shopping-cart"></i>
+				    <span class="badge">#{sessionManagedBean.caddySize}</span>
+				    <!--(#{sessionManagedBean.caddySize})-->
                                 </a> |
                                 <h:form>
                                     <h:commandLink action="#{sessionManagedBean.logout}" value="#{msg['deconnexion']}" />
