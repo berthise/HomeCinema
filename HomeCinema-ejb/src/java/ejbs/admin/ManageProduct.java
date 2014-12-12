@@ -170,7 +170,7 @@ public class ManageProduct implements ManageProductRemote {
 	    if (mode.equals("OR")) {
 		query += " ) ";
 	    } else {
-		query += " GROUP BY Films_ID_FILM HAVING count( genre_ID_GENRE ) = " + lgdto.size() + " )";
+		query += " GROUP BY Film_ID_FILM HAVING count( genre_ID_GENRE ) = " + lgdto.size() + " )";
 	    }
 	}
 	if (str != null && !str.equals("")) {
@@ -190,6 +190,7 @@ public class ManageProduct implements ManageProductRemote {
 	} else if (main.equals(ProductTypes.Pack)) {
 	    query += " and p.ID_PRODUCT in  ( select products_ID_PRODUCT from FILMS_PRODUCTS  group by products_ID_PRODUCT having count(*)>1 ) ";
 	}
+	try {
 	Query qnb = em.createNativeQuery("select COUNT(distinct p.ID_PRODUCT) " + query);
 
 	Long nb = (Long) qnb.getSingleResult();
@@ -218,11 +219,16 @@ public class ManageProduct implements ManageProductRemote {
 	System.out.println(query);
 	Query q = em.createNativeQuery("select distinct p.*  " + query, Product.class);
 	List<Product> lpdto = q.getResultList();
+	
 	List<ProductDto> res = new ArrayList<>();
 	for (Product p : lpdto) {
 	    res.add(ProductDtoManager.getDto(p, lang));
 	}
 	return new FilteredListProductsDto(res, nb.intValue());
+	}catch (Exception e)
+	{
+	    return new FilteredListProductsDto(new ArrayList<ProductDto>(), -1);
+	}
     }
 
     /*@Override

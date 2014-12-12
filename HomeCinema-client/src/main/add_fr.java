@@ -38,11 +38,9 @@ public class add_fr {
 	    int i=0;
 	    for ( FilmDto fdto : lfdto)
 	    {
-		if (fdto.id>49014)
-		{
+
 		a.getManageFilmRemote().mergeOrSave(a.createFilmFr(fdto.id),Lang.FR);
 		Thread.sleep(500);
-		}
 		System.out.println(i++);
 	    }
     }
