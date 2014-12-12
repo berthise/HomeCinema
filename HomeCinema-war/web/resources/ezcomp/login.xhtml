@@ -55,7 +55,7 @@
 	    <c:otherwise>
 		<h:form role="form">
 		    <h:messages for="login" infoClass="info" />
-		    <div id="warning-http" style="display: none" class="alert alert-danger">
+		    <div id="warning-http" style="display: none" class="alert alert-danger text-center">
 		      #{msg['header-warning-http']} <br/>
 		      <a id="warning-http-lien" href="#">#{msg['header-warning-http-lien']}</a>
 		    </div>
@@ -66,7 +66,7 @@
 			<h:inputSecret id="password" value="#{loginManagedBean.password}" class="form-control input-sm" p:placeholder="#{msg['header-mdp']}" tabindex="#{cc.attrs.tabidx+1}"/>
 		    </div>
 		    <h:commandButton class="btn btn-success btn-sm btn-block" value="#{msg['connexion']}" action="#{loginManagedBean.login}" tabindex="#{cc.attrs.tabidx+2}"/>
-		    <ul>
+		    <ul class="list-unstyled text-center conn-info">
 		      <li>
 		        <a href="#{msg['page-forgot-pass']}.xhtml" 
 			   tabindex="#{cc.attrs.tabidx+3}" >#{msg['forgot-ask']}?</a>

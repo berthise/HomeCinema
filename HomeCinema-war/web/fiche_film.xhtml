@@ -140,20 +140,19 @@
 			</div>
 		    </div>
 
-		    
+
 
 		</div>
 		<div id="ba" class="well">
-			<h2 class="well-title">#{msg['ba-title']}</h2>
+		    <h2 class="well-title">#{msg['ba-title']}</h2>
 
-			<video id="myVideo" width="100%" controls="controls">
-			    <h:outputText value="#{filmManagedBean.getTrailer()}" escape="false" />
-			    #{msg['ba-not-supported']}
-			</video>
+		    <video id="myVideo" width="100%" controls="controls">
+			<h:outputText value="#{filmManagedBean.getTrailer()}" escape="false" />
+			#{msg['ba-not-supported']}
+		    </video>
 
-			<a class="go-top" href="#top" title="#{msg['allpage-top']}"><img src="img/arrowUp.png" /></a>
-
-		    </div>
+		    <a class="go-top" href="#top" title="#{msg['allpage-top']}"><img src="img/arrowUp.png" /></a>
+		</div>
 	    </div>
 	</section>
 

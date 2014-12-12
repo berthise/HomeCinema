@@ -1,10 +1,12 @@
 @import url("animate.css");
 @import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro);
-$background : -webkit-linear-gradient(left, #111, #666, #666, #666, #111);
+$background-webkit : -webkit-linear-gradient(left, #111, #666, #666, #666, #111);
+$background-moz: -moz-linear-gradient(left, #111, #666, #666, #666, #111);
 $font: "Source Sans Pro", "Helvetica Neue",Helvetica,Arial,sans-serif;
 $font-color: #333;
 body {
-    background: $background;
+    background: $background-webkit;
+    background: $background-moz;
     margin: 0;
     font-family: $font;
     min-height: 800px;
@@ -14,6 +16,15 @@ body {
 
     .row-margin-top {
         margin-top: 15px;
+    }
+
+    .conn-info {
+	margin-top: 10px;
+	margin-bottom: 3px;
+    }
+
+    .conn-info a {
+	color: white !important;
     }
 
     i.required {
@@ -90,7 +101,7 @@ body {
         }
         #banner {
             color: #000;
-            background: linear-gradient(to bottom,#fff 0,#eee 100%);
+	    background: linear-gradient(to bottom, #fff 0, #eee 100%);
             border-bottom: 3px inset #729d47;
         }
         .decale-right {
@@ -99,6 +110,7 @@ body {
         .userTools {
             z-index: 10000;
             background: -webkit-linear-gradient(left, #111, #666, #666, #666, #111);
+	    background: -moz-linear-gradient(left, #111, #666, #666, #666, #111);
             display: inline-block;
             position: fixed;
             right: 0; top: 0;
@@ -137,7 +149,8 @@ body {
             display: none;
             position: fixed;
             right: 0; top: 20px;
-            background: $background;
+            background: $background-webkit;
+	    background: $background-moz;
             padding: 10px;
         }
         .col-19{
