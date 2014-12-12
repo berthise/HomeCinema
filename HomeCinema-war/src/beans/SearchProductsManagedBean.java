@@ -86,7 +86,7 @@ public class SearchProductsManagedBean {
     }
 
     public void setDate1(String date1) {
-	this.params.date2 = date1;
+	this.params.date1 = date1;
     }
     
     public String getDate2() {

@@ -19,6 +19,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import utils.Pages;
+import utils.Redirect;
 
 /**
  *
@@ -67,8 +68,6 @@ public class ListProductsManagedBean {
     }
 
     public void setTabFilms(String tabFilms) throws IOException {
-	this.page = 1;
-
 	if (!(tabFilms == null || !listTabsFilms.contains(tabFilms))) {
 	    if (tabFilms.equals("searchLOCALE") && searchOpened == CLOSE) {
 		searchOpened = OPENING;
@@ -190,13 +189,10 @@ public class ListProductsManagedBean {
     public void setPage(int page) {
 	this.page = page;
     }
-
-    public void setPageNext() {
-	this.page++;
-    }
-
-    public void setPagePrevious() {
-	this.page--;
+    
+    public void setPage1AndRedirect(){
+	this.page=1;
+	Redirect.redirectTo(Pages.FILMS + "?tab=all");
     }
 
     public boolean isLastPage() {
