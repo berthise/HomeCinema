@@ -2,6 +2,7 @@
 @import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro);
 body {
   background: -webkit-linear-gradient(left, #111, #666, #666, #666, #111);
+  background: -moz-linear-gradient(left, #111, #666, #666, #666, #111);
   margin: 0;
   font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
   min-height: 800px; }
@@ -9,6 +10,11 @@ body {
     resize: none; }
   body .row-margin-top {
     margin-top: 15px; }
+  body .conn-info {
+    margin-top: 10px;
+    margin-bottom: 3px; }
+  body .conn-info a {
+    color: white !important; }
   body i.required {
     color: red; }
   body .badge-faq {
@@ -65,6 +71,7 @@ body {
     body header .userTools {
       z-index: 10000;
       background: -webkit-linear-gradient(left, #111, #666, #666, #666, #111);
+      background: -moz-linear-gradient(left, #111, #666, #666, #666, #111);
       display: inline-block;
       position: fixed;
       right: 0;
@@ -97,6 +104,7 @@ body {
       right: 0;
       top: 20px;
       background: -webkit-linear-gradient(left, #111, #666, #666, #666, #111);
+      background: -moz-linear-gradient(left, #111, #666, #666, #666, #111);
       padding: 10px; }
     body header .col-19 {
       width: 19%; }
