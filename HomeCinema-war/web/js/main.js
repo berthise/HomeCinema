@@ -56,5 +56,11 @@ $(function () {
             $(".userTools").slideDown();
             $("#search-form").prev().removeClass("bounceInRight").addClass("bounceOutRight").slideUp("slow");
         }
+        
+        if(scroll >= 200) {
+            $(".sidebar").addClass("fixed");
+        } else {
+            $(".sidebar").removeClass("fixed");
+        }
     });
 });
