@@ -5,18 +5,15 @@
  */
 package main;
 
-import UtilsJson.JsonReader;
+import Utils.UtilsJson.JsonReader;
 import dtos.FilmDto;
-import java.text.DateFormat;
 import dtos.VideoDto;
-import ejbs.ManageFilmRemote;
 import ejbs.ManageProductRemote;
 import enums.Lang;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import org.json.JSONObject;
-import java.util.Date;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;

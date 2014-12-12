@@ -7,38 +7,56 @@
 
     <!-- INTERFACE -->
     <cc:interface>
-	<cc:attribute name="userId" type="Long" required="true" />
+        <cc:attribute name="userId" type="Long" required="true" />
     </cc:interface>
 
     <!-- IMPLEMENTATION -->
     <cc:implementation>
-	<div>
-	    <h3><img src="img/film-icon.png" title="Films"/>#{msg['compte-films']}</h3>
-	    <c:choose>
-		<c:when test="#{historyManagedBean.counter(cc.attrs.userId) eq 0}" >
-		    <td>#{msg['account-films']} <a href="#{msg['page-films']}.xhtml">#{msg['account-films-link']}</a></td>                                        
-		</c:when>
-		<c:otherwise>
-		    <table>
-			<ui:repeat var="o" value="#{accountManagedBean.getListFilmsOwned()}">
-			    <tr>
-				<td>
-				    <span class="affiche">
-					<img src="img/glass.png" />
-					<span>
-					    <img src="http://image.tmdb.org/t/p/w396/#{o.cover}" />
-					</span>
-				    </span>
-				</td>
-				<td>                 
-				    <a title="#{msg['fiche-film-see']}" href="#{msg['page-fiche-film']}.xhtml?id=#{o.id}">#{o.title} (#{o.getReleaseDateString('YYYY')})</a>
-				</td>
-				<td><a href="#{msg['page-visio']}.xhtml?id=#{o.id}"><img src="img/eye.png" title="#{msg['account-films-voir']}" /></a></td>
-			    </tr>
-			</ui:repeat>
-		    </table>
-		</c:otherwise>
-	    </c:choose>
-	</div>
+        <div class="panel panel-default">
+            <!-- Default panel contents -->
+            <div class="panel-heading">
+                <h4><i class="glyphicon glyphicon-film" />#{msg['compte-films']}</h4>
+            </div>
+            <c:choose>
+                <c:when test="#{historyManagedBean.counter(cc.attrs.userId) eq 0}" >
+                    <td>#{msg['account-films']} <a href="#{msg['page-films']}.xhtml?tab=all">#{msg['account-films-link']}</a></td>                                        
+                </c:when>
+                <c:otherwise>
+                    <!-- Table -->
+                    <table class="table table-bordered table-striped table-condensed">
+                        <ui:repeat var="o" value="#{accountManagedBean.getListFilmsOwned()}">
+                            <tr>
+                                <td class="center">
+                                    <span class="affiche">
+                                        <img src="img/glass.png" />
+                                        <span>
+                                            <img src="http://image.tmdb.org/t/p/w92/#{o.cover}" />
+                                        </span>
+                                    </span>
+                                </td>
+                                <td>                 
+                                    <a title="#{msg['fiche-film-see']}" href="#{msg['page-fiche-film']}.xhtml?id=#{o.id}">#{o.title} (#{o.getReleaseDateString('YYYY')})</a>
+                                </td>
+                                <td class="center"><a href="#{msg['page-visio']}.xhtml?id=#{o.id}"><img src="img/eye.png" title="#{msg['account-films-voir']}" /></a></td>
+                            </tr>
+                        </ui:repeat>
+                    </table>
+                </c:otherwise>
+            </c:choose>
+            <div class="panel-footer">
+                (TODO)
+                <nav class="">
+                    <ul class="pagination">
+                        <li><a href="#"><span aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span></a></li>
+                        <li><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                        <li><a href="#"><span aria-hidden="true">&raquo;</span><span class="sr-only">Next</span></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>        
     </cc:implementation>
 </html>

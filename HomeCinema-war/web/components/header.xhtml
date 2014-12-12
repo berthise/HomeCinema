@@ -33,7 +33,7 @@
                                 <a href="#{msg['page-account']}.xhtml" title="#{msg['header-voircompte']}">
                                     <i class="glyphicon glyphicon-folder-open"></i>
                                 </a> |
-                                <a href="#{msg['page-account']}.xhtml?box=caddie" title="#{msg['header-voircaddie']}">
+                                <a href="#{msg['page-account']}.xhtml#caddie" title="#{msg['header-voircaddie']}">
                                     <i class="glyphicon glyphicon-shopping-cart"></i> (#{sessionManagedBean.caddySize})
                                 </a> |
                                 <h:form>
@@ -60,12 +60,14 @@
                         </div>
                         <div id="navbar" class="navbar-collapse collapse">
                             <ul class="nav navbar-nav">
-                                <li class="#{(active == 'index')? 'active' : ''}"><a href="#{msg['page-index']}.xhtml"><i class="decale-right glyphicon glyphicon-home"></i> <h:outputText value="#{msg['menu-accueil']}" /></a></li>
-                                <li class="#{(active == 'films')? 'active' : ''}"><a href="#{msg['page-films']}.xhtml?tab=all"><i class="decale-right glyphicon glyphicon-facetime-video"></i> <h:outputText value="#{msg['menu-films']}" /></a></li>
-                                <li class="#{(active == 'faq')? 'active' : ''}"><a href="#{msg['page-faq']}.xhtml"><i class="decale-right glyphicon glyphicon-info-sign"></i> <h:outputText value="#{msg['menu-faq']}" /></a></li>
-                                <li class="#{(active == 'demo')? 'active' : ''}"><a href="#{msg['page-demo']}.xhtml"><i class="decale-right glyphicon glyphicon-wrench"></i> <h:outputText value="#{msg['menu-demo']}" /></a></li>
+                                <li class="#{(active == 'index')? 'active' : ''}"><a href="/HomeCinema-war/"><i class="decale-right glyphicon glyphicon-home"></i> <span><h:outputText value="#{msg['menu-accueil']}" /></span></a></li>
+                                <li class="#{(active == 'films')? 'active' : ''}"><a href="films.xhtml?tab=all"><i class="decale-right glyphicon glyphicon-facetime-video"></i> <span><h:outputText value="#{msg['menu-films']}" /></span></a></li>
+                                <li class="#{(active == 'faq')? 'active' : ''}"><a href="faq.xhtml"><i class="decale-right glyphicon glyphicon-info-sign"></i> <span><h:outputText value="#{msg['menu-faq']}" /></span></a></li>
+                                <h:panelGroup rendered="#{sessionManagedBean.id == null}">
+                                    <li class="#{(active == 'demo')? 'active' : ''}"><a href="demo.xhtml"><i class="decale-right glyphicon glyphicon-wrench"></i> <span><h:outputText value="#{msg['menu-demo']}" /></span></a></li>
+                                </h:panelGroup>
                                 <h:panelGroup rendered="#{sessionManagedBean.id != null}">
-                                    <li class="#{(active == 'moncompte')? 'active' : ''}"><a href="#{msg['page-account']}.xhtml"><i class="decale-right glyphicon glyphicon-folder-open"></i> <h:outputText value="#{msg['menu-compte']}" /></a></li>
+                                    <li class="#{(active == 'moncompte')? 'active' : ''}"><a href="#{msg['page-account']}.xhtml"><i class="decale-right glyphicon glyphicon-folder-open"></i> <span><h:outputText value="#{msg['menu-compte']}" /></span></a></li>
                                 </h:panelGroup>
                             </ul>
                             <ul class="nav navbar-nav navbar-right animated" style="display: none;">
@@ -75,7 +77,7 @@
                                 </h:panelGroup>
                                 <h:panelGroup rendered="#{sessionManagedBean.id != null}">
                                     <li>
-                                        <a href="#{msg['page-account']}.xhtml?box=caddie" title="#{msg['header-voircaddie']}">
+                                        <a href="#{msg['page-account']}.xhtml#caddie" title="#{msg['header-voircaddie']}">
                                             <i class="glyphicon glyphicon-shopping-cart"></i> #{msg['caddie']}
                                             <span class="badge">#{sessionManagedBean.caddySize}</span>
                                         </a>

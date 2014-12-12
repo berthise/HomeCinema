@@ -1,23 +1,34 @@
 @import url("animate.css");
-$background : -webkit-linear-gradient(left, #111, #666, #666, #666, #111);
-$font: "Helvetica Neue",Helvetica,Arial,sans-serif;
+@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro);
+$background-webkit : -webkit-linear-gradient(left, #111, #666, #666, #666, #111);
+$background-moz: -moz-linear-gradient(left, #111, #666, #666, #666, #111);
+$font: "Source Sans Pro", "Helvetica Neue",Helvetica,Arial,sans-serif;
 $font-color: #333;
 body {
-    background: $background;
-    color: #fff;
+    background: $background-webkit;
+    background: $background-moz;
     margin: 0;
     font-family: $font;
     min-height: 800px;
     .textarea-noresizing {
-	resize:none;
+        resize:none;
     }
 
     .row-margin-top {
-	margin-top: 15px;
+        margin-top: 15px;
+    }
+
+    .conn-info {
+	margin-top: 10px;
+	margin-bottom: 3px;
+    }
+
+    .conn-info a {
+	color: white !important;
     }
 
     i.required {
-	color: red;
+        color: red;
     }
 
     .badge-faq {
@@ -90,8 +101,7 @@ body {
         }
         #banner {
             color: #000;
-            background: linear-gradient(to bottom,#fff 0,#eee 100%);
-            //background: #eee;
+	    background: linear-gradient(to bottom, #fff 0, #eee 100%);
             border-bottom: 3px inset #729d47;
         }
         .decale-right {
@@ -100,6 +110,7 @@ body {
         .userTools {
             z-index: 10000;
             background: -webkit-linear-gradient(left, #111, #666, #666, #666, #111);
+	    background: -moz-linear-gradient(left, #111, #666, #666, #666, #111);
             display: inline-block;
             position: fixed;
             right: 0; top: 0;
@@ -115,6 +126,21 @@ body {
                 padding: 0 10px;
             }
         }
+        .navbar-nav {
+            a {
+                border-left: 1px solid #ced1d4;
+                margin: 0;
+            }
+            border-right: 1px solid #ced1d4;
+            i + span {
+                display: none;
+            }
+            @media (min-width: 1000px) {
+                i + span {
+                    display: inline-block;
+                }
+            }
+        }
         nav ul form {
             display: inline;
         }
@@ -123,7 +149,8 @@ body {
             display: none;
             position: fixed;
             right: 0; top: 20px;
-            background: $background;
+            background: $background-webkit;
+	    background: $background-moz;
             padding: 10px;
         }
         .col-19{
@@ -147,6 +174,47 @@ body {
         }
     }
     section {
+        .panel {
+            .panel-body {
+                color: #000;
+            }
+            .panel-heading {
+                h1,h2,h3,h4,h5,h6 {
+                    margin: 5px;
+                }
+                i {
+                    margin-right: 15px;
+                }
+            }
+            .panel-footer {
+                text-align: right;
+            }
+        }
+        .sidebar .panel-body {
+            padding: 0;
+            li > a {
+                border-bottom: 1px solid #ddd;
+                i {
+                    border-right: 1px solid #ddd;
+                    display: inline-block;
+                    width: 30px;
+                    margin-right: 10px;
+                }
+            }
+            a.active {
+                text-decoration: none;
+                color: #23527c;
+                background-color: #eee;
+            }
+        }
+        /*-------- Caddie table ----------*/
+        td.center {
+            text-align: center;
+        }
+        td.right {
+            text-align: right;
+        }
+
         .well-exclus {
             margin-top: 5px;
         }
@@ -164,12 +232,8 @@ body {
             }
 
             a {
-                color: white !important;
+                color: #276427 !important;
                 font-weight: bold;
-            }
-
-            .film:hover a {
-                color: #9FF89F !important;
             }
         }
         .well {
@@ -222,6 +286,47 @@ body {
             margin-top: 5px;
             margin-bottom: 5px;
             display: none;
+        }
+        /* ---------- 3D buttons ----------*/
+        .btn {
+            @extend .btn3d;
+        }
+        .btn3d {
+            transition:all .08s linear;
+            position:relative;
+            outline:none;
+            border:0px;
+            &:focus{
+                outline:none;
+            }
+            &:active {
+                top:6px;
+		outline:none;
+            }
+        }
+        .btn-default {
+            box-shadow:0 0 0 1px #ebebeb inset, 0 0 0 2px rgba(255,255,255,0.15) inset, 0 5px 0 0 #adadad, 0 5px 0 1px rgba(0,0,0,0.4), 0 5px 5px 1px rgba(0,0,0,0.5);
+            background-color:#fff;
+        }
+        .btn-primary {
+            box-shadow:0 0 0 1px #428bca inset, 0 0 0 2px rgba(255,255,255,0.15) inset, 0 5px 0 0 #357ebd, 0 5px 0 1px rgba(0,0,0,0.4), 0 5px 5px 1px rgba(0,0,0,0.5);
+            background-color:#428bca;
+        }
+        .btn-success {
+            box-shadow:0 0 0 1px #5cb85c inset, 0 0 0 2px rgba(255,255,255,0.15) inset, 0 5px 0 0 #4cae4c, 0 5px 0 1px rgba(0,0,0,0.4), 0 5px 5px 1px rgba(0,0,0,0.5);
+            background-color:#5cb85c;
+        }
+        .btn-info {
+            box-shadow:0 0 0 1px #5bc0de inset, 0 0 0 2px rgba(255,255,255,0.15) inset, 0 5px 0 0 #46b8da, 0 5px 0 1px rgba(0,0,0,0.4), 0 5px 5px 1px rgba(0,0,0,0.5);
+            background-color:#5bc0de;
+        }
+        .btn-warning {
+            box-shadow:0 0 0 1px #f0ad4e inset, 0 0 0 2px rgba(255,255,255,0.15) inset, 0 5px 0 0 #eea236, 0 5px 0 1px rgba(0,0,0,0.4), 0 5px 5px 1px rgba(0,0,0,0.5);
+            background-color:#f0ad4e;
+        }
+        .btn-danger {
+            box-shadow:0 0 0 1px #c63702 inset, 0 0 0 2px rgba(255,255,255,0.15) inset, 0 5px 0 0 #C24032, 0 5px 0 1px rgba(0,0,0,0.4), 0 5px 5px 1px rgba(0,0,0,0.5);
+            background-color:#c63702;
         }
     }
     footer {
@@ -369,7 +474,7 @@ body {
     }
 
     .list-genres-crew {
-        background-color: #aaa;
+        background-color: #ddd;
         border-radius: 5px;
         padding: 3px 5px 3px 5px !important;
         color: #333;
@@ -378,7 +483,7 @@ body {
     }
 
     .list-genres-crew:hover {
-        background-color: #777;
+        background-color: #aaa;
         text-decoration: none;
     }
 
@@ -462,12 +567,6 @@ body {
     }
 
     .box-right {
-        width: 73%;
-        border: 1px solid grey;
-        float: right;
-        border-radius: 5px;
-        padding: 15px;
-        background: #fafafa;
     }
 
     .box-right h3 {
@@ -495,20 +594,6 @@ body {
 
     .display-none {
         display: none;
-    }
-
-    .box-right table {
-        width: 100%;
-        text-align: center;
-        margin-bottom : 15px;
-    }
-
-    .box-right table, .box-right tr, .box-right td {
-        padding: 3px;
-    }
-
-    .box-right table, .box-right tr, .tr-solo td {
-        border: 1px solid #777;
     }
 
     #box-caddie tr td:nth-of-type(1) {
@@ -693,4 +778,28 @@ body {
         padding-bottom: 10px !important;
         padding-right: 15px !important;
     }
+}
+
+/* customize scrollbars -----------*/
+
+::-webkit-scrollbar {
+    width: 0.6em;
+    height: 0.6em;
+}
+
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 4px rgba(100, 100, 100, 0.3);
+    border-radius:1px;
+    padding:2px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #666;
+    background: rgba(180, 180, 180, 0.4);
+    border-radius:1px;
+}
+
+::-webkit-scrollbar-corner,
+::-webkit-srollbar-thumb:window-inactive {
+    background: rgba(160, 160, 160, 0.4);
 }

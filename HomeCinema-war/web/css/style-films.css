@@ -57,7 +57,8 @@
 .table-cover-film {
     position: relative;
     top: 10px;
-    width: 100px;
+    width: 92px;
+    height: 147px;
     border-radius: 3px;
     box-shadow: 1px 1px 1px grey;
 }

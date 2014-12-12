@@ -25,6 +25,10 @@ public class Lang {
 	return getInstance().getBackendText().getString(id);
     }
     
+    public static void reset(){
+	NewSingletonHolder.INSTANCE = new Lang();
+    }
+    
     private Lang() {
 	FacesContext context = FacesContext.getCurrentInstance();
 	Application app = context.getApplication();
@@ -36,6 +40,6 @@ public class Lang {
     }
     
     private static class NewSingletonHolder {
-	private static final Lang INSTANCE = new Lang();
+	private static Lang INSTANCE = new Lang();
     }
 }

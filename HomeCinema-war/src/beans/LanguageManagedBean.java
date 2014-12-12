@@ -12,6 +12,9 @@ import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.Cookie;
+import utils.Cookies;
+import utils.Lang;
 
 /**
  *
@@ -22,6 +25,8 @@ import javax.faces.context.FacesContext;
 public class LanguageManagedBean {
 
     private String localeCode;
+    private static final String localeCookieName = "locale";
+    private static final Integer localeCookieExpire = 60*60*24*365; // seconde
 
     private final Map<String, Object> countries;
 
@@ -45,10 +50,21 @@ public class LanguageManagedBean {
 		FacesContext.getCurrentInstance().getViewRoot().setLocale((Locale) entry.getValue());
 	    }
 	}
+	
+	Cookies.setCookie(LanguageManagedBean.localeCookieName, localeCode, LanguageManagedBean.localeCookieExpire);
+    
+	Lang.reset();
     }
 
     public LanguageManagedBean() {
 	localeCode = "fr";
+	Cookie c = Cookies.getCookie(LanguageManagedBean.localeCookieName);
+	if (c != null) {
+	     localeCode = c.getValue();
+
+	     if ( !localeCode.equals("fr") && !localeCode.equals("en"))
+		 localeCode = "fr";
+	}
 	countries = new LinkedHashMap<>();
 	countries.put("fr", Locale.FRENCH);
 	countries.put("en", Locale.ENGLISH);

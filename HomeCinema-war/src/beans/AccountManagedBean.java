@@ -28,49 +28,16 @@ import utils.Redirect;
 public class AccountManagedBean {
 
     public CaddieDto cdto;
-
-    public String initBox;
-
     public Long idUser;
 
     LanguageManagedBean lang = findBean("languageManagedBean");
     
     public Long getIdUser() {
-	return idUser;
+        return idUser;
     }
 
     public void setIdUser(Long idUser) {
-	this.idUser = idUser;
-    }
-
-    public String getInitBox() {
-	return initBox;
-    }
-
-    public void setInitBox(String b) {
-	String[] ref = {"films", "caddie", "historique", "infos"};
-	List<String> list = Arrays.asList(ref);
-	if (!list.contains(b) || b == null) {
-	    b = ref[0];
-	}
-	initBox = b;
-    }
-
-    public AccountManagedBean() {
-	this.cdto = new CaddieDto();
-	this.initBox = "films";
-    }
-
-    public String getHtmlForLink(String link, String title) {
-	return "<p id=\"link-" + link + "\" " + ((link.equals(initBox)) ? "class=\"activated\"" : "") + "><a onclick=\"display('" + link + "'); return false;\" href=\"\">" + title + "</a></p>";
-    }
-
-    public String getClassDisplay(String link) {
-	if (!link.equals(initBox)) {
-	    return "box-right display-none";
-	} else {
-	    return "box-right";
-	}
+        this.idUser = idUser;
     }
     
     public List<FilmDto> getListFilmsOwned (){
@@ -104,16 +71,16 @@ public class AccountManagedBean {
     }
 
     public String getCodeButtonsFilm(Long idfilm, Long iduser) {
-	int caddie = isInMyCaddie(Arrays.asList(idfilm), iduser);
-	int films = isInMyFilms(Arrays.asList(idfilm), iduser);
+        int caddie = isInMyCaddie(Arrays.asList(idfilm), iduser);
+        int films = isInMyFilms(Arrays.asList(idfilm), iduser);
 
-	if (caddie == 0 && films == 0) {
-	    return "FREE";
-	} else if (caddie == 1) {
-	    return "CADDIE";
-	} else {
-	    return "OWNED";
-	}
+        if (caddie == 0 && films == 0) {
+            return "FREE";
+        } else if (caddie == 1) {
+            return "CADDIE";
+        } else {
+            return "OWNED";
+        }
     }
 
     public String getCodeButtonsProduct(Long idproduct, Long iduser) {
@@ -126,24 +93,24 @@ public class AccountManagedBean {
 	int caddie = isInMyCaddie(l, iduser);
 	int films = isInMyFilms(l, iduser);
 
-	if (caddie == 0 && films == 0) {
-	    return "FREE";
-	} else if (caddie == n || caddie + films == n) {
-	    return "CADDIE";
-	} else if (caddie == 0 && films < n) {
-	    return "PART_FILM";
-	} else if (caddie < n && films == 0) {
-	    return "PART_CADDIE";
-	} else if (caddie < n && films < n) {
-	    return "PART";
-	} else {
-	    return "OWNED";
-	}
+        if (caddie == 0 && films == 0) {
+            return "FREE";
+        } else if (caddie == n || caddie + films == n) {
+            return "CADDIE";
+        } else if (caddie == 0 && films < n) {
+            return "PART_FILM";
+        } else if (caddie < n && films == 0) {
+            return "PART_CADDIE";
+        } else if (caddie < n && films < n) {
+            return "PART";
+        } else {
+            return "OWNED";
+        }
     }
 
     public void checkIsMyFilm(Long idfilm, Long iduser) throws IOException {
-	if (isInMyFilms(Arrays.asList(idfilm), iduser) == 0) {
-	    Redirect.redirectTo(Pages.MON_COMPTE);
-	}
+        if (isInMyFilms(Arrays.asList(idfilm), iduser) == 0) {
+            Redirect.redirectTo(Pages.MON_COMPTE);
+        }
     }
 }
