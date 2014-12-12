@@ -25,7 +25,7 @@ public class ForgotPassManagedBean {
     private String p2 = "";
 
     public static String getUrl(String code) {
-	return "http://" + Pages.DOMAIN + Pages.ROOT + Pages.RETRIEVE_PASS + "?c=" + code;
+	return Pages.getURI(true) + "/" + Pages.RETRIEVE_PASS + "?c=" + code;
     }
 
     public void retrieve() {

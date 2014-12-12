@@ -14,7 +14,7 @@
             <header>
                 <div id="banner">
                     <div id="logo">
-                        <a href="#{msg['page-index']}.xhtml">
+                        <a href="#{msg['page-index']}.xhtml" onclick="toHttps();">
                             <img src="img/logo.png" />
                         </a>
                     </div>
@@ -72,7 +72,7 @@
                             </ul>
                             <ul class="nav navbar-nav navbar-right animated" style="display: none;">
                                 <h:panelGroup rendered="#{sessionManagedBean.id == null}">
-                                    <li class="#{(active == 'login')? 'active' : ''}"><a href="#{msg['page-login']}.xhtml"><i class="decale-right glyphicon glyphicon-hand-right"></i> <span><h:outputText value="#{msg['connexion']}" /></span></a></li>
+				  <li class="#{(active == 'login')? 'active' : ''}"><a href="#{msg['page-login']}.xhtml" onclick="toHttps"><i class="decale-right glyphicon glyphicon-hand-right"></i> <h:outputText value="#{msg['connexion']}" /></a></li>
                                     <li class="#{(active == 'signup')? 'active' : ''}"><a href="#{msg['page-signup']}.xhtml"><i class="decale-right glyphicon glyphicon-list"></i> <h:outputText value="#{msg['inscription']}" /></a></li>
                                 </h:panelGroup>
                                 <h:panelGroup rendered="#{sessionManagedBean.id != null}">
