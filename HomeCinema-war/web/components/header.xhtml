@@ -67,7 +67,7 @@
 					    <i class="decale-right glyphicon glyphicon-facetime-video"></i> <span><h:outputText value="#{msg['menu-films']}" /></span>
 					</h:commandLink>
 				    </li>
-				    <li class="#{(active == 'faq')? 'active' : ''}"><a href="f#{msg['page-faq']}.xhtml"><i class="decale-right glyphicon glyphicon-info-sign"></i> <span><h:outputText value="#{msg['menu-faq']}" /></span></a></li>
+				    <li class="#{(active == 'faq')? 'active' : ''}"><a href="#{msg['page-faq']}.xhtml"><i class="decale-right glyphicon glyphicon-info-sign"></i> <span><h:outputText value="#{msg['menu-faq']}" /></span></a></li>
 				    <h:panelGroup rendered="#{sessionManagedBean.id == null}">
 					<li class="#{(active == 'demo')? 'active' : ''}"><a href="#{msg['page-demo']}.xhtml"><i class="decale-right glyphicon glyphicon-wrench"></i> <span><h:outputText value="#{msg['menu-demo']}" /></span></a></li>
 				    </h:panelGroup>
