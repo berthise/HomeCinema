@@ -14,25 +14,29 @@ $(function () {
     } else {
         var courant = '#films';
     }
-    console.log(courant);
 
     if ($('.sidebar').find('a[href="' + courant + '"]').length > 0) {
-        $('.sidebar').find('a[href="' + courant + '"]').trigger('click');
-        $(courant).siblings().hide();
-        $(courant).fadeIn("slow");
+        clickLink(courant);
     } else {
-        $("#films").siblings().hide();
-        $("#films").fadeIn("slow");
+        clickLink("#films");
     }
+    $('.sidebar').find('a[href="' + courant + '"]').trigger('click');
     $('.sidebar a').on('click', function (e) {
-        console.log("ok");
         e.preventDefault();
-        var $this = $(this);
-        var link = $(this).attr('href');
-        $('.sidebar').find('a').removeClass('active');
-        $('.sidebar').find('a[href="' + link + '"]').addClass('active');
-        history.pushState({key: 'value'}, document.title, link);
-        $(link).siblings().hide();
-        $(link).fadeIn("slow");
+        clickLink($(this).attr('href'));
     });
+    window.onpopstate = function(e) {
+        if (e.state !== null) {
+            var link = (location.hash);
+            clickLink(link);
+        }
+    };
+    function clickLink(id) {
+        var $link = $('.sidebar').find('a[href="' + id + '"]');
+        $('.sidebar').find('a').removeClass('active');
+        $link.addClass("active");
+        history.pushState({key: 'value'}, document.title, id);
+        $(id).siblings().hide();
+        $(id).fadeIn("slow");
+    } 
 });

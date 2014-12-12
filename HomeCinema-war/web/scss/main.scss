@@ -175,6 +175,12 @@ body {
                 text-align: right;
             }
         }
+        .sidebar .panel-body {
+            padding: 0;
+            li > a {
+                border-bottom: 1px solid #ddd;                
+            }
+        }
         /*-------- Caddie table ----------*/
         td.center {
             text-align: center;
@@ -182,7 +188,7 @@ body {
         td.right {
             text-align: right;
         }
-        
+
         .well-exclus {
             margin-top: 5px;
         }
