@@ -129,6 +129,10 @@ body {
           display: inline-block;
           width: 30px;
           margin-right: 10px; }
+      body section .sidebar .panel-body a.active {
+        text-decoration: none;
+        color: #23527c;
+        background-color: #eee; }
     body section td.center {
       text-align: center; }
     body section td.right {

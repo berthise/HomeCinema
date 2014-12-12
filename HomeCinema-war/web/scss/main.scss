@@ -188,6 +188,11 @@ body {
                     margin-right: 10px;
                 }
             }
+            a.active {
+                text-decoration: none;
+                color: #23527c;
+                background-color: #eee;
+            }
         }
         /*-------- Caddie table ----------*/
         td.center {

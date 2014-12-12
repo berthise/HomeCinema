@@ -111,7 +111,7 @@ public class CaddieManagedBean {
 	Message.Info("Succès de la suppresion !");
 	if (getRequestPage().contains(Pages.MON_COMPTE)) {
 	    // redirect only if on page moncompte (to reload caddie).
-	    Redirect.redirectTo(Pages.MON_COMPTE + "?box=caddie");
+	    Redirect.redirectTo(Pages.MON_COMPTE + "#caddie");
 	}
 
     }
