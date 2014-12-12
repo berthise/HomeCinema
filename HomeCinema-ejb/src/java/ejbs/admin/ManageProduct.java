@@ -216,7 +216,6 @@ public class ManageProduct implements ManageProductRemote {
 	}
 	
 	query += " LIMIT " + limit + " OFFSET " + row;
-	System.out.println(query);
 	Query q = em.createNativeQuery("select distinct p.*  " + query, Product.class);
 	List<Product> lpdto = q.getResultList();
 	
