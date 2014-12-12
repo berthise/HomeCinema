@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import static utils.Beans.findBean;
 
 /**
  *
@@ -67,14 +68,14 @@ public class SearchProductsManagedBean {
 	}
 	return this.params.title;
     }
-    
-    private void reset(){
+
+    private void reset() {
 	params = new SearchParams();
 	checked = new HashMap<>();
+	ListProductsManagedBean lpmb = findBean("listProductsManagedBean");
+	lpmb.setPage(1);
     }
 
-    String actorReset;
-    
     public void setTitleReset(String t) {
 	reset();
 	params.title = t;
@@ -121,7 +122,7 @@ public class SearchProductsManagedBean {
     public void setDate1(String date1) {
 	this.params.date1 = date1;
     }
-    
+
     public String getDate2() {
 	if (this.params.date2 != null && this.params.date2.length() == 0) {
 	    return null;
