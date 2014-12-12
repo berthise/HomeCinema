@@ -24,9 +24,9 @@ and open the template in the editor.
 
 	<f:metadata>
 	    <f:event type="preRenderView" listener="#{sessionManagedBean.checkRight()}"/>
-	    <f:viewParam name="director" value="#{searchProductsManagedBean.directorId}" />
-	    <f:viewParam name="actor" value="#{searchProductsManagedBean.actorId}" />
-	    <f:viewParam name="genre" value="#{searchProductsManagedBean.genreAlone}" />
+	    <f:viewParam name="director" value="#{searchProductsManagedBean.directorReset}" />
+	    <f:viewParam name="actor" value="#{searchProductsManagedBean.actorReset}" />
+	    <f:viewParam name="genre" value="#{searchProductsManagedBean.genreReset}" />
 	    <f:viewParam name="title" value="#{searchProductsManagedBean.titleReset}" />
 	    <f:viewParam name="tab" value="#{listProductsManagedBean.tabFilms}" />
 	</f:metadata>

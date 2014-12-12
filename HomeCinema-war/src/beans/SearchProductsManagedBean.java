@@ -67,15 +67,48 @@ public class SearchProductsManagedBean {
 	}
 	return this.params.title;
     }
-
-    public void setTitleReset(String t) {
+    
+    private void reset(){
 	params = new SearchParams();
 	checked = new HashMap<>();
+    }
+
+    String actorReset;
+    
+    public void setTitleReset(String t) {
+	reset();
 	params.title = t;
     }
 
     public String getTitleReset() {
 	return null;
+    }
+
+    public Long getGenreReset() {
+	return null;
+    }
+
+    public void setGenreReset(Long genreReset) {
+	reset();
+	setGenreAlone(genreReset);
+    }
+
+    public Long getActorReset() {
+	return null;
+    }
+
+    public void setActorReset(Long actorReset) {
+	reset();
+	setActorId(actorReset);
+    }
+
+    public Long getDirectorReset() {
+	return null;
+    }
+
+    public void setDirectorReset(Long directorReset) {
+	reset();
+	setDirectorId(directorReset);
     }
 
     public String getDate1() {
@@ -181,7 +214,7 @@ public class SearchProductsManagedBean {
 	this.params.actor = Ejbs.person().getPerson(actorId).name;
     }
 
-    public void setGenreAlone(Long id) {
+    private void setGenreAlone(Long id) {
 	this.params.genres.add(id);
 	checked.put(id, Boolean.TRUE);
     }
