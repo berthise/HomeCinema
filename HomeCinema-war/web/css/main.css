@@ -201,7 +201,6 @@ body {
       display: none; }
     body section .btn3d, body section .btn {
       transition: all .08s linear;
-      margin: 10px !important;
       position: relative;
       outline: none;
       border: 0px; }

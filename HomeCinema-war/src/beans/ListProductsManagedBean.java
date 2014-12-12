@@ -182,6 +182,10 @@ LanguageManagedBean lang = findBean("languageManagedBean");
 	}
 	return allGenres;
     }
+    
+    public void resetAllGenres (){
+	this.allGenres = null;
+    }
 
     public int getPage() {
 	return page;
