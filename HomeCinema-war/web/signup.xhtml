@@ -54,7 +54,7 @@
                                                         <div class="form-group">
                                                             <h:outputLabel class="col-md-5 form-label" for="login">#{msg['inscr-pseudo']} <i class="required">*</i> : </h:outputLabel>
                                                             <div class="col-md-7">
-                                                                <h:inputText id="login" class="form-control" value="#{signUpManagedBean.nickName}" p:placeholder="#{msg['inscr-pseudo']}" p:required="required" />                                
+                                                                <h:inputText id="login" class="form-control" value="#{signUpManagedBean.nickName}" p:pattern="[a-zA-Z0-9 ]+" p:title="#{msg['nickname-pattern']}" p:placeholder="#{msg['inscr-pseudo']}" p:required="required" />                                
                                                             </div>
                                                         </div>
                                                     </div>
