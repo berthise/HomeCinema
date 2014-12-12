@@ -25,7 +25,8 @@ public class SearchProductsManagedBean {
     public class SearchParams {
 
 	public String title;
-	public String date;
+	public String date1;
+	public String date2;
 	public String director;
 	public String actor;
 	public Long directorId;
@@ -77,15 +78,26 @@ public class SearchProductsManagedBean {
 	return null;
     }
 
-    public String getDate() {
-	if (this.params.date != null && this.params.date.length() == 0) {
+    public String getDate1() {
+	if (this.params.date1 != null && this.params.date1.length() == 0) {
 	    return null;
 	}
-	return this.params.date;
+	return this.params.date1;
     }
 
-    public void setDate(String date) {
-	this.params.date = date;
+    public void setDate1(String date1) {
+	this.params.date1 = date1;
+    }
+    
+    public String getDate2() {
+	if (this.params.date2 != null && this.params.date2.length() == 0) {
+	    return null;
+	}
+	return this.params.date2;
+    }
+
+    public void setDate2(String date2) {
+	this.params.date2 = date2;
     }
 
     public String getDirector() {

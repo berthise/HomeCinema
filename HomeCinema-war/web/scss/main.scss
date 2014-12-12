@@ -295,14 +295,16 @@ body {
         }
         .btn3d {
             transition:all .08s linear;
+	    margin: 10px !important;
             position:relative;
-            outline:medium none;
+            outline:none;
             border:0px;
             &:focus{
-                outline:medium none;
+                outline:none;
             }
             &:active {
-                top:6px;                
+                top:6px;
+		outline:none;
             }
         }
         .btn-default {
@@ -475,7 +477,7 @@ body {
     }
 
     .list-genres-crew {
-        background-color: #aaa;
+        background-color: #ddd;
         border-radius: 5px;
         padding: 3px 5px 3px 5px !important;
         color: #333;
@@ -484,7 +486,7 @@ body {
     }
 
     .list-genres-crew:hover {
-        background-color: #777;
+        background-color: #aaa;
         text-decoration: none;
     }
 

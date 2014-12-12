@@ -19,6 +19,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import utils.Pages;
+import utils.Redirect;
 
 /**
  *
@@ -67,8 +68,6 @@ public class ListProductsManagedBean {
     }
 
     public void setTabFilms(String tabFilms) throws IOException {
-	this.page = 1;
-
 	if (!(tabFilms == null || !listTabsFilms.contains(tabFilms))) {
 	    if (tabFilms.equals("searchLOCALE") && searchOpened == CLOSE) {
 		searchOpened = OPENING;
@@ -101,8 +100,8 @@ public class ListProductsManagedBean {
 	searchOpened = CLOSE;
 	page = lastPage = 1;
 	allGenres = null;
-	staticNewProduct = Ejbs.product().getFilteredProducts(null, null, null, null, null, OrderTypes.NEW, 9, null, ProductTypes.All).list;
-	staticTopProduct = Ejbs.product().getFilteredProducts(null, null, null, null, null, OrderTypes.RATING, 9, null, ProductTypes.All).list;
+	staticNewProduct = Ejbs.product().getFilteredProducts(null, null, null, null, null, null, null, OrderTypes.NEW, 9, null, ProductTypes.All).list;
+	staticTopProduct = Ejbs.product().getFilteredProducts(null, null, null, null, null, null, null, OrderTypes.RATING, 9, null, ProductTypes.All).list;
     }
 
     public boolean isPack(Long id) {
@@ -129,19 +128,19 @@ public class ListProductsManagedBean {
     }
 
     private List<ProductDto> getAllFilms() {
-	FilteredListProductsDto flpdto = Ejbs.product().getFilteredProducts(null, null, null, null, null, OrderTypes.ALPH, N_PER_PAGE, (page - 1) * N_PER_PAGE, ProductTypes.Main);
+	FilteredListProductsDto flpdto = Ejbs.product().getFilteredProducts(null, null, null, null, null, null, null, OrderTypes.ALPH, N_PER_PAGE, (page - 1) * N_PER_PAGE, ProductTypes.Main);
 	updateLastPage(flpdto);
 	return flpdto.list;
     }
 
     private List<ProductDto> getAllProducts() {
-	FilteredListProductsDto flpdto = Ejbs.product().getFilteredProducts(null, null, null, null, null, OrderTypes.ALPH, N_PER_PAGE, (page - 1) * N_PER_PAGE, ProductTypes.Pack);
+	FilteredListProductsDto flpdto = Ejbs.product().getFilteredProducts(null, null, null, null, null, null, null, OrderTypes.ALPH, N_PER_PAGE, (page - 1) * N_PER_PAGE, ProductTypes.Pack);
 	updateLastPage(flpdto);
 	return flpdto.list;
     }
 
     private List<ProductDto> getSearchProducts(SearchParams params) {
-	FilteredListProductsDto flpdto = Ejbs.product().getFilteredProducts(params.actorId, params.directorId, params.genres, params.title, params.date, OrderTypes.NO, N_PER_PAGE, (page - 1) * N_PER_PAGE, ProductTypes.All);
+	FilteredListProductsDto flpdto = Ejbs.product().getFilteredProducts(params.actorId, params.directorId, params.genres, params.genresMode, params.title, params.date1, params.date2, OrderTypes.NO, N_PER_PAGE, (page - 1) * N_PER_PAGE, ProductTypes.All);
 	updateLastPage(flpdto);
 	return flpdto.list;
     }
@@ -173,7 +172,7 @@ public class ListProductsManagedBean {
     }
 
     public List<ProductDto> getSelectionFilms(int n) {
-	return Ejbs.product().getFilteredProducts(null, null, null, null, null, OrderTypes.RAND, n, 0, ProductTypes.Main).list;
+	return Ejbs.product().getFilteredProducts(null, null, null, null, null, null, null, OrderTypes.RAND, n, 0, ProductTypes.Main).list;
     }
 
     public List<GenreDto> getAllGenres() {
@@ -190,13 +189,10 @@ public class ListProductsManagedBean {
     public void setPage(int page) {
 	this.page = page;
     }
-
-    public void setPageNext() {
-	this.page++;
-    }
-
-    public void setPagePrevious() {
-	this.page--;
+    
+    public void setPage1AndRedirect(){
+	this.page=1;
+	Redirect.redirectTo(Pages.FILMS + "?tab=all");
     }
 
     public boolean isLastPage() {

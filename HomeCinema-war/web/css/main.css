@@ -201,13 +201,15 @@ body {
       display: none; }
     body section .btn3d, body section .btn {
       transition: all .08s linear;
+      margin: 10px !important;
       position: relative;
-      outline: medium none;
+      outline: none;
       border: 0px; }
       body section .btn3d:focus, body section .btn:focus {
-        outline: medium none; }
+        outline: none; }
       body section .btn3d:active, body section .btn:active {
-        top: 6px; }
+        top: 6px;
+        outline: none; }
     body section .btn-default {
       box-shadow: 0 0 0 1px #ebebeb inset, 0 0 0 2px rgba(255, 255, 255, 0.15) inset, 0 5px 0 0 #adadad, 0 5px 0 1px rgba(0, 0, 0, 0.4), 0 5px 5px 1px rgba(0, 0, 0, 0.5);
       background-color: #fff; }
@@ -320,14 +322,14 @@ body {
     top: -26px;
     font-size: 17px; }
   body .list-genres-crew {
-    background-color: #aaa;
+    background-color: #ddd;
     border-radius: 5px;
     padding: 3px 5px 3px 5px !important;
     color: #333;
     display: inline;
     white-space: nowrap; }
   body .list-genres-crew:hover {
-    background-color: #777;
+    background-color: #aaa;
     text-decoration: none; }
   body .info-film-list {
     line-height: 35px; }

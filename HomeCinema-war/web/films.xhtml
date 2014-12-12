@@ -84,6 +84,7 @@ and open the template in the editor.
 				    <div class="col-md-12 col-no-padding col-hover border-radius-first">
 					<p class="#{((listProductsManagedBean.getTabFilms() eq 'all')? 'activated' : '')}">
 					    <h:commandLink onclick="javascript:loader('all');" value="#{msg['films-all']}" action="#{listProductsManagedBean.setTabFilms('allLOCALE')}">
+						<f:actionListener binding="#{listProductsManagedBean.setPage(1)}"/>
 						<f:ajax execute="@form" render=":form-random :panel-random :form-nav-page" onevent="handleAjaxClose"/>
 						<img id="loader-all" class="films-loader" src="img/loader.gif"/>
 					    </h:commandLink>
@@ -92,6 +93,7 @@ and open the template in the editor.
 				    <div class="col-md-12 col-hover col-no-padding">
 					<p class="#{((listProductsManagedBean.getTabFilms() eq 'pack')? 'activated' : '')}">
 					    <h:commandLink onclick="javascript:loader('pack');" value="#{msg['search-pack']}" action="#{listProductsManagedBean.setTabFilms('packLOCALE')}">
+						<f:actionListener binding="#{listProductsManagedBean.setPage(1)}"/>
 						<f:ajax execute="@form" render=":form-random :panel-random :form-nav-page" onevent="handleAjaxClose"/>
 						<img id="loader-pack" class="films-loader" src="img/loader.gif"/>
 					    </h:commandLink>
@@ -100,6 +102,7 @@ and open the template in the editor.
 				    <div class="col-md-12 col-hover col-no-padding">
 					<p class="#{((listProductsManagedBean.getTabFilms() eq 'top')? 'activated' : '')}">
 					    <h:commandLink onclick="javascript:loader('top');" value="#{msg['search-top10']}" action="#{listProductsManagedBean.setTabFilms('topLOCALE')}">
+						<f:actionListener binding="#{listProductsManagedBean.setPage(1)}"/>
 						<f:ajax execute="@form" render=":form-random :panel-random :form-nav-page" onevent="handleAjaxClose"/>
 						<img id="loader-top" class="films-loader" src="img/loader.gif"/>
 					    </h:commandLink>
@@ -108,6 +111,7 @@ and open the template in the editor.
 				    <div class="col-md-12 col-hover col-no-padding">
 					<p class="#{((listProductsManagedBean.getTabFilms() eq 'new')? 'activated' : '')}">
 					    <h:commandLink onclick="javascript:loader('new');" value="#{msg['search-new']}" action="#{listProductsManagedBean.setTabFilms('newLOCALE')}">
+						<f:actionListener binding="#{listProductsManagedBean.setPage(1)}"/>
 						<f:ajax execute="@form" render=":form-random :panel-random :form-nav-page" onevent="handleAjaxClose"/>
 						<img id="loader-new" class="films-loader" src="img/loader.gif"/>
 					    </h:commandLink>
@@ -116,6 +120,7 @@ and open the template in the editor.
 				    <div class="col-md-12 col-no-padding col-hover border-radius-last">
 					<p class="#{((listProductsManagedBean.getTabFilms() eq 'search')? 'activated' : '')}">
 					    <h:commandLink onclick="javascript:loader('search');" value="#{msg['search-advanced']}" action="#{listProductsManagedBean.setTabFilms('searchLOCALE')}">
+						<f:actionListener binding="#{listProductsManagedBean.setPage(1)}"/>
 						<f:ajax execute="@form" render=":form-random :panel-random :form-nav-page" onevent="handleAjaxOpen"/>
 						<img id="loader-search" class="films-loader" src="img/loader.gif"/>
 					    </h:commandLink>
@@ -139,10 +144,11 @@ and open the template in the editor.
 							<h:outputLabel class="label-search" for="date">#{msg['films-search-date']} :</h:outputLabel>
 						    </div>
 						    <div class="col-md-5 col-xs-6 col-no-padding-search-input">
-							<h:inputText class="form-control input-search" id="date" value="#{searchProductsManagedBean.date}" />
+							<h:inputText style="width: 49%;" class="form-control input-search" id="date1" value="#{searchProductsManagedBean.date1}" />
+							<h:inputText style="width: 49%; float: right;" class="form-control input-search" id="date2" value="#{searchProductsManagedBean.date2}" />
 						    </div>
 						    <div class="col-xs-1 col-no-padding-search">
-							<span class="clean" onclick="clean('date');">×</span>
+							<span class="clean" onclick="clean('date1'); clean('date2');">×</span>
 						    </div>
 						</div>
 
@@ -174,12 +180,12 @@ and open the template in the editor.
 						    <div class="col-md-6 col-xs-5 col-no-padding-search">
 							<h:outputLabel class="label-search">#{msg['films-search-genres']} :</h:outputLabel>
 						    </div>
-						    <!--<div id="selectANDOR" class="col-md-6 col-xs-7 col-no-padding-search">
+						    <div id="selectANDOR" class="col-md-6 col-xs-7 col-no-padding-search">
 							<h:selectOneRadio value="#{searchProductsManagedBean.genresMode}">
 							    <f:selectItem class="itemselect" itemValue="OR" itemLabel="#{msg['films-search-or']}" />
 							    <f:selectItem class="itemselect" itemValue="AND" itemLabel="#{msg['films-search-and']}" />
 							</h:selectOneRadio>
-						    </div>-->
+						    </div>
 						</div>
 
 						<div class="row">
@@ -246,7 +252,7 @@ and open the template in the editor.
 						</c:when>
 						<c:otherwise>
 						    <li>
-							<h:commandLink action="#{listProductsManagedBean.setPagePrevious()}">
+							<h:commandLink action="#{listProductsManagedBean.setPage(listProductsManagedBean.page-1)}">
 							    <span aria-hidden="true">«</span><span class="sr-only">Previous</span>
 							    <f:ajax execute="@form" render=":form-nav-page :panel-random" />
 							</h:commandLink>
@@ -260,7 +266,7 @@ and open the template in the editor.
 						</c:when>
 						<c:otherwise>
 						    <li>
-							<h:commandLink action="#{listProductsManagedBean.setPageNext()}">
+							<h:commandLink action="#{listProductsManagedBean.setPage(listProductsManagedBean.page+1)}">
 							    <span aria-hidden="true">»</span><span class="sr-only">Next</span>
 							    <f:ajax execute="@form" render=":form-nav-page :panel-random" />
 							</h:commandLink>
