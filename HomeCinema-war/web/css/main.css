@@ -314,14 +314,14 @@ body {
     top: -26px;
     font-size: 17px; }
   body .list-genres-crew {
-    background-color: #aaa;
+    background-color: #ddd;
     border-radius: 5px;
     padding: 3px 5px 3px 5px !important;
     color: #333;
     display: inline;
     white-space: nowrap; }
   body .list-genres-crew:hover {
-    background-color: #777;
+    background-color: #aaa;
     text-decoration: none; }
   body .info-film-list {
     line-height: 35px; }

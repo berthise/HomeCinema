@@ -134,7 +134,7 @@
 				<h3>#{msg['fiche-film-time']} : <span class="info-film-p"><h:outputText value="#{filmManagedBean.getRuntime()}" escape="false" /></span></h3>
 				<h3>#{msg['fiche-film-genre']} :</h3><p class="info-film-list"><h:outputText value="#{filmManagedBean.getGenres()}" escape="false" /></p>
 				<h3>#{msg['fiche-film-dir']} :</h3><p class="info-film-list"><h:outputText value="#{filmManagedBean.getDirector()}" escape="false" /></p>
-				<h3>#{msg['fiche-film-cast']} :</h3><p class="info-film-list"><h:outputText value="#{filmManagedBean.getCasting()}" escape="false" /></p>
+				<h3>#{msg['fiche-film-cast']} :</h3><p class="term-list info-film-list"><h:outputText value="#{filmManagedBean.getCasting()}" escape="false" /></p>
 
 			    </div>
 			</div>
@@ -160,4 +160,23 @@
 	    <ui:include src="components/footer.xhtml" />
 	</ui:insert>
     </h:body>
+
+    <script>
+	$('p.term-list').each(function () {
+	    var LiN = $(this).find('a').length;
+	    if (LiN > 10) {
+		$('a', this).eq(9).nextAll().hide().addClass('toggleable');
+		$(this).append('<span style="cursor: pointer; font-weight: bold;" class="list-genres-crew more">+</span>');
+	    }
+	});
+
+	$('p.term-list').on('click', '.more', function () {
+	    if ($(this).hasClass('less')) {
+		$(this).text('+').removeClass('less');
+	    } else {
+		$(this).text('-').addClass('less');
+	    }
+	    $(this).siblings('a.toggleable').toggle();
+	});
+    </script>
 </html>

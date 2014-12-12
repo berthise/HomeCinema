@@ -139,10 +139,11 @@ and open the template in the editor.
 							<h:outputLabel class="label-search" for="date">#{msg['films-search-date']} :</h:outputLabel>
 						    </div>
 						    <div class="col-md-5 col-xs-6 col-no-padding-search-input">
-							<h:inputText class="form-control input-search" id="date" value="#{searchProductsManagedBean.date}" />
+							<h:inputText style="width: 49%;" class="form-control input-search" id="date1" value="#{searchProductsManagedBean.date1}" />
+							<h:inputText style="width: 49%; float: right;" class="form-control input-search" id="date2" value="#{searchProductsManagedBean.date2}" />
 						    </div>
 						    <div class="col-xs-1 col-no-padding-search">
-							<span class="clean" onclick="clean('date');">×</span>
+							<span class="clean" onclick="clean('date1'); clean('date2');">×</span>
 						    </div>
 						</div>
 
