@@ -5,7 +5,8 @@
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+    xmlns:ez="http://xmlns.jcp.org/jsf/composite/ezcomp">
     <h:head>
 	<meta charset="utf-8"/>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
@@ -35,9 +36,9 @@
 	</ui:insert>
 	<section>
 	    <div class="container">
-<!--	      	      <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#dl_popup">
+	      	      <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#dl_popup">
   Télécharger
-</button>-->
+</button>
 		<div class="well">
 		    <h2 class="well-title bold">
 
@@ -68,8 +69,6 @@
 				    <c:set var="deco" value="#{sessionManagedBean.id eq null}" />
 				    <c:set var="type" value="#{accountManagedBean.getCodeButtonsFilm(filmManagedBean.id, sessionManagedBean.id)}" />
 
-				    <c:set var="deco" value="#{sessionManagedBean.id eq null}" />
-				    <c:set var="type" value="#{accountManagedBean.getCodeButtonsFilm(filmManagedBean.id, sessionManagedBean.id)}" />
 
 				    <c:set var="deco" value="#{true}"/>
 
@@ -156,70 +155,7 @@
 
 
 
-	      <div id="dl_popup" class="modal fade" style="display: none">
-		<div class="modal-dialog modal-lg">
-		  <div class="modal-content" style="color: black">
-		    		      <form id="dl_form">
-
-		    <div class="modal-header">
-		      <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-		      <h4 class="modal-title">Téléchargement</h4>
-		    </div>
-		    <div class="modal-body" id="video-selection">
-			<div class="row">
-			<div id="group-audio" class="form-group">
-			  <h:outputLabel class="col-md-5 form-label" for="type">Audio: </h:outputLabel>
-			  <div class="col-md-7">
-			    <h:selectOneRadio id="audioLang" value="#{defaultLang}" onchange="selectLang(this.value)" >
-			      <f:selectItems value="#{filmManagedBean.getVideoLangs()}" var="currentLang"  itemValue="#{currentLang}" itemLabel="#{msg[currentLang.str]}" id="test"/>
-			    </h:selectOneRadio>
-			  </div>
-			</div>
-			</div>
-			<ui:repeat value="#{filmManagedBean.getVideoLangs()}" var="lang">
-			  <div class="row">
-			  <div id="format-#{lang}" class="form-group" style="display:none">
-			    <h:outputLabel class="col-md-5 form-label" for="type">Qualité pour le #{msg[lang.str]}</h:outputLabel>
-			    <div id="format-#{lang}-menu" class="col-md-7">
-			      <h:selectOneListbox id="videoQuality" value="#{filmManagedBean.getVideoQualities(lang).get(0)}" onchange="selectQuality(this.value)">
-				<f:selectItems value="#{filmManagedBean.getVideoQualities(lang)}" var="currentQuality"  itemValue="#{currentQuality}" itemLabel="#{currentQuality}"/>
-			      </h:selectOneListbox>
-			    </div>
-			  </div>
-			  </div>
-
-			  <ui:repeat value="#{filmManagedBean.getVideoQualities(lang)}" var="quality">
-			    <div class="row">
-			  <div id="format-#{lang}-#{quality}" class="form-group"  style="display:none">
-			    <h:outputLabel class="col-md-5 form-label" for="type">Format pour le #{msg[lang.str]} et qualité #{quality}</h:outputLabel>
-			    <div id="format-#{lang}-#{quality}-menu" class="col-md-7">
-			      <h:selectOneListbox id="videoFormat" value="#{filmManagedBean.getVideoFormat(lang,quality).get(0)}"  onchange="selectFormat(this.value)">
-				<f:selectItems value="#{filmManagedBean.getVideoFormat(lang,quality)}" var="currentFormat"  itemValue="#{currentFormat}" itemLabel="#{currentFormat.str}"/>
-			      </h:selectOneListbox>
-			    </div>
-			  </div>
-			    </div>
-			</ui:repeat>
-			</ui:repeat>
-
-
-		    <div style="display:none">
-		    <ui:repeat value="#{filmManagedBean.getVideos()}" var="video">
-		      <a id="video-#{video.audio}-#{video.resolution}-#{video.format}"
-			 href="#{video.url}" target="_blank" download="filename">video</a>
-		    </ui:repeat>
-
-		    </div>
-
-		    </div>
-		    <div class="modal-footer">
-		      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-		      <button type="button" class="btn btn-primary" onclick="valideVideo()">Télécharger</button>
-		    </div>
-		    		      </form>
-		  </div><!-- /.modal-content -->
-		</div><!-- /.modal-dialog -->
-	      </div><!-- /.modal -->
+	      <ez:videos callback="valideVideo()" button="Télécharger"/>
 	      <div id="ba_popup" class="modal fade" style="display: none">
 		<div class="modal-dialog">
 		  <div class="modal-content" style="color: black">

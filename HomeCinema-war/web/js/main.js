@@ -131,5 +131,19 @@ function valideVideo() {
   if (link != null) {
 	link.click();
   }
+}
 
+function viewVideo(video) {
+  console.log('viewVideo');
+  var v = document.getElementById(video);
+  var st = 'video-'+myLang+'-'+myQuality+'-'+myFormat;
+  var link = document.getElementById(st);
+
+  while (v.firstChild) {
+	 v.removeChild(v.firstChild);
+  }
+  var s = document.createElement("source");
+  s.setAttribute("src", link.getAttribute("href"));
+  v.appendChild(s);
+  v.load();
 }
