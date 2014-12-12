@@ -187,9 +187,9 @@ public class ManageProduct implements ManageProductRemote {
 	    query += " and  f.RELEASE_DATE < '"+year2+"-12-31' " ;
 	}
 	if (main.equals(ProductTypes.Main)) {
-	    query += " and p.ID_PRODUCT in  ( select MAIN_PRODUCT from FILMS ) ";
+	    query += " and p.ID_PRODUCT = f.MAIN_PRODUCT ";
 	} else if (main.equals(ProductTypes.Pack)) {
-	    query += " and p.ID_PRODUCT not in  ( select MAIN_PRODUCT from FILMS ) ";
+	    query += " and p.ID_PRODUCT <> f.MAIN_PRODUCT ";
 	}
 	try {
 	Query qnb = em.createNativeQuery("select COUNT(distinct p.ID_PRODUCT) " + query);
@@ -197,13 +197,13 @@ public class ManageProduct implements ManageProductRemote {
 	Long nb = (Long) qnb.getSingleResult();
 	switch (sort) {
 	 case RATING:
-	 query = " from PRODUCTS p natural join  (select p.ID_PRODUCT,avg(f.RATING) as rating "+query+ "group by p.ID_PRODUCT ) r order by rating  desc ";
+	 query += " order by f.RATING  desc ";
 	 break;
 	 case SALES:
 	 query += " order by p.NB_SALES desc";
 	 break;
 	 case ALPH:
-	 query = "from PRODUCTS p natural join (select distinct ID_PRODUCT "+query+") r join PRODUIT_NAME pn on ID_PRODUCT = PRODUIT_ID order by pn.NAME ";
+	 query += "ORDER BY pn.NAME ";
 	 break;
 	 case NEW:
 	 query += " order by p.ADD_DATE desc";
