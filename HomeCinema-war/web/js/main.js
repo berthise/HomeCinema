@@ -153,3 +153,12 @@ function viewVideo(video) {
   v.appendChild(s);
   v.load();
 }
+
+function videoPause() {
+  document.getElementById("myVideo").pause();
+}
+
+function videoPlay() {
+  document.getElementById("myVideo").play();
+}
+

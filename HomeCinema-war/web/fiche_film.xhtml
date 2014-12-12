@@ -26,19 +26,21 @@
 	</f:metadata>
 
     </h:head>
-  <c:set var="defaultLang" value="#{filmManagedBean.getVideoLangs().get(0)}" />
+  <ui:param name="defaultLang" value="#{filmManagedBean.getVideoLangs().get(0)}" />
+    <ui:param name="defaultQuality" value="#{filmManagedBean.getVideoQualities(defaultLang).get(0)}" />
+  <ui:param name="defaultFormat"  value="#{filmManagedBean.getVideoFormat(defaultLang,defaultQuality ).get(0)}" />
+<!--  <c:set var="defaultLang" re value="#{filmManagedBean.getVideoLangs().get(0)}" />
   <c:set var="defaultQuality" value="#{filmManagedBean.getVideoQualities(defaultLang).get(0)}" />
-  <c:set var="defaultFormat" value="#{filmManagedBean.getVideoFormat(defaultLang,defaultQuality ).get(0)}" />
+  <c:set var="defaultFormat" value="#{filmManagedBean.getVideoFormat(defaultLang,defaultQuality ).get(0)}" />-->
 
     <h:body id="top" onload="chargeLang('#{defaultLang}','#{defaultQuality}','#{defaultFormat}')">
+<!--          <h:body id="top" onload="chargeLang('#{filmManagedBean.getVideoLangs().get(0)}','#{filmManagedBean.getVideoQualities(filmManagedBean.getVideoLangs().get(0)).get(0)}','#{filmManagedBean.getVideoFormat(filmManagedBean.getVideoLangs().get(0),filmManagedBean.getVideoQualities(filmManagedBean.getVideoLangs().get(0)).get(0) ).get(0)}')">-->
 	<ui:insert name="header" >
 	    <ui:include src="components/header.xhtml" />
 	</ui:insert>
 	<section>
 	    <div class="container">
-	      	      <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#dl_popup">
-  Télécharger
-</button>
+
 		<div class="well">
 		    <h2 class="well-title bold">
 
@@ -81,10 +83,14 @@
                                                     </a>
 						</div>
 						<div class="col-xs-6 col-low-padding-right">
-						    <a class="btn btn-success b" href="#{filmManagedBean.getUrlDownload()}" download="#{filmManagedBean.getLinkToDownload()}">
+						  <button type="button" class="btn btn-success b" data-toggle="modal" data-target="#dl_popup">
+						    <i class="glyphicon glyphicon-download-alt"></i>
+						    #{msg['fiche-film-download']}
+						  </button>
+<!--						  <a class="btn btn-success b" href="#{filmManagedBean.getUrlDownload()}" download="#{filmManagedBean.getLinkToDownload()}">
                                                         <i class="glyphicon glyphicon-download-alt"></i> 
                                                         #{msg['fiche-film-download']}
-                                                    </a>
+                                                    </a>-->
 						</div>
 					    </div>
 					</h:panelGroup>
@@ -118,9 +124,11 @@
 					    </div>
 					</h:panelGroup>
 				      <div class="row">
+					<div class="col-xs-10 col-low-padding-left">
 					  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ba_popup">
 					    Voir la bande annonce
 					  </button>
+					</div>
 				      </div>
 				    </div>
 				</div>

@@ -19,8 +19,12 @@ import enums.OrderTypes;
 import enums.ProductStates;
 import enums.ProductTypes;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -142,7 +146,7 @@ public class ManageProduct implements ManageProductRemote {
     }
 
     @Override
-    public FilteredListProductsDto getFilteredProducts(Long actor, Long director, List<Long> lgdto, String mode, String str, String year1, String year2, OrderTypes sort, Integer limit, Integer row, ProductTypes main, Lang lang){
+    public FilteredListProductsDto getFilteredProducts(Long actor, Long director, List<Long> lgdto, String mode, String str, String year1, String year2, OrderTypes sort, Integer limit, Integer row, ProductTypes main, final Lang lang){
 	//
 	String query = "From PRODUCTS p join FILMS_PRODUCTS  on p.ID_PRODUCT = products_ID_PRODUCT join FILMS f on films_ID_FILM =f.ID_FILM join PRODUIT_NAME pn on ID_PRODUCT=PRODUIT_ID  where p.STATE_=0 ";
 	if (row == null) {
@@ -194,39 +198,60 @@ public class ManageProduct implements ManageProductRemote {
 	try {
 	Query qnb = em.createNativeQuery("select COUNT(distinct p.ID_PRODUCT) " + query);
 
-	Long nb = (Long) qnb.getSingleResult();
+	Long nb = new Long(qnb.getSingleResult().toString());
 	switch (sort) {
-	 case RATING:
-	 query += " order by f.RATING  desc ";
-	 break;
+//	 case RATING:
+//	 query += " order by f.RATING  desc ";
+//	 break;
 	 case SALES:
 	 query += " order by p.NB_SALES desc";
 	 break;
-	 case ALPH:
-	 query += "ORDER BY pn.NAME ";
-	 break;
+//	 case ALPH:
+//	 query += "ORDER BY pn.NAME ";
+//	 break;
 	 case NEW:
 	 query += " order by p.ADD_DATE desc";
 	 break;
 	 case RAND:
-	 row = (int) (Math.random() * (getNbProduct() - limit));
+	 row = (int) (Math.random() * (float)(nb.intValue() - limit));
 	 break;
 	 }
 	if (row < 0) {
 	    row = 0;
 	}
 	
-	query += " LIMIT " + limit + " OFFSET " + row;
-	Query q = em.createNativeQuery("select distinct p.*  " + query, Product.class);
+	/*
+	LIMIT is not standart and derby does not support it.
+	*/
+//	query += " LIMIT " + limit + " OFFSET " + row;
+
+	Query q = em.createNativeQuery("SELECT DISTINCT p.*  " + query, Product.class);
+	q.setMaxResults(limit);
+	q.setFirstResult(row);
 	List<Product> lpdto = q.getResultList();
-	
+	if (sort == OrderTypes.ALPH) {
+		Collections.sort(lpdto, new Comparator <Product>() {
+	  @Override
+	  public int compare(Product p1, Product p2) {
+	    return p1.getName(lang).compareTo(p2.getName(lang));
+	  }});
+	} else if (sort == OrderTypes.RATING) {
+	  		Collections.sort(lpdto, new Comparator <Product>() {
+	  @Override
+	  public int compare(Product p1, Product p2) {
+	    return p1.getAverageRate().compareTo(p2.getAverageRate());
+	  }});
+	}
+
+
 	List<ProductDto> res = new ArrayList<>();
 	for (Product p : lpdto) {
 	    res.add(ProductDtoManager.getDto(p, lang));
 	}
 	return new FilteredListProductsDto(res, nb.intValue());
-	}catch (Exception e)
-	{
+	}catch (Exception e) { 
+	  Logger.getLogger(ManageProduct.class.getName()).log(Level.SEVERE, null, e);
+
 	    return new FilteredListProductsDto(new ArrayList<ProductDto>(), -1);
 	}
     }

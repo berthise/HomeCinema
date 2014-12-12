@@ -21,13 +21,18 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.naming.NamingException;
 import static utils.Beans.findBean;
 import utils.Lang;
 import utils.Pages;
+import utils.Paramters;
+import utils.Redirect;
 
 /**
  *
@@ -46,9 +51,10 @@ public class FilmManagedBean {
     }
 
     public void setDtoFromId() throws IOException {
-	if (fdto.id == null) {
+	if (fdto.id == null || fdto.id == 0) {
 	    FacesContext.getCurrentInstance().getExternalContext().dispatch(Pages.NOT_FOUND);
 	}
+	     System.out.println("id = " + fdto.id + " lang = " + lang.getLang());
 	FilmFicheDto f = Ejbs.film().getDtoFromId(fdto.id,lang.getLang());
 	if (f == null) {
 	    FacesContext.getCurrentInstance().getExternalContext().dispatch(Pages.NOT_FOUND);
@@ -128,8 +134,6 @@ public class FilmManagedBean {
     }
 
     public List<VideoDto> getVideos() {
-//	String url = fdto.files.get(0).url;
-//	return "<source src=\"" + url + "\" type=\"video/mp4\" />";
       return fdto.videos;
     }
     
@@ -141,6 +145,7 @@ public class FilmManagedBean {
 	langs.add(v.audio);
       }
       Collections.sort(langs);
+
       return langs;
     }
     

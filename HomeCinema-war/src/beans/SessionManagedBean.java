@@ -55,6 +55,7 @@ public class SessionManagedBean {
 
 	    // TODO change state in ejbs
 	    user.caddieSize = 0;
+	    user.filmsSize = Ejbs.user().countFilms(user.id);
 	    user.setState(UserStates.Activated);
 	    Redirect.redirectTo(Pages.MON_COMPTE);
 	}
@@ -252,5 +253,9 @@ public class SessionManagedBean {
 
     public Integer getCaddySize() {
 	return user.caddieSize;
+    }
+    
+    public Integer getFilmsSize() {
+	return user.filmsSize;
     }
 }

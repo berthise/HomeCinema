@@ -253,6 +253,12 @@ public class ManageUser implements ManageUserRemote {
     }
     return lfdto;
   }
+  
+  @Override
+  public Integer countFilms(Long id) {
+    User p = em.find(User.class, id);
+    return p.getFilms().size();
+  }
 
   @Override
   public boolean changePassword(Long id, String newPassword, String oldPassword) {

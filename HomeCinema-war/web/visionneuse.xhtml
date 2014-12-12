@@ -6,7 +6,8 @@
     xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:ez="http://xmlns.jcp.org/jsf/composite/ezcomp">
+    xmlns:ez="http://xmlns.jcp.org/jsf/composite/ezcomp"
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <meta charset="utf-8"/>
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
@@ -26,7 +27,11 @@
         </f:metadata>
 
     </h:head>
-    <h:body id="top">
+ <c:set var="defaultLang" value="#{filmManagedBean.getVideoLangs().get(0)}" />
+  <c:set var="defaultQuality" value="#{filmManagedBean.getVideoQualities(defaultLang).get(0)}" />
+  <c:set var="defaultFormat" value="#{filmManagedBean.getVideoFormat(defaultLang,defaultQuality ).get(0)}" />
+
+    <h:body id="top" onload="chargeLang('#{defaultLang}','#{defaultQuality}','#{defaultFormat}')">
     <ui:insert name="header" >
       <ui:include src="components/header.xhtml">
 	<ui:param name="active" value="index" />
@@ -38,16 +43,19 @@
                 <div id="ba" class="well">
                     <h2 class="well-title"><strong>#{msg['visio-subtitle']}: </strong><h:outputText value="#{filmManagedBean.getLinkToFiche()}" escape="false"/>
                         <div class="form-download-film">
-                            <a class="btn btn-success b" href="#{filmManagedBean.getUrlDownload()}" download="#{filmManagedBean.getLinkToDownload()}">
-				<i class="glyphicon glyphicon-download-alt"></i> 
-				#{msg['fiche-film-download']}
-			    </a>
+			      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#dl_popup" onclick="videoPause()">
+			    Changer le format
+			    </button>
+<!--			    <button type="button" class="btn btn-success b" data-toggle="modal" data-target="#dl_popup"  onclick="videoPause()">
+						    <i class="glyphicon glyphicon-download-alt"></i>
+						    #{msg['fiche-film-download']}
+						  </button>-->
                         </div>
                     </h2>
 
                     <video id="myVideo" width="100%" controls="controls" autoplay="autoplay">
 		      <ui:repeat value="#{filmManagedBean.getVideos()}" var="video">
-			<source src="#{video.url}" type="#{video.type}" />
+			<source src="#{video.url}" type="video/#{video.type}" />
 		      </ui:repeat>
 			#{msg['ba-not-supported']}
                     </video>
@@ -83,11 +91,10 @@
 			}
 			</script>
 		    </div>-->
-	      	      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#dl_popup">
-  Changer le format
-</button>
 
-	      <ez:videos callback="viewVideo('myVideo')"/>
+
+<ez:videos callback="viewVideo('myVideo')" button="Valider" callback_close="videoPlay()"/>
+
 	                      </div>
             </div>
         </section>

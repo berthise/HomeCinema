@@ -9,6 +9,7 @@ import dtos.FilmDto;
 import dtos.ProductDto;
 import dtos.UserDto;
 import dtos.VideoDto;
+import enums.Lang;
 import enums.Langs;
 import enums.VideoFormat;
 import exception.SignupEmailException;
@@ -269,6 +270,123 @@ public class JeuDeTestStructActivation {
 	    /*
 	     ********************** */
 	    
+	     /* **********************
+       * create American Beauty videos film and product 
+       */
+      VideoDto ed_video = createAndPushVideo(a, 1080,
+	      "http://download.blender.org/peach/bigbuckbunny_movies/big_buck_bunny_1080p_stereo.ogg",
+	      Langs.EN, VideoFormat.OGG);
+      VideoDto ed_trailer = createAndPushVideo(a, 400,
+	      "http://blendertestbuilds.de/index.php?dir=Video/ProjectOrange/&file=elephantsdream_teaser.mp4",
+	      Langs.EN, VideoFormat.MP4);
+      FilmDto ed_film = createAndPushFilm(a, 9761L, ed_video.id, ed_trailer.id);
+      ProductDto ed_product = createAndPushProduct(a, ed_film, "Elephant Dream", 10.0, true);
+
+      /*
+       ********************** */
+
+      /* **********************
+       * create Star Wars 4 videos film and product 
+       */
+      VideoDto bbb_video = createAndPushVideo(a, 1080,
+	      "http://download.blender.org/peach/bigbuckbunny_movies/big_buck_bunny_1080p_stereo.ogg");
+      VideoDto bbb_trailer = createAndPushVideo(a, 400,
+	      "http://download.blender.org/peach/trailer/trailer_400p.ogg");
+      FilmDto bbb_film = createAndPushFilm(a, 10378L, bbb_video.id, bbb_trailer.id);
+      ProductDto bbb_product = createAndPushProduct(a, bbb_film, "Big Buck Bunny", 10.0, true);
+
+      List<Long> bbb_videos = new ArrayList<>();
+      bbb_videos.add(createAndPushVideo(a, 720,
+	      "http://download.blender.org/peach/bigbuckbunny_movies/big_buck_bunny_720p_stereo.ogg",
+	      Langs.EN, VideoFormat.OGG).id);
+      bbb_videos.add(createAndPushVideo(a, 1080,
+	      "http://download.blender.org/peach/bigbuckbunny_movies/big_buck_bunny_1080p_stereo.ogg",
+	      Langs.EN, VideoFormat.OGG).id);
+      bbb_videos.add(createAndPushVideo(a, 720,
+	      "http://download.blender.org/peach/bigbuckbunny_movies/big_buck_bunny_720p_stereo.ogg",
+	      Langs.FR, VideoFormat.OGG).id);
+      bbb_videos.add(createAndPushVideo(a, 1080,
+	      "http://download.blender.org/peach/bigbuckbunny_movies/big_buck_bunny_1080p_stereo.ogg",
+	      Langs.FR, VideoFormat.OGG).id);
+      a.getManageFilmRemote().addExistingVideos(bbb_film.id, bbb_videos);
+      /*
+       ********************** */
+
+      /* **********************
+       * create Star Wars 5 videos film and product 
+       */
+      VideoDto stl_video = createAndPushVideo(a, 2048,
+	      "http://mirrorblender.top-ix.org/movies/sintel-2048-surround.mp4",
+	      Langs.EN, VideoFormat.MP4);
+      VideoDto stl_trailer = createAndPushVideo(a, 480,
+	      "https://download.blender.org/durian/trailer/sintel_trailer-480p.ogv",
+	      Langs.EN, VideoFormat.OGG);
+      FilmDto stl_film = createAndPushFilm(a, 45745L, stl_video.id, stl_trailer.id);
+      ProductDto stl_product = createAndPushProduct(a, stl_film, "Sintel", 10.0, true);
+      
+      List<Long> stl_videos = new ArrayList<>();
+      stl_videos.add(createAndPushVideo(a, 1280,
+	      "http://mirrorblender.top-ix.org/movies/sintel-1280-surround.mp4",
+	      Langs.EN, VideoFormat.MP4).id);
+            stl_videos.add(createAndPushVideo(a, 1024,
+	      "http://mirrorblender.top-ix.org/movies/sintel-1024-surround.mp4",
+	      Langs.EN, VideoFormat.MP4).id);
+	     stl_videos.add(createAndPushVideo(a, 1024,
+	      "http://mirrorblender.top-ix.org/movies/sintel-1024-surround.webm",
+	      Langs.EN, VideoFormat.WEBM).id);
+	     	     stl_videos.add(createAndPushVideo(a, 1024,
+	      "http://mirrorblender.top-ix.org/movies/sintel-1024-surround.ogg",
+	      Langs.EN, VideoFormat.OGG).id);
+	          stl_videos.add(createAndPushVideo(a, 1280,
+	      "http://mirrorblender.top-ix.org/movies/sintel-1280-surround.mp4",
+	      Langs.FR, VideoFormat.MP4).id);
+            stl_videos.add(createAndPushVideo(a, 1024,
+	      "http://mirrorblender.top-ix.org/movies/sintel-1024-surround.mp4",
+	      Langs.FR, VideoFormat.MP4).id);
+      a.getManageFilmRemote().addExistingVideos(stl_film.id, stl_videos);
+      /*
+       ********************** */
+
+      /* **********************
+       * create Star Wars 6 videos film and product 
+       */
+      VideoDto tos_video = createAndPushVideo(a, 1080,
+	      "http://media.xiph.org/mango/tears_of_steel_1080p.webm",
+	      Langs.EN, VideoFormat.WEBM);
+      VideoDto tos_trailer = createAndPushVideo(a, 800,
+	      "https://download.blender.org/demo/movies/tears-of-steel_teaser.mp4");
+      FilmDto tos_film = createAndPushFilm(a, 133701L, tos_video.id, tos_trailer.id);
+      ProductDto tos_product = createAndPushProduct(a, tos_film, "Tears of Steel", 10.0, true);
+      
+            List<Long> tos_videos = new ArrayList<>();
+      tos_videos.add(createAndPushVideo(a, 1080,
+	      "http://blender-mirror.kino3d.org/mango/download.blender.org/demo/movies/ToS/tears_of_steel_1080p.mkv",
+	      Langs.EN, VideoFormat.MP4).id);
+            tos_videos.add(createAndPushVideo(a, 720,
+	      "http://blender-mirror.kino3d.org/mango/download.blender.org/demo/movies/ToS/tears_of_steel_720p.mkv",
+	      Langs.EN, VideoFormat.MP4).id);
+	          tos_videos.add(createAndPushVideo(a, 1280,
+	      "http://mirrorblender.top-ix.org/movies/sintel-1280-surround.mp4",
+	      Langs.FR, VideoFormat.MP4).id);
+            tos_videos.add(createAndPushVideo(a, 1024,
+	      "http://mirrorblender.top-ix.org/movies/sintel-1024-surround.mp4",
+	      Langs.FR, VideoFormat.MP4).id);
+      a.getManageFilmRemote().addExistingVideos(tos_film.id, tos_videos);
+      /*
+       ********************** */
+
+      /* **********************
+       * create Blender foundation product 
+       */
+      ArrayList<FilmDto> bf_films = new ArrayList<>();
+      bf_films.add(ed_film);
+      bf_films.add(bbb_film);
+      bf_films.add(stl_film);
+      bf_films.add(tos_film);
+      ProductDto bf_product = createAndPushProduct(a, bf_films, "Blender Foundation", 25.0, false);
+      /*
+       ********************** */
+	    
 	    /* **********************
 	     * create users: robin, seb, pierre, narjes et abdou
 	     */
@@ -285,6 +403,7 @@ public class JeuDeTestStructActivation {
 	     * pierre buy Star Wars Trilogie
 	     */
 	    userBuyProduct(a, rob_user, ab_product, 42L);
+	    userBuyProduct(a, rob_user, bf_product, 43L);
 	    userBuyProduct(a, rob_user, ck_product, 43L);
 	    userBuyProduct(a, pierre_user, sw_product, 44L);
 	    /*
