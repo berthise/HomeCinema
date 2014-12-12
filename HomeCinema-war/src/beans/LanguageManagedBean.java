@@ -14,7 +14,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.Cookie;
 import utils.Cookies;
-import utils.Lang;
+
 
 /**
  *
@@ -53,7 +53,7 @@ public class LanguageManagedBean {
 	
 	Cookies.setCookie(LanguageManagedBean.localeCookieName, localeCode, LanguageManagedBean.localeCookieExpire);
     
-	Lang.reset();
+	utils.Lang.reset();
     }
 
     public LanguageManagedBean() {

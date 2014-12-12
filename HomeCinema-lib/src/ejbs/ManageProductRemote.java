@@ -61,7 +61,7 @@ public interface ManageProductRemote {
      * @return film correspondant a tous les critéres précedents , empty si aucun 
      */
 
-    public FilteredListProductsDto getFilteredProducts(Long actor, Long director, List<Long> lgdto, String mode, String str, String year1, String year2, OrderTypes sort, Integer limit, Integer row, ProductTypes main);
+    public FilteredListProductsDto getFilteredProducts(Long actor, Long director, List<Long> lgdto, String mode, String str, String year1, String year2, OrderTypes sort, Integer limit, Integer row, ProductTypes main, Lang lang);
 
     public void activate(Long pid);
 
@@ -79,7 +79,7 @@ public interface ManageProductRemote {
 
     public ProductDto mergeOrSave(ProductDto pdto, Lang lang);
 
-    public FilteredListProductsDto getFilteredProducts(Long actor, Long director, List<Long> lgdto, String str, String year, OrderTypes sort, Integer limit, Integer row, ProductTypes main, Lang lang);
+    //public FilteredListProductsDto getFilteredProducts(Long actor, Long director, List<Long> lgdto, String str, String year, OrderTypes sort, Integer limit, Integer row, ProductTypes main, Lang lang);
 
     public Long createProduct(ProductDto pdto, Lang lang);
 

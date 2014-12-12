@@ -142,8 +142,7 @@ public class ManageProduct implements ManageProductRemote {
     }
 
     @Override
-    public FilteredListProductsDto getFilteredProducts(Long actor, Long director, List<Long> lgdto, String str, String year, OrderTypes sort, Integer limit, Integer row, ProductTypes main, Lang lang) {
-	boolean or = true;//join p.name pn      join f.title t
+    public FilteredListProductsDto getFilteredProducts(Long actor, Long director, List<Long> lgdto, String mode, String str, String year1, String year2, OrderTypes sort, Integer limit, Integer row, ProductTypes main, Lang lang){
 	String query = "From PRODUCTS p join FILMS_PRODUCTS  on p.ID_PRODUCT = products_ID_PRODUCT join FILMS f on films_ID_FILM =f.ID_FILM join PRODUIT_NAME pn on ID_PRODUCT=PRODUIT_ID  where p.STATE_=0 ";
 	if (row == null) {
 	    row = 0;
@@ -168,42 +167,49 @@ public class ManageProduct implements ManageProductRemote {
 		}
 		query += " g.genre_ID_GENRE =" + g;
 	    }
-	    if (or) {
+	    if (mode.equals("OR")) {
 		query += " ) ";
 	    } else {
-		query += " GROUP BY Films_ID_FILM HAVING count(* ) = " + lgdto.size() + " )";
+		query += " GROUP BY Films_ID_FILM HAVING count( genre_ID_GENRE ) = " + lgdto.size() + " )";
 	    }
 	}
 	if (str != null && !str.equals("")) {
-	    query += "and NAME like '%" + str + "%' ";
+	    query += " and NAME like '%" + str + "%' ";
 
+	}
+	if (year1!=null && !year1.equals(""))
+	{
+	    query += " and  f.RELEASE_DATE > '"+year1+"-01-01' " ;
+	}
+		if (year2!=null && !year2.equals(""))
+	{
+	    query += " and  f.RELEASE_DATE < '"+year2+"-12-31' " ;
 	}
 	if (main.equals(ProductTypes.Main)) {
 	    query += " and p.ID_PRODUCT in  ( select products_ID_PRODUCT from FILMS_PRODUCTS  group by products_ID_PRODUCT having count(*)=1 ) ";
 	} else if (main.equals(ProductTypes.Pack)) {
 	    query += " and p.ID_PRODUCT in  ( select products_ID_PRODUCT from FILMS_PRODUCTS  group by products_ID_PRODUCT having count(*)>1 ) ";
-	    //query += " and size(p.films )>1 ";
 	}
 	Query qnb = em.createNativeQuery("select COUNT(distinct p.ID_PRODUCT) " + query);
-	//qnb.setParameter("active", ProductStates.Activated);
+
 	Long nb = (Long) qnb.getSingleResult();
-	/*switch (sort) {
+	switch (sort) {
 	 case RATING:
-	 query += "group by p order by  AVG(f.rating) desc ";
+	 query = " from PRODUCTS p natural join  (select p.ID_PRODUCT,avg(f.RATING) as rating "+query+ "group by p.ID_PRODUCT ) r order by rating  desc ";
 	 break;
 	 case SALES:
-	 query += "order by p.nbSales desc";
+	 query += "order by p.NB_SALES desc";
 	 break;
 	 case ALPH:
-	 //query += "order by VALUE(pn) ";
+	 query += "order by pn.NAME ";
 	 break;
 	 case NEW:
-	 query += "order by p.addDate desc";
+	 query += "order by p.ADD_DATE desc";
 	 break;
 	 case RAND:
 	 row = (int) (Math.random() * (getNbProduct() - limit));
 	 break;
-	 }*/
+	 }
 	if (row < 0) {
 	    row = 0;
 	}
@@ -211,9 +217,6 @@ public class ManageProduct implements ManageProductRemote {
 	query += " LIMIT " + limit + " OFFSET " + row;
 	System.out.println(query);
 	Query q = em.createNativeQuery("select distinct p.*  " + query, Product.class);
-	//q.setParameter("active", ProductStates.Activated);
-	//q.setFirstResult(row);
-	//q.setMaxResults(limit);
 	List<Product> lpdto = q.getResultList();
 	List<ProductDto> res = new ArrayList<>();
 	for (Product p : lpdto) {
