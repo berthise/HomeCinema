@@ -5,7 +5,8 @@ body {
   background: -moz-linear-gradient(left, #111, #666, #666, #666, #111);
   margin: 0;
   font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  min-height: 800px; }
+  min-height: 800px;
+  /*----------- Icons color ----------*/ }
   body .textarea-noresizing {
     resize: none; }
   body .row-margin-top {
@@ -87,7 +88,7 @@ body {
         padding: 0 10px; }
     body header .navbar-nav {
       border-right: 1px solid #ced1d4; }
-      body header .navbar-nav a {
+      body header .navbar-nav li > a {
         border-left: 1px solid #ced1d4;
         margin: 0; }
       body header .navbar-nav i + span {
@@ -95,8 +96,9 @@ body {
       @media (min-width: 1000px) {
         body header .navbar-nav i + span {
           display: inline-block; } }
-    body header nav ul form {
-      display: inline; }
+      @media (min-width: 24px) and (max-width: 767px) {
+        body header .navbar-nav i + span {
+          display: inline-block; } }
     body header #form-login {
       z-index: 10000;
       display: none;
@@ -506,6 +508,12 @@ body {
   body .forgot {
     padding-bottom: 10px !important;
     padding-right: 15px !important; }
+  body i.success {
+    color: #5cb85c; }
+  body i.primary {
+    color: #428bca; }
+  body i.danger {
+    color: #c63702; }
 
 /* customize scrollbars -----------*/
 ::-webkit-scrollbar {

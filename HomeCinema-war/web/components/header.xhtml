@@ -89,9 +89,10 @@
                                         </a>
                                         <ul class="dropdown-menu">
                                             <li>
-                                                <i class="glyphicon glyphicon-off"></i>
                                                 <h:form>
-                                                    <h:commandLink action="#{sessionManagedBean.logout}" value="#{msg['deconnexion']}" />
+                                                    <h:commandLink action="#{sessionManagedBean.logout}">
+                                                        <i class="glyphicon glyphicon-off"></i> #{msg['deconnexion']}
+                                                    </h:commandLink>
                                                 </h:form>
                                             </li>
                                         </ul>

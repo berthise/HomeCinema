@@ -28,16 +28,22 @@
                                         <a href="#{msg['page-fiche-product']}.xhtml?id=#{f.id}">#{f.name}</a><br/>
                                     </ui:repeat>
                                 </td>
-                                <td>
+                                <td class="center">
                                     <i>#{o.getAddDateString("dd/MM/YYYY")}</i>
                                 </td>
-                                <td>
+                                <td class="center">
                                     <b>#{o.totalPrice}€</b>
                                 </td>				    
-                                <td>
-                                    <h:graphicImage value="img/done.png" title="#{msg['account-historique-eff']}" rendered="#{o.state eq 'Done'}" />
-                                    <h:graphicImage value="img/canceled.png" title="#{msg['account-historique-ann']}" rendered="#{o.state eq 'Canceled'}" />
-                                    <h:graphicImage value="img/prepared.png" title="#{msg['account-historique-prep']}" rendered="#{o.state eq 'Prepared'}" />
+                                <td class="center">
+                                    <h:panelGroup rendered="#{o.state eq 'Done'}">
+                                        <i class="glyphicon glyphicon-ok success" title="#{msg['account-historique-eff']}"  />
+                                    </h:panelGroup>
+                                    <h:panelGroup rendered="#{o.state eq 'Canceled'}">
+                                        <i class="glyphicon glyphicon-ok danger" title="#{msg['account-historique-ann']}"  />
+                                    </h:panelGroup>
+                                    <h:panelGroup rendered="#{o.state eq 'Prepared'}">
+                                        <i class="glyphicon glyphicon-ok primary" title="#{msg['account-historique-prep']}"  />
+                                    </h:panelGroup>
                                 </td>
                             </tr>				
                         </ui:repeat>
