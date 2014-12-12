@@ -11,14 +11,14 @@
 		    <div class="container">
 			<div class="row">
 			    <div class="footer-elem col-md-4">
-				<h3 class="footer-title"><a href="#{msg['page-films']}.xhtml?s=top">#{msg['search-top10']}</a></h3>
+				<h3 class="footer-title"><a href="#{msg['page-films']}.xhtml?tab=top">#{msg['search-top10']}</a></h3>
 				<ul class="footer-list">
 				    <ui:repeat var="o" value="#{listProductsManagedBean.getFooterTopProduct()}">
 					<li><a href="#{msg['page-fiche-product']}.xhtml?id=#{o.id}">#{o.name}</a></li>
 				    </ui:repeat>
 				</ul></div>
 			    <div class="footer-elem col-md-4">
-				<h3 class="footer-title"><a href="#{msg['page-films']}.xhtml?s=new">#{msg['search-new']}</a></h3>
+				<h3 class="footer-title"><a href="#{msg['page-films']}.xhtml?tab=new">#{msg['search-new']}</a></h3>
 				<ul class="footer-list">
 				    <ui:repeat var="o" value="#{listProductsManagedBean.getFooterNewProduct()}">
 					<li><a href="#{msg['page-fiche-product']}.xhtml?id=#{o.id}">#{o.name}</a></li>
