@@ -294,13 +294,14 @@ body {
         .btn3d {
             transition:all .08s linear;
             position:relative;
-            outline:medium none;
+            outline:none;
             border:0px;
             &:focus{
-                outline:medium none;
+                outline:none;
             }
             &:active {
-                top:6px;                
+                top:6px;
+		outline:none;
             }
         }
         .btn-default {

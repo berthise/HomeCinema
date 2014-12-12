@@ -25,7 +25,7 @@
                 <h4><i class="glyphicon glyphicon-shopping-cart" />#{cc.attrs.title}</h4>
             </div>
             <h:panelGroup rendered="#{caddieManagedBean.counter() eq 0}" >
-                <td>#{msg['account-caddie-vide']} <a href="films.xhtml">#{msg['account-films-link']}</a></td>                                        
+                <td>#{msg['account-caddie-vide']} <a href="#{msg['page-films']}.xhtml?tab=all">#{msg['account-films-link']}</a></td>                                        
             </h:panelGroup>
 
             <h:panelGroup rendered="#{caddieManagedBean.counter() gt 0}" >

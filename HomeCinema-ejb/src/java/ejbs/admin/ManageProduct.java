@@ -141,7 +141,7 @@ public class ManageProduct implements ManageProductRemote {
     }
 
     @Override
-    public FilteredListProductsDto getFilteredProducts(Long actor, Long director, List<Long> lgdto, String str, String year1, String year2, OrderTypes sort, Integer limit, Integer row, ProductTypes main) {
+    public FilteredListProductsDto getFilteredProducts(Long actor, Long director, List<Long> lgdto, String mode, String str, String year1, String year2, OrderTypes sort, Integer limit, Integer row, ProductTypes main) {
 	boolean or = true;
 	String query = " From Product p join p.films f join f.genre g join f.actors a join f.directors d where p.state=:active ";
 	if (row == null) {

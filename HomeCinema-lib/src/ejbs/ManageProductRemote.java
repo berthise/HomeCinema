@@ -49,6 +49,7 @@ public interface ManageProductRemote {
      * @param actor film avec l'acteur ayant cet id 0||null => tout
      * @param director film réalisateur par le realisateur ayant cet id 0||null => tout
      * @param lgdto liste de genre produit renvoyé si au moins 1 film appatient a 1 genre empty||null => tout
+     * @param mode AND ou OR
      * @param str chaine de recherche (*str*) sur le nom du produit ""|null => tout 
      * @param year1 annee de sortie  ""||null =>tout
      * @param year2 annee de sortie  ""||null =>tout
@@ -59,7 +60,7 @@ public interface ManageProductRemote {
      * @return film correspondant a tous les critéres précedents , empty si aucun 
      */
 
-    public FilteredListProductsDto getFilteredProducts(Long actor, Long director, List<Long> lgdto, String str, String year1, String year2, OrderTypes sort, Integer limit, Integer row, ProductTypes main);
+    public FilteredListProductsDto getFilteredProducts(Long actor, Long director, List<Long> lgdto, String mode, String str, String year1, String year2, OrderTypes sort, Integer limit, Integer row, ProductTypes main);
 
     public void activate(Long pid);
 

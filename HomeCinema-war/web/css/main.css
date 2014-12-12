@@ -200,12 +200,13 @@ body {
     body section .btn3d, body section .btn {
       transition: all .08s linear;
       position: relative;
-      outline: medium none;
+      outline: none;
       border: 0px; }
       body section .btn3d:focus, body section .btn:focus {
-        outline: medium none; }
+        outline: none; }
       body section .btn3d:active, body section .btn:active {
-        top: 6px; }
+        top: 6px;
+        outline: none; }
     body section .btn-default {
       box-shadow: 0 0 0 1px #ebebeb inset, 0 0 0 2px rgba(255, 255, 255, 0.15) inset, 0 5px 0 0 #adadad, 0 5px 0 1px rgba(0, 0, 0, 0.4), 0 5px 5px 1px rgba(0, 0, 0, 0.5);
       background-color: #fff; }
