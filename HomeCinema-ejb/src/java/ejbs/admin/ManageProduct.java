@@ -143,6 +143,7 @@ public class ManageProduct implements ManageProductRemote {
 
     @Override
     public FilteredListProductsDto getFilteredProducts(Long actor, Long director, List<Long> lgdto, String mode, String str, String year1, String year2, OrderTypes sort, Integer limit, Integer row, ProductTypes main, Lang lang){
+	//
 	String query = "From PRODUCTS p join FILMS_PRODUCTS  on p.ID_PRODUCT = products_ID_PRODUCT join FILMS f on films_ID_FILM =f.ID_FILM join PRODUIT_NAME pn on ID_PRODUCT=PRODUIT_ID  where p.STATE_=0 ";
 	if (row == null) {
 	    row = 0;
@@ -174,7 +175,7 @@ public class ManageProduct implements ManageProductRemote {
 	    }
 	}
 	if (str != null && !str.equals("")) {
-	    query += " and NAME like '%" + str + "%' ";
+	    query += " and  NAME like '%" + str + "%' ";
 
 	}
 	if (year1!=null && !year1.equals(""))
@@ -186,9 +187,9 @@ public class ManageProduct implements ManageProductRemote {
 	    query += " and  f.RELEASE_DATE < '"+year2+"-12-31' " ;
 	}
 	if (main.equals(ProductTypes.Main)) {
-	    query += " and p.ID_PRODUCT in  ( select products_ID_PRODUCT from FILMS_PRODUCTS  group by products_ID_PRODUCT having count(*)=1 ) ";
+	    query += " and p.ID_PRODUCT in  ( select MAIN_PRODUCT from FILMS ) ";
 	} else if (main.equals(ProductTypes.Pack)) {
-	    query += " and p.ID_PRODUCT in  ( select products_ID_PRODUCT from FILMS_PRODUCTS  group by products_ID_PRODUCT having count(*)>1 ) ";
+	    query += " and p.ID_PRODUCT not in  ( select MAIN_PRODUCT from FILMS ) ";
 	}
 	try {
 	Query qnb = em.createNativeQuery("select COUNT(distinct p.ID_PRODUCT) " + query);
@@ -199,13 +200,13 @@ public class ManageProduct implements ManageProductRemote {
 	 query = " from PRODUCTS p natural join  (select p.ID_PRODUCT,avg(f.RATING) as rating "+query+ "group by p.ID_PRODUCT ) r order by rating  desc ";
 	 break;
 	 case SALES:
-	 query += "order by p.NB_SALES desc";
+	 query += " order by p.NB_SALES desc";
 	 break;
 	 case ALPH:
-	 query += "order by pn.NAME ";
+	 query = "from PRODUCTS p natural join (select distinct ID_PRODUCT "+query+") r join PRODUIT_NAME pn on ID_PRODUCT = PRODUIT_ID order by pn.NAME ";
 	 break;
 	 case NEW:
-	 query += "order by p.ADD_DATE desc";
+	 query += " order by p.ADD_DATE desc";
 	 break;
 	 case RAND:
 	 row = (int) (Math.random() * (getNbProduct() - limit));
