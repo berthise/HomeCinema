@@ -33,10 +33,11 @@ $(function () {
     };
     function clickLink(id) {
         var $link = $('.sidebar').find('a[href="' + id + '"]');
+        console.log($link)
         $('.sidebar').find('a').removeClass('active');
         $link.addClass("active");
         history.pushState({key: 'value'}, document.title, id);
         $(id).siblings().hide();
         $(id).fadeIn("slow");
-    } 
+    }
 });
