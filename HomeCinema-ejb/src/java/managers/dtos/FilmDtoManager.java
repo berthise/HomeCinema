@@ -20,7 +20,7 @@ import javax.persistence.EntityManager;
  */
 public class FilmDtoManager {
 
-    public static FilmDto getDto(Film f,Lang lang) {
+    public static FilmDto getDto(Film f, Lang lang) {
 	if (f == null) {
 	    return null;
 	}
@@ -39,7 +39,7 @@ public class FilmDtoManager {
 	return fdto;
     }
 
-    public static FilmFicheDto getDtoForFiche(Film f,Lang lang) {
+    public static FilmFicheDto getDtoForFiche(Film f, Lang lang) {
 	if (f == null) {
 	    return null;
 	}
@@ -64,11 +64,11 @@ public class FilmDtoManager {
 	return fdto;
     }
 
-    public static Film makeFilm(FilmDto fdto,Lang lang) {
+    public static Film makeFilm(FilmDto fdto, Lang lang) {
 	Film f = new Film();
 	f.setId(fdto.id);
-	f.setTitle(lang,fdto.title);
-	f.setOverview(lang,fdto.overview);
+	f.setTitle(lang, fdto.title);
+	f.setOverview(lang, fdto.overview);
 	f.setReleaseDate(fdto.release_date);
 	f.setCoverId(fdto.cover);
 	f.setRating(fdto.rating);
@@ -77,18 +77,30 @@ public class FilmDtoManager {
 	return f;
     }
 
-    public static Film mergeOrSave(FilmDto fdto,Lang lang, EntityManager em) {
+    public static Film mergeOrSave(FilmDto fdto, Lang lang, EntityManager em) {
 	Film f = em.find(Film.class, fdto.id);
 	if (f != null) {
-	    f.setTitle(lang,fdto.title);
-	    f.setOverview(lang,fdto.overview);
-	    f.setReleaseDate(fdto.release_date);
-	    f.setCoverId(fdto.cover);
-	    f.setRating(fdto.rating);
-	    f.setRuntime(fdto.runtime);
+	    if (fdto.title != null && !fdto.title.equals("")) {
+		f.setTitle(lang, fdto.title);
+	    }
+	    if (fdto.overview != null && !fdto.overview.equals("")) {
+		f.setOverview(lang, fdto.overview);
+	    }
+	    if (fdto.release_date != null) {
+		f.setReleaseDate(fdto.release_date);
+	    }
+	    if (fdto.cover != null) {
+		f.setCoverId(fdto.cover);
+	    }
+	    if (fdto.rating != null) {
+		f.setRating(fdto.rating);
+	    }
+	    if (fdto.runtime != null) {
+		f.setRuntime(fdto.runtime);
+	    }
 	    em.merge(f);
 	} else {
-	    f = makeFilm(fdto,lang);
+	    f = makeFilm(fdto, lang);
 	    em.persist(f);
 	}
 	return f;

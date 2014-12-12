@@ -50,146 +50,163 @@ public class Admin {
     //private ManageGenreRemote mgr = null;
 
     public FilmDto createFilm(Long id) throws JSONException, IOException, ParseException {
-       // System.out.println("Add film: " + id);
-        FilmDto fdto = new FilmDto();
-        String urlString = "http://api.themoviedb.org/3/movie/" + id + "?api_key=63d250a5b71c307f7592228c79b729cf";
+	// System.out.println("Add film: " + id);
+	FilmDto fdto = new FilmDto();
+	String urlString = "http://api.themoviedb.org/3/movie/" + id + "?api_key=63d250a5b71c307f7592228c79b729cf";
 
-        JSONObject json = JsonReader.readJsonFromUrl(urlString);
-        fdto.id = id;
-        fdto.title = (String) json.get("title");
-        fdto.cover = (String) json.get("poster_path");
-        fdto.runtime = (int) json.get("runtime");
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        fdto.release_date = formatter.parse((String) json.get("release_date"));
-        fdto.overview = (String) json.get("overview");
-        fdto.rating = (Double) json.get("vote_average");
-        return fdto;
+	JSONObject json = JsonReader.readJsonFromUrl(urlString);
+	fdto.id = id;
+	fdto.title = (String) json.get("title");
+	fdto.cover = (String) json.get("poster_path");
+	fdto.runtime = (int) json.get("runtime");
+	SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+	fdto.release_date = formatter.parse((String) json.get("release_date"));
+	fdto.overview = (String) json.get("overview");
+	fdto.rating = (Double) json.get("vote_average");
+	return fdto;
+
+    }
+
+    public FilmDto createFilmFr(Long id) throws JSONException, IOException, ParseException {
+	System.out.println("Add film fr : " + id);
+	FilmDto fdto = new FilmDto();
+	String urlString = "http://api.themoviedb.org/3/movie/" + id + "?api_key=63d250a5b71c307f7592228c79b729cf&language=fr";
+
+	JSONObject json = JsonReader.readJsonFromUrl(urlString);
+	fdto.id = id;
+	if (!json.isNull("title")) {
+	    fdto.title = (String) json.get("title");
+	}
+	if (!json.isNull("overview")) {
+	    fdto.overview =  json.getString("overview");
+	}
+
+	return fdto;
 
     }
 
     public Set<GenreDto> getGenre(Long id) throws JSONException, IOException {
-        Set<GenreDto> res = new HashSet<>();
-        String urlString = "http://api.themoviedb.org/3/movie/" + id + "?api_key=63d250a5b71c307f7592228c79b729cf";
+	Set<GenreDto> res = new HashSet<>();
+	String urlString = "http://api.themoviedb.org/3/movie/" + id + "?api_key=63d250a5b71c307f7592228c79b729cf";
 
-        JSONObject json = JsonReader.readJsonFromUrl(urlString);
-        JSONArray lg = json.getJSONArray("genres");
-        for (int i = 0; i < lg.length(); i++) {
-            GenreDto gdto = new GenreDto();
-            gdto.id = lg.getJSONObject(i).getLong("id");
-            gdto.name = lg.getJSONObject(i).getString("name");
-            res.add(gdto);
-        }
+	JSONObject json = JsonReader.readJsonFromUrl(urlString);
+	JSONArray lg = json.getJSONArray("genres");
+	for (int i = 0; i < lg.length(); i++) {
+	    GenreDto gdto = new GenreDto();
+	    gdto.id = lg.getJSONObject(i).getLong("id");
+	    gdto.name = lg.getJSONObject(i).getString("name");
+	    res.add(gdto);
+	}
 
-        return res;
+	return res;
     }
-    
-    public List<PersonDto> getCast(Long id)  throws JSONException, IOException
-    {
-                List<PersonDto> res = new ArrayList<>();
-        String urlString = "http://api.themoviedb.org/3/movie/" + id + "/credits?api_key=63d250a5b71c307f7592228c79b729cf";
 
-        JSONObject json = JsonReader.readJsonFromUrl(urlString);
-        JSONArray lg = json.getJSONArray("cast");
-        for (int i = 0; i < lg.length(); i++) {
-            PersonDto gdto = new  PersonDto();
-            gdto.id = lg.getJSONObject(i).getLong("id");
-            gdto.name = lg.getJSONObject(i).getString("name");
-            res.add(gdto);
-        }
+    public List<PersonDto> getCast(Long id) throws JSONException, IOException {
+	List<PersonDto> res = new ArrayList<>();
+	String urlString = "http://api.themoviedb.org/3/movie/" + id + "/credits?api_key=63d250a5b71c307f7592228c79b729cf";
 
-        return res;
+	JSONObject json = JsonReader.readJsonFromUrl(urlString);
+	JSONArray lg = json.getJSONArray("cast");
+	for (int i = 0; i < lg.length(); i++) {
+	    PersonDto gdto = new PersonDto();
+	    gdto.id = lg.getJSONObject(i).getLong("id");
+	    gdto.name = lg.getJSONObject(i).getString("name");
+	    res.add(gdto);
+	}
+
+	return res;
     }
-    
-        public List<PersonDto> getDirectors(Long id)  throws JSONException, IOException
-    {
-                List<PersonDto> res = new ArrayList<>();
-        String urlString = "http://api.themoviedb.org/3/movie/" + id + "/credits?api_key=63d250a5b71c307f7592228c79b729cf";
 
-        JSONObject json = JsonReader.readJsonFromUrl(urlString);
-        JSONArray lg = json.getJSONArray("crew");
-        for (int i = 0; i < lg.length(); i++) {
-            PersonDto gdto = new  PersonDto();
-            gdto.id = lg.getJSONObject(i).getLong("id");
-            gdto.name = lg.getJSONObject(i).getString("name");
-            if ("Director".equals(lg.getJSONObject(i).getString("job")))
-                res.add(gdto);
-        }
+    public List<PersonDto> getDirectors(Long id) throws JSONException, IOException {
+	List<PersonDto> res = new ArrayList<>();
+	String urlString = "http://api.themoviedb.org/3/movie/" + id + "/credits?api_key=63d250a5b71c307f7592228c79b729cf";
 
-        return res;
+	JSONObject json = JsonReader.readJsonFromUrl(urlString);
+	JSONArray lg = json.getJSONArray("crew");
+	for (int i = 0; i < lg.length(); i++) {
+	    PersonDto gdto = new PersonDto();
+	    gdto.id = lg.getJSONObject(i).getLong("id");
+	    gdto.name = lg.getJSONObject(i).getString("name");
+	    if ("Director".equals(lg.getJSONObject(i).getString("job"))) {
+		res.add(gdto);
+	    }
+	}
+
+	return res;
     }
 
     public Admin() {
-        make_context();
+	make_context();
     }
 
     public void make_context() {
-        try {
-            Properties props = new Properties();
+	try {
+	    Properties props = new Properties();
             //props.setProperty("java.naming.factory.initial","com.sun.enterprise.naming.SerialInitContextFactory");
-            //props.setProperty("java.naming.factory.url.pkgs","com.sun.enterprise.naming");
-            //props.setProperty("java.naming.factory.state","com.sun.corba.ee.impl.presentation.rmi.JNDIStateFactoryImpl");
-            //props.setProperty("org.omg.CORBA.ORBInitialHost", "localhost");
-            //props.setProperty("org.omg.CORBA.ORBInitialPort", "3700");
+	    //props.setProperty("java.naming.factory.url.pkgs","com.sun.enterprise.naming");
+	    //props.setProperty("java.naming.factory.state","com.sun.corba.ee.impl.presentation.rmi.JNDIStateFactoryImpl");
+	    //props.setProperty("org.omg.CORBA.ORBInitialHost", "localhost");
+	    //props.setProperty("org.omg.CORBA.ORBInitialPort", "3700");
 
-            ic = new InitialContext();
-        } catch (NamingException ex) {
-            Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
-        }
+	    ic = new InitialContext();
+	} catch (NamingException ex) {
+	    Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+	}
     }
 
     public ManageFilmRemote getManageFilmRemote() {
-        if (mfr == null) {
-            try {
-                mfr = (ManageFilmRemote) ic.lookup("java:global/HomeCinema/HomeCinema-ejb/ManageFilm!ejbs.ManageFilmRemote");
-            } catch (NamingException ex) {
-                Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        return mfr;
+	if (mfr == null) {
+	    try {
+		mfr = (ManageFilmRemote) ic.lookup("java:global/HomeCinema/HomeCinema-ejb/ManageFilm!ejbs.ManageFilmRemote");
+	    } catch (NamingException ex) {
+		Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+	    }
+	}
+	return mfr;
     }
 
     public ManageProductRemote getManageProductRemote() {
-        if (mpr == null) {
-            try {
-                mpr = (ManageProductRemote) ic.lookup("java:global/HomeCinema/HomeCinema-ejb/ManageProduct!ejbs.ManageProductRemote");
-            } catch (NamingException ex) {
-                Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        return mpr;
+	if (mpr == null) {
+	    try {
+		mpr = (ManageProductRemote) ic.lookup("java:global/HomeCinema/HomeCinema-ejb/ManageProduct!ejbs.ManageProductRemote");
+	    } catch (NamingException ex) {
+		Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+	    }
+	}
+	return mpr;
     }
 
     public ManageUserRemote getManageUserRemote() {
-        if (mur == null) {
-            try {
-                mur = (ManageUserRemote) ic.lookup("java:global/HomeCinema/HomeCinema-ejb/ManageUser!ejbs.ManageUserRemote");
-            } catch (NamingException ex) {
-                Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        return mur;
+	if (mur == null) {
+	    try {
+		mur = (ManageUserRemote) ic.lookup("java:global/HomeCinema/HomeCinema-ejb/ManageUser!ejbs.ManageUserRemote");
+	    } catch (NamingException ex) {
+		Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+	    }
+	}
+	return mur;
     }
 
     public ManageVideoRemote getManageVideoRemote() {
-        if (mvr == null) {
-            try {
-                mvr = (ManageVideoRemote) ic.lookup("java:global/HomeCinema/HomeCinema-ejb/ManageVideo!ejbs.ManageVideoRemote");
-            } catch (NamingException ex) {
-                Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        return mvr;
+	if (mvr == null) {
+	    try {
+		mvr = (ManageVideoRemote) ic.lookup("java:global/HomeCinema/HomeCinema-ejb/ManageVideo!ejbs.ManageVideoRemote");
+	    } catch (NamingException ex) {
+		Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+	    }
+	}
+	return mvr;
     }
 
     public ManageTransactionRemote getManageTransactionRemote() {
-        if (mtr == null) {
-            try {
-                mtr = (ManageTransactionRemote) ic.lookup("java:global/HomeCinema/HomeCinema-ejb/ManageTransaction!ejbs.ManageTransactionRemote");
-            } catch (NamingException ex) {
-                Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        return mtr;
+	if (mtr == null) {
+	    try {
+		mtr = (ManageTransactionRemote) ic.lookup("java:global/HomeCinema/HomeCinema-ejb/ManageTransaction!ejbs.ManageTransactionRemote");
+	    } catch (NamingException ex) {
+		Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+	    }
+	}
+	return mtr;
     }
 
     /* public ManageGenreRemote getManageGenreRemote() {
@@ -201,5 +218,5 @@ public class Admin {
      }
      }
      return mgr;
-}*/
+     }*/
 }
