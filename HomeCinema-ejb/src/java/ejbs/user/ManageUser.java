@@ -12,6 +12,8 @@ import dtos.TransactionDto;
 import dtos.UserDto;
 import dtos.UserDtoNoPw;
 import ejbs.ManageUserRemote;
+import entities.Film;
+import entities.Product;
 import entities.Transaction;
 import entities.User;
 import entities.UserActivation;
@@ -256,10 +258,16 @@ public class ManageUser implements ManageUserRemote {
   
   @Override
   public Set<Long> getMyProductId(Long id) {
-    User p = em.find(User.class, id);
+    User u = em.find(User.class, id);
     Set<Long> lfid = new ArraySet<>();
-    for (UsersFilms f : p.getFilms()) {
-      lfid.add(f.getFilm().getMain_product().getId());
+    for (Transaction t: u.getTransactions()) {
+      for (Product p: t.getProducts()) {
+	lfid.add(p.getId());
+	if ( p.getFilms().size() > 1) // pack, add main product of each film in pack
+	  for (Film f: p.getFilms()) {
+	    lfid.add(f.getMain_product().getId());
+	  }
+      }
     }
     return lfid;
   }

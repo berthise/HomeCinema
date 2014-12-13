@@ -61,8 +61,9 @@ public class SessionManagedBean {
 	    // TODO change state in ejbs
 	    user.caddieSize = 0;
 	    userscaddy = new ArraySet<>();
+	    
 	    this.usersfilms = Ejbs.user().getMyProductId(user.id);
-	    user.filmsSize = this.usersfilms.size();
+	    user.filmsSize = Ejbs.user().countFilms(user.id);
 	    user.setState(UserStates.Activated);
 	    Redirect.redirectTo(Pages.MON_COMPTE);
 	}
@@ -102,7 +103,7 @@ public class SessionManagedBean {
 
 	    user = (UserDtoNoPw) Ejbs.user().login(login.getEmail(), ep);
 	    this.usersfilms = Ejbs.user().getMyProductId(user.id);
-	    user.filmsSize = this.usersfilms.size();
+	    user.filmsSize = Ejbs.user().countFilms(user.id);
 	    this.userscaddy = Ejbs.transaction().getCaddieProductIds(user.id);
 	    System.out.println("userfilms (" + user.filmsSize + ") = " + usersfilms);
 	    System.out.println("userscaddy (" + userscaddy.size() + ") = " + userscaddy);
