@@ -72,28 +72,7 @@
                     <span id="lastPosition" style="display: none">#{usersFilmsManagedBean.ufdto.currentPosition}</span>
 		    <a class="go-top" title="#{msg['allpage-top']}" href="#top"><img src="img/arrowUp.png" /></a>
 
-<!--		    <div>
-		      <ul>
-		      <ui:repeat value="#{filmManagedBean.getVideos()}" var="video">
-			<li> <a onclick="changeVideo('#{video.url}','#{video.type}')" herf="#">select this video #{video.url} #{video.type}</a></li>
-		      </ui:repeat>
-		      </ul>
-		      <script>
-			function changeVideo(newUrl,type) {
-			  var v = video document.getElementById("myVideo");
-			  while (v.firstChild) {
-			     v.removeChild(v.firstChild);
-			  }
-			  var s = document.createElement("source");
-			  s.setAttribute("src", newUrl);
-			  s.setAttribute("type", type);
-			  v.appendChild(s);
-			}
-			</script>
-		    </div>-->
-
-
-<ez:videos callback="viewVideo('myVideo')" button="Valider" callback_close="videoPlay()"/>
+      <ez:videos callback="viewVideo('myVideo')" button="Valider" callback_close="videoPlay()"/>
 
 	                      </div>
             </div>

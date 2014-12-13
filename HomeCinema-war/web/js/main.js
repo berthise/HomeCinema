@@ -10,11 +10,22 @@ $(function () {
         $("#dl_popup").show();
     });
     
+    $("#dl_popup").on('hidden.bs.modal', function (e) {
+      popup_do_callback_close();
+    });
+    $("#dl_popup").on('shown.bs.modal', function (e) {
+      popup_do_open();
+    });
+    
     $("#warning-http-lien").on("click", function (e) {
 	e.preventDefault();
         if (window.location.protocol != "https:")
 	  window.location.href = "https:" + 
 		window.location.href.substring(window.location.protocol.length);
+    });
+    
+    $("#ba_popup").on('hidden.bs.modal', function (e) {
+      videoPause();
     });
 
     var vid = document.getElementById("myVideo");
@@ -166,6 +177,7 @@ function videoPlay() {
   var v = document.getElementById("myVideo");
   if ( prevState == 'played' ) {
     v.play();
+    prevState = '0';
   }
 }
 

@@ -20,13 +20,18 @@
         <f:view>
 	    <f:event type="preRenderView" listener="#{filmManagedBean.setDtoFromId()}"/>
         </f:view>
+    <script>
+    function popup_do_callback_close() {
+      #{cc.attrs.callback_close};
+    }
+    </script>
     <div id="dl_popup" class="modal fade" style="display: none">
     <div class="modal-dialog">
       <div class="modal-content" style="color: black">
 	<h:form id="dl_form">
 
 	  <div class="modal-header">
-	    <button type="button" class="close" data-dismiss="modal" onclick="#{cc.attrs.callback_close}"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+	    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
 	    <h4 class="modal-title">Selection de la video</h4>
 	  </div>
 	  <div class="modal-body" id="video-selection">
@@ -77,7 +82,7 @@
 
 	  </div>
 	  <div class="modal-footer">
-	    <button type="button" class="btn btn-default" data-dismiss="modal"  onclick="#{cc.attrs.callback_close}">Close</button>
+	    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 	    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="#{cc.attrs.callback}">#{cc.attrs.button}</button>
 	  </div>
 	</h:form>
