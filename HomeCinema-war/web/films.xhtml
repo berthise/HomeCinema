@@ -227,8 +227,10 @@ and open the template in the editor.
 					    <div class="row row-display">
 						<ui:repeat var="f" value="#{list}">
 						    <div class="col-lg-4 col-md-6 col-sm-6 col-row-display">
+						      							      <span class="glyphicon  #{((sessionManagedBean.isInMyFilms(f.id))? 'glyphicon-folder-open' : '')} #{((sessionManagedBean.isInMyCaddie(f.id))? 'glyphicon-shopping-cart' : '')}"></span>
 							<a href="fiche_product.xhtml?id=#{f.id}">					
 							    <span class="#{((listProductsManagedBean.isPack(f.id))? 'background-pack' : '')}">
+
 								<img class="table-cover-film" src="http://image.tmdb.org/t/p/w92/#{f.cover}" title="#{f.name}"/>
 							    </span>
 							    <p class="table-title-film truncate">#{f.name}</p>

@@ -62,6 +62,8 @@ public interface ManageUserRemote {
 
     public List<FilmDto> getFilms(Long id, Lang lang);
     
+    public Set<Long> getMyProductId(Long id);
+    
     public Integer countFilms(Long id);
 
     public List<TransactionDto> getTransaction(Long user, Lang lang);
