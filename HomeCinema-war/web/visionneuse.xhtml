@@ -27,9 +27,9 @@
         </f:metadata>
 
     </h:head>
- <c:set var="defaultLang" value="#{filmManagedBean.getVideoLangs().get(0)}" />
-  <c:set var="defaultQuality" value="#{filmManagedBean.getVideoQualities(defaultLang).get(0)}" />
-  <c:set var="defaultFormat" value="#{filmManagedBean.getVideoFormat(defaultLang,defaultQuality ).get(0)}" />
+  <ui:param name="defaultLang" value="#{filmManagedBean.getVideoLangs().get(0)}" />
+  <ui:param name="defaultQuality" value="#{filmManagedBean.getVideoQualities(defaultLang).get(0)}" />
+  <ui:param name="defaultFormat"  value="#{filmManagedBean.getVideoFormat(defaultLang,defaultQuality ).get(0)}" />
 
     <h:body id="top" onload="chargeLang('#{defaultLang}','#{defaultQuality}','#{defaultFormat}')">
     <ui:insert name="header" >

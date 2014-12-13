@@ -29,12 +29,9 @@
   <ui:param name="defaultLang" value="#{filmManagedBean.getVideoLangs().get(0)}" />
     <ui:param name="defaultQuality" value="#{filmManagedBean.getVideoQualities(defaultLang).get(0)}" />
   <ui:param name="defaultFormat"  value="#{filmManagedBean.getVideoFormat(defaultLang,defaultQuality ).get(0)}" />
-<!--  <c:set var="defaultLang" re value="#{filmManagedBean.getVideoLangs().get(0)}" />
-  <c:set var="defaultQuality" value="#{filmManagedBean.getVideoQualities(defaultLang).get(0)}" />
-  <c:set var="defaultFormat" value="#{filmManagedBean.getVideoFormat(defaultLang,defaultQuality ).get(0)}" />-->
+
 
     <h:body id="top" onload="chargeLang('#{defaultLang}','#{defaultQuality}','#{defaultFormat}')">
-<!--          <h:body id="top" onload="chargeLang('#{filmManagedBean.getVideoLangs().get(0)}','#{filmManagedBean.getVideoQualities(filmManagedBean.getVideoLangs().get(0)).get(0)}','#{filmManagedBean.getVideoFormat(filmManagedBean.getVideoLangs().get(0),filmManagedBean.getVideoQualities(filmManagedBean.getVideoLangs().get(0)).get(0) ).get(0)}')">-->
 	<ui:insert name="header" >
 	    <ui:include src="components/header.xhtml" />
 	</ui:insert>
@@ -69,7 +66,7 @@
 			    <div class="row">				
 				<div class="col-md-12">
 				    <c:set var="deco" value="#{sessionManagedBean.id eq null}" />
-				    <c:set var="type" value="#{accountManagedBean.getCodeButtonsFilm(filmManagedBean.id, sessionManagedBean.id)}" />
+				    <c:set var="type" value="#{accountManagedBean.getCodeButtonsFilm(filmManagedBean.id)}" />
 
 
 				    <div class="form-liste-film">
@@ -83,10 +80,10 @@
                                                     </a>
 						</div>
 						<div class="col-xs-6 col-low-padding-right">
-						  <button type="button" class="btn btn-success b" data-toggle="modal" data-target="#dl_popup">
+						  <a href="" type="button" class="btn btn-success b" data-toggle="modal" data-target="#dl_popup">
 						    <i class="glyphicon glyphicon-download-alt"></i>
 						    #{msg['fiche-film-download']}
-						  </button>
+						  </a>
 <!--						  <a class="btn btn-success b" href="#{filmManagedBean.getUrlDownload()}" download="#{filmManagedBean.getLinkToDownload()}">
                                                         <i class="glyphicon glyphicon-download-alt"></i> 
                                                         #{msg['fiche-film-download']}
@@ -123,11 +120,15 @@
 						</div>
 					    </div>
 					</h:panelGroup>
+				<h:panelGroup rendered="#{accountManagedBean.getCodeButtonsFilm(filmManagedBean.id) eq 'OWNED'}">
+
+				   <ez:videos callback="valideVideo()" button="Télécharger"/>
+			    </h:panelGroup>
 				      <div class="row">
 					<div class="col-xs-10 col-low-padding-left">
-					  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ba_popup">
+					  <a href="" type="button" class="btn btn-primary" data-toggle="modal" data-target="#ba_popup">
 					    Voir la bande annonce
-					  </button>
+					  </a>
 					</div>
 				      </div>
 				    </div>
@@ -145,7 +146,34 @@
 					<h3>#{msg['fiche-nb']} : #{productManagedBean.getNbSells(filmManagedBean.mainProductId)}</h3>
 				    </div>
 				</div>
+			      <div class="row row-price">
+				<div class="col-xs-12 col-md-5">
 
+				  <h3>#{msg['fiche-film-audio']} :</h3>	
+				  <ul>
+
+				    <ui:repeat value="#{filmManagedBean.getVideoLangs()}" var="lang">
+				      <li>
+				      #{msg[lang.str]}
+				      </li>
+				    </ui:repeat>
+				  </ul>
+				</div>
+				<div class="col-xs-12 col-md-5">
+
+				  <h3>#{msg['fiche-film-quality']} :</h3>	
+				  <ul>
+
+				    <ui:repeat value="#{filmManagedBean.getVideoQualities(null)}" var="quality">
+				      <li>
+				      #{quality}p
+				      </li>
+				    </ui:repeat>
+				  </ul>
+				</div>
+			      </div>
+
+			      
 				<h3>#{msg['fiche-film-res']} :</h3><p class="italic"><h:outputText value="#{filmManagedBean.overview}" escape="false" /></p>
 
 				<h3>#{msg['fiche-film-date']}: <span class="info-film-p"><h:outputText value="#{filmManagedBean.date}" escape="false" /></span></h3>
@@ -163,10 +191,10 @@
 		</div>
 
 
-	      <ez:videos callback="valideVideo()" button="Télécharger"/>
 	      <div id="ba_popup" class="modal fade" style="display: none">
 		<div class="modal-dialog">
 		  <div class="modal-content" style="color: black">
+		    <form>
 		    <div class="modal-header">
 		      <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
 		      <h4 class="modal-title">#{msg['ba-title']}</h4>
@@ -180,8 +208,9 @@
 		  </ul>
 		    </div>
 		    <div class="modal-footer">
-		      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		      <a href="" type="button" class="btn btn-default" data-dismiss="modal">Close</a>
 		    </div>
+		    </form>
 		  </div><!-- /.modal-content -->
 		</div><!-- /.modal-dialog -->
 	      </div><!-- /.modal -->

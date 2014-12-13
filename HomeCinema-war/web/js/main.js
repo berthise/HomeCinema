@@ -153,12 +153,19 @@ function viewVideo(video) {
   v.appendChild(s);
   v.load();
 }
-
+var prevState = '0';
 function videoPause() {
-  document.getElementById("myVideo").pause();
+  var v = document.getElementById("myVideo");
+  if ( ! v.paused ) {
+    v.pause();
+    prevState = 'played';
+  }
 }
 
 function videoPlay() {
-  document.getElementById("myVideo").play();
+  var v = document.getElementById("myVideo");
+  if ( prevState == 'played' ) {
+    v.play();
+  }
 }
 

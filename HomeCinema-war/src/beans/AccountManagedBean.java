@@ -70,9 +70,16 @@ public class AccountManagedBean {
 	return toReturn;
     }
 
-    public String getCodeButtonsFilm(Long idfilm, Long iduser) {
-        int caddie = isInMyCaddie(Arrays.asList(idfilm), iduser);
-        int films = isInMyFilms(Arrays.asList(idfilm), iduser);
+    public String getCodeButtonsFilm(Long idfilm) {
+      	SessionManagedBean session = findBean("sessionManagedBean");
+	     System.out.println("getCodeButtonsFilm id = " + session.getId());
+	     if ( session.getId() == null) {
+	       return "FREE";
+	     }
+        int caddie = isInMyCaddie(Arrays.asList(idfilm), session.getId());
+        int films = isInMyFilms(Arrays.asList(idfilm), session.getId());
+
+		     System.out.println("getCodeButtonsFilm end");
 
         if (caddie == 0 && films == 0) {
             return "FREE";

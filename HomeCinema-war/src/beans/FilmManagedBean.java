@@ -152,7 +152,7 @@ public class FilmManagedBean {
     public List<Integer> getVideoQualities(Langs lang) {
       ArrayList<Integer> qualities = new ArrayList<>();
       for ( VideoDto v: fdto.videos ) {
-	if ( !qualities.contains(v.resolution) && v.audio == lang)
+	if ( !qualities.contains(v.resolution) && (v.audio == lang || lang == null))
 	  qualities.add(v.resolution);
       }
       Collections.sort(qualities);
