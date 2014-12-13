@@ -9,11 +9,15 @@ import dtos.CaddieDto;
 import dtos.PaymentDto;
 import ejbs.ManageTransactionRemote;
 import entities.Caddy;
+import entities.Film;
 import entities.Product;
 import entities.Transaction;
 import entities.User;
+import enums.Lang;
 import enums.TransactionStates;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -32,14 +36,23 @@ public class ManageTransaction implements ManageTransactionRemote {
     public EntityManager em;
 
     @Override
-    public CaddieDto getCaddieDto(Long id_user) {
+    public CaddieDto getCaddieDto(Long id_user,Lang lang) {
         User u = em.find(User.class, id_user);
-        return CaddieDtoManager.getDto(u.getCaddy());
-
+        return CaddieDtoManager.getDto(u.getCaddy(), lang);
+    }
+        @Override
+    public Set<Long> getCaddieProductIds(Long id_user) {
+          Set<Long> lfid = new HashSet<>();
+        User u = em.find(User.class, id_user);
+	if ( u.getCaddy() == null) return lfid;
+        for ( Product p: u.getCaddy().getProducts()) {
+	    lfid.add(p.getId());
+	}
+	return lfid;
     }
     
     @Override
-    public CaddieDto addProduct(Long user, Long id)
+    public CaddieDto addProduct(Long user, Long id,Lang lang)
     {
         User u = em.find(User.class, user);
         if (u.getCaddy()==null)
@@ -50,11 +63,11 @@ public class ManageTransaction implements ManageTransactionRemote {
         }
         u.getCaddy().addCaddy(em.find(Product.class,id));
         em.merge(u.getCaddy());
-        return CaddieDtoManager.getDto(u.getCaddy());
+        return CaddieDtoManager.getDto(u.getCaddy(),lang);
     }
 
     @Override
-   public CaddieDto removeProduct(Long user ,Long id)
+   public CaddieDto removeProduct(Long user ,Long id,Lang lang)
    {
                User u = em.find(User.class, user);
         if (u.getCaddy()==null)
@@ -66,7 +79,7 @@ public class ManageTransaction implements ManageTransactionRemote {
         Product p = em.find(Product.class, id);
         u.getCaddy().removeCaddy(p);
         em.merge(u.getCaddy());
-        return CaddieDtoManager.getDto(u.getCaddy());
+        return CaddieDtoManager.getDto(u.getCaddy(),lang);
    }
     
     @Override

@@ -89,6 +89,11 @@ public class UserDtoManager {
 	} else {
 	    udto.caddieSize = 0;
 	}
+	if (u.getFilms() != null) {
+	    udto.filmsSize = u.getFilms().size();
+	} else {
+	    udto.filmsSize = 0;
+	}
 	udto.activationCode = null;
 	return udto;
     }

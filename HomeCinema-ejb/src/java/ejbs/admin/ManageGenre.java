@@ -6,6 +6,7 @@
 package ejbs.admin;
 
 import dtos.GenreDto;
+import enums.Lang;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -24,7 +25,7 @@ public class ManageGenre {
 
     public void makeBaseGenre(List<GenreDto> lgdto) {
         for (GenreDto gdto : lgdto) {
-            ManageEntitieGenre.getGenre(gdto, em);
+            ManageEntitieGenre.getGenre(gdto,Lang.EN, em);
         }
     }
     

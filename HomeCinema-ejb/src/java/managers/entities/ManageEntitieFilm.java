@@ -10,6 +10,7 @@ import dtos.VideoDto;
 import entities.Film;
 import entities.Genre;
 import entities.Person;
+import enums.Lang;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -21,16 +22,16 @@ import managers.dtos.FilmDtoManager;
  */
 public class ManageEntitieFilm {
 
-    public static Film createFilmWithVideo(FilmDto fdto, VideoDto trailer, VideoDto vid, EntityManager em) {
-	Film f = FilmDtoManager.makeFilm(fdto);
+    public static Film createFilmWithVideo(FilmDto fdto, VideoDto trailer, VideoDto vid,Lang lang, EntityManager em) {
+	Film f = FilmDtoManager.makeFilm(fdto,lang);
 	f.addVideoFile(ManageEntitieVideo.createVideo(vid, em));
 	f.setTrailler(ManageEntitieVideo.createVideo(trailer, em));
 	em.persist(f);
 	return f;
     }
 
-    public static Film createFilm(FilmDto fdto, EntityManager em) {
-	Film f = FilmDtoManager.makeFilm(fdto);
+    public static Film createFilm(FilmDto fdto,Lang lang, EntityManager em) {
+	Film f = FilmDtoManager.makeFilm(fdto,lang);
 	em.persist(f);
 	return f;
     }
@@ -53,7 +54,7 @@ public class ManageEntitieFilm {
 	}
 	return ok;
     }
-
+/*
     //TODO optimiser
     public static boolean filterFilm(Film f, Long actor, Long director, List<Long> lgdto, String str, String year, EntityManager em) {
 
@@ -70,5 +71,5 @@ public class ManageEntitieFilm {
 	    }
 	}
 	return false;
-    }
+    }*/
 }

@@ -65,6 +65,7 @@ public class PaymentManagedBean {
 	Ejbs.transaction().validatePayement(t_id, 52L);
 
 	Message.Info(Lang.getString("payement-bean-info"));
+	
 	session.closePaiement();
 
     }

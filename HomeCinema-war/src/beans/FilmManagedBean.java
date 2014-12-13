@@ -9,19 +9,30 @@ import dtos.FilmDto;
 import dtos.FilmFicheDto;
 import dtos.GenreDto;
 import dtos.PersonDto;
+import dtos.VideoDto;
 import ejbs.Ejbs;
+import enums.Langs;
+import enums.VideoFormat;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.naming.NamingException;
+import static utils.Beans.findBean;
 import utils.Lang;
 import utils.Pages;
+import utils.Paramters;
+import utils.Redirect;
 
 /**
  *
@@ -33,15 +44,18 @@ public class FilmManagedBean {
 
     public FilmFicheDto fdto;
 
+    LanguageManagedBean lang = findBean("languageManagedBean");
+    
     public FilmManagedBean() throws NamingException {
 	this.fdto = new FilmFicheDto();
     }
 
     public void setDtoFromId() throws IOException {
-	if (fdto.id == null) {
+	if (fdto.id == null || fdto.id == 0) {
 	    FacesContext.getCurrentInstance().getExternalContext().dispatch(Pages.NOT_FOUND);
 	}
-	FilmFicheDto f = Ejbs.film().getDtoFromId(fdto.id);
+	     System.out.println("id = " + fdto.id + " lang = " + lang.getLang());
+	FilmFicheDto f = Ejbs.film().getDtoFromId(fdto.id,lang.getLang());
 	if (f == null) {
 	    FacesContext.getCurrentInstance().getExternalContext().dispatch(Pages.NOT_FOUND);
 	}
@@ -116,12 +130,45 @@ public class FilmManagedBean {
     }
 
     public String getUrlDownload() {
-	return this.fdto.files.get(0).url;
+	return this.fdto.videos.get(0).url;
     }
 
-    public String getVideo() {
-	String url = fdto.files.get(0).url;
-	return "<source src=\"" + url + "\" type=\"video/mp4\" />";
+    public List<VideoDto> getVideos() {
+      return fdto.videos;
+    }
+    
+    
+    public List<Langs> getVideoLangs() {
+      ArrayList<Langs> langs = new ArrayList<>();
+      for ( VideoDto v: fdto.videos) {
+	if (!langs.contains(v.audio))
+	langs.add(v.audio);
+      }
+      Collections.sort(langs);
+
+      return langs;
+    }
+    
+    public List<Integer> getVideoQualities(Langs lang) {
+      ArrayList<Integer> qualities = new ArrayList<>();
+      for ( VideoDto v: fdto.videos ) {
+	if ( !qualities.contains(v.resolution) && (v.audio == lang || lang == null))
+	  qualities.add(v.resolution);
+      }
+      Collections.sort(qualities);
+      return qualities;
+    }
+    
+    public List<VideoFormat> getVideoFormat(Langs lang, Integer quality) {
+      ArrayList<VideoFormat> formats = new ArrayList<>();
+      for ( VideoDto v: fdto.videos ) {
+	if ( !formats.contains(v.format) 
+		&& v.audio == lang &&
+		(quality == null || v.resolution.equals(quality) ))
+	  formats.add(v.format);
+      }
+      Collections.sort(formats);
+      return formats;
     }
 
     public String getTrailer() {
@@ -186,7 +233,7 @@ public class FilmManagedBean {
     }
 
     public String getGenres() {
-	Set<GenreDto> set = Ejbs.film().getGenre(fdto.id);
+	Set<GenreDto> set = Ejbs.film().getGenre(fdto.id,lang.getLang());
 	String toReturn = "";
 	for (GenreDto s : set) {
 	    toReturn += "<a href=\"" + Pages.FILMS + "?tab=search&clean=&genre=" + s.id + "\" class=\"list-genres-crew\">" + s.name + "</a> ";

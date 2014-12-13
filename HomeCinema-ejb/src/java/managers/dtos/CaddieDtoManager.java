@@ -8,6 +8,7 @@ package managers.dtos;
 import dtos.CaddieDto;
 import entities.Caddy;
 import entities.Product;
+import enums.Lang;
 import java.util.ArrayList;
 
 /**
@@ -19,7 +20,7 @@ public class CaddieDtoManager {
   /*
   return caddie vide si caddie null
   */
-  public static CaddieDto getDto(Caddy caddie) {
+  public static CaddieDto getDto(Caddy caddie,Lang lang) {
 
     CaddieDto cdto = new CaddieDto();
     cdto.films = new ArrayList<>();
@@ -28,7 +29,7 @@ public class CaddieDtoManager {
     }
 
     for (Product p : caddie.getProducts()) {
-      cdto.films.add(ProductDtoManager.getDto(p));
+      cdto.films.add(ProductDtoManager.getDto(p,lang));
     }
 
     return cdto;

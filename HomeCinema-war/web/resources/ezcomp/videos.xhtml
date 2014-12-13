@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+  <!-- INTERFACE -->
+  <cc:interface>
+    	<cc:attribute name="callback" type="String" default="valideVideo()" />
+	<cc:attribute name="callback_close" type="String" default="" />
+
+    	<cc:attribute name="button" type="String" default="Valider" />
+
+  </cc:interface>
+
+  <!-- IMPLEMENTATION -->
+  <cc:implementation>
+        <f:view>
+	    <f:event type="preRenderView" listener="#{filmManagedBean.setDtoFromId()}"/>
+        </f:view>
+    <script>
+    function popup_do_callback_close() {
+      #{cc.attrs.callback_close};
+    }
+    </script>
+    <div id="dl_popup" class="modal fade" style="display: none">
+    <div class="modal-dialog">
+      <div class="modal-content" style="color: black">
+	<h:form id="dl_form">
+
+	  <div class="modal-header">
+	    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+	    <h4 class="modal-title">Selection de la video</h4>
+	  </div>
+	  <div class="modal-body" id="video-selection">
+	    <div class="row">
+	      <div id="group-audio" class="form-group">
+		<h:outputLabel class="col-md-5 form-label" for="type">Audio : </h:outputLabel>
+		<div class="col-md-7">
+		  <h:selectOneListbox id="audioLang" readonly="true" value="#{defaultLang}" onchange="selectLang(this.value)" >
+		    <f:selectItems value="#{filmManagedBean.getVideoLangs()}" var="currentLang"  itemValue="#{currentLang}" itemLabel="#{msg[currentLang.str]}"/>
+		  </h:selectOneListbox>
+		</div>
+	      </div>
+	    </div>
+	    <ui:repeat value="#{filmManagedBean.getVideoLangs()}" var="lang">
+	      <div class="row">
+		<div id="format-#{lang}" class="form-group" style="display:none">
+		  <h:outputLabel class="col-md-5 form-label" for="type">Qualité :</h:outputLabel>
+		  <div id="format-#{lang}-menu" class="col-md-7">
+		    <h:selectOneListbox id="videoQuality" readonly="true" value="#{filmManagedBean.getVideoQualities(lang).get(0)}" onchange="selectQuality(this.value)">
+		      <f:selectItems value="#{filmManagedBean.getVideoQualities(lang)}" var="currentQuality"  itemValue="#{currentQuality}" itemLabel="#{currentQuality}"/>
+		    </h:selectOneListbox>
+		  </div>
+		</div>
+	      </div>
+
+	      <ui:repeat value="#{filmManagedBean.getVideoQualities(lang)}" var="quality">
+		<div class="row">
+		  <div id="format-#{lang}-#{quality}" class="form-group"  style="display:none">
+		    <h:outputLabel class="col-md-5 form-label" for="type">Format: </h:outputLabel>
+		    <div id="format-#{lang}-#{quality}-menu" class="col-md-7">
+		      <h:selectOneListbox id="videoFormat" readonly="true" value="#{filmManagedBean.getVideoFormat(lang,quality).get(0)}"  onchange="selectFormat(this.value)">
+			<f:selectItems value="#{filmManagedBean.getVideoFormat(lang,quality)}" var="currentFormat"  itemValue="#{currentFormat}" itemLabel="#{currentFormat.str}"/>
+		      </h:selectOneListbox>
+		    </div>
+		  </div>
+		</div>
+	      </ui:repeat>
+	    </ui:repeat>
+
+
+	    <div style="display:none">
+	      <ui:repeat value="#{filmManagedBean.getVideos()}" var="video">
+		<a id="video-#{video.audio}-#{video.resolution}-#{video.format}"
+		   href="#{video.url}" target="_blank" download="filename">video</a>
+	      </ui:repeat>
+
+	    </div>
+
+	  </div>
+	  <div class="modal-footer">
+	    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="#{cc.attrs.callback}">#{cc.attrs.button}</button>
+	  </div>
+	</h:form>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+  </cc:implementation>
+</html>

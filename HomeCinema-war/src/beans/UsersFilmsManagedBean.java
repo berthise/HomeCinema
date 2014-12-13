@@ -20,7 +20,7 @@ import javax.faces.context.FacesContext;
 @RequestScoped
 public class UsersFilmsManagedBean {
 
-    UsersFilmsDto ufdto;
+    UsersFilmsDto ufdto = null;
 
     public UsersFilmsManagedBean() {
 	ufdto = new UsersFilmsDto();

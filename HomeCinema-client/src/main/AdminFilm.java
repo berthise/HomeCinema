@@ -9,6 +9,7 @@ import Utils.UtilsJson.JsonReader;
 import dtos.FilmDto;
 import dtos.VideoDto;
 import ejbs.ManageProductRemote;
+import enums.Lang;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -46,8 +47,10 @@ public class AdminFilm {
         
         return fdto;
 
-    }
 
+    }
+    
+  
     public AdminFilm() {
         make_context();
     }
@@ -91,7 +94,7 @@ public class AdminFilm {
         trailer.url = trailer_url;
         trailer.resolution = 240;
 
-        getManageProductRemote().createProductWithFilm(fdto, trailer, video,new Double( price));
+        getManageProductRemote().createProductWithFilm(fdto, trailer, video,new Double( price),Lang.EN);
     }
 
 }

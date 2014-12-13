@@ -105,6 +105,26 @@
                         </div>
                     </div>
                 </div>
+		<div class="row">
+                    <div class="form-group">
+                        <h:outputLabel class="col-md-5 form-label" for="resolution">Lang : </h:outputLabel>
+                        <div class="col-md-7">
+			  <h:selectOneListbox id="videoLang" value="#{videoManagedBean.lang}" >
+			    <f:selectItems value="#{videoManagedBean.getPossibleLangs()}" var="currentLang"  itemValue="#{currentLang}" itemLabel="#{msg[currentLang.str]}"/>
+			  </h:selectOneListbox>                           
+                        </div>
+                    </div>
+                </div>
+				<div class="row">
+                    <div class="form-group">
+                        <h:outputLabel class="col-md-5 form-label" for="resolution">Format : </h:outputLabel>
+                        <div class="col-md-7">
+			  <h:selectOneListbox id="videoFormat" value="#{videoManagedBean.format}" >
+			    <f:selectItems value="#{videoManagedBean.getPossibleFormats()}" var="currentLang"  itemValue="#{currentFormat}" itemLabel="#{msg[currentFormat.str]}"/>
+			  </h:selectOneListbox>                           
+                        </div>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-md-5"></div>
                     <h:commandButton class="btn btn-danger col-md-3" p:type="reset" value="Réinitialiser" />

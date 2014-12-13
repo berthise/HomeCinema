@@ -15,6 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import static utils.Beans.findBean;
 import utils.Pages;
 import utils.Redirect;
 
@@ -29,6 +30,8 @@ public class AccountManagedBean {
     public CaddieDto cdto;
     public Long idUser;
 
+    LanguageManagedBean lang = findBean("languageManagedBean");
+    
     public Long getIdUser() {
         return idUser;
     }
@@ -36,40 +39,52 @@ public class AccountManagedBean {
     public void setIdUser(Long idUser) {
         this.idUser = idUser;
     }
-
-    public List<FilmDto> getListFilmsOwned() {
-        return Ejbs.user().getFilms(idUser);
+    
+    public List<FilmDto> getListFilmsOwned (){
+	return Ejbs.user().getFilms(idUser,lang.getLang());
     }
 
     private int isInMyFilms(List<Long> ids, Long iduser) {
-        int toReturn = 0;
-        for (Long i : ids) {
-            for (FilmDto l : Ejbs.user().getFilms(iduser)) {
-                if (l.id.equals(i)) {
-                    toReturn++;
-                }
-            }
-        }
-        return toReturn;
+//      	SessionManagedBean session = findBean("sessionManagedBean");
+
+//	return (session.getUsersfilms().containsAll(ids)) ? 1 : 0;
+	int toReturn = 0;
+	for (Long i : ids) {
+	    for (FilmDto l : Ejbs.user().getFilms(iduser,lang.getLang())) {
+		if (l.id.equals(i)) {
+		    toReturn++;
+		}
+	    }
+	}
+	return toReturn;
     }
 
     private int isInMyCaddie(List<Long> ids, Long iduser) {
-        int toReturn = 0;
-        for (Long i : ids) {
-            for (ProductDto l : Ejbs.transaction().getCaddieDto(iduser).films) {
-                for (FilmDto f : Ejbs.product().getFilms(l.id)) {
-                    if (f.id.equals(i)) {
-                        toReturn++;
-                    }
-                }
-            }
-        }
-        return toReturn;
+//        SessionManagedBean session = findBean("sessionManagedBean");
+
+//      	return (session.getUserscaddy().containsAll(ids)) ? 1 : 0;
+
+	int toReturn = 0;
+	for (Long i : ids) {
+	    for (ProductDto l : Ejbs.transaction().getCaddieDto(iduser,lang.getLang()).films) {
+		for (FilmDto f : Ejbs.product().getFilms(l.id,lang.getLang())) {
+		    if (f.id.equals(i)) {
+			toReturn++;
+		    }
+		}
+	    }
+	}
+	return toReturn;
     }
 
-    public String getCodeButtonsFilm(Long idfilm, Long iduser) {
-        int caddie = isInMyCaddie(Arrays.asList(idfilm), iduser);
-        int films = isInMyFilms(Arrays.asList(idfilm), iduser);
+    public String getCodeButtonsFilm(Long idfilm) {
+      	SessionManagedBean session = findBean("sessionManagedBean");
+	     if ( session.getId() == null) {
+	       return "FREE";
+	     }
+        int caddie = isInMyCaddie(Arrays.asList(idfilm), session.getId());
+        int films = isInMyFilms(Arrays.asList(idfilm), session.getId());
+
 
         if (caddie == 0 && films == 0) {
             return "FREE";
@@ -81,15 +96,14 @@ public class AccountManagedBean {
     }
 
     public String getCodeButtonsProduct(Long idproduct, Long iduser) {
-        List<Long> l = new ArrayList<>();
-        for (FilmDto f : Ejbs.product().getFilms(idproduct)) {
-            l.add(f.id);
-        }
-
-        int n = Ejbs.product().getFilms(idproduct).size();
-
-        int caddie = isInMyCaddie(l, iduser);
-        int films = isInMyFilms(l, iduser);
+	List<Long> l = new ArrayList<>();
+	for (FilmDto f : Ejbs.product().getFilms(idproduct,lang.getLang()))
+	    l.add(f.id);
+	
+	int n = Ejbs.product().getFilms(idproduct,lang.getLang()).size();
+	
+	int caddie = isInMyCaddie(l, iduser);
+	int films = isInMyFilms(l, iduser);
 
         if (caddie == 0 && films == 0) {
             return "FREE";

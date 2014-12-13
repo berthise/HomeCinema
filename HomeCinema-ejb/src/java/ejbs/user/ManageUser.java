@@ -17,6 +17,7 @@ import entities.User;
 import entities.UserActivation;
 import entities.UserRetrieve;
 import entities.UsersFilms;
+import enums.Lang;
 import enums.UserStates;
 import exception.ActivatedCodeException;
 import exception.RetrieveCodeException;
@@ -38,7 +39,6 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
-import javax.persistence.RollbackException;
 import javax.persistence.TypedQuery;
 import managers.dtos.FilmDtoManager;
 import managers.dtos.TransactionDtoManager;
@@ -46,6 +46,7 @@ import managers.dtos.UserDtoManager;
 import utils.Securite;
 import utils.Tools;
 import org.eclipse.persistence.exceptions.DatabaseException;
+import org.jboss.weld.util.collections.ArraySet;
 
 /**
  *
@@ -177,11 +178,11 @@ public class ManageUser implements ManageUserRemote {
   }
 
   @Override
-  public List<TransactionDto> getTransaction(Long user) {
+  public List<TransactionDto> getTransaction(Long user,Lang lang) {
     User u = em.find(User.class, user);
     List<TransactionDto> res = new ArrayList<>();
     for (Transaction t : u.getTransactions()) {
-      res.add(TransactionDtoManager.getDto(t));
+      res.add(TransactionDtoManager.getDto(t,lang));
     }
     return res;
   }
@@ -244,13 +245,29 @@ public class ManageUser implements ManageUserRemote {
   }
 
   @Override
-  public List<FilmDto> getFilms(Long id) {
+  public List<FilmDto> getFilms(Long id,Lang lang) {
     User p = em.find(User.class, id);
     List<FilmDto> lfdto = new ArrayList<>();
     for (UsersFilms f : p.getFilms()) {
-      lfdto.add(FilmDtoManager.getDto(f.getFilm()));
+      lfdto.add(FilmDtoManager.getDto(f.getFilm(),lang));
     }
     return lfdto;
+  }
+  
+  @Override
+  public Set<Long> getMyProductId(Long id) {
+    User p = em.find(User.class, id);
+    Set<Long> lfid = new ArraySet<>();
+    for (UsersFilms f : p.getFilms()) {
+      lfid.add(f.getFilm().getMain_product().getId());
+    }
+    return lfid;
+  }
+  
+  @Override
+  public Integer countFilms(Long id) {
+    User p = em.find(User.class, id);
+    return p.getFilms().size();
   }
 
   @Override

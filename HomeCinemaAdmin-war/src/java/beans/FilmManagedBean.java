@@ -9,9 +9,10 @@ import dtos.FilmDto;
 import dtos.GenreDto;
 import dtos.PersonDto;
 import dtos.ProductDto;
-import dtos.UserDtoNoPw;
 import ejbs.ManageFilmRemote;
-import ejbs.ManageProductRemote;
+import enums.Lang;
+import enums.Langs;
+import enums.VideoFormat;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -24,7 +25,6 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ManagedBean;
@@ -101,11 +101,11 @@ public class FilmManagedBean {
 
     public void setDtoFromId() throws IOException {
 	if (fdto.id != null && fdto.id != 0) {
-	    FilmDto f = filmManager.getFilmFromId(fdto.id);
+	    FilmDto f = filmManager.getFilmFromId(fdto.id,Lang.EN);
 	    fdto = f;
-	    products = filmManager.getProducts(fdto.id);
-	    main = filmManager.getMainProduct(fdto.id);
-	    genres = this.filmManager.getGenre(fdto.id);
+	    products = filmManager.getProducts(fdto.id,Lang.EN);
+	    main = filmManager.getMainProduct(fdto.id,Lang.EN);
+	    genres = this.filmManager.getGenre(fdto.id,Lang.EN);
 	    directors = this.filmManager.getDirector(fdto.id);
 	    actors = this.filmManager.getCasting(fdto.id);
 	} else {
@@ -195,7 +195,7 @@ public class FilmManagedBean {
     }
 
     public void save() {
-	filmManager.mergeOrSave(fdto);
+	filmManager.mergeOrSave(fdto,Lang.EN);
 	FacesMessage message = new FacesMessage("Succès de la modification !");
 	FacesContext.getCurrentInstance().addMessage(null, message);
     }
@@ -223,6 +223,6 @@ public class FilmManagedBean {
     public void setMain(Long pid) {
 	this.filmManager.setMain(fdto.id, pid);
     }
-    
+
 
 }
