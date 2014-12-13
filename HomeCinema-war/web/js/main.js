@@ -1,7 +1,7 @@
 $(function () {
     $("#login").click(function () {
         if (window.location.protocol != "https:")
-	  $("#warning-http").show();
+            $("#warning-http").show();
         console.log($("#form-login").length);
         $("#form-login").slideToggle();
     });
@@ -18,7 +18,7 @@ $(function () {
     });
     
     $("#warning-http-lien").on("click", function (e) {
-	e.preventDefault();
+        e.preventDefault();
         if (window.location.protocol != "https:")
 	  window.location.href = "https:" + 
 		window.location.href.substring(window.location.protocol.length);
@@ -55,7 +55,7 @@ $(function () {
             update = setInterval(saveCurrentTime, 5000);
         }
     });
-    if($("#lastPosition").length > 0) {
+    if ($("#lastPosition").length > 0) {
         vid.currentTime = $("#lastPosition").text();
     }
     $(window).scroll(function () {
@@ -71,13 +71,23 @@ $(function () {
             $(".userTools").slideDown();
             $("#search-form").prev().removeClass("bounceInRight").addClass("bounceOutRight").slideUp("slow");
         }
-        
-        if(scroll >= 200) {
-            $(".sidebar").addClass("fixed");
+
+        if ($(this).scrollTop() > 50) {
+            $('#back-to-top').fadeIn();
         } else {
-            $(".sidebar").removeClass("fixed");
+            $('#back-to-top').fadeOut();
         }
     });
+    // scroll body to 0px on click
+    $('#back-to-top').click(function () {
+        $('#back-to-top').tooltip('hide');
+        $('body,html').animate({
+            scrollTop: 0
+        }, 800);
+        return false;
+    });
+
+    $("*[title]").tooltip()
 });
 
 var myLang;
