@@ -285,19 +285,19 @@ body {
                     float: none;
                     margin: 0 5px;
                 }
-            }
-            .form-group > .form-label {
-                font-weight: normal;
-                text-align: right;
-                padding: 2px;
-                line-height: 2;
-            }
+            }            
             input[type="date"] {
                 width: 80%;
             }
             input[type="reset"] {
                 margin: 0 15px;
             }
+        }
+        .form-group > .form-label {
+            font-weight: normal;
+            text-align: right;
+            padding: 2px;
+            line-height: 2;
         }
         .toggle-row {
             margin-top: 5px;

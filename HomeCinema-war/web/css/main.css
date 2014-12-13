@@ -196,15 +196,15 @@ body {
         body section .form-signin .checkbox input[type="checkbox"] {
           float: none;
           margin: 0 5px; }
-      body section .form-signin .form-group > .form-label {
-        font-weight: normal;
-        text-align: right;
-        padding: 2px;
-        line-height: 2; }
       body section .form-signin input[type="date"] {
         width: 80%; }
       body section .form-signin input[type="reset"] {
         margin: 0 15px; }
+    body section .form-group > .form-label {
+      font-weight: normal;
+      text-align: right;
+      padding: 2px;
+      line-height: 2; }
     body section .toggle-row {
       margin-top: 5px;
       margin-bottom: 5px;
