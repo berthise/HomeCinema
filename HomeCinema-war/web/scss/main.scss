@@ -10,6 +10,7 @@ body {
     margin: 0;
     font-family: $font;
     min-height: 800px;
+    overflow-x: hidden;
     .textarea-noresizing {
         resize:none;
     }
