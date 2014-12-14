@@ -11,290 +11,280 @@ and open the template in the editor.
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
-	<meta charset="utf-8"/>
-	<meta http-equiv="X-UA-Compatible" />
-	<title>HomeCinéma - #{msg['films-title']}</title>
-	<meta name="description" content=""/>
-	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" />
+        <title>HomeCinéma - #{msg['films-title']}</title>
+        <meta name="description" content=""/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-	<link rel="stylesheet" href="css/bootstrap.min.css"/>
-	<link rel="stylesheet" href="css/bootstrap-theme.min.css"/>
-	<link rel="stylesheet" href="css/main.css"/>
-	<link rel="stylesheet" href="css/style-films.css"/>
+        <link rel="stylesheet" href="css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="css/bootstrap-theme.min.css"/>
+        <link rel="stylesheet" href="css/main.css"/>
+        <link rel="stylesheet" href="css/style-films.css"/>
 
-	<f:metadata>
-	    <f:event type="preRenderView" listener="#{sessionManagedBean.checkRight()}"/>
-	    <f:viewParam name="director" value="#{searchProductsManagedBean.directorReset}" />
-	    <f:viewParam name="actor" value="#{searchProductsManagedBean.actorReset}" />
-	    <f:viewParam name="genre" value="#{searchProductsManagedBean.genreReset}" />
-	    <f:viewParam name="title" value="#{searchProductsManagedBean.titleReset}" />
-	    <f:viewParam name="tab" value="#{listProductsManagedBean.tabFilms}" />
-	</f:metadata>
+        <f:metadata>
+            <f:event type="preRenderView" listener="#{sessionManagedBean.checkRight()}"/>
+            <f:viewParam name="director" value="#{searchProductsManagedBean.directorReset}" />
+            <f:viewParam name="actor" value="#{searchProductsManagedBean.actorReset}" />
+            <f:viewParam name="genre" value="#{searchProductsManagedBean.genreReset}" />
+            <f:viewParam name="title" value="#{searchProductsManagedBean.titleReset}" />
+            <f:viewParam name="tab" value="#{listProductsManagedBean.tabFilms}" />
+        </f:metadata>
 
     </h:head>
 
     <h:body>
-	<ui:insert name="header" >
-	    <ui:include src="components/header.xhtml">
-		<ui:param name="active" value="films" />
-	    </ui:include>
-	</ui:insert>
+        <ui:insert name="header" >
+            <ui:include src="components/header.xhtml">
+                <ui:param name="active" value="films" />
+            </ui:include>
+        </ui:insert>
 
-	<script>
-	    function loader(id) {
-		document.getElementById('loader-' + id).style.display = 'inline';
-	    }
-	    function handleAjaxOpen(data) {
-		var status = data.status;
+        <script>
+            function loader(id) {
+                document.getElementById('loader-' + id).style.display = 'inline';
+            }
+            function handleAjaxOpen(data) {
+                var status = data.status;
 
-		switch (status) {
-		    case "success":
-			setTimeout(function () {
-			    document.getElementById('search-attributs').style.maxHeight = '2000px';
-			}, 100);
-			break;
-		}
-	    }
-	    function handleAjaxClose(data) {
-		var status = data.status;
+                switch (status) {
+                    case "success":
+                        setTimeout(function () {
+                            document.getElementById('search-attributs').style.maxHeight = '2000px';
+                        }, 100);
+                        break;
+                }
+            }
+            function handleAjaxClose(data) {
+                var status = data.status;
 
-		switch (status) {
-		    case "success":
-			setTimeout(function () {
-			    document.getElementById('search-attributs').style.maxHeight = '0px';
-			}, 100);
-			break;
-		}
-	    }
-	    function clean(id) {
-		document.getElementById('form-random:' + id).value = "";
-		return false;
-	    }
-	</script>
+                switch (status) {
+                    case "success":
+                        setTimeout(function () {
+                            document.getElementById('search-attributs').style.maxHeight = '0px';
+                        }, 100);
+                        break;
+                }
+            }
+            function clean(id) {
+                document.getElementById('form-random:' + id).value = "";
+                return false;
+            }
+        </script>
 
-	<section>
-	    <div class="container">
-		<div class="well">
-		    <h2 class="well-title"><strong>#{msg['films-title']}</strong></h2>
+        <section>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-4 col-left-space">
+                        <div class="films-col-nav">
+                            <h:form id="form-random">
+                                <div class="col-md-12 col-no-padding col-hover border-radius-first">
+                                    <p class="#{((listProductsManagedBean.getTabFilms() eq 'all')? 'activated' : '')}">
+                                        <h:commandLink onclick="javascript:loader('all');" value="#{msg['films-all']}" action="#{listProductsManagedBean.setTabFilms('allLOCALE')}">
+                                            <f:actionListener binding="#{listProductsManagedBean.setPage(1)}"/>
+                                            <f:ajax execute="@form" render=":form-random :panel-random :form-nav-page" onevent="handleAjaxClose"/>
+                                            <img id="loader-all" class="films-loader" src="img/loader.gif"/>
+                                        </h:commandLink>
+                                    </p>
+                                </div>
+                                <div class="col-md-12 col-hover col-no-padding">
+                                    <p class="#{((listProductsManagedBean.getTabFilms() eq 'pack')? 'activated' : '')}">
+                                        <h:commandLink onclick="javascript:loader('pack');" value="#{msg['search-pack']}" action="#{listProductsManagedBean.setTabFilms('packLOCALE')}">
+                                            <f:actionListener binding="#{listProductsManagedBean.setPage(1)}"/>
+                                            <f:ajax execute="@form" render=":form-random :panel-random :form-nav-page" onevent="handleAjaxClose"/>
+                                            <img id="loader-pack" class="films-loader" src="img/loader.gif"/>
+                                        </h:commandLink>
+                                    </p>
+                                </div>
+                                <div class="col-md-12 col-hover col-no-padding">
+                                    <p class="#{((listProductsManagedBean.getTabFilms() eq 'top')? 'activated' : '')}">
+                                        <h:commandLink onclick="javascript:loader('top');" value="#{msg['search-top10']}" action="#{listProductsManagedBean.setTabFilms('topLOCALE')}">
+                                            <f:actionListener binding="#{listProductsManagedBean.setPage(1)}"/>
+                                            <f:ajax execute="@form" render=":form-random :panel-random :form-nav-page" onevent="handleAjaxClose"/>
+                                            <img id="loader-top" class="films-loader" src="img/loader.gif"/>
+                                        </h:commandLink>
+                                    </p>
+                                </div>
+                                <div class="col-md-12 col-hover col-no-padding">
+                                    <p class="#{((listProductsManagedBean.getTabFilms() eq 'new')? 'activated' : '')}">
+                                        <h:commandLink onclick="javascript:loader('new');" value="#{msg['search-new']}" action="#{listProductsManagedBean.setTabFilms('newLOCALE')}">
+                                            <f:actionListener binding="#{listProductsManagedBean.setPage(1)}"/>
+                                            <f:ajax execute="@form" render=":form-random :panel-random :form-nav-page" onevent="handleAjaxClose"/>
+                                            <img id="loader-new" class="films-loader" src="img/loader.gif"/>
+                                        </h:commandLink>
+                                    </p>
+                                </div>
+                                <div class="col-md-12 col-no-padding col-hover border-radius-last">
+                                    <p class="#{((listProductsManagedBean.getTabFilms() eq 'search')? 'activated' : '')}">
+                                        <h:commandLink onclick="javascript:loader('search');" value="#{msg['search-advanced']}" action="#{listProductsManagedBean.setTabFilms('searchLOCALE')}">
+                                            <f:actionListener binding="#{listProductsManagedBean.setPage(1)}"/>
+                                            <f:ajax execute="@form" render=":form-random :panel-random :form-nav-page" onevent="handleAjaxOpen"/>
+                                            <img id="loader-search" class="films-loader" src="img/loader.gif"/>
+                                        </h:commandLink>
 
-		    <div class="row">
-			<div class="col-lg-3 col-md-4 col-left-space">
-			    <div class="films-col-nav">
-				<h:form id="form-random">
-				    <div class="col-md-12 col-no-padding col-hover border-radius-first">
-					<p class="#{((listProductsManagedBean.getTabFilms() eq 'all')? 'activated' : '')}">
-					    <h:commandLink onclick="javascript:loader('all');" value="#{msg['films-all']}" action="#{listProductsManagedBean.setTabFilms('allLOCALE')}">
-						<f:actionListener binding="#{listProductsManagedBean.setPage(1)}"/>
-						<f:ajax execute="@form" render=":form-random :panel-random :form-nav-page" onevent="handleAjaxClose"/>
-						<img id="loader-all" class="films-loader" src="img/loader.gif"/>
-					    </h:commandLink>
-					</p>
-				    </div>
-				    <div class="col-md-12 col-hover col-no-padding">
-					<p class="#{((listProductsManagedBean.getTabFilms() eq 'pack')? 'activated' : '')}">
-					    <h:commandLink onclick="javascript:loader('pack');" value="#{msg['search-pack']}" action="#{listProductsManagedBean.setTabFilms('packLOCALE')}">
-						<f:actionListener binding="#{listProductsManagedBean.setPage(1)}"/>
-						<f:ajax execute="@form" render=":form-random :panel-random :form-nav-page" onevent="handleAjaxClose"/>
-						<img id="loader-pack" class="films-loader" src="img/loader.gif"/>
-					    </h:commandLink>
-					</p>
-				    </div>
-				    <div class="col-md-12 col-hover col-no-padding">
-					<p class="#{((listProductsManagedBean.getTabFilms() eq 'top')? 'activated' : '')}">
-					    <h:commandLink onclick="javascript:loader('top');" value="#{msg['search-top10']}" action="#{listProductsManagedBean.setTabFilms('topLOCALE')}">
-						<f:actionListener binding="#{listProductsManagedBean.setPage(1)}"/>
-						<f:ajax execute="@form" render=":form-random :panel-random :form-nav-page" onevent="handleAjaxClose"/>
-						<img id="loader-top" class="films-loader" src="img/loader.gif"/>
-					    </h:commandLink>
-					</p>
-				    </div>
-				    <div class="col-md-12 col-hover col-no-padding">
-					<p class="#{((listProductsManagedBean.getTabFilms() eq 'new')? 'activated' : '')}">
-					    <h:commandLink onclick="javascript:loader('new');" value="#{msg['search-new']}" action="#{listProductsManagedBean.setTabFilms('newLOCALE')}">
-						<f:actionListener binding="#{listProductsManagedBean.setPage(1)}"/>
-						<f:ajax execute="@form" render=":form-random :panel-random :form-nav-page" onevent="handleAjaxClose"/>
-						<img id="loader-new" class="films-loader" src="img/loader.gif"/>
-					    </h:commandLink>
-					</p>
-				    </div>
-				    <div class="col-md-12 col-no-padding col-hover border-radius-last">
-					<p class="#{((listProductsManagedBean.getTabFilms() eq 'search')? 'activated' : '')}">
-					    <h:commandLink onclick="javascript:loader('search');" value="#{msg['search-advanced']}" action="#{listProductsManagedBean.setTabFilms('searchLOCALE')}">
-						<f:actionListener binding="#{listProductsManagedBean.setPage(1)}"/>
-						<f:ajax execute="@form" render=":form-random :panel-random :form-nav-page" onevent="handleAjaxOpen"/>
-						<img id="loader-search" class="films-loader" src="img/loader.gif"/>
-					    </h:commandLink>
+                                        <div class="#{((listProductsManagedBean.getTabFilms() eq 'search')? 'activated-search' : '')}" id="search-attributs" style="max-height: #{((listProductsManagedBean.searchOpened == 0)? '2000' : '0')}px;">
 
-					    <div class="#{((listProductsManagedBean.getTabFilms() eq 'search')? 'activated-search' : '')}" id="search-attributs" style="max-height: #{((listProductsManagedBean.searchOpened == 0)? '2000' : '0')}px;">
+                                            <div class="row">
+                                                <div class="col-md-6 col-xs-5 col-no-padding-search">
+                                                    <h:outputLabel class="label-search" for="title">#{msg['films-search-title']} :</h:outputLabel>
+                                                </div>
+                                                <div class="col-md-5 col-xs-6 col-no-padding-search-input">
+                                                    <h:inputText class="form-control input-search" id="title" value="#{searchProductsManagedBean.title}" />
+                                                </div>
+                                                <div class="col-xs-1 col-no-padding-search">
+                                                    <span class="clean" onclick="clean('title');">×</span>
+                                                </div>
+                                            </div>
 
-						<div class="row">
-						    <div class="col-md-6 col-xs-5 col-no-padding-search">
-							<h:outputLabel class="label-search" for="title">#{msg['films-search-title']} :</h:outputLabel>
-						    </div>
-						    <div class="col-md-5 col-xs-6 col-no-padding-search-input">
-							<h:inputText class="form-control input-search" id="title" value="#{searchProductsManagedBean.title}" />
-						    </div>
-						    <div class="col-xs-1 col-no-padding-search">
-							<span class="clean" onclick="clean('title');">×</span>
-						    </div>
-						</div>
+                                            <div class="row">
+                                                <div class="col-md-6 col-xs-5 col-no-padding-search col-hover">
+                                                    <h:outputLabel class="label-search" for="date">#{msg['films-search-date']} :</h:outputLabel>
+                                                </div>
+                                                <div class="col-md-5 col-xs-6 col-no-padding-search-input">
+                                                    <h:inputText style="width: 49%;" class="form-control input-search" id="date1" value="#{searchProductsManagedBean.date1}" />
+                                                    <h:inputText style="width: 49%; float: right;" class="form-control input-search" id="date2" value="#{searchProductsManagedBean.date2}" />
+                                                </div>
+                                                <div class="col-xs-1 col-no-padding-search">
+                                                    <span class="clean" onclick="clean('date1');
+                                                            clean('date2');">×</span>
+                                                </div>
+                                            </div>
 
-						<div class="row">
-						    <div class="col-md-6 col-xs-5 col-no-padding-search col-hover">
-							<h:outputLabel class="label-search" for="date">#{msg['films-search-date']} :</h:outputLabel>
-						    </div>
-						    <div class="col-md-5 col-xs-6 col-no-padding-search-input">
-							<h:inputText style="width: 49%;" class="form-control input-search" id="date1" value="#{searchProductsManagedBean.date1}" />
-							<h:inputText style="width: 49%; float: right;" class="form-control input-search" id="date2" value="#{searchProductsManagedBean.date2}" />
-						    </div>
-						    <div class="col-xs-1 col-no-padding-search">
-							<span class="clean" onclick="clean('date1'); clean('date2');">×</span>
-						    </div>
-						</div>
+                                            <div class="row">
+                                                <div class="col-md-6 col-xs-5 col-no-padding-search">
+                                                    <h:outputLabel class="label-search" for="director">#{msg['films-search-dir']} :</h:outputLabel>
+                                                </div>
+                                                <div class="col-md-5 col-xs-6 col-no-padding-search-input">
+                                                    <h:inputText class="form-control input-search" id="director" value="#{searchProductsManagedBean.director}" />
+                                                </div>
+                                                <div class="col-xs-1 col-no-padding-search">
+                                                    <span class="clean" onclick="clean('director');">×</span>
+                                                </div>
+                                            </div>
 
-						<div class="row">
-						    <div class="col-md-6 col-xs-5 col-no-padding-search">
-							<h:outputLabel class="label-search" for="director">#{msg['films-search-dir']} :</h:outputLabel>
-						    </div>
-						    <div class="col-md-5 col-xs-6 col-no-padding-search-input">
-							<h:inputText class="form-control input-search" id="director" value="#{searchProductsManagedBean.director}" />
-						    </div>
-						    <div class="col-xs-1 col-no-padding-search">
-							<span class="clean" onclick="clean('director');">×</span>
-						    </div>
-						</div>
+                                            <div class="row">
+                                                <div class="col-md-6 col-xs-5 col-no-padding-search">
+                                                    <h:outputLabel class="label-search" for="actor">#{msg['films-search-act']} :</h:outputLabel>
+                                                </div>
+                                                <div class="col-md-5 col-xs-6 col-no-padding-search-input">
+                                                    <h:inputText class="form-control input-search" id="actor" value="#{searchProductsManagedBean.actor}" />
+                                                </div>
+                                                <div class="col-xs-1 col-no-padding-search">
+                                                    <span class="clean" onclick="clean('actor');">×</span>
+                                                </div>
+                                            </div>
 
-						<div class="row">
-						    <div class="col-md-6 col-xs-5 col-no-padding-search">
-							<h:outputLabel class="label-search" for="actor">#{msg['films-search-act']} :</h:outputLabel>
-						    </div>
-						    <div class="col-md-5 col-xs-6 col-no-padding-search-input">
-							<h:inputText class="form-control input-search" id="actor" value="#{searchProductsManagedBean.actor}" />
-						    </div>
-						    <div class="col-xs-1 col-no-padding-search">
-							<span class="clean" onclick="clean('actor');">×</span>
-						    </div>
-						</div>
+                                            <div class="row">
+                                                <div class="col-md-6 col-xs-5 col-no-padding-search">
+                                                    <h:outputLabel class="label-search">#{msg['films-search-genres']} :</h:outputLabel>
+                                                </div>
+                                                <div id="selectANDOR" class="col-md-6 col-xs-7 col-no-padding-search">
+                                                    <h:selectOneRadio value="#{searchProductsManagedBean.genresMode}">
+                                                        <f:selectItem class="itemselect" itemValue="OR" itemLabel="#{msg['films-search-or']}" />
+                                                        <f:selectItem class="itemselect" itemValue="AND" itemLabel="#{msg['films-search-and']}" />
+                                                    </h:selectOneRadio>
+                                                </div>
+                                            </div>
 
-						<div class="row">
-						    <div class="col-md-6 col-xs-5 col-no-padding-search">
-							<h:outputLabel class="label-search">#{msg['films-search-genres']} :</h:outputLabel>
-						    </div>
-						    <div id="selectANDOR" class="col-md-6 col-xs-7 col-no-padding-search">
-							<h:selectOneRadio value="#{searchProductsManagedBean.genresMode}">
-							    <f:selectItem class="itemselect" itemValue="OR" itemLabel="#{msg['films-search-or']}" />
-							    <f:selectItem class="itemselect" itemValue="AND" itemLabel="#{msg['films-search-and']}" />
-							</h:selectOneRadio>
-						    </div>
-						</div>
+                                            <div class="row">
+                                                <c:forEach items="#{listProductsManagedBean.getAllGenres()}" var="g" varStatus="loop">
+                                                    <div class="col-xs-6 col-checkbox-search">
+                                                        <h:selectBooleanCheckbox id="genres-id-#{loop.index}" value="#{searchProductsManagedBean.checked[g.id]}" >
+                                                            <f:ajax listener="#{searchProductsManagedBean.majGenres()}" />
+                                                        </h:selectBooleanCheckbox>
+                                                        <h:outputLabel class="label-genres" for="genres-id-#{loop.index}" >#{g.name}</h:outputLabel>
+                                                    </div>
+                                                </c:forEach>
+                                            </div>
 
-						<div class="row">
-						    <c:forEach items="#{listProductsManagedBean.getAllGenres()}" var="g" varStatus="loop">
-							<div class="col-xs-6 col-checkbox-search">
-							    <h:selectBooleanCheckbox id="genres-id-#{loop.index}" value="#{searchProductsManagedBean.checked[g.id]}" >
-								<f:ajax listener="#{searchProductsManagedBean.majGenres()}" />
-							    </h:selectBooleanCheckbox>
-							    <h:outputLabel class="label-genres" for="genres-id-#{loop.index}" >#{g.name}</h:outputLabel>
-							</div>
-						    </c:forEach>
-						</div>
+                                            <div class="row">
+                                                <div class="col-xs-12">
+                                                    <h:commandButton onclick="javascript:loader('search');" class="btn btn-success btn-xs btn-search" value="#{msg['films-search-search']}" >
+                                                        <f:actionListener binding="#{listProductsManagedBean.setPage(1)}"/>
+                                                        <f:ajax execute="@form" render=":form-random :panel-random :form-nav-page"/>
+                                                    </h:commandButton>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </p>
+                                </div>
+                            </h:form>
+                            <div class="clear-both"></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-9 col-md-8">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3><i class="glyphicon glyphicon-list-alt"/>#{msg['films-search-list']}</h3>
+                            </div>
+                            <div class="panel-body">
+                                <c:set var="list" scope="view" value="#{listProductsManagedBean.getFilms(searchProductsManagedBean.searchParams)}" />
+                                <h:panelGroup id="panel-random">
+                                    <c:choose>
+                                        <c:when test="#{list.size() > 0}" >
+                                            <div class="row row-display">
+                                                <ui:repeat var="f" value="#{list}">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-row-display">
+                                                        <span class="glyphicon  #{((sessionManagedBean.isInMyFilms(f.id))? 'glyphicon-folder-open' : '')} #{((sessionManagedBean.isInMyCaddie(f.id))? 'glyphicon-shopping-cart' : '')}"></span>
+                                                        <a href="fiche_product.xhtml?id=#{f.id}">					
+                                                            <span class="#{((listProductsManagedBean.isPack(f.id))? 'background-pack' : '')}">
 
-						<div class="row">
-						    <div class="col-xs-12">
-							<h:commandButton onclick="javascript:loader('search');" class="btn btn-success btn-xs btn-search" value="#{msg['films-search-search']}" >
-							    <f:actionListener binding="#{listProductsManagedBean.setPage(1)}"/>
-							    <f:ajax execute="@form" render=":form-random :panel-random :form-nav-page"/>
-							</h:commandButton>
-						    </div>
-						</div>
-					    </div>
-					</p>
-				    </div>
-				</h:form>
-				<div class="clear-both"></div>
-			    </div>
-			</div>
-			<div class="col-lg-9 col-md-8">
-			    <div class="films-col-display">
+                                                                <img class="table-cover-film" src="http://image.tmdb.org/t/p/w92/#{f.cover}" title="#{f.name}"/>
+                                                            </span>
+                                                            <p class="table-title-film truncate">#{f.name}</p>
+                                                        </a>
+                                                    </div>
+                                                </ui:repeat>
+                                            </div>
+                                        </c:when>
+                                        <c:otherwise>
+                                            #{msg['films-search-noresult']}
+                                        </c:otherwise>
+                                    </c:choose>
+                                </h:panelGroup>
+                            </div>
+                            <div class="panel-footer">
+                                <h:form id="form-nav-page" >
+                                    <ul class="pagination">
+                                        <c:choose>
+                                            <c:when test="#{listProductsManagedBean.page eq 1}" >
+                                                <li class="disabled cursor-normal"><a href="#" onclick="return false;"><span aria-hidden="true">«</span><span class="sr-only">Previous</span></a></li>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <li>
+                                                    <h:commandLink action="#{listProductsManagedBean.setPage(listProductsManagedBean.page-1)}">
+                                                        <span aria-hidden="true">«</span><span class="sr-only">Previous</span>
+                                                        <f:ajax execute="@form" render=":form-nav-page :panel-random" />
+                                                    </h:commandLink>
+                                                </li>
+                                            </c:otherwise>
+                                        </c:choose>
+                                        <li class="active cursor-normal"><a href="" onclick="return false;">#{listProductsManagedBean.page}</a></li>
+                                        <c:choose>
+                                            <c:when test="#{listProductsManagedBean.isLastPage()}" >
+                                                <li class="disabled cursor-normal"><a href="#" onclick="return false;"><span aria-hidden="true">»</span><span class="sr-only">Next</span></a></li>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <li>
+                                                    <h:commandLink action="#{listProductsManagedBean.setPage(listProductsManagedBean.page+1)}">
+                                                        <span aria-hidden="true">»</span><span class="sr-only">Next</span>
+                                                        <f:ajax execute="@form" render=":form-nav-page :panel-random" />
+                                                    </h:commandLink>
+                                                </li>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </ul>
+                                </h:form>
+                            </div>				
+                        </div>		
+                    </div>
+                </div>
+            </div>
+        </section>
 
-				<h3><img src="img/list-icon.png"/>#{msg['films-search-list']}</h3>
-
-				<c:set var="list" scope="view" value="#{listProductsManagedBean.getFilms(searchProductsManagedBean.searchParams)}" />
-
-				<h:panelGroup id="panel-random">
-				    <c:choose>
-					<c:when test="#{list.size() > 0}" >
-					    <div class="row row-display">
-						<ui:repeat var="f" value="#{list}">
-						    <div class="col-lg-4 col-md-6 col-sm-6 col-row-display">
-						      							      <span class="glyphicon  #{((sessionManagedBean.isInMyFilms(f.id))? 'glyphicon-folder-open' : '')} #{((sessionManagedBean.isInMyCaddie(f.id))? 'glyphicon-shopping-cart' : '')}"></span>
-							<a href="fiche_product.xhtml?id=#{f.id}">					
-							    <span class="#{((listProductsManagedBean.isPack(f.id))? 'background-pack' : '')}">
-
-								<img class="table-cover-film" src="http://image.tmdb.org/t/p/w92/#{f.cover}" title="#{f.name}"/>
-							    </span>
-							    <p class="table-title-film truncate">#{f.name}</p>
-							</a>
-						    </div>
-						</ui:repeat>
-					    </div>
-					</c:when>
-					<c:otherwise>
-					    #{msg['films-search-noresult']}
-					</c:otherwise>
-				    </c:choose>
-				</h:panelGroup>
-
-				<h:form id="form-nav-page" >
-				    <nav class="nav-right">
-					<ul class="pagination">
-					    <c:choose>
-						<c:when test="#{listProductsManagedBean.page eq 1}" >
-						    <li class="disabled cursor-normal"><a href="#" onclick="return false;"><span aria-hidden="true">«</span><span class="sr-only">Previous</span></a></li>
-						</c:when>
-						<c:otherwise>
-						    <li>
-							<h:commandLink action="#{listProductsManagedBean.setPage(listProductsManagedBean.page-1)}">
-							    <span aria-hidden="true">«</span><span class="sr-only">Previous</span>
-							    <f:ajax execute="@form" render=":form-nav-page :panel-random" />
-							</h:commandLink>
-						    </li>
-						</c:otherwise>
-					    </c:choose>
-					    <li class="active cursor-normal"><a href="" onclick="return false;">#{listProductsManagedBean.page}</a></li>
-					    <c:choose>
-						<c:when test="#{listProductsManagedBean.isLastPage()}" >
-						    <li class="disabled cursor-normal"><a href="#" onclick="return false;"><span aria-hidden="true">»</span><span class="sr-only">Next</span></a></li>
-						</c:when>
-						<c:otherwise>
-						    <li>
-							<h:commandLink action="#{listProductsManagedBean.setPage(listProductsManagedBean.page+1)}">
-							    <span aria-hidden="true">»</span><span class="sr-only">Next</span>
-							    <f:ajax execute="@form" render=":form-nav-page :panel-random" />
-							</h:commandLink>
-						    </li>
-						</c:otherwise>
-					    </c:choose>
-					</ul>
-				    </nav>
-				</h:form>
-				<div class="clear-both"></div>				
-			    </div>		
-			</div>
-		    </div>
-
-		    <div id="bottom">
-			<a class="go-top" href="#top" title="#{msg['allpage-top']}"><img src="img/arrowUp.png" /></a>                        
-		    </div>
-
-		</div>
-
-	    </div>
-	</section>
-
-	<ui:insert name="footer" >
-	    <ui:include src="components/footer.xhtml" />
-	</ui:insert>
+        <ui:insert name="footer" >
+            <ui:include src="components/footer.xhtml" />
+        </ui:insert>
     </h:body>
 
 </html>

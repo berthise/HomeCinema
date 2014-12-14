@@ -6,7 +6,6 @@ body {
   margin: 0;
   font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
   min-height: 800px;
-  overflow-x: hidden;
   /*----------- Icons color ----------*/ }
   body .textarea-noresizing {
     resize: none; }
@@ -165,9 +164,13 @@ body {
       body section .exclus .film img {
         width: 100%;
         border-radius: 5px;
+        border: 1px solid #e6e6e6;
         box-shadow: 2px 2px 3px #080808; }
-        body section .exclus .film imghover {
-          top: 2px; }
+      body section .exclus .film:hover {
+        position: relative;
+        top: -8px; }
+        body section .exclus .film:hover img {
+          box-shadow: 0px 0px 20px 5px #a8a8a8; }
     body section .exclus a {
       color: #276427 !important;
       font-weight: bold; }

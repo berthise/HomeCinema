@@ -5,27 +5,27 @@ $(function () {
         console.log($("#form-login").length);
         $("#form-login").slideToggle();
     });
-    
+
     $("#dt_button").click(function () {
         $("#dl_popup").show();
     });
-    
+
     $("#dl_popup").on('hidden.bs.modal', function (e) {
-      popup_do_callback_close();
+        popup_do_callback_close();
     });
     $("#dl_popup").on('shown.bs.modal', function (e) {
-      popup_do_open();
+        popup_do_open();
     });
-    
+
     $("#warning-http-lien").on("click", function (e) {
         e.preventDefault();
         if (window.location.protocol != "https:")
-	  window.location.href = "https:" + 
-		window.location.href.substring(window.location.protocol.length);
+            window.location.href = "https:" +
+                    window.location.href.substring(window.location.protocol.length);
     });
-    
+
     $("#ba_popup").on('hidden.bs.modal', function (e) {
-      videoPause();
+        videoPause();
     });
 
     var vid = document.getElementById("myVideo");
@@ -94,100 +94,100 @@ var myLang;
 var myQuality;
 var myFormat;
 
-function chargeLang(lang,quality,format) {
-  /*if (videos != null )
-    console.log("llllllllll"+videos); */
-  console.log("charge lang=" + lang + " quality="+quality+ " format="+format);
-     document.getElementById('format-'+lang).style.display = '';
-     document.getElementById('format-'+lang+'-'+quality).style.display = '';
-   myLang = lang;
-   myQuality = quality;
-   myFormat = format;
+function chargeLang(lang, quality, format) {
+    /*if (videos != null )
+     console.log("llllllllll"+videos); */
+    console.log("charge lang=" + lang + " quality=" + quality + " format=" + format);
+    document.getElementById('format-' + lang).style.display = '';
+    document.getElementById('format-' + lang + '-' + quality).style.display = '';
+    myLang = lang;
+    myQuality = quality;
+    myFormat = format;
 }
 function selectLang(value) {
 
-  console.log("myLang = " + myLang);
-  console.log('format-' + value);
+    console.log("myLang = " + myLang);
+    console.log('format-' + value);
 
-   /* Hide unused form elem */
-   document.getElementById('format-'+myLang).style.display = 'none';
-   if (myQuality != null)
-     document.getElementById('format-'+myLang+'-'+myQuality).style.display = 'none';
-   myLang = value;
-      
-   /* show newly use form elem */
-   var qualityNode = document.getElementById('format-'+myLang);
-   qualityNode.style.display = '';
-   var selectQuality = qualityNode.getElementsByTagName("select");
-   console.log(selectQuality[0].value);
-   myQuality = selectQuality[0].value;
-   
-   var formatNode = document.getElementById('format-'+myLang+'-'+myQuality);
-   formatNode.style.display = '';
-   var selectFormat = formatNode.getElementsByTagName("select");
-   myFormat = selectFormat[0].value;
-   
+    /* Hide unused form elem */
+    document.getElementById('format-' + myLang).style.display = 'none';
+    if (myQuality != null)
+        document.getElementById('format-' + myLang + '-' + myQuality).style.display = 'none';
+    myLang = value;
+
+    /* show newly use form elem */
+    var qualityNode = document.getElementById('format-' + myLang);
+    qualityNode.style.display = '';
+    var selectQuality = qualityNode.getElementsByTagName("select");
+    console.log(selectQuality[0].value);
+    myQuality = selectQuality[0].value;
+
+    var formatNode = document.getElementById('format-' + myLang + '-' + myQuality);
+    formatNode.style.display = '';
+    var selectFormat = formatNode.getElementsByTagName("select");
+    myFormat = selectFormat[0].value;
+
 
 }
 function selectQuality(value) {
 
-  console.log("myQuality = " + myLang);
-  console.log('format-'+myLang+'-' + value);
+    console.log("myQuality = " + myLang);
+    console.log('format-' + myLang + '-' + value);
 
-   if (myQuality != null)
-    document.getElementById('format-'+myLang+'-'+ myQuality).style.display = 'none';
-   myQuality = value;
-   
-   var formatNode = document.getElementById('format-'+myLang+'-'+myQuality);
-   formatNode.style.display = '';
-   var selectFormat = formatNode.getElementsByTagName("select");
-   myFormat = selectFormat[0].value;
+    if (myQuality != null)
+        document.getElementById('format-' + myLang + '-' + myQuality).style.display = 'none';
+    myQuality = value;
+
+    var formatNode = document.getElementById('format-' + myLang + '-' + myQuality);
+    formatNode.style.display = '';
+    var selectFormat = formatNode.getElementsByTagName("select");
+    myFormat = selectFormat[0].value;
 
 }
 
 function selectFormat(value) {
 
-  console.log("myFormat = " + myFormat);
-   myFormat = value;
+    console.log("myFormat = " + myFormat);
+    myFormat = value;
 }
 
 function valideVideo() {
-  console.log('valideVideo');
-  var st = 'video-'+myLang+'-'+myQuality+'-'+myFormat;
-  var link = document.getElementById(st);
-  if (link != null) {
-	link.click();
-  }
+    console.log('valideVideo');
+    var st = 'video-' + myLang + '-' + myQuality + '-' + myFormat;
+    var link = document.getElementById(st);
+    if (link != null) {
+        link.click();
+    }
 }
 
 function viewVideo(video) {
-  console.log('viewVideo');
-  var v = document.getElementById(video);
-  var st = 'video-'+myLang+'-'+myQuality+'-'+myFormat;
-  var link = document.getElementById(st);
+    console.log('viewVideo');
+    var v = document.getElementById(video);
+    var st = 'video-' + myLang + '-' + myQuality + '-' + myFormat;
+    var link = document.getElementById(st);
 
-  while (v.firstChild) {
-	 v.removeChild(v.firstChild);
-  }
-  var s = document.createElement("source");
-  s.setAttribute("src", link.getAttribute("href"));
-  v.appendChild(s);
-  v.load();
+    while (v.firstChild) {
+        v.removeChild(v.firstChild);
+    }
+    var s = document.createElement("source");
+    s.setAttribute("src", link.getAttribute("href"));
+    v.appendChild(s);
+    v.load();
 }
 var prevState = '0';
 function videoPause() {
-  var v = document.getElementById("myVideo");
-  if ( ! v.paused ) {
-    v.pause();
-    prevState = 'played';
-  }
+    var v = document.getElementById("myVideo");
+    if (!v.paused) {
+        v.pause();
+        prevState = 'played';
+    }
 }
 
 function videoPlay() {
-  var v = document.getElementById("myVideo");
-  if ( prevState == 'played' ) {
-    v.play();
-    prevState = '0';
-  }
+    var v = document.getElementById("myVideo");
+    if (prevState == 'played') {
+        v.play();
+        prevState = '0';
+    }
 }
 
