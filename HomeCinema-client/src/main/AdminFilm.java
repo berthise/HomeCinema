@@ -5,17 +5,15 @@
  */
 package main;
 
-import UtilsJson.JsonReader;
+import Utils.UtilsJson.JsonReader;
 import dtos.FilmDto;
-import java.text.DateFormat;
 import dtos.VideoDto;
-import ejbs.ManageFilmRemote;
 import ejbs.ManageProductRemote;
+import enums.Lang;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import org.json.JSONObject;
-import java.util.Date;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -49,8 +47,10 @@ public class AdminFilm {
         
         return fdto;
 
-    }
 
+    }
+    
+  
     public AdminFilm() {
         make_context();
     }
@@ -66,7 +66,7 @@ public class AdminFilm {
 
             ic = new InitialContext();
         } catch (NamingException ex) {
-            Logger.getLogger(HomeCinemaClient.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AdminFilm.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -75,7 +75,7 @@ public class AdminFilm {
             try {
                 mpr = (ManageProductRemote) ic.lookup("java:global/HomeCinema/HomeCinema-ejb/ManageProduct!ejbs.ManageProductRemote");
             } catch (NamingException ex) {
-                Logger.getLogger(HomeCinemaClient.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(AdminFilm.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return mpr;
@@ -94,7 +94,7 @@ public class AdminFilm {
         trailer.url = trailer_url;
         trailer.resolution = 240;
 
-        getManageProductRemote().createProductWithFilm(fdto, trailer, video,new Double( price));
+        getManageProductRemote().createProductWithFilm(fdto, trailer, video,new Double( price),Lang.EN);
     }
 
 }

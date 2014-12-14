@@ -5,18 +5,26 @@
  */
 package entities;
 
+import enums.Lang;
 import enums.ProductStates;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import static javax.persistence.FetchType.EAGER;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.MapKeyColumn;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -52,8 +60,10 @@ public class Product implements Serializable {
   @Column(name = "ADD_DATE")
   private java.util.Date addDate;
 
-  @Column(name = "NAME")
-  private String name;
+          @ElementCollection(fetch=EAGER)
+     @MapKeyColumn(name="locale")
+  @CollectionTable(name = "PRODUIT_NAME", joinColumns = @JoinColumn(name = "produit_id"))
+  private Map<Lang,String> name;
 
   @Column(name = "STATE_")
   private ProductStates state;
@@ -66,16 +76,17 @@ public class Product implements Serializable {
   {
       this();
       setPrice(p);
-      setName(f.getTitle());
+      setName(f.getTitle(Lang.EN),Lang.EN);
       ManageEntitieProduct.linkProductFilm(f, this);
       setState(ProductStates.Activated);
-      setAddDate(new Date());
   }
 
   public Product()
   {
       setNbSales(0);
+      setAddDate(new Date());
       setFilms(new ArrayList());
+      this.name= new HashMap<>();
   }
   
   public Long getId() {
@@ -115,12 +126,15 @@ public class Product implements Serializable {
     this.addDate = addDate;
   }
 
-  public String getName() {
-    return name;
+  public String getName(Lang lang) {
+      if (name.containsKey(lang))
+    return name.get(lang);
+      else
+	  return name.get(Lang.EN);
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public void setName(String name,Lang lang) {
+    this.name.put(lang, name);
   }
 
   public ProductStates getState() {
@@ -137,6 +151,16 @@ public class Product implements Serializable {
 
   public void setNbSales(Integer nbSales) {
     this.nbSales = nbSales;
+  }
+  
+  public Double getAverageRate() {
+    if ( this.films == null) return 0D;
+    Double rating = 0D;
+    for (Film f: this.films) {
+      rating += f.getRating();
+    }
+    rating = rating/this.films.size();
+    return rating;
   }
 
   @Override
@@ -163,6 +187,10 @@ public class Product implements Serializable {
   public String toString() {
     return "Product{" + "id=" + id + ", films= , price=" + price + ", addDate=" + addDate + ", name=" + name + ", state=" + state + ", nbSales=" + nbSales + '}';
   }
+
+    public void removeFilm(Film f) {
+	this.films.remove(f);
+    }
   
   
 

@@ -5,18 +5,25 @@
  */
 package beans;
 
+import ejbs.Ejbs;
 import dtos.UserDto;
-import ejbs.ManageUserRemote;
 import enums.UserStates;
+import exception.SignupEmailException;
+import exception.SignupNickNameException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import javax.faces.application.FacesMessage;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.faces.context.FacesContext;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
+import utils.Lang;
+import utils.Message;
+import utils.Pages;
+import utils.Redirect;
+import utils.Securite;
+import utils.SendMail;
+import utils.SendMailException;
 
 /**
  *
@@ -28,117 +35,135 @@ public class SignUpManagedBean {
 
     private UserDto user;
     private String birthDay;
-
-    private static ManageUserRemote mur = null;
+    private String confPassword;
 
     public SignUpManagedBean() {
-        if (mur == null) {
-            try {
-                InitialContext ic = new InitialContext();
-                mur = (ManageUserRemote) ic.lookup("java:global/HomeCinema/HomeCinema-ejb/ManageUser!ejbs.ManageUserRemote");
-            } catch (NamingException ex) {
-                ex.printStackTrace();
-            }
-        }
-        user = new UserDto();
+	user = new UserDto();
     }
 
     public void singUp() {
-        user.addDate = new Date();
-        convertDate(birthDay);
-        user.state = UserStates.Unactived;
-        mur.signUp(user);
-        FacesMessage message = new FacesMessage("Succès de l'inscription !");
-        FacesContext.getCurrentInstance().addMessage(null, message);
+	convertDate(birthDay);
+	user.password = Securite.crypte(user.password);
+	if (!user.password.equals(confPassword)) {
+	    Message.Warning(Lang.getString(""));
+	    return;
+	}
+	try {
+	    user = Ejbs.user().signUp(user);
+	    SendMail.send(user.email, "[HomeCinéma] " + Lang.getString("signup-bean-email-1"),
+		    Lang.getString("session-bean-email-2") + " \n\n"
+		    + Lang.getString("signup-bean-email-2") + ":\n"
+		    + ActivateUserManagedBean.getUrl(user.id, user.activationCode)
+		    + "\n\n"
+		    + Lang.getString("session-bean-email-4") + ",\n"
+		    + "HomeCinéma");
+	    Message.Info(Lang.getString("signup-bean-succes-1") + "\n" + Lang.getString("signup-bean-succes-2"));
+	    Redirect.redirectTo(Pages.INDEX);
+	} catch (SignupEmailException ex) {
+	    Message.Warning(Lang.getString("signup-bean-warning-email"));
+	} catch (SignupNickNameException ex) {
+	    Message.Warning(Lang.getString("signup-bean-warning-login"));
+	} catch (SendMailException ex) {
+	    Logger.getLogger(SignUpManagedBean.class.getName()).log(Level.SEVERE, null, ex);
+	}
+
     }
 
     public void convertDate(String birthDay) {
-        try {
-            SimpleDateFormat df = new SimpleDateFormat("yy-MM-dd");
-            user.birthDate = df.parse(birthDay);
-        } catch (ParseException ex) {
-            ex.printStackTrace();
-        }
+	try {
+	    SimpleDateFormat df = new SimpleDateFormat("yy-MM-dd");
+	    user.birthDate = df.parse(birthDay);
+	} catch (ParseException ex) {
+	    ex.printStackTrace();
+	}
+    }
+
+    public String getConfPassword() {
+	return confPassword;
+    }
+
+    public void setConfPassword(String confPassword) {
+	this.confPassword = confPassword;
     }
 
     public Long getId() {
-        return user.id;
+	return user.id;
     }
 
     public void setId(Long id) {
-        user.id = id;
+	user.id = id;
     }
 
     public String getNickName() {
-        return user.nickName;
+	return user.nickName;
     }
 
     public void setNickName(String nickName) {
-        user.nickName = nickName.trim();
+	user.nickName = nickName.trim();
     }
 
     public String getFirstName() {
-        return user.firstName;
+	return user.firstName;
     }
 
     public void setFirstName(String firstName) {
-        user.firstName = firstName.trim();
+	user.firstName = firstName.trim();
     }
 
     public String getLastName() {
-        return user.lastName;
+	return user.lastName;
     }
 
     public void setLastName(String lastName) {
-        user.lastName = lastName.trim();
+	user.lastName = lastName.trim();
     }
 
     public String getPassword() {
-        return user.password;
+	return user.password;
     }
 
     public void setPassword(String password) {
-        user.password = password;
+	user.password = password;
     }
 
     public String getEmail() {
-        return user.email;
+	return user.email;
     }
 
     public void setEmail(String email) {
-        user.email = email.trim();
+	user.email = email.trim();
     }
 
     public Date getBirthDate() {
-        return user.birthDate;
+	return user.birthDate;
     }
 
     public void setBirthDate(Date birthDate) {
-        user.birthDate = birthDate;
+	user.birthDate = birthDate;
     }
 
     public String getBirthDay() {
-        return birthDay;
+	return birthDay;
     }
 
     public void setBirthDay(String birthDay) {
-        this.birthDay = birthDay;
+	this.birthDay = birthDay;
     }
 
     public Date getAddDate() {
-        return user.addDate;
+	return user.addDate;
     }
 
     public void setAddDate(Date addDate) {
-        user.addDate = addDate;
+	user.addDate = addDate;
     }
 
     public UserStates getState() {
-        return user.state;
+	return user.state;
     }
 
     public void setState(UserStates state) {
-        user.state = state;
+	user.state = state;
     }
 
 }

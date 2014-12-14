@@ -6,33 +6,22 @@
 package ejbs.admin;
 
 import dtos.CaddieDto;
-import dtos.FilmDto;
-import dtos.ProductDto;
-import dtos.VideoDto;
-import ejbs.ManageFilmRemote;
-import ejbs.ManageProductRemote;
+import dtos.PaymentDto;
 import ejbs.ManageTransactionRemote;
 import entities.Caddy;
 import entities.Film;
 import entities.Product;
 import entities.Transaction;
 import entities.User;
-import entities.UsersFilms;
-import entities.Video;
+import enums.Lang;
 import enums.TransactionStates;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-import javax.ejb.EJB;
+import java.util.HashSet;
+import java.util.Set;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import managers.dtos.CaddieDtoManager;
-import managers.dtos.FilmDtoManager;
-import managers.dtos.ProductDtoManager;
-import managers.dtos.VideoDtoManager;
-import managers.entities.ManageEntitieFilm;
-import managers.entities.ManageEntitieProduct;
 import managers.entities.ManageEntitieUser;
 import utils.UtilCaddie;
 
@@ -47,23 +36,54 @@ public class ManageTransaction implements ManageTransactionRemote {
     public EntityManager em;
 
     @Override
-    public CaddieDto getCaddieDto(Long id_user) {
+    public CaddieDto getCaddieDto(Long id_user,Lang lang) {
         User u = em.find(User.class, id_user);
-        return CaddieDtoManager.getDto(u.getCaddy());
-
+        return CaddieDtoManager.getDto(u.getCaddy(), lang);
+    }
+        @Override
+    public Set<Long> getCaddieProductIds(Long id_user) {
+          Set<Long> lfid = new HashSet<>();
+        User u = em.find(User.class, id_user);
+	if ( u.getCaddy() == null) return lfid;
+        for ( Product p: u.getCaddy().getProducts()) {
+	    lfid.add(p.getId());
+	}
+	return lfid;
     }
     
     @Override
-    public CaddieDto addProduct(Long user, Long id)
+    public CaddieDto addProduct(Long user, Long id,Lang lang)
     {
         User u = em.find(User.class, user);
+        if (u.getCaddy()==null)
+        {
+            u.setCaddy(new Caddy());
+            em.persist(u.getCaddy());
+            em.merge(u);
+        }
         u.getCaddy().addCaddy(em.find(Product.class,id));
         em.merge(u.getCaddy());
-        return CaddieDtoManager.getDto(u.getCaddy());
+        return CaddieDtoManager.getDto(u.getCaddy(),lang);
     }
+
+    @Override
+   public CaddieDto removeProduct(Long user ,Long id,Lang lang)
+   {
+               User u = em.find(User.class, user);
+        if (u.getCaddy()==null)
+        {
+            u.setCaddy(new Caddy());
+            em.persist(u.getCaddy());
+            em.merge(u);
+        }
+        Product p = em.find(Product.class, id);
+        u.getCaddy().removeCaddy(p);
+        em.merge(u.getCaddy());
+        return CaddieDtoManager.getDto(u.getCaddy(),lang);
+   }
     
     @Override
-    public Long validate(Long user)
+    public Long validate(Long user, PaymentDto pdto)
     {
         User u = em.find(User.class, user);
         Transaction t = new Transaction();
@@ -73,12 +93,14 @@ public class ManageTransaction implements ManageTransactionRemote {
         t.setUser(u);
         t.setState(TransactionStates.Prepared);
         em.persist(t);
-        u.setCaddy(new Caddy());
+        em.remove(u.getCaddy());
+        u.setCaddy(null);
         u.addTransaction(t);
         em.merge(u);
         return t.getId();
     }
     
+    @Override
     public void validatePayement(Long id,Long btn)
     {
         Transaction t = em.find(Transaction.class, id);

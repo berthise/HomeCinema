@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core">
+  <h:head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title>HomeCinéma - #{msg['activate-title']}</title>
+    <meta name="description" content=""/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" href="css/main.css"/>
+
+    <f:metadata>
+      <f:event type="preRenderView" listener="#{sessionManagedBean.checkRight()}"/>
+      <f:viewParam name="u" value="#{activateUserManagedBean.id}" />
+      <f:viewParam name="c" value="#{activateUserManagedBean.code}" />
+      <f:event type="preValidate" listener="#{activateUserManagedBean.activate()}"/>
+    </f:metadata>
+
+  </h:head>
+  <h:body id="top">
+    <ui:insert name="header" >
+      <ui:include src="components/header.xhtml">
+	<ui:param name="active" value="activate" />
+      </ui:include>
+    </ui:insert>
+    <section>
+      <div class="container">
+	<!--<div class="well">-->
+	<center>
+	    <a href="#{msg['page-index']}.xhtml" class="btn btn-success btn-lg btn-space">#{msg['menu-accueil']}</a>
+	    <a href="#{msg['page-login']}.xhtml" class="btn btn-success btn-lg">#{msg['connexion']}</a>
+	</center>
+	<!--</div>-->
+      </div>
+    </section>
+    <ui:insert name="footer" >
+      <ui:include src="components/footer.xhtml" />
+    </ui:insert>
+  </h:body>
+</html>

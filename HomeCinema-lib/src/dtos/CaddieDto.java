@@ -13,7 +13,15 @@ import java.util.List;
  * @author titou
  */
 public class CaddieDto implements Serializable {
-    
-    public List<ProductDto> films;
-    
+
+  public List<ProductDto> films;
+
+  public List<ProductDto> getFilms() {
+    return films;
+  }
+
+  public void setFilms(List<ProductDto> films) {
+    this.films = films;
+  }
+
 }

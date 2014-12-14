@@ -11,9 +11,10 @@ import java.io.Serializable;
  *
  * @author seb
  */
-public enum UserStates implements Serializable{
+public enum UserStates implements Serializable {
   Activated,
-  Unactived,
-  Deactivaed,
-  Removed
+  Pending,
+  Deactivated,
+  Payment,
+  Retrieve;
 }

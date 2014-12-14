@@ -5,20 +5,25 @@
  */
 package entities;
 
+import enums.Lang;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import static javax.persistence.FetchType.EAGER;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.MapKeyColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -49,12 +54,17 @@ public class Film implements Serializable {
     private Product main_product;
 
     @Size(max = 255)
-    @Column(name = "TITLE")
-    private String title;
+    @ElementCollection(fetch = EAGER)
+    @MapKeyColumn(name = "locale")
+    @CollectionTable(name = "FILM_TITLE", joinColumns = @JoinColumn(name = "film_id"))
+    private Map<Lang, String> title;
 
     @Size(max = 3000)
-    @Column(name = "OVERVIEW", length = 5000)
-    private String overview;
+    @ElementCollection(fetch = EAGER)
+    @MapKeyColumn(name = "locale")
+    @CollectionTable(name = "FILM_OVERVIEW", joinColumns = @JoinColumn(name = "film_id"))
+    @Column(name = "OVERVIEW", length = 10000)
+    private Map<Lang, String> overview;
 
     @Size(max = 50)
     @Column(name = "COVER_ID")
@@ -76,7 +86,7 @@ public class Film implements Serializable {
     private Integer runtime;
 
     @OneToMany
-    @JoinColumn(name = "VIDEO_FILES")
+    @JoinColumn(name = "VIDEO_FILE")
     private Set<Video> videoFile;
 
     @OneToOne
@@ -84,10 +94,12 @@ public class Film implements Serializable {
     private Video trailler;
 
     @ManyToMany
+    @JoinTable(name = "ACTORS")
     @JoinColumn(name = "ACTORS")
     private List<Person> actors;
 
     @ManyToMany
+    @JoinTable(name = "DIRECTORS")
     @JoinColumn(name = "DIRECTORS")
     private List<Person> directors;
 
@@ -96,168 +108,194 @@ public class Film implements Serializable {
     private Set<Genre> genre;
 
     public Film() {
-        this.videoFile = new HashSet<Video>();
-        this.products =  new ArrayList<Product>();
-        this.genre =  new HashSet<Genre>();
+	this.videoFile = new HashSet<>();
+	this.products = new ArrayList<>();
+	this.genre = new HashSet<>();
+	this.actors = new ArrayList<>();
+	this.directors = new ArrayList<>();
+	this.title = new HashMap<>();
+	this.overview = new HashMap<>();
     }
 
     public Long getId() {
-        return id;
+	return id;
     }
 
     public void setId(Long id) {
-        this.id = id;
+	this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getTitle(Lang lang) {
+	if (title.containsKey(lang)) {
+	    return title.get(lang);
+	} else {
+	    return title.get(Lang.EN);
+	}
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setTitle(Lang lang, String title) {
+	this.title.put(lang, title);
     }
 
     public List<Product> getProducts() {
-        return products;
+	return products;
     }
 
     public void setProducts(List<Product> products) {
-        this.products = products;
+	this.products = products;
     }
 
-    public void addProduct(Product p)
-    {
-        this.products.add(p);
+    public void addProduct(Product p) {
+	this.products.add(p);
     }
-    
+
     public Product getMain_product() {
-        return main_product;
+	return main_product;
     }
 
     public void setMain_product(Product main_product) {
-        this.main_product = main_product;
+	this.main_product = main_product;
     }
 
-    public String getOverview() {
-        return overview;
+    public String getOverview(Lang lang) {
+	if (overview.containsKey(lang)) {
+	    return overview.get(lang);
+	} else {
+	    return overview.get(Lang.EN);
+	}
     }
 
-    public void setOverview(String overview) {
-        this.overview = overview;
+    public void setOverview(Lang lang, String overview) {
+	this.overview.put(lang, overview);
     }
 
     public String getCoverId() {
-        return coverId;
+	return coverId;
     }
 
     public void setCoverId(String coverId) {
-        this.coverId = coverId;
+	this.coverId = coverId;
     }
 
     public Date getReleaseDate() {
-        return releaseDate;
+	return releaseDate;
     }
 
     public void setReleaseDate(Date releaseDate) {
-        this.releaseDate = releaseDate;
+	this.releaseDate = releaseDate;
     }
 
     public Set<Country> getCountries() {
-        return countries;
+	return countries;
     }
 
     public void setCountries(Set<Country> countries) {
-        this.countries = countries;
+	this.countries = countries;
     }
 
     public Double getRating() {
-        return rating;
+	return rating;
     }
 
     public void setRating(Double rating) {
-        this.rating = rating;
+	this.rating = rating;
     }
 
     public Set<Video> getVideoFile() {
-        return videoFile;
+	return videoFile;
     }
 
     public void setVideoFile(Set<Video> videoFile) {
-        this.videoFile = videoFile;
+	this.videoFile = videoFile;
     }
 
     public void addVideoFile(Video videoFile) {
-        this.videoFile.add(videoFile);
+	this.videoFile.add(videoFile);
     }
 
     public Video getTrailler() {
-        return trailler;
+	return trailler;
     }
 
     public void setTrailler(Video trailler) {
-        this.trailler = trailler;
+	this.trailler = trailler;
     }
 
     public List<Person> getActors() {
-        return actors;
+	return actors;
     }
 
     public void setActors(List<Person> actors) {
-        this.actors = actors;
+	this.actors = actors;
+    }
+
+    public void addActor(Person a) {
+	this.actors.add(a);
     }
 
     public List<Person> getDirectors() {
-        return directors;
+	return directors;
     }
 
     public void setDirectors(List<Person> directors) {
-        this.directors = directors;
+	this.directors = directors;
+    }
+
+    public void addDirector(Person d) {
+	this.directors.add(d);
     }
 
     public Set<Genre> getGenre() {
-        return genre;
+	return genre;
     }
-    
-    public void addGenre(Genre g)
-    {
-        this.genre.add(g);
+
+    public void addGenre(Genre g) {
+	this.genre.add(g);
     }
 
     public void setGenre(Set<Genre> genre) {
-        this.genre = genre;
+	this.genre = genre;
     }
 
     public Integer getRuntime() {
-        return runtime;
+	return runtime;
     }
 
     public void setRuntime(Integer runtime) {
-        this.runtime = runtime;
+	this.runtime = runtime;
+    }
+
+    public void removeVideo(Video v) {
+	this.videoFile.remove(v);
     }
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+	int hash = 0;
+	hash += (id != null ? id.hashCode() : 0);
+	return hash;
     }
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Film)) {
-            return false;
-        }
-        Film other = (Film) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+	// TODO: Warning - this method won't work in the case the id fields are not set
+	if (!(object instanceof Film)) {
+	    return false;
+	}
+	Film other = (Film) object;
+	if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+	    return false;
+	}
+	return true;
     }
 
     @Override
     public String toString() {
-        return "Film{" + "id=" + id + ", products=" + products + ", main_product=" + main_product + ", title=" + title + ", overview=" + overview + ", coverId=" + coverId + ", releaseDate=" + releaseDate + ", countries=" + countries + ", rating=" + rating + ", videoFile=" + videoFile + ", trailler=" + trailler + ", actors=" + actors + ", directors=" + directors + ", genre=" + genre + '}';
+	return "Film{" + "id=" + id + ", products=" + products + ", main_product=" + main_product + ", title=" + title + ", overview=" + overview + ", coverId=" + coverId + ", releaseDate=" + releaseDate + ", countries=" + countries + ", rating=" + rating + ", videoFile=" + videoFile + ", trailler=" + trailler + ", actors=" + actors + ", directors=" + directors + ", genre=" + genre + '}';
+    }
+
+    public void removeProduct(Product p) {
+	this.products.remove(p);
     }
 
 }

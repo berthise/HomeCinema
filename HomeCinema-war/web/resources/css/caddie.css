@@ -1,0 +1,132 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Nov 15, 2014, 2:23:57 PM
+    Author     : seb
+*/
+
+#caddie {
+  margin-bottom : 15px;
+}
+
+#caddie table {
+  text-align:  center;
+  border: 1px solid #777;
+}
+
+#caddie h3 {
+  padding: 0 0 10px 0;
+  margin: 0 0 15px 0;
+  font-size: 30px;
+  border-bottom: 1px solid #ccc;
+}
+
+#caddie h3 img {
+  margin-right: 10px;
+  margin-top: -5px;
+}
+
+#caddie  tr {
+  padding: 3px;
+  border: 1px solid #777;
+}
+
+#caddie td {
+    padding: 3px;
+}
+
+#caddie tr td:nth-of-type(1) {
+  width: 5%;
+}
+
+#caddie tr td:nth-of-type(2) {
+  width: 9%;
+}
+
+#caddie tr td:nth-of-type(3) {
+  width: 70%;
+}
+
+#caddie tr td:nth-of-type(4) {
+  width: 8%;
+}
+
+#caddie tr td:nth-of-type(5) {
+  width: 8%;
+}
+
+#caddie .align-left {
+  text-align: left !important;
+  padding-left: 30px !important;
+}
+
+#caddie .align-right {
+  text-align: right !important;
+  padding-right: 10px !important;
+}
+
+#caddie .title-film-caddie  {
+  text-align: left !important;
+  padding-left: 20px !important;
+}
+
+#caddie .td-right {
+  border-right: 1px solid #777;
+}
+
+
+#caddie span.affiche {
+  outline:none;
+}
+
+#caddie span.affiche:hover {
+  text-decoration: none;
+} 
+
+#caddie span.affiche span {
+  z-index:  10;
+  display:none;
+}
+
+#caddie span.affiche:hover span{
+  display: inline;
+  position: absolute; 
+  border: 2px solid #FFF;
+  background: #333;
+}
+
+#caddie .callout {
+  z-index: 20;
+  position: absolute;
+  border: 0;
+  top: -14px;
+  left: 120px;
+}
+
+#caddie span.affiche span {
+  border-radius: 2px;        
+  box-shadow: 0px 0px 1px 1px #666;
+}
+
+#caddie .affiche span img {
+  width: 100px;
+}
+
+#caddie .no-border-right {
+  border-right: none !important;
+}
+
+#caddie .button-delete {
+  background: url("#{resource['img:delete.png']}") no-repeat;
+  width: 20px;
+  height: 17px;
+  border: none;
+  outline:none;
+}
+
+#caddie .to-right {
+  float: right;
+}

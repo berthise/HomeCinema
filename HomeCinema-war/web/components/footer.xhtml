@@ -3,61 +3,51 @@
 <html
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:f="http://java.sun.com/jsf/core">
-<hr>
-
-<footer>
-    <div class="container">
-        <div class="row">
-            <div class="footer-elem col-md-4">
-                <h3 class="footer-title">Top 10</h3>
-                <ul class="footer-list">
-                    <li>Element du footer</li>
-                    <li>Element du footer</li>
-                    <li>Element du footer</li>
-                    <li>Element du footer</li>
-                    <li>Element du footer</li>
-                    <li>Element du footer</li>
-                    <li>Element du footer</li>
-                    <li>Element du footer</li>
-                    <li>Element du footer</li>
-                    <li>Element du footer</li>
-                </ul></div>
-            <div class="footer-elem col-md-4">
-                <h3 class="footer-title">Nouveautés</h3>
-                <ul class="footer-list">
-                    <li>Element du footer</li>
-                    <li>Element du footer</li>
-                    <li>Element du footer</li>
-                    <li>Element du footer</li>
-                    <li>Element du footer</li>
-                    <li>Element du footer</li>
-                    <li>Element du footer</li>
-                    <li>Element du footer</li>
-                    <li>Element du footer</li>
-                    <li>Element du footer</li>
-                </ul>
-            </div>
-            <div class="footer-elem col-md-4">
-                <h3 class="footer-title">Liens rapides</h3>
-                <ul class="footer-list">
-                    <li>Element du footer</li>
-                    <li>Element du footer</li>
-                    <li>Element du footer</li>
-                    <li>Element du footer</li>
-                    <li>Element du footer</li>
-                    <li>Element du footer</li>
-                    <li>Element du footer</li>
-                    <li>Element du footer</li>
-                    <li>Element du footer</li>
-                    <li>Element du footer</li>
-                </ul>
-            </div>
-        </div>
-        <hr />
-    </div>
-    
-</footer>
-</hr>
-    </html>
+    xmlns:h="http://java.sun.com/jsf/html">
+    <h:body>
+	<ui:composition>
+	    <hr>
+		<footer>
+		    <div class="container">
+			<div class="row">
+			    <div class="footer-elem col-md-4">
+				<h3 class="footer-title"><a href="#{msg['page-films']}.xhtml?tab=top">#{msg['search-top10']}</a></h3>
+				<ul class="footer-list">
+				    <ui:repeat var="o" value="#{listProductsManagedBean.getFooterTopProduct()}">
+					<li><a href="#{msg['page-fiche-product']}.xhtml?id=#{o.id}">#{o.name}</a></li>
+				    </ui:repeat>
+				</ul></div>
+			    <div class="footer-elem col-md-4">
+				<h3 class="footer-title"><a href="#{msg['page-films']}.xhtml?tab=new">#{msg['search-new']}</a></h3>
+				<ul class="footer-list">
+				    <ui:repeat var="o" value="#{listProductsManagedBean.getFooterNewProduct()}">
+					<li><a href="#{msg['page-fiche-product']}.xhtml?id=#{o.id}">#{o.name}</a></li>
+				    </ui:repeat>
+				</ul>
+			    </div>
+			    <div class="footer-elem col-md-4">
+				<h3 class="footer-title">A propos</h3>
+				<ul class="footer-list">
+				    <li><a href="">#{msg['menu-mentions-legales']}</a></li>
+				    <li><a href="#{msg['page-contact']}.xhtml">#{msg['contact-title-page']}</a></li>
+				    <li><a href="#{msg['page-sitemap']}.xhtml">#{msg['sitemap-title']}</a></li>
+				</ul>
+				<h3 class="footer-title">#{msg['quick-link']}</h3>
+				<ul class="footer-list">
+				    <li><a href="#{msg['page-index']}.xhtml">#{msg['menu-accueil']}</a></li>
+				    <li><a href="#{msg['page-films']}.xhtml">#{msg['films-all']}</a></li>
+				    <li><a href="#{msg['page-faq']}.xhtml">#{msg['menu-faq']}</a></li>
+				    <li><a href="#{msg['page-demo']}.xhtml">#{msg['menu-demo']}</a></li>
+				</ul>
+			    </div>
+			</div>
+			<hr />
+		    </div>
+                    <a id="back-to-top" href="#" class="btn btn-success btn-lg back-to-top" role="button" title="Remonter en haut de la page" data-toggle="tooltip" data-placement="left">
+                        <span class="glyphicon glyphicon-chevron-up"></span>
+                    </a>
+		</footer>
+	    </hr>
+	</ui:composition>
+    </h:body>
+</html>

@@ -12,6 +12,24 @@ import java.util.List;
  * @author titou
  */
 public class FilmFicheDto extends FilmDto {
-    public VideoDto trailler;
-    public List<VideoDto> files;
+
+  public VideoDto trailler;
+  public List<VideoDto> videos;
+
+  public VideoDto getTrailler() {
+    return trailler;
+  }
+
+  public void setTrailler(VideoDto trailler) {
+    this.trailler = trailler;
+  }
+
+  public List<VideoDto> getFiles() {
+    return videos;
+  }
+
+  public void setFiles(List<VideoDto> files) {
+    this.videos = files;
+  }
+
 }

@@ -6,8 +6,13 @@
 package ejbs;
 
 import dtos.FilmDto;
+import dtos.FilteredListProductsDto;
+import dtos.GenreDto;
 import dtos.ProductDto;
 import dtos.VideoDto;
+import enums.Lang;
+import enums.OrderTypes;
+import enums.ProductTypes;
 import java.util.List;
 import javax.ejb.Remote;
 
@@ -18,17 +23,68 @@ import javax.ejb.Remote;
 @Remote
 public interface ManageProductRemote {
 
-    public Long createProduct(ProductDto pdto);
+    //public Long createProduct(ProductDto pdto);
     
-    public Long createProductWithFilm(FilmDto fdto, VideoDto trailer, VideoDto vid, Double price);
+    //public Long createProductWithFilm(FilmDto fdto, VideoDto trailer, VideoDto vid, Double price);
 
-    public void addFilms(Long pid, List<FilmDto> lfdto);
+    //public void addFilms(Long pid, List<FilmDto> lfdto);
 
-    public void addFilm(Long pid, FilmDto fdto,boolean main);
+    //public void addFilm(Long pid, FilmDto fdto,boolean main);
 
     public void addExistingFilms(Long pid, List<Long> lfid);
 
     public void addExistingFilm(Long pid, Long fid,boolean main);
     
-    public List<ProductDto> getAllProduct();
+    //public List<ProductDto> getAllProduct();
+    
+    //public List<FilmDto> getFilms(Long pid);
+    
+    public ProductDto getProduct(Long pid,Lang lang);
+
+    //public ProductDto mergeOrSave(ProductDto pdto);
+    
+    //public List<GenreDto> getAllGenres();
+    
+    /**
+     *
+     * @param actor film avec l'acteur ayant cet id 0||null => tout
+     * @param director film réalisateur par le realisateur ayant cet id 0||null => tout
+     * @param lgdto liste de genre produit renvoyé si au moins 1 film appatient a 1 genre empty||null => tout
+     * @param mode AND ou OR
+     * @param str chaine de recherche (*str*) sur le nom du produit ""|null => tout 
+     * @param year1 annee de sortie  ""||null =>tout
+     * @param year2 annee de sortie  ""||null =>tout
+     * @param sort critere de tri
+     * @param limit nb de row max 0||null => tout
+     * @param row row de depart null=>0
+     * @param main affiche tous les products , uniquement les main product ou que les packs
+     * @return film correspondant a tous les critéres précedents , empty si aucun 
+     */
+
+    public FilteredListProductsDto getFilteredProducts(Long actor, Long director, List<Long> lgdto, String mode, String str, String year1, String year2, OrderTypes sort, Integer limit, Integer row, ProductTypes main, Lang lang);
+
+    public void activate(Long pid);
+
+    public void deactivate(Long pid);
+
+    public void removeFilm(Long pid, Long fid);
+
+    public List<FilmDto> getFilms(Long pid, Lang lang);
+
+    public void addFilm(Long pid, FilmDto fdto, Lang lang, boolean main);
+
+    public void addFilms(Long pid, Lang lang, List<FilmDto> lfdto);
+
+    public List<ProductDto> getAllProduct(Lang lang);
+
+    public ProductDto mergeOrSave(ProductDto pdto, Lang lang);
+
+    //public FilteredListProductsDto getFilteredProducts(Long actor, Long director, List<Long> lgdto, String str, String year, OrderTypes sort, Integer limit, Integer row, ProductTypes main, Lang lang);
+
+    public Long createProduct(ProductDto pdto, Lang lang);
+
+    public List<GenreDto> getAllGenres(Lang lang);
+
+    public Long createProductWithFilm(FilmDto fdto, VideoDto trailer, VideoDto vid, Double price, Lang lang);
+    
 }

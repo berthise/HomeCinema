@@ -7,6 +7,7 @@ package managers.entities;
 
 import dtos.GenreDto;
 import entities.Genre;
+import enums.Lang;
 import javax.persistence.EntityManager;
 import managers.dtos.GenreDtoManager;
 
@@ -16,10 +17,10 @@ import managers.dtos.GenreDtoManager;
  */
 public class ManageEntitieGenre {
 
-    public static Genre getGenre(GenreDto gdto, EntityManager em) {
+    public static Genre getGenre(GenreDto gdto,Lang lang, EntityManager em) {
         Genre g = em.find(Genre.class, gdto.id);
         if (g == null) {
-            GenreDtoManager.makeGenre(gdto);
+            g= GenreDtoManager.makeGenre(gdto,lang);
             em.persist(g);
         }
         return g;
