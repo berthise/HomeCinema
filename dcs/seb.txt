@@ -1,0 +1,51 @@
+Document de conception système
+
+
+--------------------------------
+Desciption Global
+--------------------------------
+
+Notre application de e-comerce basé sur la technologie J2EE est une
+architecture multitier.  D'une manière toute a fait classique, nous
+retrouvaons tout en bas la base de donnée. Elle est utilisé par la couche
+modèle, module que nous avons appelé HomeCinema-ejbs. Au dessus ce trouve la
+couche logique, coeur de notre application: les managed bean. Nous avons fait
+le choix d'avoir deux wars différents, un pour les clients, l'autre pour
+l'administration.  Enfin, tout en haut de cette pile ce trouve les clients,
+ici des navigateur web.
+
+global.dia
+
+Nous avons fait le choix de mettre les parties commune entre les wars et les
+ejbs dans une bibliotheque. Cette dernière comprend des Data transfere object,
+et les interfaces des ejbs.  De cette manière, les war et les ejbs peuvent
+tourner sur des serveur J2EE différents. Il nous est aussi possible de d'avoir
+une application "lourde" qui utilise directement les ejbs, afin par exemple de
+remplir notre base de donnée. Cette derniere est utilisé par les ejbs grace à
+un ORM, ici EclipseLink.
+
+global_candc.dia
+
+
+--------------------------------
+Entités
+--------------------------------
+
+Nous avons des produits, qui contienent au moins un film. Ces derniers on un
+produit principale, mais peut aussi appartenir à d'autre, comme des packs.
+Les films composés avec des fichiers videos: une bande annonce et au moins un
+fichier video du films. Ils ont des acteurs et des réalisateur que nous
+connaissons commer Personne. Chaque personne peut avoir realisé ou joué dans
+un ou plusieurs films.
+
+Les utilisateur du site sont enregistré dans user. Ils onts un caddie qui est
+une liste de produit. Une fois le paiement valider, la caddie est transformé
+en transaction est sauvegardé. L'utilisateur a une liste de films comprenant
+des donné spécifique à chaque utilisateur, comme l'état du visionnage d'un
+film.
+
+Lors de la creation d'un utilisateur, un code est généré est stocké dans
+UserActivation. L'utilsateur sera activé si ce dernier active son compte grace
+au code. De la meme manière, un utilisateur peut récuperer son mot de passe.
+
+diagramme_de_classe.dia
