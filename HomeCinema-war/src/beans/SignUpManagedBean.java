@@ -43,11 +43,12 @@ public class SignUpManagedBean {
 
     public void singUp() {
 	convertDate(birthDay);
-	user.password = Securite.crypte(user.password);
 	if (!user.password.equals(confPassword)) {
-	    Message.Warning(Lang.getString(""));
+	    Message.Warning(Lang.getString("signup-bean-warning"));
 	    return;
 	}
+	user.password = Securite.crypte(user.password);
+
 	try {
 	    user = Ejbs.user().signUp(user);
 	    SendMail.send(user.email, "[HomeCinéma] " + Lang.getString("signup-bean-email-1"),

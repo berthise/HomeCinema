@@ -14,7 +14,9 @@ import entities.Product;
 import entities.Transaction;
 import entities.User;
 import enums.Lang;
+import enums.ProductStates;
 import enums.TransactionStates;
+import exception.DeactivatedProductException;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -52,7 +54,7 @@ public class ManageTransaction implements ManageTransactionRemote {
     }
     
     @Override
-    public CaddieDto addProduct(Long user, Long id,Lang lang)
+    public CaddieDto addProduct(Long user, Long id,Lang lang) throws DeactivatedProductException
     {
         User u = em.find(User.class, user);
         if (u.getCaddy()==null)
@@ -61,7 +63,11 @@ public class ManageTransaction implements ManageTransactionRemote {
             em.persist(u.getCaddy());
             em.merge(u);
         }
-        u.getCaddy().addCaddy(em.find(Product.class,id));
+	Product p = em.find(Product.class,id);
+	if ( p.getState() != ProductStates.Activated ) {
+	  throw new DeactivatedProductException();
+	}
+        u.getCaddy().addCaddy(p);
         em.merge(u.getCaddy());
         return CaddieDtoManager.getDto(u.getCaddy(),lang);
     }

@@ -9,11 +9,14 @@ import ejbs.Ejbs;
 import dtos.CaddieDto;
 import dtos.FilmDto;
 import dtos.ProductDto;
+import exception.DeactivatedProductException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.RequestScoped;
 import javax.naming.NamingException;
 import static utils.Beans.findBean;
 import static utils.Beans.getRequestPage;
@@ -27,7 +30,7 @@ import utils.Redirect;
  * @author titou
  */
 @ManagedBean
-@ViewScoped
+@RequestScoped
 public class CaddieManagedBean {
 LanguageManagedBean lang = findBean("languageManagedBean");
     public class Product {
@@ -122,7 +125,12 @@ LanguageManagedBean lang = findBean("languageManagedBean");
 
     public void addProductFilmToCaddie(Long idproduct, Long idfilm) throws IOException {
 	SessionManagedBean session = findBean("sessionManagedBean");
-	this.cdto = Ejbs.transaction().addProduct(session.getId(), idproduct,lang.getLang());
+  try {
+    this.cdto = Ejbs.transaction().addProduct(session.getId(), idproduct,lang.getLang());
+  } catch (DeactivatedProductException ex) {
+    	Message.Error(Lang.getString("caddie-bean-product-deactivated"));
+
+  }
 	session.caddySizePlus();
 	session.relaodCaddyIds();
 	Message.Info(Lang.getString("caddie-bean-info"));
@@ -134,13 +142,25 @@ LanguageManagedBean lang = findBean("languageManagedBean");
 	SessionManagedBean session = findBean("sessionManagedBean");
 	switch (_switch) {
 	    case "FREE":
-		this.cdto = Ejbs.transaction().addProduct(session.getId(), idproduct,lang.getLang());
+	{
+	  try {
+	    this.cdto = Ejbs.transaction().addProduct(session.getId(), idproduct,lang.getLang());
+	  } catch (DeactivatedProductException ex) {
+    	Message.Error(Lang.getString("caddie-bean-product-deactivated"));
+	  }
+	}
 		session.caddySizePlus();
 		        session.relaodCaddyIds();
 
 		break;
 	    case "PART_CADDIE":
-		this.cdto = Ejbs.transaction().addProduct(session.getId(), idproduct,lang.getLang());
+	{
+	  try {
+	    this.cdto = Ejbs.transaction().addProduct(session.getId(), idproduct,lang.getLang());
+	  } catch (DeactivatedProductException ex) {
+    	Message.Error(Lang.getString("caddie-bean-product-deactivated"));
+	  }
+	}
 		for (FilmDto f : Ejbs.product().getFilms(idproduct,lang.getLang())) {
 		    Ejbs.transaction().removeProduct(session.getId(), f.main_product_id,lang.getLang());
 		}
@@ -150,7 +170,11 @@ LanguageManagedBean lang = findBean("languageManagedBean");
 	    default:
 //		for (FilmDto f : Ejbs.product().getFilms(idproduct,lang.getLang())) {
 		    if (!session.isInMyFilms(idproduct) && !session.isInMyCaddie(idproduct)) {
-			this.cdto = Ejbs.transaction().addProduct(session.getId(), idproduct,lang.getLang());
+	  try {
+	    this.cdto = Ejbs.transaction().addProduct(session.getId(), idproduct,lang.getLang());
+	  } catch (DeactivatedProductException ex) {
+    	Message.Error(Lang.getString("caddie-bean-product-deactivated"));
+	  }
 			session.caddySizePlus();
 			        session.relaodCaddyIds();
 

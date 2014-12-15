@@ -8,6 +8,7 @@ package beans;
 import dtos.FilmDto;
 import dtos.ProductDto;
 import ejbs.Ejbs;
+import enums.ProductStates;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -122,6 +123,15 @@ public class ProductManagedBean {
 	ProductDto p = Ejbs.product().getProduct(idproduct,lang.getLang());
 	return String.format("%.2f", p.price);
     }
+    public ProductStates getState() {
+	return pdto.state;
+    } 
+       
+    public ProductStates getState(Long idproduct) {
+	ProductDto p = Ejbs.product().getProduct(idproduct,lang.getLang());
+	return p.state;
+    } 
+    
 
     public String getShortOverview(FilmDto fdto, int limit) {
 	if (fdto.overview.length() < limit) {

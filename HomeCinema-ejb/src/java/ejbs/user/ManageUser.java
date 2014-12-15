@@ -256,6 +256,27 @@ public class ManageUser implements ManageUserRemote {
     return lfdto;
   }
   
+  
+  @Override
+  public int getNbFilms(Long id) {
+    User p = em.find(User.class, id);
+
+    return p.getFilms().size();
+  }
+  
+  @Override
+  public List<FilmDto> getFilmsPage(Long id,Lang lang,int row,int limit) {
+    User p = em.find(User.class, id);
+    List<FilmDto> lfdto = new ArrayList<>();
+    int i=0;
+    for (UsersFilms f : p.getFilms()) {
+	if ( i>=row && i<row+limit )
+	lfdto.add(FilmDtoManager.getDto(f.getFilm(),lang));
+	i++;
+    }
+    return lfdto;
+  }
+  
   @Override
   public Set<Long> getMyProductId(Long id) {
     User u = em.find(User.class, id);

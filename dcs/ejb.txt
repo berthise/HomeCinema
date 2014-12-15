@@ -1,0 +1,98 @@
+EJB
+
+Les fonctions ont été regroupé dans les ejbs selon l'entité qu'elle modifie
+
+Tous nos EJBs sont Stateless.
+
+toutes les fonction manipulant des dtos de film , produit ou genre doivent savoir dans qu'elle langue est le dto.
+
+ManageProduct 
+
+-création et modification d'un produit
+-modification des films d'un produit
+-cree le film et le lie au produit    
+-consultation la liste des produit ou les informtions d'un produit
+-fournit une fonction de recherche de produit avec des filtre ( par acteur, par réalisateur, par genre, par année de sortie selon une chaine) et une gestion de la pagination 
+
+ManageFilm
+
+-creation et modification d'un film
+-ajout de genre de personne et de réalisateur au film
+-ajout de video et trailer au film
+-choix du produit principal
+-obtenir une liste de tous les films
+-obtenir les informations sur un film
+
+
+ManagePerson
+-obtenir une personne 
+
+ManageTransaction 
+contient l'ensemble des fonctions associé au paiement et au caddie
+
+-ajouter un supprimer des produit du caddie
+-payer
+-consulter le caddie
+
+ManageUser
+
+-inscrire un utilisateur 
+-modifier les informations d'un utilisateur
+-permetre de recuperer son mot de passe
+-pemet d'activer et desactiver un utilisateur
+
+
+ManageUserFilm
+
+-permet de savoir et definir a quel moment du visionnage d'un film l'utilisateur est
+
+ManageVideo
+
+-permet de consulter la liste des videos 
+    
+ADMIN
+Une version admin non complete existe elle permet de consulter, d'ajouter et de modofier les films, les produits et les utilisateur 
+
+Pour chaque entité deux pages existe :
+-une pour obtenir la liste des elements
+-une pour creer/afficher/modifier un element 
+
+Un manage bean est associé a chaque page.
+Chaque page fait apel a l'EJB de l'entité a laquelle il est associé
+
+Products 
+-affiche la liste des produits
+
+
+Product
+-permet de creer un produit
+-affiche un Produit 
+-permet d'editer un poduit
+-permet d'activer deactiver un produit
+-permet d'ajouter /supprimer un film au produit
+
+
+Users 
+-affiche la liste des utilisateurs
+-permet de les supprimer
+
+User
+-affiche les informations d'un utilisateur
+-permet d'editer les informations d'un utlisateur
+-permet d'activer deactiver un utilisateur
+
+
+Films
+-affiche la liste des films
+
+Film
+-affcihe les informations d'un films
+-affiche les acteurs, réalisateurs et genre d'un film  
+-permet de modifier creer un film
+-permet de charger les informations depuis TMDB
+-permet de consulter la liste des produits auquel le produits appartient 
+-permet de choisir le produits principal
+
+Videos 
+-affiche toutes les videos ou les videos d'un film
+-permet d'ajouter des videos ou u  trailers a un film
