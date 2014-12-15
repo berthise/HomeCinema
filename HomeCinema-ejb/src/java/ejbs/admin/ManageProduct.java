@@ -142,7 +142,7 @@ public class ManageProduct implements ManageProductRemote {
     }
 
     @Override
-    public FilteredListProductsDto getFilteredProducts(Long actor, Long director, List<Long> lgdto, String mode, String str, String year1, String year2, OrderTypes sort, Integer limit, Integer row, ProductTypes main, Lang lang){
+    public FilteredListProductsDto getFilteredProducts(Long actor, Long director, List<Long> lgdto, String mode, String str, String year1, String year2, OrderTypes sort, Integer limit, Integer row, ProductTypes main, Lang lang) {
 	//
 	String query = "From PRODUCTS p join FILMS_PRODUCTS  on p.ID_PRODUCT = products_ID_PRODUCT join FILMS f on films_ID_FILM =f.ID_FILM join PRODUIT_NAME pn on ID_PRODUCT=PRODUIT_ID  where p.STATE_=0 ";
 	if (row == null) {
@@ -158,33 +158,34 @@ public class ManageProduct implements ManageProductRemote {
 	    query += " and f.ID_FILM in (select is_director_of_ID_FILM from DIRECTORS  where directors_ID_PERSON=" + director + ") ";
 	}
 	if (lgdto != null && !lgdto.isEmpty()) {
-	    query += " and f.ID_FILM in ( select Film_ID_FILM  from FILMS_GENRES g where ";
-	    boolean first = true;
-	    for (Long g : lgdto) {
-		if (first) {
-		    first = false;
-		} else {
-		    query += " or ";
-		}
-		query += " g.genre_ID_GENRE =" + g;
-	    }
 	    if (mode.equals("OR")) {
+		query += " and f.ID_FILM in ( select Film_ID_FILM  from FILMS_GENRES g where ";
+		boolean first = true;
+		for (Long g : lgdto) {
+		    if (first) {
+			first = false;
+		    } else {
+			query += " or ";
+		    }
+		    query += " g.genre_ID_GENRE =" + g;
+		}
+
 		query += " ) ";
 	    } else {
-		query += " GROUP BY Film_ID_FILM HAVING count( genre_ID_GENRE ) = " + lgdto.size() + " )";
+		for (Long g : lgdto) {
+		   query += " and f.ID_FILM in ( select Film_ID_FILM  from FILMS_GENRES g where  g.genre_ID_GENRE =" + g+" ) ";
+		}
 	    }
 	}
 	if (str != null && !str.equals("")) {
 	    query += " and  NAME like '%" + str + "%' ";
 
 	}
-	if (year1!=null && !year1.equals(""))
-	{
-	    query += " and  f.RELEASE_DATE > '"+year1+"-01-01' " ;
+	if (year1 != null && !year1.equals("")) {
+	    query += " and  f.RELEASE_DATE > '" + year1 + "-01-01' ";
 	}
-		if (year2!=null && !year2.equals(""))
-	{
-	    query += " and  f.RELEASE_DATE < '"+year2+"-12-31' " ;
+	if (year2 != null && !year2.equals("")) {
+	    query += " and  f.RELEASE_DATE < '" + year2 + "-12-31' ";
 	}
 	if (main.equals(ProductTypes.Main)) {
 	    query += " and p.ID_PRODUCT = f.MAIN_PRODUCT ";
@@ -192,41 +193,40 @@ public class ManageProduct implements ManageProductRemote {
 	    query += " and p.ID_PRODUCT <> f.MAIN_PRODUCT ";
 	}
 	try {
-	Query qnb = em.createNativeQuery("select COUNT(distinct p.ID_PRODUCT) " + query);
+	    Query qnb = em.createNativeQuery("select COUNT(distinct p.ID_PRODUCT) " + query);
 
-	Long nb = (Long) qnb.getSingleResult();
-	switch (sort) {
-	 case RATING:
-	 query += " order by f.RATING  desc ";
-	 break;
-	 case SALES:
-	 query += " order by p.NB_SALES desc";
-	 break;
-	 case ALPH:
-	 query += "ORDER BY pn.NAME ";
-	 break;
-	 case NEW:
-	 query += " order by p.ADD_DATE desc";
-	 break;
-	 case RAND:
-	 row = (int) (Math.random() * (getNbProduct() - limit));
-	 break;
-	 }
-	if (row < 0) {
-	    row = 0;
-	}
-	
-	query += " LIMIT " + limit + " OFFSET " + row;
-	Query q = em.createNativeQuery("select distinct p.*  " + query, Product.class);
-	List<Product> lpdto = q.getResultList();
-	
-	List<ProductDto> res = new ArrayList<>();
-	for (Product p : lpdto) {
-	    res.add(ProductDtoManager.getDto(p, lang));
-	}
-	return new FilteredListProductsDto(res, nb.intValue());
-	}catch (Exception e)
-	{
+	    Long nb = (Long) qnb.getSingleResult();
+	    switch (sort) {
+		case RATING:
+		    query += " order by f.RATING  desc ";
+		    break;
+		case SALES:
+		    query += " order by p.NB_SALES desc";
+		    break;
+		case ALPH:
+		    query += "ORDER BY pn.NAME ";
+		    break;
+		case NEW:
+		    query += " order by p.ADD_DATE desc";
+		    break;
+		case RAND:
+		    query += "order by rand()";
+		    break;
+	    }
+	    if (row < 0) {
+		row = 0;
+	    }
+
+	    query += " LIMIT " + limit + " OFFSET " + row;
+	    Query q = em.createNativeQuery("select distinct p.*  " + query, Product.class);
+	    List<Product> lpdto = q.getResultList();
+
+	    List<ProductDto> res = new ArrayList<>();
+	    for (Product p : lpdto) {
+		res.add(ProductDtoManager.getDto(p, lang));
+	    }
+	    return new FilteredListProductsDto(res, nb.intValue());
+	} catch (Exception e) {
 	    return new FilteredListProductsDto(new ArrayList<ProductDto>(), -1);
 	}
     }
