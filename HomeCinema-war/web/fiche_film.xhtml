@@ -39,6 +39,8 @@
             <div class="container">
                 <div class="panel panel-default">
                     <div class="panel-heading">
+		      	  
+
                         <h3>
                             <div class="row">
                                 <div class="col-md-8">
@@ -55,8 +57,19 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-4">
-                                <div class="row">				
-                                    <div class="col-md-12 film-picture">
+			      <div class="row" style="padding-bottom:20px">
+				<div class="col-md-12">
+
+				<div class="col-xs-6 col-low-padding-left">
+				  <a class="btn btn-success b" href="javascript:history.back()">#{msg['retour']}</a>
+				</div>
+				<div class="col-xs-6 col-low-padding-right">
+                                  <a href="" type="button" class="btn btn-primary b" data-toggle="modal" data-target="#ba_popup">#{msg['voir-ba']}</a>
+				</div>
+				</div>
+			      </div>
+			      <div class="row">				
+				<div class="col-md-12 film-picture">
                                         <h:graphicImage value="http://image.tmdb.org/t/p/w396/#{filmManagedBean.cover}" />
                                         <a class="hover-play" data-toggle="modal" data-target="#ba_popup">
                                             <img src="img/play_icon.png" />
@@ -86,10 +99,6 @@
                                                             <i class="glyphicon glyphicon-download-alt"></i>
                                                             #{msg['fiche-film-download']}
                                                         </a>
-      <!--						  <a class="btn btn-success b" href="#{filmManagedBean.getUrlDownload()}" download="#{filmManagedBean.getLinkToDownload()}">
-                                                              <i class="glyphicon glyphicon-download-alt"></i> 
-                                                        #{msg['fiche-film-download']}
-                                                    </a>-->
                                                     </div>
                                                 </div>
                                             </h:panelGroup>
@@ -121,16 +130,7 @@
                                                     </div>
                                                 </div>
                                             </h:panelGroup>
-                                            <h:panelGroup rendered="#{accountManagedBean.getCodeButtonsFilm(filmManagedBean.id) eq 'OWNED'}">
-                                                <ez:videos callback="valideVideo()" button="Télécharger"/>
-                                            </h:panelGroup>
-                                            <div class="row" style="margin-top: 15px;">
-                                                <div class="col-xs-10 col-low-padding-left">
-                                                    <a href="" type="button" class="btn btn-primary" data-toggle="modal" data-target="#ba_popup">
-                                                        Voir la bande annonce
-                                                    </a>
-                                                </div>
-                                            </div>
+
                                         </div>
                                     </div>
                                 </div>

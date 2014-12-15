@@ -74,7 +74,7 @@ public class PaymentManagedBean {
 	SessionManagedBean session = findBean("sessionManagedBean");
 
 	session.cancelPaiement();
-	Redirect.redirectTo(Pages.MON_COMPTE);
+	Redirect.redirectTo(Pages.MON_COMPTE + "#caddie");
     }
 
     public PaymentDto getPdto() {
