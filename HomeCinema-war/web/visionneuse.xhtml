@@ -43,6 +43,7 @@
                 <div id="ba" class="well">
                     <h2 class="well-title"><strong>#{msg['visio-subtitle']}: </strong><h:outputText value="#{filmManagedBean.getLinkToFiche()}" escape="false"/>
                         <div class="form-download-film">
+			  <a class="btn btn-success" href="javascript:history.back()"  tabindex="#{cc.attrs.tabidx+7}" >#{msg['retour']}</a>
 			      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#dl_popup" onclick="videoPause()">
 			    Changer le format
 			    </button>
