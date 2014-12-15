@@ -76,14 +76,11 @@ public class SessionManagedBean {
     
     public Boolean isInMyFilms(Long ids) {
       	SessionManagedBean session = findBean("sessionManagedBean");
-	System.out.println("ids in my films ? " + ids + " : " + session.getUsersfilms().contains(ids));
 	return session.getUsersfilms().contains(ids);
     }
 
     public Boolean isInMyCaddie(Long ids) {
         SessionManagedBean session = findBean("sessionManagedBean");
-	System.out.println("ids in my caddy ? " + ids + " : " + session.getUserscaddy().contains(ids));
-
       	return session.getUserscaddy().contains(ids);
 
     }

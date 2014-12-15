@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.RequestScoped;
 import javax.naming.NamingException;
 import static utils.Beans.findBean;
 import static utils.Beans.getRequestPage;
@@ -27,7 +27,7 @@ import utils.Redirect;
  * @author titou
  */
 @ManagedBean
-@ViewScoped
+@RequestScoped
 public class CaddieManagedBean {
 LanguageManagedBean lang = findBean("languageManagedBean");
     public class Product {

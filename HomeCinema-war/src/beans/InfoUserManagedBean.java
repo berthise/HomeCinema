@@ -5,9 +5,8 @@
  */
 package beans;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.RequestScoped;
 import static utils.Beans.findBean;
 import utils.Lang;
 import utils.Message;
@@ -17,7 +16,7 @@ import utils.Message;
  * @author toure
  */
 @ManagedBean
-@ViewScoped
+@RequestScoped
 public class InfoUserManagedBean {
 
     private String password = "";

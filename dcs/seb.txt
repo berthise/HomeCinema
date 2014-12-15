@@ -64,7 +64,7 @@ supprimer un produit, et de valider le caddie pour passer au paiement.
 Cette fonctionnalité utilise deux ManagedBean: CaddieManagedBean et
 SessionManagedBean.
 
-Le premier, en ViewScoped, contient les opérations à éffectuer sur le caddie,
+Le premier, en RequestScoped, contient les opérations à éffectuer sur le caddie,
 telle que lister les produits, ajouter un produit et supprimer un produit. Il
 utilise l'EJB ManagedTransation pour modifier le caddie et l'EJB
 ManagedProduct afin de recupere la liste des produit du caddie. Les entités
@@ -98,5 +98,5 @@ Voir l'historique des transactions
 L'utilisateur peut voir son historique des transactions  sur la page
 moncompte.
 
-Cette fonctionnnalité utilise HistoryManagedBean (ViewScoped) qui lui même
+Cette fonctionnnalité utilise HistoryManagedBean (RequestScoped) qui lui même
 utilise l'EJB ManagedTransaction.

@@ -9,7 +9,7 @@ import ejbs.Ejbs;
 import dtos.TransactionDto;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.RequestScoped;
 import static utils.Beans.findBean;
 
 /**
@@ -17,7 +17,7 @@ import static utils.Beans.findBean;
  * @author titou
  */
 @ManagedBean
-@ViewScoped
+@RequestScoped
 public class HistoryManagedBean {
     
         LanguageManagedBean lang = findBean("languageManagedBean");
