@@ -208,12 +208,12 @@ public class FilmManagedBean {
 	List<PersonDto> list = Ejbs.film().getDirector(fdto.id);
 	String toReturn = "";
 	for (PersonDto s : list) {
-	    toReturn += "<a href=\"" + Pages.FILMS + "?tab=search&clean=&director=" + s.id + "\" class=\"list-genres-crew\">" + s.name + "</a> ";
+	    toReturn += "<a href=\"" + Pages.FILMS + "?tab=search&clean=&director=" + s.id + "\" class=\"label label-default\">" + s.name + "</a> ";
 	}
 	if (toReturn.length() > 0) {
 	    return toReturn;
 	} else {
-	    return "<span class=\"list-genres-crew\">" + Lang.getString("inconnu") + "</span>";
+	    return "<span class=\"label label-default\">" + Lang.getString("inconnu") + "</span>";
 	}
     }
 
@@ -221,12 +221,12 @@ public class FilmManagedBean {
 	List<PersonDto> list = Ejbs.film().getCasting(fdto.id);
 	String toReturn = "";
 	for (PersonDto s : list) {
-	    toReturn += "<a href=\"" + Pages.FILMS + "?tab=search&clean=&actor=" + s.id + "\" class=\"list-genres-crew\">" + s.name + "</a> ";
+	    toReturn += "<a href=\"" + Pages.FILMS + "?tab=search&clean=&actor=" + s.id + "\" class=\"label label-default\">" + s.name + "</a> ";
 	}
 	if (toReturn.length() > 0) {
 	    return toReturn;
 	} else {
-	    return "<span class=\"list-genres-crew\">" + Lang.getString("inconnu") + "</span>";
+	    return "<span class=\"label label-default\">" + Lang.getString("inconnu") + "</span>";
 	}
     }
 
@@ -234,12 +234,12 @@ public class FilmManagedBean {
 	Set<GenreDto> set = Ejbs.film().getGenre(fdto.id,lang.getLang());
 	String toReturn = "";
 	for (GenreDto s : set) {
-	    toReturn += "<a href=\"" + Pages.FILMS + "?tab=search&clean=&genre=" + s.id + "\" class=\"list-genres-crew\">" + s.name + "</a> ";
+	    toReturn += "<a href=\"" + Pages.FILMS + "?tab=search&clean=&genre=" + s.id + "\" class=\"label label-default\">" + s.name + "</a> ";
 	}
 	if (toReturn.length() > 0) {
 	    return toReturn;
 	} else {
-	    return "<span class=\"list-genres-crew\">" + Lang.getString("inconnu") + "</span>";
+	    return "<span class=\"label label-default\">" + Lang.getString("inconnu") + "</span>";
 	}
     }
 

@@ -261,6 +261,23 @@ body {
                 font-weight: bold;
             }
         }
+        .info-fiche-film {
+            i {
+                margin: 5px;
+                position: relative;
+                top: 4px;
+            }
+        }
+        .film-picture {
+            img {                
+                width: 100%;
+            }
+            > img {
+                border-radius: 5px;
+                border: 1px solid #e6e6e6;
+                box-shadow: 2px 2px 3px #080808;
+            }
+        }
         .well {
             color: $font-color;
             .well-title {
@@ -310,7 +327,10 @@ body {
         .toggle-row {
             margin-top: 5px;
             margin-bottom: 5px;
-            display: none;
+            > div {
+                margin: auto;
+                float: none;
+            }
         }
         /* ---------- 3D buttons ----------*/
         .btn {
@@ -417,7 +437,7 @@ body {
     .rating p {
         font-size: 15px;
         margin-left: 15px;
-        margin-top: 12px;
+        margin-top: 8px;
         float: right;
     }
 

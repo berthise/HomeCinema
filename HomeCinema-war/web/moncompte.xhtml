@@ -66,79 +66,90 @@
                                     <h4><i class="glyphicon glyphicon-info-sign" />Informations</h4>
                                 </div>
                                 <div class="panel-body">
-                                    <a href="#" id="edit_mail" class="toggle-btn">Changer mon adresse mail</a>
-
                                     <div class="row toggle-row">
-                                        <div class="col-md-10">
-                                            <h:form role="form">
-                                                <h:messages id="output" globalOnly="true" infoClass="alert alert-success" errorClass="alert alert-warning"
-                                                            fatalClass="alert alert-danger" warnClass="alert alert-warning" />
-                                                <div class="row">
-                                                    <div class="form-group">
-                                                        <h:outputLabel class="col-md-5 form-label" for="email">Email <i class="required">*</i> : </h:outputLabel>
-                                                        <div class="col-md-7">
-                                                            <h:inputText p:type="email" id="newEmail" class="form-control" value="#{infoUserManagedBean.newEmail}" p:placeholder="Adresse e-mail" p:required="required" />
+                                        <div class="col-xs-10">
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h5>Changer mon adresse mail</h5>
+                                                </div> 
+                                                <div class="panel-body">
+                                                    <h:form role="form">
+                                                        <h:messages id="output" globalOnly="true" infoClass="alert alert-success" errorClass="alert alert-warning"
+                                                                    fatalClass="alert alert-danger" warnClass="alert alert-warning" />
+                                                        <div class="row">
+                                                            <div class="form-group">
+                                                                <h:outputLabel class="col-xs-5 form-label" for="email">Email <i class="required">*</i> : </h:outputLabel>
+                                                                <div class="col-xs-7">
+                                                                    <h:inputText p:type="email" id="newEmail" class="form-control" value="#{infoUserManagedBean.newEmail}" p:placeholder="Adresse e-mail" p:required="required" />
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="form-group">
-                                                        <h:outputLabel class="col-md-5 form-label" for="password">Mot de passe <i class="required">*</i> : </h:outputLabel>
-                                                        <div class="col-md-7">
-                                                            <h:inputSecret id="oldPassword" class="form-control" value="#{infoUserManagedBean.password}" p:placeholder="Mot de passe" />
+                                                        <div class="row">
+                                                            <div class="form-group">
+                                                                <h:outputLabel class="col-xs-5 form-label" for="password">Mot de passe <i class="required">*</i> : </h:outputLabel>
+                                                                <div class="col-xs-7">
+                                                                    <h:inputSecret id="oldPassword" class="form-control" value="#{infoUserManagedBean.password}" p:placeholder="Mot de passe" />
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                    </div>
+                                                        <div class="row" style="margin-top: 5px">
+                                                            <span class="col-xs-5"></span>
+                                                            <div class="col-xs-7">
+                                                                <h:commandButton class="btn btn-primary" value="Changer mon email" action="#{infoUserManagedBean.changeEmail}">
+                                                                    <f:ajax execute="@form" render="output" />
+                                                                </h:commandButton>
+                                                            </div>
+                                                        </div>
+                                                    </h:form>
                                                 </div>
-                                                <div class="row" style="margin-top: 5px">
-                                                    <span class="col-md-5"></span>
-                                                    <div class="col-md-7">
-                                                        <h:commandButton class="btn btn-primary" value="Changer mon email" action="#{infoUserManagedBean.changeEmail}">
-                                                            <f:ajax execute="@form" render="output" />
-                                                        </h:commandButton>
-                                                    </div>
-                                                </div>
-                                            </h:form>
+                                            </div>
                                         </div>
                                     </div>
-                                    <br /><a href="#" id="edit_mail" class="toggle-btn">Changer de mot de passe</a>
                                     <div class="row toggle-row">
-                                        <div class="col-md-10">
-                                            <h:form>
-                                                <h:messages id="output" globalOnly="true" infoClass="alert alert-success" errorClass="alert alert-warning"
-                                                            fatalClass="alert alert-danger" warnClass="alert alert-warning" />
-                                                <div class="row">
-                                                    <div class="form-group">
-                                                        <h:outputLabel class="col-md-5 form-label" for="newPassword">Nouveau mot de passe <i class="required">*</i> : </h:outputLabel>
-                                                        <div class="col-md-7">
-                                                            <h:inputSecret id="newPassword" class="form-control" value="#{infoUserManagedBean.newPassword}" p:placeholder="Mot de passe" />
+                                        <div class="col-xs-10">
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h5>Changer de mot de passe</h5>
+                                                </div> 
+                                                <div class="panel-body">
+                                                    <h:form>
+                                                        <h:messages id="output" globalOnly="true" infoClass="alert alert-success" errorClass="alert alert-warning"
+                                                                    fatalClass="alert alert-danger" warnClass="alert alert-warning" />
+                                                        <div class="row">
+                                                            <div class="form-group">
+                                                                <h:outputLabel class="col-xs-5 form-label" for="newPassword">Nouveau mot de passe <i class="required">*</i> : </h:outputLabel>
+                                                                <div class="col-xs-7">
+                                                                    <h:inputSecret id="newPassword" class="form-control" value="#{infoUserManagedBean.newPassword}" p:placeholder="Mot de passe" />
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="form-group">
-                                                        <h:outputLabel class="col-md-5 form-label" for="conf_pass">Confirmation mot de passe <i class="required">*</i> : </h:outputLabel>
-                                                        <div class="col-md-7">
-                                                            <h:inputSecret id="conf_password" class="form-control" value="#{infoUserManagedBean.confPassword}"  p:placeholder="Confirmation mot de passe" p:required="required" />
+                                                        <div class="row">
+                                                            <div class="form-group">
+                                                                <h:outputLabel class="col-xs-5 form-label" for="conf_pass">Confirmation mot de passe <i class="required">*</i> : </h:outputLabel>
+                                                                <div class="col-xs-7">
+                                                                    <h:inputSecret id="conf_password" class="form-control" value="#{infoUserManagedBean.confPassword}"  p:placeholder="Confirmation mot de passe" p:required="required" />
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="form-group">
-                                                        <h:outputLabel class="col-md-5 form-label" for="oldPassword">Ancien mot de passe <i class="required">*</i> : </h:outputLabel>
-                                                        <div class="col-md-7">
-                                                            <h:inputSecret id="oldPassword" class="form-control" value="#{infoUserManagedBean.password}" p:placeholder="Ancien mot de passe" p:required="required" />
+                                                        <div class="row">
+                                                            <div class="form-group">
+                                                                <h:outputLabel class="col-xs-5 form-label" for="oldPassword">Ancien mot de passe <i class="required">*</i> : </h:outputLabel>
+                                                                <div class="col-xs-7">
+                                                                    <h:inputSecret id="oldPassword" class="form-control" value="#{infoUserManagedBean.password}" p:placeholder="Ancien mot de passe" p:required="required" />
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                    </div>
+                                                        <div class="row" style="margin-top: 5px">
+                                                            <span class="col-xs-5"></span>
+                                                            <div class="col-xs-7">
+                                                                <h:commandButton class="btn btn-primary" value="Changer de mot de passe" action="#{infoUserManagedBean.changePassword}">
+                                                                    <f:ajax execute="@form" render="output" />
+                                                                </h:commandButton>
+                                                            </div>
+                                                        </div>
+                                                    </h:form>
                                                 </div>
-                                                <div class="row" style="margin-top: 5px">
-                                                    <span class="col-md-5"></span>
-                                                    <div class="col-md-7">
-                                                        <h:commandButton class="btn btn-primary" value="Changer de mot de passe" action="#{infoUserManagedBean.changePassword}">
-                                                            <f:ajax execute="@form" render="output" />
-                                                        </h:commandButton>
-                                                    </div>
-                                                </div>
-                                            </h:form>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
