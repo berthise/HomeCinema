@@ -29,12 +29,12 @@
                                 <ez:lang />
                             </c:when>
                             <c:otherwise>
-                                <span class="decale-right" style="color: white;"> <h:outputText value="#{msg['header-welcome']}" /> "<b>#{sessionManagedBean.firstName}</b>" </span> | 
+			      <span class="decale-right" style="color: white;"> <h:outputText value="#{msg['header-welcome']}" /> "<b>#{sessionManagedBean.firstName}</b>" </span> | 
                                 <a href="#{msg['page-account']}.xhtml" title="#{msg['header-voircompte']}">
                                     <i class="glyphicon glyphicon-folder-open"></i>
 				    <span class="badge">#{sessionManagedBean.filmsSize}</span>
                                 </a> |
-                                <a href="#{msg['page-account']}.xhtml?box=caddie" title="#{msg['header-voircaddie']}">
+                                <a href="#{msg['page-account']}.xhtml#caddie" title="#{msg['header-voircaddie']}">
                                     <i class="glyphicon glyphicon-shopping-cart"></i>
 				    <span class="badge">#{sessionManagedBean.caddySize}</span>
 				    <!--(#{sessionManagedBean.caddySize})-->
