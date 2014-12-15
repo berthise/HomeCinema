@@ -29,7 +29,9 @@ import utils.Redirect;
 @ManagedBean
 @SessionScoped
 public class ListProductsManagedBean {
-LanguageManagedBean lang = findBean("languageManagedBean");
+
+    LanguageManagedBean lang = findBean("languageManagedBean");
+    SessionManagedBean session = findBean("sessionManagedBean");
     private final List<String> listTabsFilms;
     private String tabFilms;
 
@@ -101,12 +103,12 @@ LanguageManagedBean lang = findBean("languageManagedBean");
 	searchOpened = CLOSE;
 	page = lastPage = 1;
 	allGenres = null;
-	staticNewProduct = Ejbs.product().getFilteredProducts(null, null, null, null, null, null, null, OrderTypes.NEW, 9, null, ProductTypes.All,lang.getLang()).list;
-	staticTopProduct = Ejbs.product().getFilteredProducts(null, null, null, null, null, null, null, OrderTypes.RATING, 9, null, ProductTypes.All,lang.getLang()).list;
+	staticNewProduct = Ejbs.product().getFilteredProducts(null, null, null, null, null, null, null, OrderTypes.NEW, 9, null, ProductTypes.All, lang.getLang(), 0).list;
+	staticTopProduct = Ejbs.product().getFilteredProducts(null, null, null, null, null, null, null, OrderTypes.RATING, 9, null, ProductTypes.All, lang.getLang(), 0).list;
     }
 
     public boolean isPack(Long id) {
-	return Ejbs.product().getFilms(id,lang.getLang()).size() > 1;
+	return Ejbs.product().getFilms(id, lang.getLang()).size() > 1;
     }
 
     public String getEmptyTd(List<List<ProductDto>> list) {
@@ -129,19 +131,25 @@ LanguageManagedBean lang = findBean("languageManagedBean");
     }
 
     private List<ProductDto> getAllFilms() {
-	FilteredListProductsDto flpdto = Ejbs.product().getFilteredProducts(null, null, null, null, null, null, null, OrderTypes.ALPH, N_PER_PAGE, (page - 1) * N_PER_PAGE, ProductTypes.Main,lang.getLang());
+	FilteredListProductsDto flpdto = Ejbs.product().getFilteredProducts(null, null, null, null, null, null, null, OrderTypes.ALPH, N_PER_PAGE, (page - 1) * N_PER_PAGE, ProductTypes.Main, lang.getLang(), 0);
 	updateLastPage(flpdto);
 	return flpdto.list;
     }
 
     private List<ProductDto> getAllProducts() {
-	FilteredListProductsDto flpdto = Ejbs.product().getFilteredProducts(null, null, null, null, null, null, null, OrderTypes.ALPH, N_PER_PAGE, (page - 1) * N_PER_PAGE, ProductTypes.Pack,lang.getLang());
+	FilteredListProductsDto flpdto = Ejbs.product().getFilteredProducts(null, null, null, null, null, null, null, OrderTypes.ALPH, N_PER_PAGE, (page - 1) * N_PER_PAGE, ProductTypes.Pack, lang.getLang(), 0);
 	updateLastPage(flpdto);
 	return flpdto.list;
     }
 
     private List<ProductDto> getSearchProducts(SearchParams params) {
-	FilteredListProductsDto flpdto = Ejbs.product().getFilteredProducts(params.actorId, params.directorId, params.genres, params.genresMode, params.title, params.date1, params.date2, OrderTypes.NO, N_PER_PAGE, (page - 1) * N_PER_PAGE, ProductTypes.All,lang.getLang());
+	FilteredListProductsDto flpdto;
+	if (params.hide_own) {
+	    flpdto = Ejbs.product().getFilteredProducts(params.actorId, params.directorId, params.genres, params.genresMode, params.title, params.date1, params.date2, OrderTypes.ALPH, N_PER_PAGE, (page - 1) * N_PER_PAGE, ProductTypes.All, lang.getLang(), session.getId());
+	} else {
+	    flpdto = Ejbs.product().getFilteredProducts(params.actorId, params.directorId, params.genres, params.genresMode, params.title, params.date1, params.date2, OrderTypes.ALPH, N_PER_PAGE, (page - 1) * N_PER_PAGE, ProductTypes.All, lang.getLang(), 0);
+	}
+
 	updateLastPage(flpdto);
 	return flpdto.list;
     }
@@ -173,8 +181,8 @@ LanguageManagedBean lang = findBean("languageManagedBean");
     }
 
     public List<ProductDto> getSelectionFilms(int n) {
-      System.err.println("getSelectionFilms");
-	return Ejbs.product().getFilteredProducts(null, null, null, null, null, null, null, OrderTypes.RAND, n, 0, ProductTypes.Main,lang.getLang()).list;
+	System.err.println("getSelectionFilms");
+	return Ejbs.product().getFilteredProducts(null, null, null, null, null, null, null, OrderTypes.RAND, n, 0, ProductTypes.Main, lang.getLang(), 0).list;
     }
 
     public List<GenreDto> getAllGenres() {
@@ -183,8 +191,8 @@ LanguageManagedBean lang = findBean("languageManagedBean");
 	}
 	return allGenres;
     }
-    
-    public void resetAllGenres (){
+
+    public void resetAllGenres() {
 	this.allGenres = null;
     }
 
@@ -195,9 +203,9 @@ LanguageManagedBean lang = findBean("languageManagedBean");
     public void setPage(int page) {
 	this.page = page;
     }
-    
-    public void setPage1AndRedirect(){
-	this.page=1;
+
+    public void setPage1AndRedirect() {
+	this.page = 1;
 	Redirect.redirectTo(Pages.FILMS + "?tab=all");
     }
 

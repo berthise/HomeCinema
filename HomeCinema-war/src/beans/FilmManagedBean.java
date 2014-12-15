@@ -9,6 +9,7 @@ import dtos.FilmDto;
 import dtos.FilmFicheDto;
 import dtos.GenreDto;
 import dtos.PersonDto;
+import dtos.ProductDto;
 import dtos.VideoDto;
 import ejbs.Ejbs;
 import enums.Langs;
@@ -21,18 +22,13 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.naming.NamingException;
 import static utils.Beans.findBean;
 import utils.Lang;
 import utils.Pages;
-import utils.Paramters;
-import utils.Redirect;
 
 /**
  *
@@ -43,6 +39,7 @@ import utils.Redirect;
 public class FilmManagedBean {
 
     public FilmFicheDto fdto;
+//    public ProductDto pdto;
 
     LanguageManagedBean lang = findBean("languageManagedBean");
     
@@ -54,10 +51,11 @@ public class FilmManagedBean {
 	if (fdto.id == null || fdto.id == 0) {
 	    FacesContext.getCurrentInstance().getExternalContext().dispatch(Pages.NOT_FOUND);
 	}
-	     System.out.println("id = " + fdto.id + " lang = " + lang.getLang());
 	FilmFicheDto f = Ejbs.film().getDtoFromId(fdto.id,lang.getLang());
 	if (f == null) {
 	    FacesContext.getCurrentInstance().getExternalContext().dispatch(Pages.NOT_FOUND);
+//	} else {
+//	  pdto = Ejbs.product().getProduct(f.id, lang.getLang());
 	}
 	fdto = f;
     }
