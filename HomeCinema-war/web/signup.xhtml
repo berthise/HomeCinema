@@ -46,7 +46,7 @@
                                                         <div class="form-group">
                                                             <h:outputLabel class="col-xs-5 form-label" for="email">#{msg['email']} <i class="required">*</i> : </h:outputLabel>
                                                             <div class="col-xs-7">
-                                                                <h:inputText p:type="email" id="email" class="form-control" value="#{signUpManagedBean.email}" p:placeholder="#{msg['email-placeholder']}" p:required="required" />
+                                                                <h:inputText p:type="email" id="email" class="form-control" value="#{signUpManagedBean.email}" p:placeholder="#{msg['email-placeholder']}" p:required="required" tabindex="10"/>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -54,7 +54,7 @@
                                                         <div class="form-group">
                                                             <h:outputLabel class="col-xs-5 form-label" for="login">#{msg['inscr-pseudo']} <i class="required">*</i> : </h:outputLabel>
                                                             <div class="col-xs-7">
-                                                                <h:inputText id="login" class="form-control" value="#{signUpManagedBean.nickName}" p:pattern="[a-zA-Z0-9 ]+" p:title="#{msg['nickname-pattern']}" p:placeholder="#{msg['inscr-pseudo']}" p:required="required" />                                
+                                                                <h:inputText id="login" class="form-control" value="#{signUpManagedBean.nickName}" p:pattern="[a-zA-Z0-9 ]+" p:title="#{msg['nickname-pattern']}" p:placeholder="#{msg['inscr-pseudo']}" p:required="required" tabindex="20"/>                                
                                                             </div>
                                                         </div>
                                                     </div>
@@ -63,7 +63,7 @@
                                                             <h:outputLabel class="col-xs-5 form-label" for="password">#{msg['password']} <i class="required">*</i> : </h:outputLabel>
                                                             <div class="col-xs-7">
                                                                 <h:inputSecret id="password" class="form-control" value="#{signUpManagedBean.password}" p:placeholder="#{msg['password']}" 
-                                                                               p:required="required" p:pattern=".{6,}" p:title="#{msg['password-required']}" />
+                                                                               p:required="required" p:pattern=".{6,}" p:title="#{msg['password-required']}" tabindex="30"/>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -71,7 +71,7 @@
                                                         <div class="form-group">
                                                             <h:outputLabel class="col-xs-5 form-label" for="conf_pass">#{msg['retrieve-pass-conf']} <i class="required">*</i> : </h:outputLabel>
                                                             <div class="col-xs-7">
-                                                                <h:inputSecret id="conf_pass" class="form-control"  value="#{signUpManagedBean.confPassword}" p:placeholder="#{msg['password']}" p:required="required" />
+                                                                <h:inputSecret id="conf_pass" class="form-control"  value="#{signUpManagedBean.confPassword}" p:placeholder="#{msg['password']}" p:required="required" tabindex="40"/>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -88,7 +88,7 @@
                                                         <div class="form-group">
                                                             <h:outputLabel class="col-xs-5 form-label" for="firstname">#{msg['inscr-prenom']} <i class="required">*</i> : </h:outputLabel>
                                                             <div class="col-xs-7">
-                                                                <h:inputText id="firstname" class="form-control" value="#{signUpManagedBean.firstName}" p:placeholder="#{msg['inscr-prenom']}" p:required="required" />
+                                                                <h:inputText id="firstname" class="form-control" value="#{signUpManagedBean.firstName}" p:placeholder="#{msg['inscr-prenom']}" p:required="required" tabindex="100"/>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -96,7 +96,7 @@
                                                         <div class="form-group">
                                                             <h:outputLabel class="col-xs-5 form-label" for="lastname">#{msg['inscr-nom']} <i class="required">*</i> : </h:outputLabel>
                                                             <div class="col-xs-7">
-                                                                <h:inputText id="lastname" class="form-control" value="#{signUpManagedBean.lastName}" p:placeholder="#{msg['inscr-nom']}" p:required="required" />
+                                                                <h:inputText id="lastname" class="form-control" value="#{signUpManagedBean.lastName}" p:placeholder="#{msg['inscr-nom']}" p:required="required" tabindex="110"/>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -104,7 +104,7 @@
                                                         <div class="form-group">
                                                             <h:outputLabel class="col-xs-5 form-label" for="birthDay">#{msg['inscr-date']} <i class="required">*</i> : </h:outputLabel>
                                                             <div class="col-xs-7">
-                                                                <h:inputText p:type="date" id="birthDay" p:id="birthDay" class="form-control" value="#{signUpManagedBean.birthDay}" p:placeholder="#{msg['inscr-date']}" p:required="required" />
+                                                                <h:inputText p:type="date" id="birthDay" p:id="birthDay" class="form-control" value="#{signUpManagedBean.birthDay}" p:placeholder="#{msg['inscr-date']}" p:required="required" tabindex="120"/>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -115,14 +115,15 @@
                                     <div class="row">
                                         <div class="form-group">
                                             <h:outputLabel class="checkbox">
-                                                <h:selectBooleanCheckbox style="margin: 4px -15px 0;" p:required="required" />#{msg['inscr-rules']}. 
+                                                <h:selectBooleanCheckbox style="margin: 4px -15px 0;" p:required="required" tabindex="200"/>#{msg['inscr-rules']}. 
                                             </h:outputLabel>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <span class="col-md-3"></span>
-                                        <h:commandButton class="btn btn-primary col-md-3" p:type="reset" value="#{msg['reset']}" />
-                                        <h:commandButton class="btn btn-success col-md-3" value="#{msg['contact-send']}" action="#{signUpManagedBean.singUp}" />
+					  <a class="btn btn-success col-md-2" href="javascript:history.back()">#{msg['cancel']}</a>
+                                        <h:commandButton class="btn btn-primary col-md-2" p:type="reset" value="#{msg['reset']}" tabindex="220"/>
+                                        <h:commandButton class="btn btn-success col-md-2" value="#{msg['contact-send']}" action="#{signUpManagedBean.singUp}" tabindex="210" />
                                     </div>
                                 </h:form>
                             </div>
