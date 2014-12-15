@@ -49,3 +49,54 @@ UserActivation. L'utilsateur sera activé si ce dernier active son compte grace
 au code. De la meme manière, un utilisateur peut récuperer son mot de passe.
 
 diagramme_de_classe.dia
+
+
+---------------------------------------
+Gestion du caddie
+---------------------------------------
+
+L'ajout d'un film au caddie se fait par la page de sa fiche lors que
+l'utilisateur est connecté. Une fois le film ajouter, il est possible de le
+supprimer toujour à partir de la page fiche film. La modification du caddie
+est aussi possible a partir de la page mon caddie où il est possible d'y
+supprimer un produit, et de valider le caddie pour passer au paiement.
+
+Cette fonctionnalité utilise deux ManagedBean: CaddieManagedBean et
+SessionManagedBean.
+
+Le premier, en ViewScoped, contient les opérations à éffectuer sur le caddie,
+telle que lister les produits, ajouter un produit et supprimer un produit. Il
+utilise l'EJB ManagedTransation pour modifier le caddie et l'EJB
+ManagedProduct afin de recupere la liste des produit du caddie. Les entités
+sont convertie en CaddieDto qui contient des ProductDTO.
+Le second en SessionScoped, maintient un état du caddie de l'utilisateur
+afin de facilité sont accés. Ce dernier utilise l'EJB ManagedTransaction.
+
+
+----------------------------------------
+Validation du caddie/paiement
+----------------------------------------
+
+Une fois le caddie complété, sur la page mon caddie, l'utilisateur peut
+valider ce dernier. Il arrive alors sur la page de paiement. Un fois le
+paiement effecter, les films du caddie son ajouter aux films de l'utilisateur
+et la transaction est enregistrer dans son historique.
+
+Lors de la demande de la validation du caddie, l'utilisateur passe dans un
+état spéciale: paiement. Cet état empèche la navigation sur le site, si une
+page est accédé, alors le paiement est automatiquement annulé.
+
+
+Cette fonctionnalité utilise un ManagedBean: PaiementManagedBean qui est en
+RequestScoped. Ce managedBean utilise l'EJB ManagedTransaction. Une fois le
+paiement fait, l'utilisateur et redirigé vers la page "mon compte".
+
+-----------------------------------------
+Voir l'historique des transactions
+-----------------------------------------
+
+L'utilisateur peut voir son historique des transactions  sur la page
+moncompte.
+
+Cette fonctionnnalité utilise HistoryManagedBean (ViewScoped) qui lui même
+utilise l'EJB ManagedTransaction.
