@@ -146,7 +146,7 @@ public class ManageProduct implements ManageProductRemote {
     }
 
     @Override
-    public FilteredListProductsDto getFilteredProducts(Long actor, Long director, List<Long> lgdto, String mode, String str, String year1, String year2, OrderTypes sort, Integer limit, Integer row, ProductTypes main, final Lang lang){
+    public FilteredListProductsDto getFilteredProducts(Long actor, Long director, List<Long> lgdto, String mode, String str, String year1, String year2, OrderTypes sort, Integer limit, Integer row, ProductTypes main, final Lang lang,long hide_own){
       
 	String query = "From PRODUCTS p join FILMS_PRODUCTS  on p.ID_PRODUCT = products_ID_PRODUCT join FILMS f on films_ID_FILM =f.ID_FILM join PRODUIT_NAME pn on ID_PRODUCT=PRODUIT_ID  where p.STATE_=0 ";
 	if (row == null) {
@@ -160,6 +160,10 @@ public class ManageProduct implements ManageProductRemote {
 	}
 	if (director != null && !director.equals(0L)) {
 	    query += " and f.ID_FILM in (select is_director_of_ID_FILM from DIRECTORS  where directors_ID_PERSON=" + director + ") ";
+	}
+	if ( hide_own!=0)
+	{
+	    query += " and f.ID_FILM not in ( select FILM from USERS_FILMS where USER_="+hide_own+") ";
 	}
 	if (lgdto != null && !lgdto.isEmpty()) {
 	    if (mode.equals("OR")) {
@@ -334,9 +338,9 @@ public class ManageProduct implements ManageProductRemote {
 	    }
 	    return new FilteredListProductsDto(res, nb.intValue());
 	} catch (Exception e) {
-	  return getFilteredProductsDerby(actor, director, lgdto, mode, str, year1, year2, sort, limit,row, main, lang);
+	 // return getFilteredProductsDerby(actor, director, lgdto, mode, str, year1, year2, sort, limit,row, main, lang);
 	
-//	    return new FilteredListProductsDto(new ArrayList<ProductDto>(), -1);
+	    return new FilteredListProductsDto(new ArrayList<ProductDto>(), -1);
 	}
     }
 

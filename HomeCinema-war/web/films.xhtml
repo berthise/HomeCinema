@@ -173,7 +173,17 @@ and open the template in the editor.
                                                     <span class="clean" onclick="clean('actor');">×</span>
                                                 </div>
                                             </div>
+					    <h:panelGroup rendered="#{sessionManagedBean.id ne null}">
+                                            <div class="row" >
+                                                <div class="col-md-6 col-xs-5 col-no-padding-search">
+                                                    <h:outputLabel class="label-search" for="hide-own">#{msg['films-search-hide-own']} :</h:outputLabel>
+                                                </div>
+                                                <div class="col-md-5 col-xs-6 col-no-padding-search-input">
+						    <h:selectBooleanCheckbox id="hide-own" value="#{searchProductsManagedBean.hide_own}" /> 
+                                                </div>
 
+                                            </div>
+						</h:panelGroup>
                                             <div class="row">
                                                 <div class="col-md-6 col-xs-5 col-no-padding-search">
                                                     <h:outputLabel class="label-search">#{msg['films-search-genres']} :</h:outputLabel>

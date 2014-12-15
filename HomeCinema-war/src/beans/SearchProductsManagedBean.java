@@ -33,10 +33,12 @@ public class SearchProductsManagedBean {
 	public Long directorId;
 	public Long actorId;
 	public String genresMode = "OR";
+	public boolean hide_own= false;
 
 	public List<Long> genres = new ArrayList<>();
     }
 
+    
     private Map<Long, Boolean> checked;
 
     public Map<Long, Boolean> getChecked() {
@@ -58,6 +60,14 @@ public class SearchProductsManagedBean {
 	return this.params;
     }
 
+        public void setHide_own(boolean t) {
+	params.hide_own = t;
+    }
+
+    public boolean getHide_own() {
+	return this.params.hide_own;
+    }
+    
     public void setTitle(String t) {
 	params.title = t;
     }
