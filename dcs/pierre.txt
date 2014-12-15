@@ -1,0 +1,35 @@
+Fonctionnalités liés à la recherche et la consultation des films et packs de films.
+
+1) Recherche de films
+
+La consultation de la liste des produits, c'est-à-dire de la liste des films et des packs de films disponible est l'une des fonctionnalités centrales de notre application. Le principe est le suivant : l'utilisateur sélectionne un critère général (sélection des pack, des meilleurs films ou des nouveautés) ou des critères spécifiques à un film (titre, date de sortie, un réalisateur, un acteur, et ou plusieurs genres), et une liste de produits validant le ou les critères est affichée.
+
+La page du site réalisant cette fonctionnalité est la page JSF nommée films.xhtml. Cette page est divisé en deux parties : la première permet de paramétrer la recherche et la second permet d'afficher la liste des résultats. Cette liste est mise à jour sans rechargement de toute la page en AJAX à chaque envoi d'une nouvelle recherche.
+
+Cette fonctionnalité utilise deux principaux ManagedBean nommés SearchProductManagedBean et ListProductsManagedBean dont les détails sont les suivants :
+
+SearchProductManagedBean est utiliser pour stocker tous les critères de recherches dans le cas d'une recherche spécifique de films selon des critères précis (titre, date, etc.). Il est défini en SessionScoped pour permettre de garder les critères de recherche tout au long de la session.
+
+ListProductsManagedBean est utiliser pour gérer l'affichage de la recherche. Pour cela, il gère des données liées à l'affichage de films.xhtml (type de recherche courant et pagination de la liste des résultats) et l'exécution de la recherche en faisant appel à l'EJB ManageProduct. Cet EJB Stateless permet de manipuler les entités liées à la notion de « produit ». Plus précisément, la fonction de recherche utilisée est getFilteredProducts. Cette fonction permet de récupérer une liste de ProductDto correspondant aux critères de recherche fournis en paramètres qui sont ensuite affichés dans films.xhtml. Enfin, ce ManagedBean est également utilisé pour produire une liste statique récupérer une seule fois de films intéressant qui sont affichés en pied de page.
+
+2) Consultation détaillé d'un film
+
+Pour chaque films disponibles, l'utilisateur peut consulter une fiche donnant plusieurs informations sur celui-ci. Cette fiche permet également de voir le prix du film. Cette fonctionnalité est mise en place sur la page JSF fiche_film.xhtml. Cette page utilise principalement le ManagedBean nommé FilmManagedBean. 
+
+FilmManagedBean est utilisé pour récupérer le FilmFicheDto contenant les informations du film à afficher dans la fiche. Il est défini en ViewScope. Le ManagedBean récupère tout d'abord un identifiant de film donné dans l'url d'accès à fiche_films.xhtml (par exemple : fiche_film.xhtml?id=11). Il fait ensuite appel à l'EJB ManageFilm pour récupérer le FilmFicheDto correspondant. Cet EJB Stateless permet de manipuler  les entités liés à la notion de « film ». Enfin la page fiche_film.xhtml récupère ces informations via les méthodes de FilmManagedBean (simple getter ou getter avec calcul ou formatage des informations du FilmFicheDto). De plus, FilmManagedBean utilise LanguageManagedBean pour transmettre la langue utiliser par l'utilisateur à l'EJB et récupérer les informations dans cette langue. 
+
+Par ailleurs, LoginManagedBean est également utiliser pour tester si l'utilisateur est identifié ou non et afficher soit des boutons d'actions liés au produit (ajout au caddie,  visionnage, etc.), soit des boutons de connexion/inscription.
+
+3) Consultation détaillé d'un pack de film
+
+Il est également possible de consulter une fiche pour un pack de films. Un pack est un produit qui contient plusieurs films (exemple : le pack Star Wars qui contient l'intégralité des films Star Wars sorties à l'heure actuelle …) . Cette fonctionnalité est accessible sur la page JSF fiche_product.xhtml et utilise principalement le ManagedBean intitulé ProductManagedBean.
+
+Un plugin de slider Jquery est utilisé pour gérer l'affiche des affiches des films du pack.
+
+ProductManagedBean est semblable à FilmManagedBean. Il est lui aussi défini en ViewScoped. Il récupère à partir de l'identifiant de l'url d'accès à fiche_product.xhtml le ProductDto correspondant. S'il ne s'agit pas d'un pack (c'est-à-dire si le produit contient un seul film), le ManagedBean fait une redirection vers la page fiche_film.xhtml. Il fourni alors toutes les méthodes nécessaires à la page fiche_product.xhtml pour afficher les informations du pack. Là encore, LanguageManagedBean est utilisé pour permettre un affichage des informations dans la langue de l'utilisateur.
+
+Enfin, LoginManagedBean est également utilisé de la même manière que pour l'affichage de la fiche d'un film.
+
+Fonctionnalités complémentaires.
+
+La page sitemap.xhtml est un page JSF statique qui présente le plan du site. La page contact.xhtml est une page proposant un formulaire de contact utilisant le ManagedBean en RequestScope nommé ContactManagedBean. Ce dernier est uniquement utilisé pour récupérer les valeurs du formulaire et retourner un statut (envoi réussi ou non). À l'heure actuelle, la fonctionnalité de contact n'est pas utilisé car seule la structure (page JSF et ManagedBean) ont été développés. Aucun traitement du message est donc disponible et le statut renvoyé est toujours « envoi réussi ».
