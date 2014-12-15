@@ -8,6 +8,7 @@ package ejbs;
 import dtos.CaddieDto;
 import dtos.PaymentDto;
 import enums.Lang;
+import exception.DeactivatedProductException;
 import java.util.Set;
 import javax.ejb.Remote;
 
@@ -20,7 +21,7 @@ public interface ManageTransactionRemote {
 
     //public CaddieDto getCaddieDto (Long id_user);
     
-    public CaddieDto addProduct(Long user, Long id,Lang lang);
+    public CaddieDto addProduct(Long user, Long id,Lang lang)  throws DeactivatedProductException;
     
     public Long validate(Long user, PaymentDto pdto);
     
