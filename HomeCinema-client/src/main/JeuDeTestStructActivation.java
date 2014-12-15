@@ -12,6 +12,7 @@ import dtos.VideoDto;
 import enums.Lang;
 import enums.Langs;
 import enums.VideoFormat;
+import exception.DeactivatedProductException;
 import exception.SignupEmailException;
 import exception.SignupNickNameException;
 import exception.UncorrectPasswordException;
@@ -31,7 +32,7 @@ import utils.Securite;
  */
 public class JeuDeTestStructActivation {
 
-    public static void main(String[] args) throws SignupEmailException, SignupNickNameException {
+    public static void main(String[] args) throws SignupEmailException, SignupNickNameException, DeactivatedProductException {
 	try {
 	    Admin a = new Admin();
 
@@ -429,14 +430,14 @@ public class JeuDeTestStructActivation {
 
     }
 
-    private static void userCaddyProduct(Admin a, UserDto rob_user, ProductDto sw_product) {
+    private static void userCaddyProduct(Admin a, UserDto rob_user, ProductDto sw_product) throws DeactivatedProductException {
 
 	System.out.print(rob_user.nickName + " caddy : " + sw_product.name);
 	a.getManageTransactionRemote().addProduct(rob_user.id, sw_product.id,Lang.EN);
 	System.out.println(" ...  done");
     }
 
-    private static void userBuyProduct(Admin a, UserDto rob_user, ProductDto ab_product, long btn) {
+    private static void userBuyProduct(Admin a, UserDto rob_user, ProductDto ab_product, long btn) throws DeactivatedProductException {
 	//achat american beauty
 	System.out.print(rob_user.nickName + " buy : " + ab_product.name);
 	a.getManageTransactionRemote().addProduct(rob_user.id, ab_product.id,Lang.EN);
