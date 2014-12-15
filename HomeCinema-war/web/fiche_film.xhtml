@@ -67,6 +67,7 @@
 				<div class="col-md-12">
 				    <c:set var="deco" value="#{sessionManagedBean.id eq null}" />
 				    <c:set var="type" value="#{accountManagedBean.getCodeButtonsFilm(filmManagedBean.id)}" />
+			    <c:set var="state" value="${productManagedBean.getState(filmManagedBean.mainProductId)}" />
 
 
 				    <div class="form-liste-film">
@@ -92,7 +93,7 @@
 					    </div>
 					</h:panelGroup>
 
-					<h:panelGroup rendered="#{!deco and type eq 'FREE'}">
+					<h:panelGroup rendered="#{!deco and type eq 'FREE' and (state ne 'Unactivated')}">
 					    <div class="row">
 						<div class="col-xs-12">
 						    <h:form>
@@ -137,7 +138,10 @@
 			</div>
 			<div class="col-md-8">
 			    <div class="info-fiche-film">
-
+			      <h:panelGroup rendered="${productManagedBean.getState(filmManagedBean.mainProductId) eq 'Unactivated'}">
+				<h3>#{msg['fiche-product-deactivated']} </h3>
+			      </h:panelGroup>
+				<h:panelGroup rendered="${productManagedBean.getState(filmManagedBean.mainProductId) ne 'Unactivated'}">
 				<div class="row row-price">
 				    <div class="col-xs-12 col-md-5">
 					<h3>#{msg['fiche-price']} : <span class="film-price"><span>#{productManagedBean.getPrice(filmManagedBean.mainProductId)}#{msg['monnaie']}</span></span></h3>
@@ -146,6 +150,7 @@
 					<h3>#{msg['fiche-nb']} : #{productManagedBean.getNbSells(filmManagedBean.mainProductId)}</h3>
 				    </div>
 				</div>
+			      </h:panelGroup>
 			      <div class="row row-price">
 				<div class="col-xs-12 col-md-5">
 
