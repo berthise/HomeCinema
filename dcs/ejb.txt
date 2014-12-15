@@ -1,0 +1,211 @@
+EJB
+
+Les EJBs ont été associé a l'entité qu'il modifie.
+
+Ils n'existe aucun EJBs statefull chacun reporte les modification nécessaire dans la base desuite.
+
+toutes les fonction manipulant des dtos de film , produit ou genre doivent savoir dans qu'elle langue est le dto
+
+Product 
+
+ modification et création
+ 
+    public Long createProduct(ProductDto pdto, Lang lang);
+ 
+    public Long createProductWithFilm(FilmDto fdto, VideoDto trailer, VideoDto vid, Double price, Lang lang);
+ 
+    public ProductDto mergeOrSave(ProductDto pdto, Lang lang);
+    
+        public void activate(Long pid);
+
+    public void deactivate(Long pid);
+    
+modification des films d'un produit
+
+    public void addExistingFilms(Long pid, List<Long> lfid);
+
+    public void addExistingFilm(Long pid, Long fid,boolean main);
+    
+cree le film et le lie au produit    
+    public void addFilm(Long pid, FilmDto fdto, Lang lang, boolean main);
+
+    public void addFilms(Long pid, Lang lang, List<FilmDto> lfdto);
+    
+    public void removeFilm(Long pid, Long fid);
+    
+consultation 
+
+    public List<ProductDto> getAllProduct(Lang lang);
+non paginer ne pas utiliser 
+
+    public ProductDto getProduct(Long pid,Lang lang);
+
+    public FilteredListProductsDto getFilteredProducts(Long actor, Long director, List<Long> lgdto, String mode, String str, String year1, String year2, OrderTypes sort, Integer limit, Integer row, ProductTypes main, Lang lang);
+pour tous parametre (hors enum) si == null || 0 || "" le filtre n'est pas utilisé
+filtre
+actor : uniquement les films dans lequels cet actor a joué
+director : uniquement les films réalisé par ce directeur
+lgdto + mode : uniquement les film appartenant a un (si mode="OR") /tous les genres de la liste
+year1 : tous les films sortie après cette année
+year2 : tous les films sortie avant cette année 
+sort : enum donnant le critere de tri
+limit + row : renvoit limit produit commencant a row
+main : choix entre les packs , films principaux uniquement ou tous
+
+    public List<FilmDto> getFilms(Long pid, Lang lang);
+
+    public List<GenreDto> getAllGenres(Lang lang);
+
+film
+
+creation modification
+
+    public Long createFilm(FilmDto fdto, Lang lang);
+    
+        public void mergeOrSave(FilmDto fdto,Lang lang);
+        
+ajout genre
+le grenre est cree si nécessaire
+
+    public void addGenres(Long fid, Set<GenreDto> lgdto,Lang lang);
+
+    public void addGenre(Long fid, GenreDto gdto,Lang lang);
+
+ajout person
+la personne est crée si nécessaire
+
+    public void addActors(Long fid, List<PersonDto> lgdto);
+
+    public void addActor(Long fid, PersonDto gdto);
+
+    public void addDirectors(Long fid, List<PersonDto> lgdto);
+
+    public void addDirector(Long fid, PersonDto gdto);
+    
+ajout video    
+
+
+    public void setTrailer(Long fid, VideoDto trailer);
+
+    public void setExistingTrailer(Long fid, Long trailer);
+
+    public void addVideos(Long fid, List<VideoDto> lvdto);
+
+    public void addVideo(Long fid, VideoDto vdto);
+
+    public void addExistingVideos(Long fid, List<Long> lid);
+
+    public void addExistingVideo(Long fid, Long vid);
+    
+        public void removeVideo(Long fid, Long vid);
+        
+ajout main product
+
+    public void setMain(Long fid, Long pid);
+le produit doit etre un produit du film 
+
+consultation
+
+    public List<FilmDto> getAllFilm(Lang lang);
+non paginée ne pas utiliser pour un affichage reactif
+
+    public FilmDto getFilmFromId(Long id,Lang lang);
+    
+    public FilmFicheDto getDtoFromId(Long id,Lang lang);
+
+    public List<PersonDto> getDirector(Long fid);
+
+    public List<PersonDto> getCasting(Long fid);
+
+    public ProductDto getMainProduct(long fid,Lang lang);
+
+    public Set<ProductDto> getProducts(Long fid, Lang lang);
+
+    public Set<GenreDto> getGenre(Long fid, Lang lang);
+
+
+Person
+
+    public PersonDto getPerson(String n);
+    public PersonDto getPerson(Long id);
+
+Transaction 
+contient l'ensemble des fonctions associé au paiement et au caddie
+
+gestion du Caddie
+
+    public CaddieDto addProduct(Long user, Long id,Lang lang);
+  
+       public CaddieDto removeProduct(Long user ,Long id, Lang lang);
+
+paiement       
+  
+    public Long validate(Long user, PaymentDto pdto);
+    
+    public void validatePayement(Long id,Long btn);
+    
+consultation caddie
+
+    public CaddieDto getCaddieDto(Long id_user, Lang lang);
+
+User
+
+creation d'utilisateur
+
+    public UserDto signUp(UserDto user) throws SignupEmailException, SignupNickNameException;
+renvoit une exception si l'email ou le nickname sont déja utilisé
+    
+mise a jour d'utilisateur
+
+    public void save(UserDtoNoPw user);
+    
+        public void removeUser (Long id);
+    
+    public void mergeOrSave (UserDtoNoPw udto);
+    
+        public void activate(Long user, String code) throws ActivatedCodeException;
+    
+    public void activate(Long user);
+
+    public void deactivate(Long user);
+    
+        public boolean changePassword(Long id, String oldPassword, String newPassword);
+    
+    public boolean changeEmail(Long id, String email, String newPassword);
+    
+        public String retrievePassword(String email) throws UnknownAccountException;
+    
+    public void changePasswordRetrieve(String code, String newPassword) throws RetrieveCodeException;
+    code est le code envoyé a l'utilisateur par emaillors de la demande de récuperaton de mot de passe
+    
+    
+consultation d'user
+    
+    public UserDto login(String email, String password)  throws UncorrectPasswordException;
+    
+    public Set<SimpleUserDto> getAllUser();
+non paginé ne pas utilisé sur une ihm 
+    
+    public UserDtoNoPw getUser(Long id);
+    
+    public List<FilmDto> getFilms(Long id, Lang lang);
+
+    public List<TransactionDto> getTransaction(Long user, Lang lang);
+
+UserFilm
+
+    public UsersFilmsDto getCurrentTime(Long user, Long film);
+
+    public void updateCurrentTime(Long user, UsersFilmsDto ufdto);
+
+Video
+    
+    public Long createVideo(VideoDto vdto);
+
+    public List<VideoDto> getAllVideo();
+
+    public Long mergeOrSave(VideoDto vdto);
+
+
+
+
