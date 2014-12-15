@@ -12,10 +12,13 @@ import exception.RetrieveCodeException;
 import exception.UncorrectPasswordException;
 import exception.UnknownAccountException;
 import java.util.Date;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import org.jboss.weld.util.collections.ArraySet;
+import static utils.Beans.findBean;
 import static utils.Beans.getRequestPage;
 import utils.Lang;
 import utils.Message;
@@ -34,6 +37,8 @@ import utils.SendMailException;
 public class SessionManagedBean {
 
     private UserDtoNoPw user = new UserDtoNoPw();
+    private Set<Long> usersfilms = new ArraySet<>();
+    private Set<Long> userscaddy = new ArraySet<>();
 
     public enum SessionStates {
 
@@ -55,9 +60,32 @@ public class SessionManagedBean {
 
 	    // TODO change state in ejbs
 	    user.caddieSize = 0;
+	    userscaddy = new ArraySet<>();
+	    
+	    this.usersfilms = Ejbs.user().getMyProductId(user.id);
+	    user.filmsSize = Ejbs.user().countFilms(user.id);
 	    user.setState(UserStates.Activated);
 	    Redirect.redirectTo(Pages.MON_COMPTE);
 	}
+    }
+    
+    public void relaodCaddyIds() {
+      	    this.userscaddy = Ejbs.transaction().getCaddieProductIds(user.id);
+    }
+    
+    
+    public Boolean isInMyFilms(Long ids) {
+      	SessionManagedBean session = findBean("sessionManagedBean");
+	System.out.println("ids in my films ? " + ids + " : " + session.getUsersfilms().contains(ids));
+	return session.getUsersfilms().contains(ids);
+    }
+
+    public Boolean isInMyCaddie(Long ids) {
+        SessionManagedBean session = findBean("sessionManagedBean");
+	System.out.println("ids in my caddy ? " + ids + " : " + session.getUserscaddy().contains(ids));
+
+      	return session.getUserscaddy().contains(ids);
+
     }
 
     public void cancelPaiement() {
@@ -74,6 +102,12 @@ public class SessionManagedBean {
 	    String ep = Securite.crypte(login.getPassword());
 
 	    user = (UserDtoNoPw) Ejbs.user().login(login.getEmail(), ep);
+	    this.usersfilms = Ejbs.user().getMyProductId(user.id);
+	    user.filmsSize = Ejbs.user().countFilms(user.id);
+	    this.userscaddy = Ejbs.transaction().getCaddieProductIds(user.id);
+	    System.out.println("userfilms (" + user.filmsSize + ") = " + usersfilms);
+	    System.out.println("userscaddy (" + userscaddy.size() + ") = " + userscaddy);
+
 	    return true;
 	} catch (UncorrectPasswordException ex) {
 	    Logger.getLogger(SessionManagedBean.class.getName()).log(Level.SEVERE, null, ex);
@@ -122,6 +156,8 @@ public class SessionManagedBean {
 
 	Message.Info(Lang.getString("session-bean-bye") + " " + user.nickName + " !");
 	user = new UserDtoNoPw();
+	usersfilms = new ArraySet<>();
+	userscaddy = new ArraySet<>();
 
 	Redirect.redirectIfNeeded(getSessionState());
 
@@ -253,4 +289,26 @@ public class SessionManagedBean {
     public Integer getCaddySize() {
 	return user.caddieSize;
     }
+    
+    public Integer getFilmsSize() {
+	return user.filmsSize;
+    }
+
+  public Set<Long> getUsersfilms() {
+    return usersfilms;
+  }
+
+  public void setUsersfilms(Set<Long> usersfilms) {
+    this.usersfilms = usersfilms;
+  }
+
+  public Set<Long> getUserscaddy() {
+    return userscaddy;
+  }
+
+  public void setUserscaddy(Set<Long> userscaddy) {
+    this.userscaddy = userscaddy;
+  }
+    
+    
 }

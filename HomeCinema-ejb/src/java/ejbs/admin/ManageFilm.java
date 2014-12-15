@@ -87,9 +87,11 @@ public class ManageFilm implements ManageFilmRemote {
 
     @Override
     public void addVideos(Long fid, List<VideoDto> lvdto) {
+      	Film f = em.find(Film.class, fid);
 	for (VideoDto vdto : lvdto) {
-	    addVideo(fid, vdto);
+	   f.addVideoFile(ManageEntitieVideo.createVideo(vdto, em));
 	}
+	em.merge(f);
     }
 
     @Override

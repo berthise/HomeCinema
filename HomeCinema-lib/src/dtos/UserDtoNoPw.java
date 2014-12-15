@@ -34,6 +34,17 @@ public class UserDtoNoPw extends SimpleUserDto implements Serializable {
   public Date addDate;
   
   public Integer caddieSize;
+    public Integer filmsSize;
+
+  public Integer getFilmsSize() {
+    return filmsSize;
+  }
+
+  public void setFilmsSize(Integer filmsSize) {
+    this.filmsSize = filmsSize;
+  }
+    
+    
 
   public String getFirstName() {
     return firstName;

@@ -5,6 +5,8 @@
  */
 package dtos;
 
+import enums.Langs;
+import enums.VideoFormat;
 import java.io.Serializable;
 
 /**
@@ -16,6 +18,8 @@ public class VideoDto implements Serializable {
   public Long id;
   public String url;
   public Integer resolution;
+  public Langs audio;
+  public VideoFormat format;
 
   public Long getId() {
     return id;
@@ -40,6 +44,33 @@ public class VideoDto implements Serializable {
   public void setResolution(Integer resolution) {
     this.resolution = resolution;
   }
+
+  public Langs getAudio() {
+    return audio;
+  }
+
+  public void setAudio(Langs audio) {
+    this.audio = audio;
+  }
+
+  public VideoFormat getFormat() {
+    return format;
+  }
+
+  public void setFormat(VideoFormat format) {
+    this.format = format;
+  }
+  
+  public String getType() {
+    return format.getStr();
+  }
+
+  @Override
+  public String toString() {
+    return "VideoDto{" + "id=" + id + ", url=" + url + ", resolution=" + resolution + ", audio=" + audio + ", format=" + format + '}';
+  }
+  
+  
   
   
 }

@@ -5,13 +5,18 @@
  */
 package enums;
 
-import java.io.Serializable;
-
 /**
  *
  * @author seb
  */
-public enum Lang implements Serializable {
-  EN,
-  FR
+public enum Langs {
+  EN("en"),
+  FR("fr");
+  
+    private String str;
+  Langs(String s) { str = s; }
+
+  public String getStr() {
+    return str;
+  }
 }

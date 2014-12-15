@@ -23,6 +23,8 @@ public class VideoDtoManager {
         VideoDto vdto = new VideoDto();
         vdto.id = v.getId();
         vdto.resolution = v.getResolution();
+	vdto.audio = v.getAudio();
+	vdto.format = v.getFormat();
         vdto.url = v.getUrl();
         return vdto;
     }
@@ -32,6 +34,8 @@ public class VideoDtoManager {
         v.setId(vdto.id);
         v.setResolution(vdto.resolution);
         v.setUrl(vdto.url);
+	v.setAudio(vdto.audio);
+	v.setFormat(vdto.format);
         return v;
     }
 
@@ -43,6 +47,8 @@ public class VideoDtoManager {
         } else {
             v.setResolution(vdto.resolution);
             v.setUrl(vdto.url);
+	    v.setAudio(vdto.audio);
+	    v.setFormat(vdto.format);
             em.merge(v);
         }
         return v;

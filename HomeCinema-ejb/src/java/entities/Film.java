@@ -14,7 +14,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -87,7 +86,7 @@ public class Film implements Serializable {
     private Integer runtime;
 
     @OneToMany
-    @JoinColumn(name = "VIDEO_FILES")
+    @JoinColumn(name = "VIDEO_FILE")
     private Set<Video> videoFile;
 
     @OneToOne

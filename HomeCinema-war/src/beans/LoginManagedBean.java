@@ -7,9 +7,12 @@ package beans;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 import static utils.Beans.findBean;
 import utils.Lang;
 import utils.Message;
+import utils.Redirect;
 
 /**
  *
@@ -30,6 +33,8 @@ public class LoginManagedBean {
 	} else {
 	    Message.Error(Lang.getString("login-bean-error-1"), Lang.getString("login-bean-error-1"));
 	}
+//	     System.out.println("redirect to = "+((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getRequestURI());
+//	return ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getRequestURI();
 	session.checkRight();
     }
 

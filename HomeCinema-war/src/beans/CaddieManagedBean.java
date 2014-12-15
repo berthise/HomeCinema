@@ -110,6 +110,8 @@ LanguageManagedBean lang = findBean("languageManagedBean");
 	Ejbs.transaction().removeProduct(session.getId(), idProduct,lang.getLang());
 	this.cdto = Ejbs.transaction().getCaddieDto(session.getId(),lang.getLang());
 	session.caddySizeMinus();
+        session.relaodCaddyIds();
+
 	Message.Info("Succès de la suppresion !");
 	if (getRequestPage().contains(Pages.MON_COMPTE)) {
 	    // redirect only if on page moncompte (to reload caddie).
@@ -122,33 +124,11 @@ LanguageManagedBean lang = findBean("languageManagedBean");
 	SessionManagedBean session = findBean("sessionManagedBean");
 	this.cdto = Ejbs.transaction().addProduct(session.getId(), idproduct,lang.getLang());
 	session.caddySizePlus();
+	session.relaodCaddyIds();
 	Message.Info(Lang.getString("caddie-bean-info"));
 	Redirect.redirectTo(Pages.FICHE_FILM + "?id=" + idfilm);
     }
 
-    private int isInMyFilms(Long ids) {
-	SessionManagedBean session = findBean("sessionManagedBean");
-	int toReturn = 0;
-	for (FilmDto l : Ejbs.user().getFilms(session.getId(),lang.getLang())) {
-	    if (l.id.equals(ids)) {
-		toReturn++;
-	    }
-	}
-	return toReturn;
-    }
-
-    private int isInMyCaddie(Long ids) {
-	SessionManagedBean session = findBean("sessionManagedBean");
-	int toReturn = 0;
-	for (ProductDto l : Ejbs.transaction().getCaddieDto(session.getId(),lang.getLang()).films) {
-	    for (FilmDto f : Ejbs.product().getFilms(l.id,lang.getLang())) {
-		if (f.id.equals(ids)) {
-		    toReturn++;
-		}
-	    }
-	}
-	return toReturn;
-    }
 
     public void addProductToCaddie(Long idproduct, String _switch) throws IOException {
 	SessionManagedBean session = findBean("sessionManagedBean");
@@ -156,20 +136,26 @@ LanguageManagedBean lang = findBean("languageManagedBean");
 	    case "FREE":
 		this.cdto = Ejbs.transaction().addProduct(session.getId(), idproduct,lang.getLang());
 		session.caddySizePlus();
+		        session.relaodCaddyIds();
+
 		break;
 	    case "PART_CADDIE":
 		this.cdto = Ejbs.transaction().addProduct(session.getId(), idproduct,lang.getLang());
 		for (FilmDto f : Ejbs.product().getFilms(idproduct,lang.getLang())) {
 		    Ejbs.transaction().removeProduct(session.getId(), f.main_product_id,lang.getLang());
 		}
+		        session.relaodCaddyIds();
+
 		break;
 	    default:
-		for (FilmDto f : Ejbs.product().getFilms(idproduct,lang.getLang())) {
-		    if (isInMyFilms(f.id) == 0 && isInMyCaddie(f.id) == 0) {
-			this.cdto = Ejbs.transaction().addProduct(session.getId(), f.main_product_id,lang.getLang());
+//		for (FilmDto f : Ejbs.product().getFilms(idproduct,lang.getLang())) {
+		    if (!session.isInMyFilms(idproduct) && !session.isInMyCaddie(idproduct)) {
+			this.cdto = Ejbs.transaction().addProduct(session.getId(), idproduct,lang.getLang());
 			session.caddySizePlus();
+			        session.relaodCaddyIds();
+
 		    }
-		}
+//		}
 		break;
 	}
 	Message.Info(Lang.getString("caddie-bean-info"));

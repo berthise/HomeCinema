@@ -173,6 +173,7 @@ LanguageManagedBean lang = findBean("languageManagedBean");
     }
 
     public List<ProductDto> getSelectionFilms(int n) {
+      System.err.println("getSelectionFilms");
 	return Ejbs.product().getFilteredProducts(null, null, null, null, null, null, null, OrderTypes.RAND, n, 0, ProductTypes.Main,lang.getLang()).list;
     }
 

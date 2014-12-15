@@ -5,13 +5,22 @@
  */
 package enums;
 
-import java.io.Serializable;
-
 /**
  *
  * @author seb
  */
-public enum Lang implements Serializable {
-  EN,
-  FR
+public enum VideoFormat {
+    MP4("mp4"),
+    WEBM("webm"),
+    OGG("ogg");
+
+  private String str;
+  VideoFormat(String s) { str = s; }
+
+  public String getStr() {
+    return str;
+  }
+
+    
+
 }

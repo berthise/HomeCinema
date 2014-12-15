@@ -67,8 +67,9 @@ body {
       color: #000;
       background: linear-gradient(to bottom, #fff 0, #eee 100%);
       border-bottom: 3px inset #729d47; }
-    body header .decale-right {
-      margin-right: 7px; }
+    body header .navbar-right {
+      margin-right: 0;
+      margin-left: 10px; }
     body header .userTools {
       z-index: 10000;
       background: -webkit-linear-gradient(left, #111, #666, #666, #666, #111);
@@ -99,6 +100,15 @@ body {
       @media (min-width: 24px) and (max-width: 767px) {
         body header .navbar-nav i + span {
           display: inline-block; } }
+    @media (max-width: 786px) {
+      body header .navbar-nav {
+        border-right: none; }
+        body header .navbar-nav li > a {
+          border-left: none; }
+      body header .navbar-right {
+        margin-left: -15px; }
+      body header li > a {
+        border-left: none; } }
     body header #form-login {
       z-index: 10000;
       display: none;
@@ -154,9 +164,13 @@ body {
       body section .exclus .film img {
         width: 100%;
         border-radius: 5px;
+        border: 1px solid #e6e6e6;
         box-shadow: 2px 2px 3px #080808; }
-        body section .exclus .film imghover {
-          top: 2px; }
+      body section .exclus .film:hover {
+        position: relative;
+        top: -8px; }
+        body section .exclus .film:hover img {
+          box-shadow: 0px 0px 20px 5px #a8a8a8; }
     body section .exclus a {
       color: #276427 !important;
       font-weight: bold; }
@@ -186,15 +200,15 @@ body {
         body section .form-signin .checkbox input[type="checkbox"] {
           float: none;
           margin: 0 5px; }
-      body section .form-signin .form-group > .form-label {
-        font-weight: normal;
-        text-align: right;
-        padding: 2px;
-        line-height: 2; }
       body section .form-signin input[type="date"] {
         width: 80%; }
       body section .form-signin input[type="reset"] {
         margin: 0 15px; }
+    body section .form-group > .form-label {
+      font-weight: normal;
+      text-align: right;
+      padding: 2px;
+      line-height: 2; }
     body section .toggle-row {
       margin-top: 5px;
       margin-bottom: 5px;
@@ -339,12 +353,12 @@ body {
   body #ba video {
     border: 2px solid #333;
     margin-bottom: 5px; }
-  body .go-top {
-    float: right;
-    margin-top: -5px;
-    margin-bottom: 10px; }
-  body .go-top img {
-    margin-bottom: 5px; }
+  body .back-to-top {
+    cursor: pointer;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: none; }
   body .nav-films ul {
     list-style: none; }
   body #nav-page-left {

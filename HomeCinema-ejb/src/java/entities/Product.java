@@ -152,6 +152,16 @@ public class Product implements Serializable {
   public void setNbSales(Integer nbSales) {
     this.nbSales = nbSales;
   }
+  
+  public Double getAverageRate() {
+    if ( this.films == null) return 0D;
+    Double rating = 0D;
+    for (Film f: this.films) {
+      rating += f.getRating();
+    }
+    rating = rating/this.films.size();
+    return rating;
+  }
 
   @Override
   public int hashCode() {

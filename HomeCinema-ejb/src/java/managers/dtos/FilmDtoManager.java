@@ -53,9 +53,9 @@ public class FilmDtoManager {
 	fdto.rating = f.getRating();
 	fdto.runtime = f.getRuntime();
 	fdto.trailler = VideoDtoManager.getDto(f.getTrailler());
-	fdto.files = new ArrayList<>();
+	fdto.videos = new ArrayList<>();
 	for (Video v : f.getVideoFile()) {
-	    fdto.files.add(VideoDtoManager.getDto(v));
+	    fdto.videos.add(VideoDtoManager.getDto(v));
 	}
 	if (f.getMain_product() != null) {
 	    fdto.main_product_id = f.getMain_product().getId();

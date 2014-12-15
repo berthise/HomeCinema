@@ -13,9 +13,11 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
+import org.jboss.logging.Param;
 import utils.Lang;
 import utils.Message;
 import utils.Pages;
+import utils.Paramters;
 import utils.Redirect;
 
 /**
@@ -39,10 +41,9 @@ public class ActivateUserManagedBean {
 
     public void activate() {
 	/* get pramaters comme cela car activate appeler en preValidate */
-	HttpServletRequest req = ((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest());
-	if (req.getParameter(ActivateUserManagedBean.USER) != null) {
-	    id = Long.parseLong(req.getParameter(ActivateUserManagedBean.USER));
-	    code = req.getParameter(ActivateUserManagedBean.CODE);
+	if (Paramters.get(ActivateUserManagedBean.USER) != null ) {
+	    id = Long.parseLong(Paramters.get(ActivateUserManagedBean.USER));
+	    code = Paramters.get(ActivateUserManagedBean.CODE);
 	}
 	try {
 	    if (id != 0 && code != null) {

@@ -95,7 +95,11 @@ public class TransactionDto implements Serializable {
     public Double getTotalPrice() {
 	return totalPrice;
     }
-
+    public String getTotalPriceString() {
+	return String.format("%.2f", totalPrice);
+    }
+    
+    
     public void setTotalPrice(Double totalPrice) {
 	this.totalPrice = totalPrice;
     }

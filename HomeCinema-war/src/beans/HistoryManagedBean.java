@@ -40,5 +40,7 @@ public class HistoryManagedBean {
     public List<TransactionDto> getListTransaction() {
 	return ltdto;
     }
+    
+    
 
 }

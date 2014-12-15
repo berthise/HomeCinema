@@ -8,6 +8,7 @@ package ejbs;
 import dtos.CaddieDto;
 import dtos.PaymentDto;
 import enums.Lang;
+import java.util.Set;
 import javax.ejb.Remote;
 
 /**
@@ -30,4 +31,6 @@ public interface ManageTransactionRemote {
    // public CaddieDto getCaddieDto(Long id_user, Lang lang);
 
     public CaddieDto getCaddieDto(Long id_user, Lang lang);
+    
+    public Set<Long> getCaddieProductIds(Long id_user);
 }

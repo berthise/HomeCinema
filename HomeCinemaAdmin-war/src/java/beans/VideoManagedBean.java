@@ -5,21 +5,18 @@
  */
 package beans;
 
-import dtos.FilmDto;
 import dtos.FilmFicheDto;
-import dtos.SimpleUserDto;
 import dtos.VideoDto;
 import ejbs.ManageFilmRemote;
 
-import ejbs.ManageUserRemote;
 import ejbs.ManageVideoRemote;
 import enums.Lang;
+import enums.Langs;
+import enums.VideoFormat;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.faces.context.FacesContext;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
@@ -63,6 +60,22 @@ public class VideoManagedBean {
     public void setResolution(Integer resolution) {
 	this.vdto.resolution = resolution;
     }
+    
+        public Langs getLang() {
+	return vdto.audio;
+    }
+
+    public void setLang(Langs l) {
+	this.vdto.audio = l;
+    }
+    
+    public VideoFormat getFormat() {
+	return vdto.format;
+    }
+
+    public void setFormat(VideoFormat f) {
+	this.vdto.format = f;
+    }
 
     public Long getFilm() {
 	return film;
@@ -90,7 +103,7 @@ public class VideoManagedBean {
 	if (film != null) {
 	    FilmFicheDto f = filmManager.getDtoFromId(film,Lang.EN);
 	    this.title = f.title;
-	    this.videos = f.files;
+	    this.videos = f.videos;
 	    this.trailer = f.trailler;
 	    if (trailer == null) {
 		this.trailer = new VideoDto();
@@ -133,5 +146,14 @@ public class VideoManagedBean {
 	} else {
 	    this.videoManager.mergeOrSave(trailer);
 	}
+    }
+    
+        
+    public Langs[] getPossibleLangs() {
+      return Langs.values();
+    }
+    
+    public VideoFormat[] getPossibleFormats() {
+      return VideoFormat.values();
     }
 }

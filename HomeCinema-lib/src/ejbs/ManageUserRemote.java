@@ -61,6 +61,10 @@ public interface ManageUserRemote {
     public void changePasswordRetrieve(String code, String newPassword) throws RetrieveCodeException;
 
     public List<FilmDto> getFilms(Long id, Lang lang);
+    
+    public Set<Long> getMyProductId(Long id);
+    
+    public Integer countFilms(Long id);
 
     public List<TransactionDto> getTransaction(Long user, Lang lang);
 }
