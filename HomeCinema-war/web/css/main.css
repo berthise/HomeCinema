@@ -177,6 +177,16 @@ body {
     body section .exclus a {
       color: #276427 !important;
       font-weight: bold; }
+    body section .info-fiche-film i {
+      margin: 5px;
+      position: relative;
+      top: 4px; }
+    body section .film-picture img {
+      width: 100%; }
+    body section .film-picture > img {
+      border-radius: 5px;
+      border: 1px solid #e6e6e6;
+      box-shadow: 2px 2px 3px #080808; }
     body section .well {
       color: #333; }
       body section .well .well-title {
@@ -214,8 +224,10 @@ body {
       line-height: 2; }
     body section .toggle-row {
       margin-top: 5px;
-      margin-bottom: 5px;
-      display: none; }
+      margin-bottom: 5px; }
+      body section .toggle-row > div {
+        margin: auto;
+        float: none; }
     body section .btn3d, body section .btn {
       transition: all .08s linear;
       position: relative;
@@ -284,7 +296,7 @@ body {
   body .rating p {
     font-size: 15px;
     margin-left: 15px;
-    margin-top: 12px;
+    margin-top: 8px;
     float: right; }
   body .rating img {
     width: 18px;
