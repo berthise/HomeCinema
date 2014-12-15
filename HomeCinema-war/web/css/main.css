@@ -130,8 +130,7 @@ body {
     body #search-form input[type="search"] {
       padding: 6px 6px; }
   body section {
-    /*-------- Caddie table ----------*/
-    /* ---------- 3D buttons ----------*/ }
+    /*-------- Caddie table ----------*/ }
     body section .panel .panel-body {
       color: #000; }
     body section .panel .panel-heading h1, body section .panel .panel-heading h2, body section .panel .panel-heading h3, body section .panel .panel-heading h4, body section .panel .panel-heading h5, body section .panel .panel-heading h6 {
@@ -228,34 +227,6 @@ body {
       body section .toggle-row > div {
         margin: auto;
         float: none; }
-    body section .btn3d, body section .btn {
-      transition: all .08s linear;
-      position: relative;
-      outline: none;
-      border: 0px; }
-      body section .btn3d:focus, body section .btn:focus {
-        outline: none; }
-      body section .btn3d:active, body section .btn:active {
-        top: 6px;
-        outline: none; }
-    body section .btn-default {
-      box-shadow: 0 0 0 1px #ebebeb inset, 0 0 0 2px rgba(255, 255, 255, 0.15) inset, 0 5px 0 0 #adadad, 0 5px 0 1px rgba(0, 0, 0, 0.4), 0 5px 5px 1px rgba(0, 0, 0, 0.5);
-      background-color: #fff; }
-    body section .btn-primary {
-      box-shadow: 0 0 0 1px #428bca inset, 0 0 0 2px rgba(255, 255, 255, 0.15) inset, 0 5px 0 0 #357ebd, 0 5px 0 1px rgba(0, 0, 0, 0.4), 0 5px 5px 1px rgba(0, 0, 0, 0.5);
-      background-color: #428bca; }
-    body section .btn-success {
-      box-shadow: 0 0 0 1px #5cb85c inset, 0 0 0 2px rgba(255, 255, 255, 0.15) inset, 0 5px 0 0 #4cae4c, 0 5px 0 1px rgba(0, 0, 0, 0.4), 0 5px 5px 1px rgba(0, 0, 0, 0.5);
-      background-color: #5cb85c; }
-    body section .btn-info {
-      box-shadow: 0 0 0 1px #5bc0de inset, 0 0 0 2px rgba(255, 255, 255, 0.15) inset, 0 5px 0 0 #46b8da, 0 5px 0 1px rgba(0, 0, 0, 0.4), 0 5px 5px 1px rgba(0, 0, 0, 0.5);
-      background-color: #5bc0de; }
-    body section .btn-warning {
-      box-shadow: 0 0 0 1px #f0ad4e inset, 0 0 0 2px rgba(255, 255, 255, 0.15) inset, 0 5px 0 0 #eea236, 0 5px 0 1px rgba(0, 0, 0, 0.4), 0 5px 5px 1px rgba(0, 0, 0, 0.5);
-      background-color: #f0ad4e; }
-    body section .btn-danger {
-      box-shadow: 0 0 0 1px #c63702 inset, 0 0 0 2px rgba(255, 255, 255, 0.15) inset, 0 5px 0 0 #C24032, 0 5px 0 1px rgba(0, 0, 0, 0.4), 0 5px 5px 1px rgba(0, 0, 0, 0.5);
-      background-color: #c63702; }
   body footer .footer-elem {
     margin: auto;
     text-align: center; }
