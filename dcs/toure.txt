@@ -1,0 +1,20 @@
+﻿Fonctionnalités utilisateur:
+
+Dans cette partie, nous abordons la conception de l’espace membre de notre application. Afin qu’un utilisateur puisse acheter les produits mis en vente sur le site, il va falloir au préalable qu’il soit connecté (donc inscrit).
+
+1. Inscription:
+Un visiteur peut s’inscrire sur le site via un formulaire créé à cet effet qui se trouve dans la page signup.xhtm, accessible depuis un lien hypertexte se trouvant dans sur toutes les pages de l’espace public. Une fois accès à ce formulaire, il est invité à renseigner ses informations. Ces informations seront ensuite transmit à un managed bean (SignUpManagedBean), que nous avons mis en RequestScoped qui se charge de vérifier les informations envoyé par utilisateur, qui seront ensuite être envoyées à l’EJB pour l’insertion dans notre système de persistance. Sachant que l’EJB est un sous-système de l’application, différent de celui où l’utilisateur a accès, nous avons utilisé un dto (UserDto) afin de simplifier le transfert de données.
+L’accès à la methode signUp du l’EJB se fait grace à un lookup d’une interface remote ManageUserRemote du sous-système (HomeCinema-lib) qui regroupe des fonctions spéficifiques à la gestion des utilisateurs. Cette interface est implementée par la classe ManageUser de l’EJB qui assure l’ajout de l’utilisateur dans la base de données. Ensuite un mail est envoyé au nouvel utilisateur afin qu’il confirme son inscription.
+2. Connexion:
+Pour avoir accès à toutes les fonctionnalités de l’application, l’utilisateur doit s’authentifier en renseignant son adresse mail ou son nom d’utilisateur et son mot de passe donné lors de du processus d’inscription. Les données sont transmis au managed bean SessionManagedBean qui est cette fois en SessionScoped, le même processus que celui de l’inscription est suivi, cette fois au lieu de faire une insertion de tuple, l’EJB vérifie si le couple (adresse mail ou nom d’utilisateur / mot de passe) est présent dans la base de données, si tel est le cas, une variable de session sera stockée durant toute la session de l’utilisateur.
+3. Déconnexion:
+La déconnexion consiste à réinitialiser la variable de session de session créée lors de la connexion.
+4. Récupération de mot de passe:
+Pour cela l’utilisateur donne son adresse mail, il reçoit ensuite un message avec un lien contenant un code aléatoire, ce lien rédirigera l’utilisateur vers un formulaire sur lequel il peut renseigner un nouveau mot de passe.
+5. Gestion du compte:
+4.1. Changement de d’adresse mail:
+Le changement d’adresse mail se fait depuis l’espace membre, l’opération est très basique et consiste à renseigner la nouvelle adresse qu’on souhaite assigner à son compte et le mot de passe pour confirmer, si le mot de passe est correct, le changement se fait au niveau sous-système EJB, au cas échéant un message d’erreur est affiché.
+4.2. Changement de mot passe:
+Tout comme le changement d’adresse mail, le changement de mot passe est similaire et consiste à renseigner le nouveau mot de passe et sa confirmation ensuite l’ancien mot de passe pour valider.
+4.3. Visionner un film:
+Une fois connectés, l'utilisateur a accès dans son espace personnel à la liste de tous les films qui a acquis, ces derniers peuvent être visionnés sur l’application ou téléchargés sur le disque pour une lecture avec des applications tiers. Si l’utilisateur opte pour un visionnage dans l’application, on vérifie s’il a dejà commencé à regarder pour reprendre à quelques secondes près là où s’était arrêté, ceci est est fait par script qui verifie l’état de la video, tant que celle-ci est en cours de lecture, une mise à jour de sa position est faite dans la base toutes les 5 secondes.

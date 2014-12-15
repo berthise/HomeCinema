@@ -140,6 +140,9 @@ body {
       margin-right: 15px; }
     body section .panel .panel-footer {
       text-align: right; }
+      body section .panel .panel-footer .pagination {
+        margin: 0;
+        padding: 0; }
     body section .sidebar .panel-body {
       padding: 0; }
       body section .sidebar .panel-body li > a {
