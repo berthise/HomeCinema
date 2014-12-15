@@ -67,4 +67,8 @@ public interface ManageUserRemote {
     public Integer countFilms(Long id);
 
     public List<TransactionDto> getTransaction(Long user, Lang lang);
+
+    public int getNbFilms(Long id);
+
+    public List<FilmDto> getFilmsPage(Long id, Lang lang, int row, int limit);
 }
