@@ -22,7 +22,6 @@
             <div class="alert alert-success">
                 <h:messages globalOnly="true" infoClass="info" />
             </div>
-            <h:form>
                 <h:dataTable id="usersTable" value="#{usersManagedBean.users}" var="user" border="1">
                     <f:facet name="header">
                         <h:outputText value="Users lists" />
@@ -57,13 +56,16 @@
                         <f:facet name="header">
                             <h:outputText value="Action" />
                         </f:facet>
+		      <h:form>
                         <h:commandLink onclick="return confirm('Are you sure ?')" action="#{usersManagedBean.delUser(user.id)}" value="delete" />
+		</h:form>
+
                     </h:column>
                     <f:facet name="footer">
                         <h:outputText value="Total: #{usersManagedBean.total}" />
                     </f:facet>
                 </h:dataTable>
-            </h:form>
+            
         </section>
         <script src="js/users.js"></script>
 
