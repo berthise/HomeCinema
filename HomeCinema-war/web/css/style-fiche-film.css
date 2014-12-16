@@ -9,11 +9,11 @@
     padding-left: 25px;
     padding-right: 25px;
     padding-top: 35%;
+    cursor: pointer;
 }
 
 .hover-play img {
     vertical-align: middle; 
-    cursor: pointer;
 }
 
 .hover-play:hover {
