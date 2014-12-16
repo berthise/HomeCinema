@@ -20,9 +20,9 @@
 
         <f:metadata>
             <f:viewParam name="id" value="#{filmManagedBean.id}" />
-	    <f:event type="preRenderView" listener="#{sessionManagedBean.checkRight}"/>
+	    <f:event type="preRenderView" listener="#{sessionManagedBean.checkRight()}"/>
             <f:event type="preRenderView" listener="#{filmManagedBean.setDtoFromId()}"/>
-            <f:event type="preRenderView" listener="#{accountManagedBean.checkIsMyFilm(filmManagedBean.id, sessionManagedBean.id)}"/>
+            <f:event type="preRenderView" listener="#{sessionManagedBean.isInMyFilms(filmManagedBean.id)}"/>
         </f:metadata>
 
     </h:head>
@@ -44,7 +44,7 @@
                         <div class="form-download-film">
 			  <a class="btn btn-success" href="javascript:history.back()"  tabindex="#{cc.attrs.tabidx+7}" >#{msg['retour']}</a>
 			      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#dl_popup" onclick="videoPause()">
-			    Changer le format
+			    #{msg['visio-change-video']}
 			    </button>
 <!--			    <button type="button" class="btn btn-success b" data-toggle="modal" data-target="#dl_popup"  onclick="videoPause()">
 						    <i class="glyphicon glyphicon-download-alt"></i>
@@ -72,7 +72,7 @@
                     <span id="lastPosition" style="display: none">#{usersFilmsManagedBean.ufdto.currentPosition}</span>
 		    <a class="go-top" title="#{msg['allpage-top']}" href="#top"><img src="img/arrowUp.png" /></a>
 
-      <ez:videos callback="viewVideo('myVideo')" button="Valider" callback_close="videoPlay()"/>
+      <ez:videos callback="viewVideo('myVideo')" button="#{msg['popup-video-valider']}" callback_close="videoPlay()"/>
 
 	                      </div>
             </div>
