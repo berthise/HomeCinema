@@ -216,4 +216,21 @@ public class ListProductsManagedBean {
 	return this.page == this.lastPage;
     }
 
+  public int getLastPage() {
+    return lastPage;
+  }
+
+  public void setLastPage(int lastPage) {
+    this.lastPage = lastPage;
+  }
+
+  public int getNextPages() {
+    return lastPage-page;
+  }
+  
+  
+  public int getPrevPages() {
+    return page-1;
+  }
+
 }
