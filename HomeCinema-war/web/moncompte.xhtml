@@ -10,7 +10,7 @@
     <h:head>
         <meta charset="utf-8"/>
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-        <title></title>
+        <title>HomeCinéma - #{msg['compte-title']}</title>
         <meta name="description" content=""/>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
@@ -35,13 +35,13 @@
                 <div class="row">
                     <aside class="col-lg-3 col-md-4 sidebar">
                         <div class="panel panel-default">
-                            <div class="panel-heading"><h4><i class="glyphicon glyphicon-list" />Menu</h4></div>
+                            <div class="panel-heading"><h4><i class="glyphicon glyphicon-list" />#{msg['compte-menu']}</h4></div>
                             <div class="panel-body">
                                 <ul class="nav nav-sidebar">
-                                    <li><a href="#films"><i class="glyphicon glyphicon-film" />Mes films</a></li>
-                                    <li><a href="#caddie"><i class="glyphicon glyphicon-shopping-cart" />Mon Caddie</a></li>
-                                    <li><a href="#historique"><i class="glyphicon glyphicon-time" />Mon historique</a></li>
-                                    <li><a href="#infos"><i class="glyphicon glyphicon-info-sign" />Mes informations</a></li>
+                                    <li><a href="#films"><i class="glyphicon glyphicon-film" />#{msg['compte-films']}</a></li>
+                                    <li><a href="#caddie"><i class="glyphicon glyphicon-shopping-cart" />#{msg['compte-caddie']}</a></li>
+                                    <li><a href="#historique"><i class="glyphicon glyphicon-time" />#{msg['compte-histo']}</a></li>
+                                    <li><a href="#infos"><i class="glyphicon glyphicon-info-sign" />#{msg['compte-infos']}</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -62,14 +62,14 @@
                         <div id="infos">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    <h4><i class="glyphicon glyphicon-info-sign" />Informations</h4>
+                                    <h4><i class="glyphicon glyphicon-info-sign" />#{msg['compte-infos']}</h4>
                                 </div>
                                 <div class="panel-body">
                                     <div class="row toggle-row">
                                         <div class="col-xs-10">
                                             <div class="panel panel-default">
                                                 <div class="panel-heading">
-                                                    <h5>Changer mon adresse mail</h5>
+                                                    <h5>#{msg['compte-email']}</h5>
                                                 </div> 
                                                 <div class="panel-body">
                                                     <h:form role="form">
@@ -77,24 +77,24 @@
                                                                     fatalClass="alert alert-danger" warnClass="alert alert-warning" />-->
                                                         <div class="row">
                                                             <div class="form-group">
-                                                                <h:outputLabel class="col-xs-5 form-label" for="email">Email <i class="required">*</i> : </h:outputLabel>
+                                                                <h:outputLabel class="col-xs-5 form-label" for="email">#{msg['email']} <i class="required">*</i> : </h:outputLabel>
                                                                 <div class="col-xs-7">
-                                                                    <h:inputText p:type="email" id="newEmail" class="form-control" value="#{infoUserManagedBean.newEmail}" p:placeholder="Adresse e-mail" p:required="required" />
+                                                                    <h:inputText p:type="email" id="newEmail" class="form-control" value="#{infoUserManagedBean.newEmail}" p:placeholder="#{msg['email']}" p:required="required" />
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="row">
                                                             <div class="form-group">
-                                                                <h:outputLabel class="col-xs-5 form-label" for="password">Mot de passe <i class="required">*</i> : </h:outputLabel>
+                                                                <h:outputLabel class="col-xs-5 form-label" for="password">#{msg['password']} <i class="required">*</i> : </h:outputLabel>
                                                                 <div class="col-xs-7">
-                                                                    <h:inputSecret id="oldPassword" class="form-control" value="#{infoUserManagedBean.password}" p:placeholder="Mot de passe" />
+                                                                    <h:inputSecret id="oldPassword" class="form-control" value="#{infoUserManagedBean.password}" p:placeholder="#{msg['password']}" />
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="row" style="margin-top: 5px">
                                                             <span class="col-xs-5"></span>
                                                             <div class="col-xs-7">
-                                                                <h:commandButton class="btn btn-primary" value="Changer mon email" action="#{infoUserManagedBean.changeEmail}">
+                                                                <h:commandButton class="btn btn-primary" value="#{msg['compte-email']}" action="#{infoUserManagedBean.changeEmail}">
                                                                     <f:ajax execute="@form" render="output" />
                                                                 </h:commandButton>
                                                             </div>
@@ -108,7 +108,7 @@
                                         <div class="col-xs-10">
                                             <div class="panel panel-default">
                                                 <div class="panel-heading">
-                                                    <h5>Changer de mot de passe</h5>
+                                                    <h5>#{msg['compte-password']}</h5>
                                                 </div> 
                                                 <div class="panel-body">
                                                     <h:form>
@@ -116,32 +116,32 @@
                                                                     fatalClass="alert alert-danger" warnClass="alert alert-warning" />-->
                                                         <div class="row">
                                                             <div class="form-group">
-                                                                <h:outputLabel class="col-xs-5 form-label" for="newPassword">Nouveau mot de passe <i class="required">*</i> : </h:outputLabel>
+                                                                <h:outputLabel class="col-xs-5 form-label" for="newPassword">#{msg['retrieve-pass-new']} <i class="required">*</i> : </h:outputLabel>
                                                                 <div class="col-xs-7">
-                                                                    <h:inputSecret id="newPassword" class="form-control" value="#{infoUserManagedBean.newPassword}" p:placeholder="Mot de passe" />
+                                                                    <h:inputSecret id="newPassword" class="form-control" value="#{infoUserManagedBean.newPassword}" p:placeholder="#{msg['password']}" />
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="row">
                                                             <div class="form-group">
-                                                                <h:outputLabel class="col-xs-5 form-label" for="conf_pass">Confirmation mot de passe <i class="required">*</i> : </h:outputLabel>
+                                                                <h:outputLabel class="col-xs-5 form-label" for="conf_pass">#{msg['retrieve-pass-conf']} <i class="required">*</i> : </h:outputLabel>
                                                                 <div class="col-xs-7">
-                                                                    <h:inputSecret id="conf_password" class="form-control" value="#{infoUserManagedBean.confPassword}"  p:placeholder="Confirmation mot de passe" p:required="required" />
+                                                                    <h:inputSecret id="conf_password" class="form-control" value="#{infoUserManagedBean.confPassword}"  p:placeholder="#{msg['password']}" p:required="required" />
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="row">
                                                             <div class="form-group">
-                                                                <h:outputLabel class="col-xs-5 form-label" for="oldPassword">Ancien mot de passe <i class="required">*</i> : </h:outputLabel>
+                                                                <h:outputLabel class="col-xs-5 form-label" for="oldPassword">#{msg['compte-old-password']} <i class="required">*</i> : </h:outputLabel>
                                                                 <div class="col-xs-7">
-                                                                    <h:inputSecret id="oldPassword" class="form-control" value="#{infoUserManagedBean.password}" p:placeholder="Ancien mot de passe" p:required="required" />
+                                                                    <h:inputSecret id="oldPassword" class="form-control" value="#{infoUserManagedBean.password}" p:placeholder="#{msg['password']}" p:required="required" />
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="row" style="margin-top: 5px">
                                                             <span class="col-xs-5"></span>
                                                             <div class="col-xs-7">
-                                                                <h:commandButton class="btn btn-primary" value="Changer de mot de passe" action="#{infoUserManagedBean.changePassword}">
+                                                                <h:commandButton class="btn btn-primary" value="#{msg['retrieve-pass-change']}" action="#{infoUserManagedBean.changePassword}">
                                                                     <f:ajax execute="@form" render="output" />
                                                                 </h:commandButton>
                                                             </div>
@@ -155,9 +155,6 @@
                             </div>
                         </div>
                     </article>
-                    <div id="bottom">
-                        <a class="go-top" href="#top" title="Vers le haut"><img src="img/arrowUp.png" /></a>                        
-                    </div>                        
                 </div>
             </div>
         </section>
