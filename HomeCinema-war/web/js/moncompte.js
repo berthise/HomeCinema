@@ -11,6 +11,13 @@ $(function () {
         $(href).fadeIn("slow");
         $(window).scrollTop(0);
     });
+    
+    $(".caddie").on("click", function(e) {
+        e.preventDefault();
+        var link = ($(this).attr("href")).split("#")[1];
+        link = "#" + link;
+        $('.sidebar').find('a[href="' + link + '"]').trigger("click");
+    });
 
     window.onpopstate = function (e) {
         if (e.state !== null) {

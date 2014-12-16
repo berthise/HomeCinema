@@ -34,7 +34,7 @@
                                     <i class="glyphicon glyphicon-folder-open"></i>
 				    <span class="badge">#{sessionManagedBean.filmsSize}</span>
                                 </a> |
-                                <a href="#{msg['page-account']}.xhtml#caddie" title="#{msg['header-voircaddie']}">
+                                <a href="#{msg['page-account']}.xhtml#caddie" class="caddie" title="#{msg['header-voircaddie']}">
                                     <i class="glyphicon glyphicon-shopping-cart"></i>
 				    <span class="badge">#{sessionManagedBean.caddySize}</span>
 				    <!--(#{sessionManagedBean.caddySize})-->
@@ -89,7 +89,7 @@
                                 </h:panelGroup>
                                 <h:panelGroup rendered="#{sessionManagedBean.id != null}">
                                     <li>
-                                        <a href="#{msg['page-account']}.xhtml#caddie" title="#{msg['header-voircaddie']}">
+                                        <a href="#{msg['page-account']}.xhtml#caddie" class="caddie" title="#{msg['header-voircaddie']}">
                                             <i class="glyphicon glyphicon-shopping-cart" />#{msg['caddie']}
                                             <span class="badge">#{sessionManagedBean.caddySize}</span>
                                         </a>
