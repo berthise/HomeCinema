@@ -13,6 +13,7 @@
 
 .hover-play img {
     vertical-align: middle; 
+    cursor: pointer;
 }
 
 .hover-play:hover {

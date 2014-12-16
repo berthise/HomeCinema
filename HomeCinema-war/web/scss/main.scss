@@ -816,3 +816,7 @@ body {
 ::-webkit-srollbar-thumb:window-inactive {
     background: rgba(160, 160, 160, 0.4);
 }
+
+.modal-open {
+    overflow-y: scroll;
+}

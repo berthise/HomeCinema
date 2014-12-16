@@ -19,44 +19,44 @@
         <link rel="stylesheet" href="css/main.css"/>
 
         <f:metadata>
-            <f:viewParam name="id" value="#{filmManagedBean.id}" />
 	    <f:event type="preRenderView" listener="#{sessionManagedBean.checkRight}"/>
+            <f:viewParam name="id" value="#{filmManagedBean.id}" />
             <f:event type="preRenderView" listener="#{filmManagedBean.setDtoFromId()}"/>
             <f:event type="preRenderView" listener="#{accountManagedBean.checkIsMyFilm(filmManagedBean.id, sessionManagedBean.id)}"/>
         </f:metadata>
 
     </h:head>
-  <ui:param name="defaultLang" value="#{filmManagedBean.getVideoLangs().get(0)}" />
-  <ui:param name="defaultQuality" value="#{filmManagedBean.getVideoQualities(defaultLang).get(0)}" />
-  <ui:param name="defaultFormat"  value="#{filmManagedBean.getVideoFormat(defaultLang,defaultQuality ).get(0)}" />
+    <ui:param name="defaultLang" value="#{filmManagedBean.getVideoLangs().get(0)}" />
+    <ui:param name="defaultQuality" value="#{filmManagedBean.getVideoQualities(defaultLang).get(0)}" />
+    <ui:param name="defaultFormat"  value="#{filmManagedBean.getVideoFormat(defaultLang,defaultQuality ).get(0)}" />
 
-    <h:body id="top" onload="chargeLang('#{defaultLang}','#{defaultQuality}','#{defaultFormat}')">
-    <ui:insert name="header" >
-      <ui:include src="components/header.xhtml">
-	<ui:param name="active" value="index" />
-      </ui:include>
-    </ui:insert>
+    <h:body id="top" onload="chargeLang('#{defaultLang}', '#{defaultQuality}', '#{defaultFormat}')">
+	<ui:insert name="header" >
+	    <ui:include src="components/header.xhtml">
+		<ui:param name="active" value="index" />
+	    </ui:include>
+	</ui:insert>
         <section>
             <div class="container">
 
                 <div id="ba" class="well">
                     <h2 class="well-title"><strong>#{msg['visio-subtitle']}: </strong><h:outputText value="#{filmManagedBean.getLinkToFiche()}" escape="false"/>
                         <div class="form-download-film">
-			  <a class="btn btn-success" href="javascript:history.back()"  tabindex="#{cc.attrs.tabidx+7}" >#{msg['retour']}</a>
-			      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#dl_popup" onclick="videoPause()">
-			    Changer le format
+			    <a class="btn btn-success" href="javascript:history.back()"  tabindex="#{cc.attrs.tabidx+7}" >#{msg['retour']}</a>
+			    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#dl_popup" onclick="videoPause()">
+				Changer le format
 			    </button>
-<!--			    <button type="button" class="btn btn-success b" data-toggle="modal" data-target="#dl_popup"  onclick="videoPause()">
-						    <i class="glyphicon glyphicon-download-alt"></i>
-						    #{msg['fiche-film-download']}
-						  </button>-->
+			    <!--			    <button type="button" class="btn btn-success b" data-toggle="modal" data-target="#dl_popup"  onclick="videoPause()">
+										<i class="glyphicon glyphicon-download-alt"></i>
+			    #{msg['fiche-film-download']}
+			  </button>-->
                         </div>
                     </h2>
 
                     <video id="myVideo" width="100%" controls="controls" autoplay="autoplay">
-		      <ui:repeat value="#{filmManagedBean.getVideos()}" var="video">
-			<source src="#{video.url}" type="video/#{video.type}" />
-		      </ui:repeat>
+			<ui:repeat value="#{filmManagedBean.getVideos()}" var="video">
+			    <source src="#{video.url}" type="video/#{video.type}" />
+			</ui:repeat>
 			#{msg['ba-not-supported']}
                     </video>
                     <h:form p:style="display: none;">
@@ -70,11 +70,10 @@
                     <h:outputText id="output" value="#{usersFilmsManagedBean.updateCurrentTime()}" />
                     #{usersFilmsManagedBean.getCurrentTime(sessionManagedBean.id, filmManagedBean.id)}
                     <span id="lastPosition" style="display: none">#{usersFilmsManagedBean.ufdto.currentPosition}</span>
-		    <a class="go-top" title="#{msg['allpage-top']}" href="#top"><img src="img/arrowUp.png" /></a>
 
-      <ez:videos callback="viewVideo('myVideo')" button="Valider" callback_close="videoPlay()"/>
+		    <ez:videos callback="viewVideo('myVideo')" button="Valider" callback_close="videoPlay()"/>
 
-	                      </div>
+		</div>
             </div>
         </section>
 

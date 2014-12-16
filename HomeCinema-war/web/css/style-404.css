@@ -1,6 +1,9 @@
 @charset 'UTF-8';
 
-@import url('http://fonts.googleapis.com/css?family=Monoton');
+@font-face {
+    font-family: Monoton;
+    src: url(../fonts/Monoton-Regular.ttf);
+}
 
 .board404 {
     margin: -10px auto -20px;
