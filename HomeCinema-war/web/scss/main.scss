@@ -10,6 +10,7 @@ body {
     margin: 0;
     font-family: $font;
     min-height: 800px;
+    overflow-x: hidden;
     legend {
         text-align: center;
     }
@@ -683,6 +684,10 @@ body {
 
     .no-border-right {
         border-right: none !important;
+    }
+    
+    .no-border-left {
+        border-left: none !important;
     }
 
     .button-delete {

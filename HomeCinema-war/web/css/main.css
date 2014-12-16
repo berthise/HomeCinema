@@ -6,6 +6,7 @@ body {
   margin: 0;
   font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
   min-height: 800px;
+  overflow-x: hidden;
   /*----------- Icons color ----------*/ }
   body legend {
     text-align: center; }
@@ -449,6 +450,8 @@ body {
     width: 100px; }
   body .no-border-right {
     border-right: none !important; }
+  body .no-border-left {
+    border-left: none !important; }
   body .button-delete {
     background: url(../img/delete.png) no-repeat;
     width: 20px;

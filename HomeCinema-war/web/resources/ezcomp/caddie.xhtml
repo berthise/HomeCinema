@@ -83,7 +83,8 @@
                         <h:panelGroup rendered="#{product.nbRows > 1}">
                             <tr>
                                 <!--<td rowspan="#{product.nbRows}">#{status.index +1}</td>-->
-                                <td class="center" colspan="2">  
+                                <td class="no-border-right" style="width: 25px" />
+                                <td class="center no-border-left">  
                                     <c:choose>
                                         <c:when test="#{cc.attrs.recap}">
                                             <b>#{product.product.name}</b>
@@ -94,14 +95,14 @@
                                     </c:choose>
                                 </td>
                                 <c:if test="#{!cc.attrs.recap}" >
-                                    <td class="center">
+                                    <td class="center" style="width: 25px">
                                         <h:form>
                                             <h:commandButton action="#{caddieManagedBean.deleteFromCaddie(product.product.id)}" class="button-delete" value="" title="#{msg['account-caddie-remove']}" />
                                         </h:form>
                                     </td>
                                 </c:if>
 
-                                <td class="center">#{product.product.priceString}€</td>
+                                <td class="center" style="width: 25px">#{product.product.priceString}€</td>
                             </tr>
                             <ui:repeat var="film" value="#{product.films}" varStatus="status_film">
                                 <tr>
