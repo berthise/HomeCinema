@@ -71,3 +71,11 @@ box-left h3 {
   padding: 2px;
   line-height: 2; 
 }
+
+.payradio {
+    position: relative;
+    top: 5px;
+}
+.payradio input[type="radio"] {
+    margin: -2px 8px;
+}
