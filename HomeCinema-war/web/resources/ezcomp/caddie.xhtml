@@ -39,17 +39,17 @@
                     <c:choose>
                         <c:when test="#{cc.attrs.recap}" >
                             <c:set var="colspan_film" value="2" />
-                            <c:set var="colspan_total" value="3" />
+                            <c:set var="colspan_total" value="2" />
                         </c:when>
                         <c:otherwise >
                             <c:set var="colspan_film" value="3" />
-                            <c:set var="colspan_total" value="4" />
+                            <c:set var="colspan_total" value="3" />
                         </c:otherwise>
                     </c:choose>
                     <ui:repeat var="product" value="#{caddieManagedBean.getListCaddie()}" varStatus="status">
                         <h:panelGroup  rendered="#{product.nbRows == 1}">
                             <tr>
-                                <td rowspan="#{product.nbRows}" class="center">#{status.index +1}</td>
+                                <!--<td rowspan="#{product.nbRows}" class="center">#{status.index +1}</td>-->
                                 <td class="center">
                                     <span class="affiche">
                                         <img src="img/glass.png" />
@@ -82,7 +82,7 @@
                         </h:panelGroup>
                         <h:panelGroup rendered="#{product.nbRows > 1}">
                             <tr>
-                                <td rowspan="#{product.nbRows}">#{status.index +1}</td>
+                                <!--<td rowspan="#{product.nbRows}">#{status.index +1}</td>-->
                                 <td class="center" colspan="2">  
                                     <c:choose>
                                         <c:when test="#{cc.attrs.recap}">
