@@ -16,8 +16,12 @@
         <div class="panel panel-default">
             <div class="panel-heading"><h4><i class="glyphicon glyphicon-time" />#{msg['account-historique']}</h4></div>
             <c:choose>
-                <c:when test="#{historyManagedBean.counter(cc.attrs.userId) eq 0}" >
-                    <td>#{msg['account-historique-vide']}</td>                                        
+                <c:when test="#{historyManagedBean.counter(cc.attrs.userId) eq 0}" >                    
+                <div>
+                    <p>
+                        <center>#{msg['account-historique-vide']}</center>
+                    </p>
+                </div>
                 </c:when>
                 <c:otherwise>
                     <table class="table table-bordered table-striped table-condensed">

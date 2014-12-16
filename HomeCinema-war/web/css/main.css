@@ -7,6 +7,8 @@ body {
   font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
   min-height: 800px;
   /*----------- Icons color ----------*/ }
+  body legend {
+    text-align: center; }
   body .textarea-noresizing {
     resize: none; }
   body .row-margin-top {
@@ -92,6 +94,10 @@ body {
       body header .navbar-nav li > a {
         border-left: 1px solid #ced1d4;
         margin: 0; }
+      body header .navbar-nav i {
+        margin: auto 5px;
+        position: relative;
+        top: 2px; }
       body header .navbar-nav i + span {
         display: none; }
       @media (min-width: 1000px) {
@@ -120,7 +126,7 @@ body {
       padding: 10px; }
     body header .col-19 {
       width: 19%; }
-  body .messages ul {
+  body ul {
     margin: 0;
     padding: 0;
     list-style: none; }

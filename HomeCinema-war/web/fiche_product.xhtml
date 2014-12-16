@@ -16,13 +16,13 @@
         <link rel="stylesheet" href="css/bootstrap.min.css"/>
         <link rel="stylesheet" href="css/bootstrap-theme.min.css"/>
         <link rel="stylesheet" href="css/main.css"/>
-	<link rel="stylesheet" href="css/style-fiche-film.css"/>
+        <link rel="stylesheet" href="css/style-fiche-film.css"/>
 
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
-	<script src="js/slider.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
+        <script src="js/slider.js"></script>
 
         <f:metadata>
-	    <f:event type="preRenderView" listener="#{sessionManagedBean.checkRight()}"/>
+            <f:event type="preRenderView" listener="#{sessionManagedBean.checkRight()}"/>
             <f:viewParam name="id" value="#{productManagedBean.id}" />
             <f:event type="preRenderView" listener="#{productManagedBean.setDtoFromId()}"/>
         </f:metadata>
@@ -30,152 +30,149 @@
     </h:head>
     <h:body id="top">
         <ui:insert name="header" >
-	    <ui:include src="components/header.xhtml" />
-	</ui:insert>
+            <ui:include src="components/header.xhtml" />
+        </ui:insert>
         <section>
             <div class="container">
-                <div class="well">
-                    <h2 class="well-title bold">
-			<div class="row">
-			    <div class="col-md-8">
-				<h:outputText value="#{productManagedBean.name}" />
-			    </div>
-			    <div class="col-md-4">
-				<div class="rating">
-				    <h:outputText value="#{productManagedBean.getRating()}" escape="false"/>
-				</div>
-			    </div>
-			</div>
-                    </h2>
-			   
-		    <div class="row">
-			<div class="col-lg-3 col-md-4">
-			     <div class="row" style="padding-bottom:20px">
-				<div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <h:outputText value="#{productManagedBean.name}" />
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="rating">
+                                        <h:outputText value="#{productManagedBean.getRating()}" escape="false"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-3 col-md-4">
+                                <div class="row" style="padding-bottom:20px">
+                                    <div class="col-md-12">
+                                        <a class="btn btn-success b" href="javascript:history.back()">#{msg['retour']}</a>
+                                    </div>
+                                </div>
+                                <div id="slider">
+                                    <a onclick="return false;" class="control_next">&gt;</a>
+                                    <a onclick="return false;" class="control_prev">&lt;</a>
+                                    <ul>
+                                        <ui:repeat var="o" value="#{productManagedBean.getListFilms()}" varStatus="status">
+                                            <li><img width="100%" title="#{o.title}" src="http://image.tmdb.org/t/p/w396/#{o.cover}" /></li>
+                                        </ui:repeat>
+                                    </ul>  
+                                </div>
+                                <c:set var="deco" value="#{sessionManagedBean.id eq null}" />
+                                <c:set var="type" value="#{accountManagedBean.getCodeButtonsProduct(productManagedBean.id, sessionManagedBean.id)}" />
+                                <c:set var="state" value="${productManagedBean.state}" />
 
-				  <a class="btn btn-success b" href="javascript:history.back()">#{msg['retour']}</a>
-				
-				</div>
-			      </div>
-			    <div id="slider">
-				<a onclick="return false;" class="control_next">&gt;</a>
-				<a onclick="return false;" class="control_prev">&lt;</a>
-				<ul>
-				    <ui:repeat var="o" value="#{productManagedBean.getListFilms()}" varStatus="status">
-					<li><img width="100%" title="#{o.title}" src="http://image.tmdb.org/t/p/w396/#{o.cover}" /></li>
-				    </ui:repeat>
-				</ul>  
-			    </div>
+                                <div class="form-liste-pack">
 
-			    <c:set var="deco" value="#{sessionManagedBean.id eq null}" />
-			    <c:set var="type" value="#{accountManagedBean.getCodeButtonsProduct(productManagedBean.id, sessionManagedBean.id)}" />
-			    <c:set var="state" value="${productManagedBean.state}" />
+                                    <h:panelGroup rendered="#{!deco and type eq 'OWNED'}">
+                                        <div class="row col-292">
+                                            <div class="col-xs-12 col-no-padding">
+                                                <a class="btn btn-primary b" href="#{msg['page-account']}.xhtml">#{msg['fiche-pack-owned']}</a>
+                                            </div>
+                                        </div>
+                                    </h:panelGroup>
 
-			    <div class="form-liste-pack">
+                                    <h:panelGroup rendered="#{!deco and (type eq 'PART_CADDIE' or type eq 'PART') and (state ne 'Unactivated')}">
+                                        <div class="row col-292">
+                                            <div class="col-xs-12 col-no-padding">
+                                                <h:form>
+                                                    <h:commandButton class="btn btn-success b" value="#{msg['fiche-pack-complete']}" action="#{caddieManagedBean.addProductToCaddie(productManagedBean.id, type)}" />
+                                                </h:form>
+                                            </div>
+                                        </div>
+                                    </h:panelGroup>
 
-				<h:panelGroup rendered="#{!deco and type eq 'OWNED'}">
-				    <div class="row col-292">
-					<div class="col-xs-12 col-no-padding">
-					    <a class="btn btn-primary b" href="#{msg['page-account']}.xhtml">#{msg['fiche-pack-owned']}</a>
-					</div>
-				    </div>
-				</h:panelGroup>
+                                    <h:panelGroup rendered="#{!deco and type eq 'PART_FILM'  and (state ne 'Unactivated')}">
+                                        <div class="row col-292">
+                                            <div class="col-xs-12 col-no-padding">
+                                                <h:form>
+                                                    <h:commandButton class="btn btn-success b" value="#{msg['fiche-pack-missing']}" action="#{caddieManagedBean.addProductToCaddie(productManagedBean.id, type)}" />
+                                                </h:form>
+                                            </div>
+                                        </div>
+                                    </h:panelGroup>
 
-				<h:panelGroup rendered="#{!deco and (type eq 'PART_CADDIE' or type eq 'PART') and (state ne 'Unactivated')}">
-				    <div class="row col-292">
-					<div class="col-xs-12 col-no-padding">
-					    <h:form>
-						<h:commandButton class="btn btn-success b" value="#{msg['fiche-pack-complete']}" action="#{caddieManagedBean.addProductToCaddie(productManagedBean.id, type)}" />
-					    </h:form>
-					</div>
-				    </div>
-				</h:panelGroup>
+                                    <h:panelGroup rendered="#{!deco and type eq 'FREE'  and (state ne 'Unactivated')}">
+                                        <div class="row col-292">
+                                            <div class="col-xs-12 col-no-padding">
+                                                <h:form>
+                                                    <h:commandButton class="btn btn-success b" value="#{msg['fiche-add']}" action="#{caddieManagedBean.addProductToCaddie(productManagedBean.id, type)}" />
+                                                </h:form>
+                                            </div>
+                                        </div>
+                                    </h:panelGroup>
 
-				<h:panelGroup rendered="#{!deco and type eq 'PART_FILM'  and (state ne 'Unactivated')}">
-				    <div class="row col-292">
-					<div class="col-xs-12 col-no-padding">
-					    <h:form>
-						<h:commandButton class="btn btn-success b" value="#{msg['fiche-pack-missing']}" action="#{caddieManagedBean.addProductToCaddie(productManagedBean.id, type)}" />
-					    </h:form>
-					</div>
-				    </div>
-				</h:panelGroup>
+                                    <h:panelGroup rendered="#{!deco and type eq 'CADDIE'}">
+                                        <a class="btn btn-primary b" href="#{msg['page-account']}.xhtml#caddie">#{msg['fiche-pack-caddie']}</a>
+                                    </h:panelGroup>
 
-				<h:panelGroup rendered="#{!deco and type eq 'FREE'  and (state ne 'Unactivated')}">
-				    <div class="row col-292">
-					<div class="col-xs-12 col-no-padding">
-					    <h:form>
-						<h:commandButton class="btn btn-success b" value="#{msg['fiche-add']}" action="#{caddieManagedBean.addProductToCaddie(productManagedBean.id, type)}" />
-					    </h:form>
-					</div>
-				    </div>
-				</h:panelGroup>
+                                    <h:panelGroup rendered="#{deco}">
+                                        <div class="row col-292 col-margin-bot">
+                                            <div class="col-xs-12 col-no-padding">
+                                                <a class="btn btn-primary b" href="#{msg['page-signup']}.xhtml">#{msg['inscription']}</a>
+                                            </div>
+                                        </div>
+                                        <div class="row col-292">
+                                            <div class="col-xs-12 col-no-padding">
+                                                <a class="btn btn-success b" href="#{msg['page-login']}.xhtml">#{msg['connexion']}</a>
+                                            </div>
+                                        </div>
+                                    </h:panelGroup>
+                                </div>
 
-				<h:panelGroup rendered="#{!deco and type eq 'CADDIE'}">
-				    <a class="btn btn-primary b" href="#{msg['page-account']}.xhtml#caddie">#{msg['fiche-pack-caddie']}</a>
-				</h:panelGroup>
+                            </div>
+                            <div class="col-lg-9 col-md-8">
+                                <div class="pack-info-film">
+                                    <h3>#{msg['fiche-pack-addate']} : <span class="info-film-p"><h:outputText value="#{productManagedBean.date}" /></span></h3>
 
-				<h:panelGroup rendered="#{deco}">
-				    <div class="row col-292 col-margin-bot">
-					<div class="col-xs-12 col-no-padding">
-					    <a class="btn btn-primary b" href="#{msg['page-signup']}.xhtml">#{msg['inscription']}</a>
-					</div>
-				    </div>
-				    <div class="row col-292">
-					<div class="col-xs-12 col-no-padding">
-					    <a class="btn btn-success b" href="#{msg['page-login']}.xhtml">#{msg['connexion']}</a>
-					</div>
-				    </div>
-				</h:panelGroup>
-			    </div>
+                                    <h:panelGroup rendered="${state eq 'Unactivated'}">
+                                        <h3>#{msg['fiche-product-deactivated']} </h3>
+                                    </h:panelGroup>
+                                    <h:panelGroup rendered="${state ne 'Unactivated'}">
 
-			</div>
-			<div class="col-lg-9 col-md-8">
-			    <div class="pack-info-film">
-				<h3>#{msg['fiche-pack-addate']} : <span class="info-film-p"><h:outputText value="#{productManagedBean.date}" /></span></h3>
-				
-				<h:panelGroup rendered="${state eq 'Unactivated'}">
-				<h3>#{msg['fiche-product-deactivated']} </h3>
-			      </h:panelGroup>
-				<h:panelGroup rendered="${state ne 'Unactivated'}">
+                                        <div class="row row-price">
+                                            <div class="col-xs-12 col-md-5">
+                                                <h3>#{msg['fiche-price']} :
+                                                    <span class="film-price"><span>#{productManagedBean.getPrice(productManagedBean.id)}#{msg['monnaie']}</span></span>
+                                                    <span class="film-reduc"><span>#{productManagedBean.getReduction()}#{msg['monnaie']}</span></span>
+                                                </h3>
+                                            </div>
+                                            <div class="col-xs-12 col-md-5">
+                                                <h3>#{msg['fiche-nb']} : #{productManagedBean.getNbSells(productManagedBean.id)}</h3>
+                                            </div>
+                                        </div>
+                                    </h:panelGroup>
 
-				<div class="row row-price">
-				    <div class="col-xs-12 col-md-5">
-					<h3>#{msg['fiche-price']} :
-					    <span class="film-price"><span>#{productManagedBean.getPrice(productManagedBean.id)}#{msg['monnaie']}</span></span>
-					<span class="film-reduc"><span>#{productManagedBean.getReduction()}#{msg['monnaie']}</span></span>
-					</h3>
-				    </div>
-				    <div class="col-xs-12 col-md-5">
-					<h3>#{msg['fiche-nb']} : #{productManagedBean.getNbSells(productManagedBean.id)}</h3>
-				    </div>
-				</div>
-				</h:panelGroup>
-				
-				<h3>#{msg['fiche-pack-content']} :</h3>
-				<ul>
-				    <ui:repeat var="o" value="#{productManagedBean.getListFilms()}" varStatus="status">
-					<li>
-					    <a class="box-film-product" href="#{msg['page-fiche-film']}.xhtml?id=#{o.id}" title="#{msg['fiche-film-see']}">
-						<p class="float-left box-film-product-title"><img src="img/arrow-title.png"/>#{o.title} (#{filmManagedBean.getYear(o)})</p>
-						<p class="float-right box-film-product-rate img"><img src="img/rate.png"/>#{o.rating}</p>
-						<p class="float-right box-film-product-time img"><img src="img/time.png"/>#{filmManagedBean.getRuntime(o)}</p>
-						<p class="clear-both box-film-product-overview"><img src="img/overview.png"/>#{productManagedBean.getShortOverview(o,180)}</p>
-					    </a>			    
-					</li>
-				    </ui:repeat>
-				</ul>
-			    </div>
-			</div>
-		    </div>
-
-		    <a class="go-top" href="#top" title="#{msg['allpage-top']}"><img src="img/arrowUp.png" /></a>
-
-		</div>
-	    </div>
-	</section>
-	<ui:insert name="footer" >
-	    <ui:include src="components/footer.xhtml" />
-	</ui:insert>
+                                    <h3>#{msg['fiche-pack-content']} :</h3>
+                                    <ul>
+                                        <ui:repeat var="o" value="#{productManagedBean.getListFilms()}" varStatus="status">
+                                            <li>
+                                                <a class="box-film-product" href="#{msg['page-fiche-film']}.xhtml?id=#{o.id}" title="#{msg['fiche-film-see']}">
+                                                    <p class="float-left box-film-product-title"><img src="img/arrow-title.png"/>#{o.title} (#{filmManagedBean.getYear(o)})</p>
+                                                    <p class="float-right box-film-product-rate img"><img src="img/rate.png"/>#{o.rating}</p>
+                                                    <p class="float-right box-film-product-time img"><img src="img/time.png"/>#{filmManagedBean.getRuntime(o)}</p>
+                                                    <p class="clear-both box-film-product-overview"><img src="img/overview.png"/>#{productManagedBean.getShortOverview(o,180)}</p>
+                                                </a>			    
+                                            </li>
+                                        </ui:repeat>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <ui:insert name="footer" >
+            <ui:include src="components/footer.xhtml" />
+        </ui:insert>
     </h:body>
 </html>

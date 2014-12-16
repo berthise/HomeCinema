@@ -19,7 +19,11 @@
             </div>
             <c:choose>
                 <c:when test="#{historyManagedBean.counter(cc.attrs.userId) eq 0}" >
-                    <td>#{msg['account-films']} <a href="#{msg['page-films']}.xhtml?tab=all">#{msg['account-films-link']}</a></td>                                        
+                <div>
+                    <p>
+                        <center>#{msg['account-films']} <a href="#{msg['page-films']}.xhtml?tab=all">#{msg['account-films-link']}</a></center>
+                    </p>
+                </div>
                 </c:when>
                 <c:otherwise>
                     <!-- Table -->
