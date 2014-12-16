@@ -20,7 +20,7 @@
 
         <f:metadata>
             <f:viewParam name="id" value="#{filmManagedBean.id}" />
-	    <f:event type="preRenderView" listener="#{sessionManagedBean.checkRight()}"/>
+            <f:event type="preRenderView" listener="#{sessionManagedBean.checkRight()}"/>
             <f:event type="preRenderView" listener="#{filmManagedBean.setDtoFromId()}"/>
             <f:event type="preRenderView" listener="#{sessionManagedBean.isInMyFilms(filmManagedBean.id)}"/>
         </f:metadata>
@@ -31,49 +31,50 @@
     <ui:param name="defaultFormat"  value="#{filmManagedBean.getVideoFormat(defaultLang,defaultQuality ).get(0)}" />
 
     <h:body id="top" onload="chargeLang('#{defaultLang}', '#{defaultQuality}', '#{defaultFormat}')">
-	<ui:insert name="header" >
-	    <ui:include src="components/header.xhtml">
-		<ui:param name="active" value="index" />
-	    </ui:include>
-	</ui:insert>
+        <ui:insert name="header" >
+            <ui:include src="components/header.xhtml">
+                <ui:param name="active" value="index" />
+            </ui:include>
+        </ui:insert>
         <section>
             <div class="container">
+                <div class="panel panel-default">
+                    <div class="panel panel-heading">
+                        <h3>#{msg['visio-subtitle']}: <h:outputText value="#{filmManagedBean.getLinkToFiche()}" escape="false"/>
+                            <div class="form-download-film">
+                                <a class="btn btn-success" href="javascript:history.back()"  tabindex="#{cc.attrs.tabidx+7}" ><i class="glyphicon glyphicon-arrow-left"></i> #{msg['retour']}</a>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#dl_popup" onclick="videoPause()">
+                                    <i class="glyphicon glyphicon-cog"></i> #{msg['visio-change-video']}
+                                </button>
+                                <!--			    <button type="button" class="btn btn-success b" data-toggle="modal" data-target="#dl_popup"  onclick="videoPause()">
+                                                                                    <i class="glyphicon glyphicon-download-alt"></i>
+                                #{msg['fiche-film-download']}
+                              </button>-->
+                            </div>
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        <video id="myVideo" width="100%" controls="controls" autoplay="autoplay">
+                            <ui:repeat value="#{filmManagedBean.getVideos()}" var="video">
+                                <source src="#{video.url}" type="video/#{video.type}" />
+                            </ui:repeat>
+                            #{msg['ba-not-supported']}
+                        </video>
+                        <h:form p:style="display: none;">
+                            <h:inputText id="currentPosition" p:id="ufCP" value="#{usersFilmsManagedBean.ufdto.currentPosition}" />
+                            <h:commandButton action="#{usersFilmsManagedBean.updateCurrentTime}" p:id="updateCT">
+                                <f:param name="film" value="#{filmManagedBean.id}" />
+                                <f:param name="user" value="#{sessionManagedBean.id}" />
+                                <f:ajax execute="@form" render="output" />
+                            </h:commandButton>
+                        </h:form>                        
+                        <h:outputText id="output" value="#{usersFilmsManagedBean.updateCurrentTime()}" />
+                        #{usersFilmsManagedBean.getCurrentTime(sessionManagedBean.id, filmManagedBean.id)}
+                        <span id="lastPosition" style="display: none">#{usersFilmsManagedBean.ufdto.currentPosition}</span>
 
-                <div id="ba" class="well">
-                    <h2 class="well-title"><strong>#{msg['visio-subtitle']}: </strong><h:outputText value="#{filmManagedBean.getLinkToFiche()}" escape="false"/>
-                        <div class="form-download-film">
-			  <a class="btn btn-success" href="javascript:history.back()"  tabindex="#{cc.attrs.tabidx+7}" ><i class="glyphicon glyphicon-arrow-left"></i> #{msg['retour']}</a>
-			      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#dl_popup" onclick="videoPause()">
-				<i class="glyphicon glyphicon-cog"></i> #{msg['visio-change-video']}
-			    </button>
-			    <!--			    <button type="button" class="btn btn-success b" data-toggle="modal" data-target="#dl_popup"  onclick="videoPause()">
-										<i class="glyphicon glyphicon-download-alt"></i>
-			    #{msg['fiche-film-download']}
-			  </button>-->
-                        </div>
-                    </h2>
-
-                    <video id="myVideo" width="100%" controls="controls" autoplay="autoplay">
-			<ui:repeat value="#{filmManagedBean.getVideos()}" var="video">
-			    <source src="#{video.url}" type="video/#{video.type}" />
-			</ui:repeat>
-			#{msg['ba-not-supported']}
-                    </video>
-                    <h:form p:style="display: none;">
-                        <h:inputText id="currentPosition" p:id="ufCP" value="#{usersFilmsManagedBean.ufdto.currentPosition}" />
-                        <h:commandButton action="#{usersFilmsManagedBean.updateCurrentTime}" p:id="updateCT">
-                            <f:param name="film" value="#{filmManagedBean.id}" />
-                            <f:param name="user" value="#{sessionManagedBean.id}" />
-                            <f:ajax execute="@form" render="output" />
-                        </h:commandButton>
-                    </h:form>                        
-                    <h:outputText id="output" value="#{usersFilmsManagedBean.updateCurrentTime()}" />
-                    #{usersFilmsManagedBean.getCurrentTime(sessionManagedBean.id, filmManagedBean.id)}
-                    <span id="lastPosition" style="display: none">#{usersFilmsManagedBean.ufdto.currentPosition}</span>
-
-      <ez:videos callback="viewVideo('myVideo')" button="#{msg['popup-video-valider']}" callback_close="videoPlay()"/>
-
-		</div>
+                        <ez:videos callback="viewVideo('myVideo')" button="#{msg['popup-video-valider']}" callback_close="videoPlay()"/>
+                    </div>
+                </div>
             </div>
         </section>
 
