@@ -58,6 +58,9 @@ body {
       width: 100%; }
     body header #logo {
       display: inline-block; }
+    @media (max-width: 786px) {
+      body header #banner-img {
+        display: none; } }
     body header #banner-img {
       margin: auto;
       width: 664px;

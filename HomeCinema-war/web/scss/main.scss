@@ -92,6 +92,11 @@ body {
         #logo {
             display: inline-block;
         }
+        @media (max-width: 786px) {
+            #banner-img {
+                display: none;
+            }
+        }
         #banner-img {
             margin: auto;
             width: 664px;
@@ -685,7 +690,7 @@ body {
     .no-border-right {
         border-right: none !important;
     }
-    
+
     .no-border-left {
         border-left: none !important;
     }
