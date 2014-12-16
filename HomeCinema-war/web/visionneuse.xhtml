@@ -42,9 +42,9 @@
                 <div id="ba" class="well">
                     <h2 class="well-title"><strong>#{msg['visio-subtitle']}: </strong><h:outputText value="#{filmManagedBean.getLinkToFiche()}" escape="false"/>
                         <div class="form-download-film">
-			  <a class="btn btn-success" href="javascript:history.back()"  tabindex="#{cc.attrs.tabidx+7}" >#{msg['retour']}</a>
+			  <a class="btn btn-success" href="javascript:history.back()"  tabindex="#{cc.attrs.tabidx+7}" ><i class="glyphicon glyphicon-arrow-left"></i> #{msg['retour']}</a>
 			      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#dl_popup" onclick="videoPause()">
-			    #{msg['visio-change-video']}
+				<i class="glyphicon glyphicon-cog"></i> #{msg['visio-change-video']}
 			    </button>
 			    <!--			    <button type="button" class="btn btn-success b" data-toggle="modal" data-target="#dl_popup"  onclick="videoPause()">
 										<i class="glyphicon glyphicon-download-alt"></i>

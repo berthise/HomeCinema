@@ -11,6 +11,7 @@ import entities.User;
 import entities.UsersFilms;
 import enums.UsersFilmsStates;
 import java.util.Iterator;
+import java.util.Objects;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -28,12 +29,13 @@ public class ManageUsersFilms implements ManageUsersFilmsRemote {
 
     @Override
     public void updateCurrentTime(Long user, UsersFilmsDto ufdto) {
+	
         User u = em.find(User.class, user);
         Iterator<UsersFilms> ufi = u.getFilms().iterator();
         boolean cont = true;
         while (ufi.hasNext() && cont) {
             UsersFilms uf = ufi.next();
-            if (uf != null && uf.getFilm().getId() == ufdto.film) {
+            if (uf != null && Objects.equals(uf.getFilm().getId(), ufdto.film)) {
                 uf.setCurrentPosition(ufdto.currentPosition);
                 uf.setState(UsersFilmsStates.Viewed);
                 em.merge(uf);
@@ -50,7 +52,7 @@ public class ManageUsersFilms implements ManageUsersFilmsRemote {
         UsersFilms uf = null;
         while (ufi.hasNext() && cont) {
             uf = ufi.next();
-            if (uf != null && uf.getFilm().getId() == film) {
+            if (uf != null && Objects.equals(uf.getFilm().getId(), film)) {
                 cont = false;
             }
         }
