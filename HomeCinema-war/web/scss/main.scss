@@ -568,12 +568,6 @@ body {
         background: -webkit-linear-gradient(left, #a5a5a5 0%,#c6c6c6 100%);
     }
 
-    .activated, .activated:hover {
-        background: -moz-linear-gradient(left, #62a53c 0%, #95c640 100%) !important;
-        background: -webkit-gradient(linear, left top, right top, color-stop(0%,#62a53c), color-stop(100%,#95c640)) !important;
-        background: -webkit-linear-gradient(left, #62a53c 0%,#95c640 100%) !important;
-    }
-
     .box-right {
     }
 

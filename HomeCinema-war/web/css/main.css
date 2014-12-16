@@ -383,10 +383,6 @@ body {
     background: -moz-linear-gradient(left, #a5a5a5 0%, #c6c6c6 100%);
     background: -webkit-gradient(linear, left top, right top, color-stop(0%, #a5a5a5), color-stop(100%, #c6c6c6));
     background: -webkit-linear-gradient(left, #a5a5a5 0%, #c6c6c6 100%); }
-  body .activated, body .activated:hover {
-    background: -moz-linear-gradient(left, #62a53c 0%, #95c640 100%) !important;
-    background: -webkit-gradient(linear, left top, right top, color-stop(0%, #62a53c), color-stop(100%, #95c640)) !important;
-    background: -webkit-linear-gradient(left, #62a53c 0%, #95c640 100%) !important; }
   body .box-right h3 {
     padding: 0 0 10px 0;
     margin: 0 0 15px 0;

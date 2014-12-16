@@ -205,9 +205,8 @@ input[type=checkbox]{
 }
 
 .activated-search {
-    background: -moz-linear-gradient(left, #62a53c 0%, #95c640 100%) !important;
-    background: -webkit-gradient(linear, left top, right top, color-stop(0%,#62a53c), color-stop(100%,#95c640)) !important;
-    background: -webkit-linear-gradient(left, #62a53c 0%,#95c640 100%) !important;
+    background: whitesmoke;
+    padding-top: 5px;
 }
 
 .btn-search {
