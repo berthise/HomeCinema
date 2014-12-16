@@ -6,8 +6,7 @@
     xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:ez="http://xmlns.jcp.org/jsf/composite/ezcomp"
-    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    xmlns:ez="http://xmlns.jcp.org/jsf/composite/ezcomp">
     <h:head>
         <meta charset="utf-8"/>
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
@@ -43,6 +42,7 @@
                 <div id="ba" class="well">
                     <h2 class="well-title"><strong>#{msg['visio-subtitle']}: </strong><h:outputText value="#{filmManagedBean.getLinkToFiche()}" escape="false"/>
                         <div class="form-download-film">
+			  <a class="btn btn-success" href="javascript:history.back()"  tabindex="#{cc.attrs.tabidx+7}" >#{msg['retour']}</a>
 			      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#dl_popup" onclick="videoPause()">
 			    Changer le format
 			    </button>
