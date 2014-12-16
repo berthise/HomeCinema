@@ -13,9 +13,9 @@ $(function () {
     $("#dl_popup").on('hidden.bs.modal', function (e) {
         popup_do_callback_close();
     });
-    $("#dl_popup").on('shown.bs.modal', function (e) {
-        popup_do_open();
-    });
+//    $("#dl_popup").on('shown.bs.modal', function (e) {
+//        popup_do_open();
+//    });
 
     $("#warning-http-lien").on("click", function (e) {
         e.preventDefault();
