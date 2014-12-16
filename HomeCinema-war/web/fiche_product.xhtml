@@ -52,12 +52,7 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-lg-3 col-md-4">
-                                <div class="row" style="padding-bottom:20px">
-                                    <div class="col-md-12">
-                                        <a class="btn btn-success b" href="javascript:history.back()">#{msg['retour']}</a>
-                                    </div>
-                                </div>
-                                <div id="slider">
+			      <div id="slider">
                                     <a onclick="return false;" class="control_next">&gt;</a>
                                     <a onclick="return false;" class="control_prev">&lt;</a>
                                     <ul>
@@ -66,6 +61,7 @@
                                         </ui:repeat>
                                     </ul>  
                                 </div>
+                                
                                 <c:set var="deco" value="#{sessionManagedBean.id eq null}" />
                                 <c:set var="type" value="#{accountManagedBean.getCodeButtonsProduct(productManagedBean.id, sessionManagedBean.id)}" />
                                 <c:set var="state" value="${productManagedBean.state}" />
@@ -127,7 +123,11 @@
                                         </div>
                                     </h:panelGroup>
                                 </div>
-
+                                <div class="row row col-292">
+                                    <div class="col-xs-12 col-no-padding">
+                                        <a class="btn btn-success b" href="javascript:history.back()">#{msg['retour']}</a>
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-lg-9 col-md-8">
                                 <div class="pack-info-film">
