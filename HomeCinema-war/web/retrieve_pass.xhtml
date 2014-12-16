@@ -27,41 +27,47 @@
 	<ui:insert name="header" >
 	    <ui:include src="components/header.xhtml" />
 	</ui:insert>
-	<section>
-	    <div class="container">
-		<div class="well">
-		    <h2 class="well-title">#{msg['retrieve-pass-title']}</h2>
-		    <h:form>
-			<div class="row">
-			    <div class="form-group">
-				<h:outputLabel class="col-md-5 form-label" for="newPassword">#{msg['retrieve-pass-new']} <i class="required">*</i> : </h:outputLabel>
-				<div class="col-md-7">
-				    <h:inputSecret id="newPassword" class="form-control" value="#{forgotPassManagedBean.p1}" p:placeholder="#{msg['password']}" />
-				</div>
-			    </div>
-			</div>
-			<div class="row row-margin-top">
-			    <div class="form-group">
-				<h:outputLabel class="col-md-5 form-label" for="conf_pass">#{msg['retrieve-pass-conf']} <i class="required">*</i> : </h:outputLabel>
-				<div class="col-md-7">
-				    <h:inputSecret id="conf_password" class="form-control" value="#{forgotPassManagedBean.p2}"  p:placeholder="#{msg['password']}" p:required="required" />
-				</div>
-			    </div>
-			</div>
-			<h:inputHidden id="code" class="form-control" value="#{forgotPassManagedBean.code}" />
-			<div class="row row-margin-top">
-			    <span class="col-md-5"></span>
-			    <div class="col-md-7">
-				<a href="#{msg['page-index']}.xhtml" class="btn btn-primary col-md-3  btn-space">#{msg['cancel']}</a>
-				<h:commandButton class="btn btn-primary" value="#{msg['retrieve-pass-change']}" action="#{forgotPassManagedBean.change()}"/>
-			    </div>
-			</div>
-		    </h:form>
-
-		</div>
-	    </div>
-	</section>
-	<script src="js/signup.js"></script>
+              <section>
+            <div class="container">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3>#{msg['retrieve-pass-title']}</h3>
+                    </div>
+                    <div class="panel-body">
+                        <h:form role="form">
+                            <div class="row">
+                                <div class="col-md-6 col-xs-12 col-md-offset-3 col-xs-0">
+                                    <legend>#{msg['retrieve-password-legend']}:</legend>
+                                    <div class="row">
+                                        <div class="form-group">
+					  <h:outputLabel class="col-xs-4 col-md-6 form-label" for="newPassword">#{msg['retrieve-pass-new']} <i class="required">*</i> : </h:outputLabel>
+                                            <div class="col-md-6 col-xs-8">
+				    <h:inputSecret id="newPassword" class="form-control" value="#{forgotPassManagedBean.p1}" p:placeholder="#{msg['password']}"  p:required="required" />
+					  </div>
+                                        </div>
+                                    </div>
+				    <div class="row">
+                                        <div class="form-group">
+					  <h:outputLabel class="col-xs-4 col-md-6 form-label" for="newPassword">#{msg['retrieve-pass-conf']} <i class="required">*</i> : </h:outputLabel>
+                                            <div class="col-md-6 col-xs-8">
+				    <h:inputSecret id="conf_password" class="form-control" value="#{forgotPassManagedBean.p2}" p:placeholder="#{msg['password']}"  p:required="required" />
+					  </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+			    <h:inputHidden id="code" class="form-control" value="#{forgotPassManagedBean.code}" />
+                            <div class="row row-margin-top">
+                                <div class="col-xs-1 col-sm-3 col-md-4" />
+                                <a href="javascript:history.back()" class="btn btn-primary col-xs-5 col-sm-3 col-md-2 btn-space">#{msg['cancel']}</a>
+                                <h:commandButton class="btn btn-success col-xs-5 col-sm-3 col-md-2" value="#{msg['retrieve-pass-change']}" action="#{forgotPassManagedBean.change()}" tabindex="520" />
+                            </div>
+                        </h:form>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <script src="js/signup.js"></script>
 	<ui:insert name="footer" >
 	    <ui:include src="components/footer.xhtml" />
 	</ui:insert>
