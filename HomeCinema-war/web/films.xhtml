@@ -9,7 +9,8 @@ and open the template in the editor.
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
     <h:head>
         <meta charset="utf-8"/>
         <meta http-equiv="X-UA-Compatible" />
@@ -142,9 +143,9 @@ and open the template in the editor.
                                                     <div class="col-md-6 col-xs-5 col-no-padding-search ">
                                                         <h:outputLabel class="label-search" for="date">#{msg['films-search-date']} :</h:outputLabel>
                                                     </div>
-                                                    <div class="col-md-5 col-xs-6 col-no-padding-search-input">
-                                                        <h:inputText style="width: 49%;" class="form-control input-search" id="date1" value="#{searchProductsManagedBean.date1}" />
-                                                        <h:inputText style="width: 49%; float: right;" class="form-control input-search" id="date2" value="#{searchProductsManagedBean.date2}" />
+                                                    <div class="date-search col-md-5 col-xs-6 col-no-padding-search-input">
+                                                        <h:inputText p:placeholder="#{msg['debut']}" style="width: 49%;" class="form-control input-search" id="date1" value="#{searchProductsManagedBean.date1}" />
+                                                        <h:inputText p:placeholder="#{msg['fin']}" style="width: 49%; float: right;" class="form-control input-search" id="date2" value="#{searchProductsManagedBean.date2}" />
                                                     </div>
                                                     <div class="col-xs-1 col-no-padding-search">
                                                         <span class="clean" onclick="clean('date1');

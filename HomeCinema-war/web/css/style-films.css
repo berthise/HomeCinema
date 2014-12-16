@@ -173,6 +173,7 @@ input[type=checkbox]{
     margin-bottom: 7px;
     margin-right: 1px;
     padding-top: 6px;
+    text-align: center;
 }
 
 .clean {
@@ -266,7 +267,11 @@ input[type=checkbox]{
 }
 
 .truncate {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.date-search input {
+    font-size: 13px !important;
 }
