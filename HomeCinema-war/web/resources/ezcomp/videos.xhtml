@@ -11,14 +11,15 @@
     	<cc:attribute name="callback" type="String" default="valideVideo()" />
 	<cc:attribute name="callback_close" type="String" default="" />
 
-    	<cc:attribute name="button" type="String" default="Valider" />
+    	<cc:attribute name="button" type="String" default="#{msg['popup-video-valider']}" />
 
   </cc:interface>
 
   <!-- IMPLEMENTATION -->
   <cc:implementation>
         <f:view>
-	    <f:event type="preRenderView" listener="#{filmManagedBean.setDtoFromId()}"/>
+            <f:event type="preRenderComponent" listener="#{sessionManagedBean.checkRight}"/>
+	    <f:event type="preRenderComponent" listener="#{filmManagedBean.setDtoFromId()}"/>
         </f:view>
     <script>
     function popup_do_callback_close() {
@@ -31,13 +32,13 @@
 	<h:form id="dl_form">
 
 	  <div class="modal-header">
-	    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-	    <h4 class="modal-title">Selection de la video</h4>
+	    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">#{msg['fermer']}</span></button>
+	    <h4 class="modal-title">#{msg['popup-video-selection']}</h4>
 	  </div>
 	  <div class="modal-body" id="video-selection">
 	    <div class="row">
 	      <div id="group-audio" class="form-group">
-		<h:outputLabel class="col-md-5 form-label" for="type">Audio : </h:outputLabel>
+		<h:outputLabel class="col-md-5 form-label" for="type"><i class="glyphicon glyphicon-volume-up" />#{msg['popup-video-audio']} :</h:outputLabel>
 		<div class="col-md-7">
 		  <h:selectOneListbox id="audioLang" readonly="true" value="#{defaultLang}" onchange="selectLang(this.value)" >
 		    <f:selectItems value="#{filmManagedBean.getVideoLangs()}" var="currentLang"  itemValue="#{currentLang}" itemLabel="#{msg[currentLang.str]}"/>
@@ -48,7 +49,7 @@
 	    <ui:repeat value="#{filmManagedBean.getVideoLangs()}" var="lang">
 	      <div class="row">
 		<div id="format-#{lang}" class="form-group" style="display:none">
-		  <h:outputLabel class="col-md-5 form-label" for="type">Qualité :</h:outputLabel>
+		  <h:outputLabel class="col-md-5 form-label" for="type"><i class="glyphicon glyphicon-expand" />#{msg['popup-video-quality']} :</h:outputLabel>
 		  <div id="format-#{lang}-menu" class="col-md-7">
 		    <h:selectOneListbox id="videoQuality" readonly="true" value="#{filmManagedBean.getVideoQualities(lang).get(0)}" onchange="selectQuality(this.value)">
 		      <f:selectItems value="#{filmManagedBean.getVideoQualities(lang)}" var="currentQuality"  itemValue="#{currentQuality}" itemLabel="#{currentQuality}"/>
@@ -60,7 +61,7 @@
 	      <ui:repeat value="#{filmManagedBean.getVideoQualities(lang)}" var="quality">
 		<div class="row">
 		  <div id="format-#{lang}-#{quality}" class="form-group"  style="display:none">
-		    <h:outputLabel class="col-md-5 form-label" for="type">Format: </h:outputLabel>
+		    <h:outputLabel class="col-md-5 form-label" for="type"><i class="glyphicon glyphicon-expand" />#{msg['popup-video-format']} :</h:outputLabel>
 		    <div id="format-#{lang}-#{quality}-menu" class="col-md-7">
 		      <h:selectOneListbox id="videoFormat" readonly="true" value="#{filmManagedBean.getVideoFormat(lang,quality).get(0)}"  onchange="selectFormat(this.value)">
 			<f:selectItems value="#{filmManagedBean.getVideoFormat(lang,quality)}" var="currentFormat"  itemValue="#{currentFormat}" itemLabel="#{currentFormat.str}"/>
@@ -75,14 +76,14 @@
 	    <div style="display:none">
 	      <ui:repeat value="#{filmManagedBean.getVideos()}" var="video">
 		<a id="video-#{video.audio}-#{video.resolution}-#{video.format}"
-		   href="#{video.url}" target="_blank" download="filename">video</a>
+		   href="#{video.url}" target="_blank" download="filename"></a>
 	      </ui:repeat>
 
 	    </div>
 
 	  </div>
 	  <div class="modal-footer">
-	    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	    <button type="button" class="btn btn-default" data-dismiss="modal">#{msg['fermer']}</button>
 	    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="#{cc.attrs.callback}">#{cc.attrs.button}</button>
 	  </div>
 	</h:form>

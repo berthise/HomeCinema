@@ -27,6 +27,7 @@ public class Redirect {
 		{
 		  put(Pages.MON_COMPTE, Pages.INDEX);
 		  put(Pages.PAYMENT, Pages.INDEX);
+		  put(Pages.VISIONNEUSE, Pages.INDEX);
 		}
 	      });
 	      put(SessionStates.LOGGED, new HashMap<String, String>() {
