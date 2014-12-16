@@ -48,8 +48,8 @@
                                         <div class="form-group">
                                             <h:outputLabel class="col-xs-5 form-label" for="type">#{msg['paiement-card']} <i class="required">*</i> : </h:outputLabel>
                                             <div class="col-sx-6">
-					      <h:selectOneRadio id="typeCarte"  value="#{paymentManagedBean.pdto.type}" p:required="required">
-                                                    <f:selectItems value="#{paymentManagedBean.cardTypes}" var="currentType"  itemValue="#{currentType}" itemLabel="#{currentType.label}" />
+                                                <h:selectOneRadio id="typeCarte" value="#{paymentManagedBean.pdto.type}" p:required="required" class="payradio">
+                                                    <f:selectItems value="#{paymentManagedBean.cardTypes}" var="currentType"  itemValue="#{currentType}" itemLabel="#{currentType.label}"/>
                                                 </h:selectOneRadio>
                                             </div>
                                         </div>
@@ -89,12 +89,13 @@
                                     </div>
                                     <div class="row">
                                         <span class="col-xs-3"></span>
+                                        <i class="glyphicon glyphicon-ok" />
                                         <h:commandButton action="#{paymentManagedBean.cancel()}" value="#{msg['cancel']}"
                                                          title="#{msg['paiment-cancel']}" class="btn btn-primary col-xs-3  btn-space" 
                                                          tabindex="52">
                                             <f:ajax/>
                                         </h:commandButton>
-
+                                        <i class="glyphicon glyphicon-ok" />
                                         <h:commandButton action="#{paymentManagedBean.buy()}" value="#{msg['valider']}"
                                                          title="#{msg['paiment-valider']}" class="btn btn-success col-xs-3" 
                                                          tabindex="50"/>

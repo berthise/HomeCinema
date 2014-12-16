@@ -52,7 +52,7 @@ public class ManageUsersFilms implements ManageUsersFilmsRemote {
         UsersFilms uf = null;
         while (ufi.hasNext() && cont) {
             uf = ufi.next();
-            if (uf != null && uf.getFilm().getId() == film) {
+            if (uf != null && Objects.equals(uf.getFilm().getId(), film)) {
                 cont = false;
             }
         }
