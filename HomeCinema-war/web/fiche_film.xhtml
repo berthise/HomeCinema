@@ -38,7 +38,7 @@
             <div class="container">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-		      	  
+
 
                         <h3>
                             <div class="row">
@@ -57,8 +57,8 @@
                         <div class="row">
                             <div class="col-md-4">
 
-			      <div class="row">				
-				<div class="col-md-12 film-picture">
+				<div class="row">				
+				    <div class="col-md-12 film-picture">
                                         <h:graphicImage value="http://image.tmdb.org/t/p/w396/#{filmManagedBean.cover}" />
                                         <a class="hover-play" data-toggle="modal" data-target="#ba_popup">
                                             <img src="img/play_icon.png" />
@@ -70,8 +70,6 @@
                                         <c:set var="deco" value="#{sessionManagedBean.id eq null}" />
                                         <c:set var="type" value="#{accountManagedBean.getCodeButtonsFilm(filmManagedBean.id)}" />
                                         <c:set var="state" value="${productManagedBean.getState(filmManagedBean.mainProductId)}" />
-
-
 
                                         <div class="form-liste-film">
 
@@ -121,15 +119,15 @@
                                             </h:panelGroup>
 
                                         </div>
-									                                                <div class="row" style="margin-top:20px">
+					<div class="row" style="margin-top:20px">
 
-				<div class="col-xs-6 col-low-padding-left">
-				  <a class="btn btn-success b" href="javascript:history.back()">#{msg['retour']}</a>
-				</div>
-				<div class="col-xs-6 col-low-padding-right">
-                                  <a href="" type="button" class="btn btn-primary b" data-toggle="modal" data-target="#ba_popup">#{msg['voir-ba']}</a>
-				</div>
-			      </div>
+					    <div class="col-xs-6 col-low-padding-left">
+						<a class="btn btn-success b" href="javascript:history.back()">#{msg['retour']}</a>
+					    </div>
+					    <div class="col-xs-6 col-low-padding-right">
+						<a href="" type="button" class="btn btn-primary b" data-toggle="modal" data-target="#ba_popup">#{msg['voir-ba']}</a>
+					    </div>
+					</div>
                                     </div>
                                 </div>
                             </div>
@@ -221,21 +219,21 @@
     </h:body>
 
     <script>
-        $('p.term-list').each(function () {
-            var LiN = $(this).find('a').length;
-            if (LiN > 10) {
-                $('a', this).eq(9).nextAll().hide().addClass('toggleable');
-                $(this).append('<span style="cursor: pointer; font-weight: bold;" class="label label-default more">+</span>');
-            }
-        });
+	$('p.term-list').each(function () {
+	    var LiN = $(this).find('a').length;
+	    if (LiN > 10) {
+		$('a', this).eq(9).nextAll().hide().addClass('toggleable');
+		$(this).append('<span style="cursor: pointer; font-weight: bold;" class="label label-default more">+</span>');
+	    }
+	});
 
-        $('p.term-list').on('click', '.more', function () {
-            if ($(this).hasClass('less')) {
-                $(this).text('+').removeClass('less');
-            } else {
-                $(this).text('-').addClass('less');
-            }
-            $(this).siblings('a.toggleable').toggle();
-        });
+	$('p.term-list').on('click', '.more', function () {
+	    if ($(this).hasClass('less')) {
+		$(this).text('+').removeClass('less');
+	    } else {
+		$(this).text('-').addClass('less');
+	    }
+	    $(this).siblings('a.toggleable').toggle();
+	});
     </script>
 </html>

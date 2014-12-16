@@ -4,9 +4,7 @@
     vertical-align: top;
     background: #f1f1f1;
     border: 5px solid #fafafa;
-    border-top: 10px solid #fafafa;
     text-align: center;
-    margin-bottom: -3px;
 }
 
 .col-row-display:hover, .col-row-display:hover a {
@@ -53,6 +51,7 @@
 .row-display {
     margin-top: -15px;
     margin-bottom: -15px;
+    background: #fafafa;
 }
 
 .table-cover-film {
