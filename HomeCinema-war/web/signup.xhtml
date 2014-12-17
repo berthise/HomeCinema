@@ -46,7 +46,7 @@
                                                         <div class="form-group">
                                                             <h:outputLabel class="col-xs-5 form-label" for="email">#{msg['email']} <i class="required">*</i> : </h:outputLabel>
                                                             <div class="col-xs-7">
-                                                                <h:inputText p:type="email" id="email" class="form-control" value="#{signUpManagedBean.email}" p:placeholder="#{msg['email-placeholder']}" p:required="required" tabindex="10"/>
+                                                                <h:inputText p:type="email" id="email" class="form-control" value="#{signUpManagedBean.email}" p:placeholder="#{msg['email-placeholder']}" p:required="required" tabindex="10" maxlength="200"/>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -54,7 +54,7 @@
                                                         <div class="form-group">
                                                             <h:outputLabel class="col-xs-5 form-label" for="login">#{msg['inscr-pseudo']} <i class="required">*</i> : </h:outputLabel>
                                                             <div class="col-xs-7">
-                                                                <h:inputText id="login" class="form-control" value="#{signUpManagedBean.nickName}" p:pattern="[a-zA-Z0-9 ]+" p:title="#{msg['nickname-pattern']}" p:placeholder="#{msg['inscr-pseudo']}" p:required="required" tabindex="20"/>                                
+                                                                <h:inputText id="login" class="form-control" value="#{signUpManagedBean.nickName}" p:pattern="[a-zA-Z0-9]+"  maxlength="50" p:title="#{msg['nickname-pattern']}" p:placeholder="#{msg['inscr-pseudo']}" p:required="required" tabindex="20"/>                                
                                                             </div>
                                                         </div>
                                                     </div>
@@ -63,7 +63,7 @@
                                                             <h:outputLabel class="col-xs-5 form-label" for="password">#{msg['password']} <i class="required">*</i> : </h:outputLabel>
                                                             <div class="col-xs-7">
                                                                 <h:inputSecret id="password" class="form-control" value="#{signUpManagedBean.password}" p:placeholder="#{msg['password']}" 
-                                                                               p:required="required" p:pattern=".{6,}" p:title="#{msg['password-required']}" tabindex="30"/>
+                                                                               p:required="required" p:pattern=".{6,}" p:title="#{msg['password-required']}" tabindex="30" maxlength="200"/>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -71,7 +71,7 @@
                                                         <div class="form-group">
                                                             <h:outputLabel class="col-xs-5 form-label" for="conf_pass">#{msg['retrieve-pass-conf']} <i class="required">*</i> : </h:outputLabel>
                                                             <div class="col-xs-7">
-                                                                <h:inputSecret id="conf_pass" class="form-control"  value="#{signUpManagedBean.confPassword}" p:placeholder="#{msg['password']}" p:required="required" tabindex="40"/>
+                                                                <h:inputSecret id="conf_pass" class="form-control"  value="#{signUpManagedBean.confPassword}" p:placeholder="#{msg['password']}" p:required="required" tabindex="40" maxlength="200"/>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -88,7 +88,7 @@
                                                         <div class="form-group">
                                                             <h:outputLabel class="col-xs-5 form-label" for="firstname">#{msg['inscr-prenom']} <i class="required">*</i> : </h:outputLabel>
                                                             <div class="col-xs-7">
-                                                                <h:inputText id="firstname" class="form-control" value="#{signUpManagedBean.firstName}" p:placeholder="#{msg['inscr-prenom']}" p:required="required" tabindex="100"/>
+                                                                <h:inputText id="firstname" class="form-control" value="#{signUpManagedBean.firstName}" p:placeholder="#{msg['inscr-prenom']}" p:required="required" tabindex="100" maxlength="200"/>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -96,7 +96,7 @@
                                                         <div class="form-group">
                                                             <h:outputLabel class="col-xs-5 form-label" for="lastname">#{msg['inscr-nom']} <i class="required">*</i> : </h:outputLabel>
                                                             <div class="col-xs-7">
-                                                                <h:inputText id="lastname" class="form-control" value="#{signUpManagedBean.lastName}" p:placeholder="#{msg['inscr-nom']}" p:required="required" tabindex="110"/>
+                                                                <h:inputText id="lastname" class="form-control" value="#{signUpManagedBean.lastName}" p:placeholder="#{msg['inscr-nom']}" p:required="required" tabindex="110" maxlength="200"/>
                                                             </div>
                                                         </div>
                                                     </div>

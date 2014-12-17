@@ -27,6 +27,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.naming.NamingException;
 import static utils.Beans.findBean;
+import utils.Covers;
 import utils.Lang;
 import utils.Pages;
 
@@ -90,6 +91,17 @@ public class FilmManagedBean {
 
     public String getCover() {
 	return fdto.cover;
+    }
+    
+        public String getCoverW92URL() {
+	return Covers.getURL(fdto.cover, Covers.CoversSizes.SMALL);
+    }
+    
+    public String getCoverW300URL() {
+      	return Covers.getURL(fdto.cover, Covers.CoversSizes.MEDIUM);
+    }
+       public String getCoverW396URL() {
+      	return Covers.getURL(fdto.cover, Covers.CoversSizes.MEDIUM2);
     }
 
     public void setDate(Date d) {

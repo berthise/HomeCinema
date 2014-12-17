@@ -57,7 +57,7 @@
                                     <a onclick="return false;" class="control_prev">&lt;</a>
                                     <ul>
                                         <ui:repeat var="o" value="#{productManagedBean.getListFilms()}" varStatus="status">
-                                            <li><img width="100%" title="#{o.title}" src="http://image.tmdb.org/t/p/w396/#{o.cover}" /></li>
+					  <li><img width="100%" title="#{o.title}" src="#{o.coverW396URL}" /></li>
                                         </ui:repeat>
                                     </ul>  
                                 </div>

@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import utils.Covers;
 
 /**
  *
@@ -85,6 +86,18 @@ public class FilmDto implements Serializable {
 
     public String getCover() {
 	return cover;
+    }
+    
+    public String getCoverW92URL() {
+	return Covers.getURL(cover, Covers.CoversSizes.SMALL);
+    }
+    
+    public String getCoverW300URL() {
+      	return Covers.getURL(cover, Covers.CoversSizes.MEDIUM);
+    }
+    
+        public String getCoverW396URL() {
+      	return Covers.getURL(cover, Covers.CoversSizes.MEDIUM2);
     }
 
     public void setRelease_date(Date release_date) {

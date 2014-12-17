@@ -10,15 +10,11 @@ import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.persistence.Column;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import utils.Covers;
+import utils.Covers.CoversSizes;
 
 /**
  *
@@ -58,6 +54,17 @@ public class ProductDto implements Serializable {
 
     public String getCover() {
 	return cover;
+    }
+    public String getCoverW92URL() {
+	return Covers.getURL(cover, CoversSizes.SMALL);
+    }
+    
+    public String getCoverW300URL() {
+      	return Covers.getURL(cover, CoversSizes.MEDIUM);
+    }
+    
+        public String getCoverW396URL() {
+      	return Covers.getURL(cover, CoversSizes.MEDIUM2);
     }
 
     public void setCover(String cover) {
