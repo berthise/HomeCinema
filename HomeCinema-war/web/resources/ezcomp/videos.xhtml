@@ -36,9 +36,9 @@
 	    <h4 class="modal-title">#{msg['popup-video-selection']}</h4>
 	  </div>
 	  <div class="modal-body" id="video-selection">
-	    <div class="row">
+	    <div class="row" style="margin-bottom: 10px;">
 	      <div id="group-audio" class="form-group">
-		<h:outputLabel class="col-md-5 form-label" for="type"><i class="glyphicon glyphicon-volume-up" />#{msg['popup-video-audio']} :</h:outputLabel>
+		<h:outputLabel class="col-md-5 form-label" for="type"><i class="glyphicon glyphicon-volume-up" style="margin-right:3px"/>#{msg['popup-video-audio']} :</h:outputLabel>
 		<div class="col-md-7">
 		  <h:selectOneListbox id="audioLang" readonly="true" value="#{defaultLang}" onchange="selectLang(this.value)" >
 		    <f:selectItems value="#{filmManagedBean.getVideoLangs()}" var="currentLang"  itemValue="#{currentLang}" itemLabel="#{msg[currentLang.str]}"/>
@@ -47,9 +47,9 @@
 	      </div>
 	    </div>
 	    <ui:repeat value="#{filmManagedBean.getVideoLangs()}" var="lang">
-	      <div class="row">
+	      <div class="row" style="margin-bottom: 10px;">
 		<div id="format-#{lang}" class="form-group" style="display:none">
-		  <h:outputLabel class="col-md-5 form-label" for="type"><i class="glyphicon glyphicon-expand" />#{msg['popup-video-quality']} :</h:outputLabel>
+		  <h:outputLabel class="col-md-5 form-label" for="type"><i class="glyphicon glyphicon-expand" style="margin-right:3px"/>#{msg['popup-video-quality']} :</h:outputLabel>
 		  <div id="format-#{lang}-menu" class="col-md-7">
 		    <h:selectOneListbox id="videoQuality" readonly="true" value="#{filmManagedBean.getVideoQualities(lang).get(0)}" onchange="selectQuality(this.value)">
 		      <f:selectItems value="#{filmManagedBean.getVideoQualities(lang)}" var="currentQuality"  itemValue="#{currentQuality}" itemLabel="#{currentQuality}"/>
@@ -61,7 +61,7 @@
 	      <ui:repeat value="#{filmManagedBean.getVideoQualities(lang)}" var="quality">
 		<div class="row">
 		  <div id="format-#{lang}-#{quality}" class="form-group"  style="display:none">
-		    <h:outputLabel class="col-md-5 form-label" for="type"><i class="glyphicon glyphicon-expand" />#{msg['popup-video-format']} :</h:outputLabel>
+		    <h:outputLabel class="col-md-5 form-label" for="type"><i class="glyphicon glyphicon-expand" style="margin-right:3px"/>#{msg['popup-video-format']} :</h:outputLabel>
 		    <div id="format-#{lang}-#{quality}-menu" class="col-md-7">
 		      <h:selectOneListbox id="videoFormat" readonly="true" value="#{filmManagedBean.getVideoFormat(lang,quality).get(0)}"  onchange="selectFormat(this.value)">
 			<f:selectItems value="#{filmManagedBean.getVideoFormat(lang,quality)}" var="currentFormat"  itemValue="#{currentFormat}" itemLabel="#{currentFormat.str}"/>

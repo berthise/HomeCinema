@@ -31,11 +31,11 @@
                             <c:otherwise>
 			      <span class="decale-right" style="color: white;"> <h:outputText value="#{msg['header-welcome']}" /> "<b>#{sessionManagedBean.firstName}</b>" </span> | 
                                 <a href="#{msg['page-account']}.xhtml" title="#{msg['header-voircompte']}">
-                                    <i class="glyphicon glyphicon-folder-open"></i>
+                                    <i class="glyphicon glyphicon-film" style="margin-right: 3px;"></i>
 				    <span class="badge">#{sessionManagedBean.filmsSize}</span>
                                 </a> |
                                 <a href="#{msg['page-account']}.xhtml#caddie" class="caddie" title="#{msg['header-voircaddie']}">
-                                    <i class="glyphicon glyphicon-shopping-cart"></i>
+                                    <i class="glyphicon glyphicon-shopping-cart" style="margin-right: 2px;"></i>
 				    <span class="badge">#{sessionManagedBean.caddySize}</span>
 				    <!--(#{sessionManagedBean.caddySize})-->
                                 </a> |
