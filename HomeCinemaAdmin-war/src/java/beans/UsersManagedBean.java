@@ -39,10 +39,12 @@ public class UsersManagedBean {
   public String userFictif = "";
   public Integer nbUserFictif = 10;
   public Boolean activateFictif = false;
+  
+  public Integer limit = 50;
 
   public UsersManagedBean() throws NamingException {
     userManager = (ManageUserRemote) new InitialContext().lookup("java:global/HomeCinema/HomeCinema-ejb/ManageUser!ejbs.ManageUserRemote");
-    this.users = userManager.getAllUser();
+    this.users = userManager.getAllUser(limit);
   }
 
   public Set<SimpleUserDto> getUsers() {
@@ -54,12 +56,12 @@ public class UsersManagedBean {
   }
 
   public Integer getTotal() {
-    return this.users.size();
+    return userManager.getAllUser().size();
   }
 
   public void delUser(Long id) {
     userManager.removeUser(id);
-    this.users = userManager.getAllUser();
+    this.users = userManager.getAllUser(limit);
     FacesMessage message = new FacesMessage("Succès de la suppresion !");
     FacesContext.getCurrentInstance().addMessage(null, message);
   }
@@ -88,6 +90,10 @@ public class UsersManagedBean {
     this.activateFictif = activateFictif;
   }
   
+  public void reload() {
+        this.users = userManager.getAllUser(limit);
+
+  }
 
   public void createNbUserFictif() {
     String pp = Securite.crypte("password");
@@ -119,6 +125,16 @@ public class UsersManagedBean {
       }
     }
 
+    
+    
+  }
+
+  public Integer getLimit() {
+    return limit;
+  }
+
+  public void setLimit(Integer limit) {
+    this.limit = limit;
   }
 
 

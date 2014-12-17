@@ -204,6 +204,20 @@ public class ManageUser implements ManageUserRemote {
 	}
 	return ludto;
     }
+    
+    @Override
+    public Set<SimpleUserDto> getAllUser(Integer limit) {
+	Query q;
+
+	q = em.createQuery("select u From User u ", User.class);
+	q.setMaxResults(limit);
+	List<User> lu = q.getResultList();
+	Set<SimpleUserDto> ludto = new HashSet<>();
+	for (User u : lu) {
+	    ludto.add(UserDtoManager.getSimpleDto(u));
+	}
+	return ludto;
+    }
 
     @Override
     public void removeUser(Long id) {

@@ -22,6 +22,23 @@
             <div class="alert alert-success">
                 <h:messages globalOnly="true" infoClass="info" />
             </div>
+	      <h:form>
+	      	<div class="row">
+                    <div class="form-group">
+                        <h:outputLabel class="col-md-5 form-label" for="name">limit d'affichage (0=all): </h:outputLabel>
+                        <div class="col-md-7">
+			  <h:inputText id="nuserfictif" p:pattern="[0-9]{0,6}" class="form-control" value="#{usersManagedBean.limit}"/>
+                        </div>
+                    </div>
+                </div>
+		<div class="row">
+                    <div class="col-md-5"></div>
+                    <h:commandButton class="btn btn-danger col-md-3" p:type="reset" value="Réinitialiser" />
+
+                    <h:commandButton class="btn btn-primary col-md-3" value="Envoyer" action="#{usersManagedBean.reload()}" />
+                </div>
+		
+	    </h:form>
                 <h:dataTable id="usersTable" value="#{usersManagedBean.users}" var="user" border="1">
                     <f:facet name="header">
                         <h:outputText value="Users lists" />
@@ -101,6 +118,7 @@
                 </div>
 		
 	    </h:form>
+	  
             
         </section>
         <script src="js/users.js"></script>

@@ -36,6 +36,8 @@ public interface ManageUserRemote {
     
     public Set<SimpleUserDto> getAllUser();
     
+    public Set<SimpleUserDto> getAllUser(Integer limit);
+    
     public UserDtoNoPw getUser(Long id);
     
     public void removeUser (Long id);
