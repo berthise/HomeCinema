@@ -68,7 +68,7 @@
                                         <div class="form-group">
                                             <h:outputLabel class="col-xs-5 form-label" for="cryptogramme">#{msg['paiement-num-card-crypto']} <i class="required">*</i> : </h:outputLabel>
                                             <div class="col-xs-7">
-                                                <h:inputText tabindex="25" id="cryptogramme" class="form-control" value="#{paymentManagedBean.pdto.cryptogramme}" 
+                                                <h:inputSecret tabindex="25" id="cryptogramme" class="form-control" value="#{paymentManagedBean.pdto.cryptogramme}" 
                                                              p:placeholder="#{msg['paiement-num-card-crypto']}" p:required="required"  maxlength="3" style="width:50px"
                                                              p:pattern="[0-9]{3}" p:title="#{msg['paiement-num-card-crypto-required']}"/>
                                             </div>

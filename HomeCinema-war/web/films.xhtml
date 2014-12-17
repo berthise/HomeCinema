@@ -192,9 +192,10 @@ and open the template in the editor.
                                                         <h:outputLabel class="label-search">#{msg['films-search-genres']} :</h:outputLabel>
                                                     </div>
                                                     <div id="selectANDOR" class="col-md-6 col-xs-7 col-no-padding-search">
-                                                        <h:selectOneRadio value="#{searchProductsManagedBean.genresMode}">
+                                                        <h:selectOneRadio value="#{searchProductsManagedBean.genresMode}">     
+							  <f:selectItem class="itemselect" itemValue="AND" itemLabel="#{msg['films-search-and']}" />
                                                             <f:selectItem class="itemselect" itemValue="OR" itemLabel="#{msg['films-search-or']}" />
-                                                            <f:selectItem class="itemselect" itemValue="AND" itemLabel="#{msg['films-search-and']}" />
+                                                      
                                                         </h:selectOneRadio>
                                                     </div>
                                                 </div>

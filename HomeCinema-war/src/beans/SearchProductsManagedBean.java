@@ -32,7 +32,7 @@ public class SearchProductsManagedBean {
 	public String actor;
 	public Long directorId;
 	public Long actorId;
-	public String genresMode = "OR";
+	public String genresMode = "AND";
 	public boolean hide_own= false;
 
 	public List<Long> genres = new ArrayList<>();
