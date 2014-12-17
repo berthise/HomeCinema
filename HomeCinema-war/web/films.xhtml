@@ -149,7 +149,7 @@ and open the template in the editor.
                                                     </div>
                                                     <div class="col-xs-1 col-no-padding-search">
 							<span class="clean" onclick="clean('date1');
-								  clean('date2');">×</span>
+								clean('date2');">×</span>
                                                     </div>
                                                 </div>
 
@@ -193,9 +193,9 @@ and open the template in the editor.
                                                     </div>
                                                     <div id="selectANDOR" class="col-md-6 col-xs-7 col-no-padding-search">
                                                         <h:selectOneRadio value="#{searchProductsManagedBean.genresMode}">     
-							  <f:selectItem class="itemselect" itemValue="AND" itemLabel="#{msg['films-search-and']}" />
+							    <f:selectItem class="itemselect" itemValue="AND" itemLabel="#{msg['films-search-and']}" />
                                                             <f:selectItem class="itemselect" itemValue="OR" itemLabel="#{msg['films-search-or']}" />
-                                                      
+
                                                         </h:selectOneRadio>
                                                     </div>
                                                 </div>
@@ -213,11 +213,15 @@ and open the template in the editor.
 
                                                 <div class="row">
                                                     <div class="col-xs-12">
-                                                        <h:commandButton onclick="javascript:loader('search');" class="btn btn-success btn-xs btn-search" value="#{msg['films-search-search']}" >
+                                                        <h:commandButton onclick="javascript:loader('search');" class="btn btn-success btn-xs btn-search" value="#{msg['films-search-search']}" style="margin-left: -15px;" >
                                                             <f:actionListener binding="#{listProductsManagedBean.setPage(1)}"/>
                                                             <f:ajax execute="@form" render=":form-random :panel-random :form-nav-page"/>
                                                         </h:commandButton>
-                                                    </div>
+							<h:commandButton onclick="javascript:loader('search');" class="btn btn-primary btn-xs btn-search" value="#{msg['reset']}" >
+                                                            <f:actionListener binding="#{searchProductsManagedBean.reset()}"/>
+                                                            <f:ajax execute="@form" render=":form-random :panel-random :form-nav-page"/>
+                                                        </h:commandButton>
+						    </div>					    
                                                 </div>
                                             </div>
                                         </li>

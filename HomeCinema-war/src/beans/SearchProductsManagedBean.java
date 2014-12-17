@@ -79,7 +79,7 @@ public class SearchProductsManagedBean {
 	return this.params.title;
     }
 
-    private void reset() {
+    public void reset() {
 	params = new SearchParams();
 	checked = new HashMap<>();
 	ListProductsManagedBean lpmb = findBean("listProductsManagedBean");
