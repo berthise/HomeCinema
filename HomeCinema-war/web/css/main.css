@@ -8,6 +8,8 @@ body {
   min-height: 800px;
   overflow-x: hidden;
   /*----------- Icons color ----------*/ }
+  body * {
+    outline: none !important; }
   body legend {
     text-align: center; }
   body .textarea-noresizing {

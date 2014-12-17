@@ -42,36 +42,36 @@ and open the template in the editor.
         </ui:insert>
 
         <script>
-            function loader(id) {
-                document.getElementById('loader-' + id).style.display = 'inline';
-            }
-            function handleAjaxOpen(data) {
-                var status = data.status;
+	    function loader(id) {
+		document.getElementById('loader-' + id).style.display = 'inline';
+	    }
+	    function handleAjaxOpen(data) {
+		var status = data.status;
 
-                switch (status) {
-                    case "success":
-                        setTimeout(function () {
-                            document.getElementById('search-attributs').style.maxHeight = '2000px';
-                        }, 100);
-                        break;
-                }
-            }
-            function handleAjaxClose(data) {
-                var status = data.status;
-                console.log(data);
+		switch (status) {
+		    case "success":
+			setTimeout(function () {
+			    document.getElementById('search-attributs').style.maxHeight = '2000px';
+			}, 100);
+			break;
+		}
+	    }
+	    function handleAjaxClose(data) {
+		var status = data.status;
+		console.log(data);
 
-                switch (status) {
-                    case "success":
-                        setTimeout(function () {
-                            document.getElementById('search-attributs').style.maxHeight = '0px';
-                        }, 100);
-                        break;
-                }
-            }
-            function clean(id) {
-                document.getElementById('form-random:' + id).value = "";
-                return false;
-            }
+		switch (status) {
+		    case "success":
+			setTimeout(function () {
+			    document.getElementById('search-attributs').style.maxHeight = '0px';
+			}, 100);
+			break;
+		}
+	    }
+	    function clean(id) {
+		document.getElementById('form-random:' + id).value = "";
+		return false;
+	    }
         </script>
 
         <section>
@@ -148,8 +148,8 @@ and open the template in the editor.
                                                         <h:inputText p:placeholder="#{msg['fin']}" style="width: 49%; float: right;" class="form-control input-search" id="date2" value="#{searchProductsManagedBean.date2}" />
                                                     </div>
                                                     <div class="col-xs-1 col-no-padding-search">
-                                                        <span class="clean" onclick="clean('date1');
-                                                                clean('date2');">×</span>
+							<span class="clean" onclick="clean('date1');
+								clean('date2');">×</span>
                                                     </div>
                                                 </div>
 
@@ -193,9 +193,9 @@ and open the template in the editor.
                                                     </div>
                                                     <div id="selectANDOR" class="col-md-6 col-xs-7 col-no-padding-search">
                                                         <h:selectOneRadio value="#{searchProductsManagedBean.genresMode}">     
-							  <f:selectItem class="itemselect" itemValue="AND" itemLabel="#{msg['films-search-and']}" />
+							    <f:selectItem class="itemselect" itemValue="AND" itemLabel="#{msg['films-search-and']}" />
                                                             <f:selectItem class="itemselect" itemValue="OR" itemLabel="#{msg['films-search-or']}" />
-                                                      
+
                                                         </h:selectOneRadio>
                                                     </div>
                                                 </div>
@@ -213,11 +213,15 @@ and open the template in the editor.
 
                                                 <div class="row">
                                                     <div class="col-xs-12">
-                                                        <h:commandButton onclick="javascript:loader('search');" class="btn btn-success btn-xs btn-search" value="#{msg['films-search-search']}" >
+                                                        <h:commandButton onclick="javascript:loader('search');" class="btn btn-success btn-xs btn-search" value="#{msg['films-search-search']}" style="margin-left: -15px;" >
                                                             <f:actionListener binding="#{listProductsManagedBean.setPage(1)}"/>
                                                             <f:ajax execute="@form" render=":form-random :panel-random :form-nav-page"/>
                                                         </h:commandButton>
-                                                    </div>
+							<h:commandButton onclick="javascript:loader('search');" class="btn btn-primary btn-xs btn-search" value="#{msg['reset']}" >
+                                                            <f:actionListener binding="#{searchProductsManagedBean.reset()}"/>
+                                                            <f:ajax execute="@form" render=":form-random :panel-random :form-nav-page"/>
+                                                        </h:commandButton>
+						    </div>					    
                                                 </div>
                                             </div>
                                         </li>
@@ -240,10 +244,21 @@ and open the template in the editor.
                                             <div class="row row-display">
                                                 <ui:repeat var="f" value="#{list}">
                                                     <div class="col-lg-4 col-md-6 col-sm-6 col-row-display">
-                                                        <span class="glyphicon  #{((sessionManagedBean.isInMyFilms(f.id))? 'glyphicon-folder-open' : '')} #{((sessionManagedBean.isInMyCaddie(f.id))? 'glyphicon-shopping-cart' : '')}"></span>
-                                                        <a href="fiche_product.xhtml?id=#{f.id}">					
-                                                            <span class="#{((listProductsManagedBean.isPack(f.id))? 'background-pack' : '')}">
+							<div style="position: absolute; margin-left: 50%; padding-left: 40px; width: 10px; margin-top: 20px;">
+							    <h:panelGroup rendered="#{listProductsManagedBean.isPack(f.id)}">
+								<i class="glyphicon glyphicon-book" title="#{msg['infob-pack']}" />
+							    </h:panelGroup>
+							    <h:panelGroup rendered="#{sessionManagedBean.isInMyFilms(f.id)}">
+								<i class="glyphicon glyphicon-film" title="#{msg['infob-caddie']}"/>
+							    </h:panelGroup>
+							    <h:panelGroup rendered="#{sessionManagedBean.isInMyCaddie(f.id)}">
+								<i class="glyphicon glyphicon-shopping-cart" title="#{msg['infob-buy']}"/>
+							    </h:panelGroup>
+							</div>
 
+
+							<a href="#{msg['page-fiche-product']}.xhtml?id=#{f.id}">					
+                                                            <span>
                                                                 <img class="table-cover-film" src="http://image.tmdb.org/t/p/w92/#{f.cover}" title="#{f.name}"/>
                                                             </span>
                                                             <p class="table-title-film truncate">#{f.name}</p>

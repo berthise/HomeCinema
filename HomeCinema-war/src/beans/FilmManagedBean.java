@@ -208,7 +208,7 @@ public class FilmManagedBean {
 	List<PersonDto> list = Ejbs.film().getDirector(fdto.id);
 	String toReturn = "";
 	for (PersonDto s : list) {
-	    toReturn += "<a href=\"" + Pages.FILMS + "?tab=search&clean=&director=" + s.id + "\" class=\"label label-default\">" + s.name + "</a> ";
+	    toReturn += "<a href=\"" + Pages.FILMS + "?tab=search&director=" + s.id + "\" class=\"label label-default\">" + s.name + "</a> ";
 	}
 	if (toReturn.length() > 0) {
 	    return toReturn;
@@ -221,7 +221,7 @@ public class FilmManagedBean {
 	List<PersonDto> list = Ejbs.film().getCasting(fdto.id);
 	String toReturn = "";
 	for (PersonDto s : list) {
-	    toReturn += "<a href=\"" + Pages.FILMS + "?tab=search&clean=&actor=" + s.id + "\" class=\"label label-default\">" + s.name + "</a> ";
+	    toReturn += "<a href=\"" + Pages.FILMS + "?tab=search&actor=" + s.id + "\" class=\"label label-default\">" + s.name + "</a> ";
 	}
 	if (toReturn.length() > 0) {
 	    return toReturn;
@@ -234,7 +234,7 @@ public class FilmManagedBean {
 	Set<GenreDto> set = Ejbs.film().getGenre(fdto.id,lang.getLang());
 	String toReturn = "";
 	for (GenreDto s : set) {
-	    toReturn += "<a href=\"" + Pages.FILMS + "?tab=search&clean=&genre=" + s.id + "\" class=\"label label-default\">" + s.name + "</a> ";
+	    toReturn += "<a href=\"" + Pages.FILMS + "?tab=search&genre=" + s.id + "\" class=\"label label-default\">" + s.name + "</a> ";
 	}
 	if (toReturn.length() > 0) {
 	    return toReturn;

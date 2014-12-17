@@ -5,6 +5,9 @@ $background-moz: -moz-linear-gradient(left, #111, #666, #666, #666, #111);
 $font: "Source Sans Pro", "Helvetica Neue",Helvetica,Arial,sans-serif;
 $font-color: #333;
 body {
+    * {
+	outline: none !important;
+    }
     background: $background-webkit;
     background: $background-moz;
     margin: 0;
