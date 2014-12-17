@@ -21,20 +21,31 @@
     <welcome-file-list>
         <welcome-file>index.xhtml</welcome-file>
     </welcome-file-list>
-        <security-constraint>
-        <display-name>Constraint1</display-name>
+    <security-constraint>
+        <display-name>RetrictedAccess</display-name>
         <web-resource-collection>
-            <web-resource-name>secure</web-resource-name>
+            <web-resource-name>Zone d'administration</web-resource-name>
             <description/>
             <url-pattern>/*</url-pattern>
+            <http-method>GET</http-method>
+            <http-method>PUT</http-method>
+            <http-method>HEAD</http-method>
+            <http-method>POST</http-method>
+            <http-method>OPTIONS</http-method>
+            <http-method>TRACE</http-method>
+            <http-method>DELETE</http-method>
         </web-resource-collection>
-        <user-data-constraint>
+        <auth-constraint>
             <description/>
-            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
-        </user-data-constraint>
+            <role-name>access</role-name>
+        </auth-constraint>
     </security-constraint>
+    <login-config>
+        <auth-method>BASIC</auth-method>
+        <realm-name>file</realm-name>
+    </login-config>
     <security-role>
         <description/>
-        <role-name>secure</role-name>
+        <role-name>access</role-name>
     </security-role>
 </web-app>

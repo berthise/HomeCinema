@@ -1,0 +1,6 @@
+--> server-config/security: 
+      Default Principal To Role Mapping: TRUE
+
+--> server-config/security/realms/file 
+      Manage User: ajouter admin
+
