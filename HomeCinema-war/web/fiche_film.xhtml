@@ -130,6 +130,11 @@
 						<a href="" type="button" class="btn btn-primary b" data-toggle="modal" data-target="#ba_popup"><i class="glyphicon glyphicon-play-circle"></i> #{msg['voir-ba']}</a>
 					    </div>
 					</div>
+					<h:panelGroup rendered="#{!deco and type eq 'OWNED'}">
+					  <ez:videos callback="valideVideo()" button="#{msg['fiche-film-download']}"/>
+
+					</h:panelGroup>
+
                                     </div>
                                 </div>
                             </div>
@@ -189,7 +194,6 @@
 
                 </div>
 
-      <ez:videos callback="valideVideo()" button="#{msg['fiche-film-download']}"/>
 
                 <div id="ba_popup" class="modal fade" style="display: none">
                     <div class="modal-dialog">

@@ -87,6 +87,8 @@ public class ManageUser implements ManageUserRemote {
 			}
 		    }
 		}
+		throw new SignupEmailException();
+
 	    }
 	    return null;
 	}
