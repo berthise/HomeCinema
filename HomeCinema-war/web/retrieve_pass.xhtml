@@ -42,7 +42,7 @@
                                         <div class="form-group">
 					  <h:outputLabel class="col-xs-4 col-md-6 form-label" for="newPassword">#{msg['retrieve-pass-new']} <i class="required">*</i> : </h:outputLabel>
                                             <div class="col-md-6 col-xs-8">
-				    <h:inputSecret id="newPassword" class="form-control" value="#{forgotPassManagedBean.p1}" p:placeholder="#{msg['password']}"  p:required="required" />
+				    <h:inputSecret id="newPassword" class="form-control" value="#{forgotPassManagedBean.p1}" p:placeholder="#{msg['password']}"  p:required="required" tabindex="100"/>
 					  </div>
                                         </div>
                                     </div>
@@ -50,7 +50,7 @@
                                         <div class="form-group">
 					  <h:outputLabel class="col-xs-4 col-md-6 form-label" for="newPassword">#{msg['retrieve-pass-conf']} <i class="required">*</i> : </h:outputLabel>
                                             <div class="col-md-6 col-xs-8">
-				    <h:inputSecret id="conf_password" class="form-control" value="#{forgotPassManagedBean.p2}" p:placeholder="#{msg['password']}"  p:required="required" />
+				    <h:inputSecret id="conf_password" class="form-control" value="#{forgotPassManagedBean.p2}" p:placeholder="#{msg['password']}"  p:required="required" tabindex="110" />
 					  </div>
                                         </div>
                                     </div>
@@ -59,8 +59,8 @@
 			    <h:inputHidden id="code" class="form-control" value="#{forgotPassManagedBean.code}" />
                             <div class="row row-margin-top">
                                 <div class="col-xs-1 col-sm-3 col-md-4" />
-                                <a href="javascript:history.back()" class="btn btn-primary col-xs-5 col-sm-3 col-md-2 btn-space">#{msg['cancel']}</a>
-                                <h:commandButton class="btn btn-success col-xs-5 col-sm-3 col-md-2" value="#{msg['retrieve-pass-change']}" action="#{forgotPassManagedBean.change()}" tabindex="520" />
+                                <a href="javascript:history.back()" class="btn btn-primary col-xs-5 col-sm-3 col-md-2 btn-space" tabindex="530">#{msg['cancel']}</a>
+                                <h:commandButton class="btn btn-success col-xs-5 col-sm-3 col-md-2" value="#{msg['retrieve-pass-change']}" action="#{forgotPassManagedBean.change()}" tabindex="120" />
                             </div>
                         </h:form>
                     </div>

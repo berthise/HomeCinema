@@ -41,7 +41,7 @@
                                             <h:outputLabel class="col-xs-4 col-md-6 form-label" for="email">#{msg['email']}
                                                 <i class="required">*</i> : </h:outputLabel>
                                             <div class="col-md-6 col-xs-8">
-                                                <h:inputText p:type="email" id="email" class="form-control" value="#{forgotPassManagedBean.email}" tabindex="500" p:placeholder="#{msg['email-placeholder']}" p:required="required" />
+                                                <h:inputText p:type="email" id="email" class="form-control" value="#{forgotPassManagedBean.email}" tabindex="100" p:placeholder="#{msg['email-placeholder']}" p:required="required" />
                                             </div>
                                         </div>
                                     </div>
@@ -49,8 +49,8 @@
                             </div>
                             <div class="row row-margin-top">
                                 <div class="col-xs-1 col-sm-3 col-md-4" />
-                                <a href="javascript:history.back()" class="btn btn-primary col-xs-5 col-sm-3 col-md-2 btn-space">#{msg['cancel']}</a>
-                                <h:commandButton class="btn btn-success col-xs-5 col-sm-3 col-md-2" value="#{msg['contact-email']}" action="#{forgotPassManagedBean.retrieve()}" tabindex="520" />
+                                <a href="javascript:history.back()" class="btn btn-primary col-xs-5 col-sm-3 col-md-2 btn-space" tabindex="130">#{msg['cancel']}</a>
+                                <h:commandButton class="btn btn-success col-xs-5 col-sm-3 col-md-2" value="#{msg['contact-email']}" action="#{forgotPassManagedBean.retrieve()}" tabindex="120" />
                             </div>
                         </h:form>
                     </div>

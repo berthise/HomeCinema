@@ -10,6 +10,7 @@
   <cc:interface>
     	<cc:attribute name="callback" type="String" default="valideVideo()" />
 	<cc:attribute name="callback_close" type="String" default="" />
+        <cc:attribute name="tabidx" type="Integer" default="1000"/>
 
     	<cc:attribute name="button" type="String" default="#{msg['popup-video-valider']}" />
 
@@ -40,7 +41,7 @@
 	      <div id="group-audio" class="form-group">
 		<h:outputLabel class="col-md-5 form-label" for="type"><i class="glyphicon glyphicon-volume-up" style="margin-right:3px"/>#{msg['popup-video-audio']} :</h:outputLabel>
 		<div class="col-md-7">
-		  <h:selectOneListbox id="audioLang" readonly="true" value="#{defaultLang}" onchange="selectLang(this.value)" >
+		  <h:selectOneListbox id="audioLang" readonly="true" value="#{defaultLang}" onchange="selectLang(this.value)" tabindex="#{cc.attrs.tabidx+1}">
 		    <f:selectItems value="#{filmManagedBean.getVideoLangs()}" var="currentLang"  itemValue="#{currentLang}" itemLabel="#{msg[currentLang.str]}"/>
 		  </h:selectOneListbox>
 		</div>
@@ -83,8 +84,8 @@
 
 	  </div>
 	  <div class="modal-footer">
-	    <button type="button" class="btn btn-default" data-dismiss="modal">#{msg['fermer']}</button>
-	    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="#{cc.attrs.callback}">#{cc.attrs.button}</button>
+	    <button type="button" class="btn btn-default" data-dismiss="modal" tabindex="#{cc.attrs.tabidx+9}">#{msg['fermer']}</button>
+	    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="#{cc.attrs.callback}" tabindex="#{cc.attrs.tabidx+8}">#{cc.attrs.button}</button>
 	  </div>
 	</h:form>
       </div><!-- /.modal-content -->

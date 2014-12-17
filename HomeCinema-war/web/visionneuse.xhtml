@@ -42,8 +42,8 @@
                     <div class="panel panel-heading">
                         <h3>#{msg['visio-subtitle']}: <h:outputText value="#{filmManagedBean.getLinkToFiche()}" escape="false"/>
                             <div class="form-download-film">
-                                <a class="btn btn-success" href="javascript:history.back()"  tabindex="#{cc.attrs.tabidx+7}" ><i class="glyphicon glyphicon-arrow-left"></i> #{msg['retour']}</a>
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#dl_popup" onclick="videoPause()">
+                                <a class="btn btn-success" href="javascript:history.back()" tabindex="110"><i class="glyphicon glyphicon-arrow-left"></i> #{msg['retour']}</a>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#dl_popup" onclick="videoPause()" tabindex="100">
                                     <i class="glyphicon glyphicon-cog"/> #{msg['visio-change-video']}
                                 </button>
                             </div>
@@ -68,7 +68,7 @@
                         #{usersFilmsManagedBean.getCurrentTime(sessionManagedBean.id, filmManagedBean.id)}
                         <span id="lastPosition" style="display: none">#{usersFilmsManagedBean.ufdto.currentPosition}</span>
 
-                        <ez:videos callback="viewVideo('myVideo')" button="#{msg['popup-video-valider']}" callback_close="videoPlay()"/>
+                        <ez:videos callback="viewVideo('myVideo')" button="#{msg['popup-video-valider']}" callback_close="videoPlay()"  tabidx="200"/>
                     </div>
                 </div>
             </div>

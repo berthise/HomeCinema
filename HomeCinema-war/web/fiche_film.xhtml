@@ -78,13 +78,13 @@
                                             <h:panelGroup rendered="#{!deco and type eq 'OWNED'}">
                                                 <div class="row">
                                                     <div class="col-xs-6 col-low-padding-left">
-                                                        <a class="btn btn-primary b" href="#{msg['page-visio']}.xhtml?id=#{filmManagedBean.id}">
+                                                        <a class="btn btn-primary b" href="#{msg['page-visio']}.xhtml?id=#{filmManagedBean.id}" tabindex="10">
                                                             <i class="glyphicon glyphicon-play-circle"></i> 
                                                             #{msg['fiche-film-stream']}
                                                         </a>
                                                     </div>
                                                     <div class="col-xs-6 col-low-padding-right">
-                                                        <a href="" type="button" class="btn btn-success b" data-toggle="modal" data-target="#dl_popup">
+                                                        <a href="" type="button" class="btn btn-success b" data-toggle="modal" data-target="#dl_popup" tabindex="20">
                                                             <i class="glyphicon glyphicon-download-alt"></i>
                                                             #{msg['fiche-film-download']}
                                                         </a>
@@ -95,7 +95,7 @@
                                                 <div class="row">
                                                     <div class="col-xs-12">
                                                         <h:form>
-                                                            <h:commandButton class="btn btn-success b" value="#{msg['fiche-add']}" action="#{caddieManagedBean.addProductFilmToCaddie(filmManagedBean.mainProductId,filmManagedBean.id)}" />
+                                                            <h:commandButton class="btn btn-success b" value="#{msg['fiche-add']}" action="#{caddieManagedBean.addProductFilmToCaddie(filmManagedBean.mainProductId,filmManagedBean.id)}"  tabindex="30"/>
                                                         </h:form>
                                                     </div>						
                                                 </div>
@@ -104,7 +104,7 @@
                                             <h:panelGroup rendered="#{!deco and type eq 'CADDIE'}">
                                                 <div class="row">
                                                     <div class="col-xs-12">
-                                                        <a href="#{msg['page-account']}.xhtml#caddie" class="btn btn-primary b" > <i class="glyphicon glyphicon-shopping-cart"></i> #{msg['fiche-caddie']}</a>
+                                                        <a href="#{msg['page-account']}.xhtml#caddie" class="btn btn-primary b" tabindex="40" > <i class="glyphicon glyphicon-shopping-cart" ></i> #{msg['fiche-caddie']}</a>
                                                     </div>						
                                                 </div>
                                             </h:panelGroup>
@@ -112,10 +112,10 @@
                                             <h:panelGroup rendered="#{deco}">
                                                 <div class="row">
                                                     <div class="col-xs-6 col-low-padding-left">
-                                                        <a class="btn btn-primary b" href="#{msg['page-signup']}.xhtml">#{msg['inscription']}</a>
+                                                        <a class="btn btn-primary b" href="#{msg['page-signup']}.xhtml" tabindex="50">#{msg['inscription']}</a>
                                                     </div>
                                                     <div class="col-xs-6 col-low-padding-right">
-                                                        <a class="btn btn-success b" href="#{msg['page-login']}.xhtml">#{msg['connexion']}</a>
+                                                        <a class="btn btn-success b" href="#{msg['page-login']}.xhtml" tabindex="60">#{msg['connexion']}</a>
                                                     </div>
                                                 </div>
                                             </h:panelGroup>
@@ -124,14 +124,14 @@
 					<div class="row" style="margin-top:20px">
 
 					    <div class="col-xs-6 col-low-padding-left">
-						<a class="btn btn-success b" href="javascript:history.back()"><i class="glyphicon glyphicon-arrow-left"></i> #{msg['retour']}</a>
+						<a class="btn btn-success b" href="javascript:history.back()" tabindex="70"><i class="glyphicon glyphicon-arrow-left"></i> #{msg['retour']}</a>
 					    </div>
 					    <div class="col-xs-6 col-low-padding-right">
-						<a href="" type="button" class="btn btn-primary b" data-toggle="modal" data-target="#ba_popup"><i class="glyphicon glyphicon-play-circle"></i> #{msg['voir-ba']}</a>
+						<a href="" type="button" class="btn btn-primary b" data-toggle="modal" data-target="#ba_popup" tabindex="80"><i class="glyphicon glyphicon-play-circle"></i> #{msg['voir-ba']}</a>
 					    </div>
 					</div>
 					<h:panelGroup rendered="#{!deco and type eq 'OWNED'}">
-					  <ez:videos callback="valideVideo()" button="#{msg['fiche-film-download']}"/>
+					  <ez:videos callback="valideVideo()" button="#{msg['fiche-film-download']}" tabidx="90"/>
 
 					</h:panelGroup>
 
@@ -212,7 +212,7 @@
                                     </ul>
                                 </div>
                                 <div class="modal-footer">
-                                    <a href="" type="button" class="btn btn-default" data-dismiss="modal">#{msg['fermer']}</a>
+                                    <a href="" type="button" class="btn btn-default" data-dismiss="modal" tbindex="400">#{msg['fermer']}</a>
                                 </div>
                             </form>
                         </div><!-- /.modal-content -->
