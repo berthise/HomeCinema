@@ -84,7 +84,7 @@
                                     <h:panelGroup id="panel-random">
 				      <ui:repeat var="o" varStatus="status" value="#{listProductsManagedBean.getSelectionFilms(8)}">
                                             <!--<div class="col-md-2 col-sm-4 col-xs-8 film">-->
-					    <div class="film" style="float:left; margin-left:8px; margin-right:8px; max-width: 10.7%; min-width: 90px;">
+					    <div class="film" style="float:left; margin-left:8px; margin-right:8px; max-width: 11%; min-width: 90px;">
 
                                                 <a href="#{msg['page-fiche-product']}.xhtml?id=#{o.id}" tabindex="#{status.index + 100}">
 						  <img class="cover" src="#{o.coverW92URL}" />
