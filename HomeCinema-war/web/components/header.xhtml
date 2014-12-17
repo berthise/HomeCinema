@@ -14,7 +14,7 @@
             <header>
                 <div id="banner">
                     <div id="logo">
-                        <a href="#{msg['page-index']}.xhtml" tabindex="1500">
+                        <a href="#{msg['page-index']}.xhtml" tabindex="100000">
                             <img src="img/logo.png" />
                         </a>
                     </div>
@@ -42,7 +42,7 @@
                                 <h:form>
                                     <h:commandLink action="#{sessionManagedBean.logout}" value="#{msg['deconnexion']}" tabindex="1020"/>
                                 </h:form> |
-                                <ez:lang />
+                                <ez:lang tabidx="1030"/>
                             </c:otherwise>
                         </c:choose>
                     </div>

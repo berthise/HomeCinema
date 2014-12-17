@@ -71,6 +71,7 @@ public class SessionManagedBean {
     
     public void relaodCaddyIds() {
       	    this.userscaddy = Ejbs.transaction().getCaddieProductIds(user.id);
+	    user.caddieSize = this.userscaddy.size();
     }
     
     
@@ -102,6 +103,7 @@ public class SessionManagedBean {
 	    this.usersfilms = Ejbs.user().getMyProductId(user.id);
 	    user.filmsSize = Ejbs.user().countFilms(user.id);
 	    this.userscaddy = Ejbs.transaction().getCaddieProductIds(user.id);
+	    user.caddieSize = this.userscaddy.size();
 	    System.out.println("userfilms (" + user.filmsSize + ") = " + usersfilms);
 	    System.out.println("userscaddy (" + userscaddy.size() + ") = " + userscaddy);
 
@@ -276,11 +278,11 @@ public class SessionManagedBean {
     }
 
     public void caddySizePlus() {
-	user.caddieSize++;
+//	user.caddieSize++;
     }
 
     public void caddySizeMinus() {
-	user.caddieSize--;
+//	user.caddieSize--;
     }
 
     public Integer getCaddySize() {

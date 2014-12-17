@@ -11,6 +11,8 @@ import enums.CardTypes;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.model.SelectItem;
@@ -20,6 +22,8 @@ import utils.Lang;
 import utils.Message;
 import utils.Pages;
 import utils.Redirect;
+import utils.SendMail;
+import utils.SendMailException;
 
 /**
  *
@@ -54,9 +58,25 @@ public class PaymentManagedBean {
 
     public void buy() {
 	SessionManagedBean session = findBean("sessionManagedBean");
+
 	if (session.checkPaymentCanceled()) {
 	    return;
 	}
+	CaddieManagedBean caddi = findBean("caddieManagedBean");
+
+	
+	String mail = caddi.toString();
+      try {
+	SendMail.send(session.getEmail(), "[HomeCinéma] " + Lang.getString("pay-bean-email-1"),
+		Lang.getString("pay-bean-email-2") + " \n\n"
+			+ Lang.getString("pay-bean-email-3") + ":\n\n"
+			+ mail
+			+ "\n\n"
+			+ Lang.getString("pay-bean-email-4") + ",\n"
+			+ "HomeCinéma");
+      } catch (SendMailException ex) {
+	Logger.getLogger(PaymentManagedBean.class.getName()).log(Level.SEVERE, null, ex);
+      }
 
 	// TODO
 	Long t_id = Ejbs.transaction().validate(session.getId(), pdto);

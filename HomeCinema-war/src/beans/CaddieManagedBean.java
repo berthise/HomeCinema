@@ -63,6 +63,23 @@ LanguageManagedBean lang = findBean("languageManagedBean");
 	public Integer getNbRows() {
 	    return (this.films.size() > 1) ? this.films.size() + 1 : 1;
 	}
+
+    @Override
+    public String toString() {
+      String s = "";
+      if (this.films.size() == 1) {
+	s = this.product.getPriceString() +"\t\t"+ this.films.get(0).title + "\n";
+      } else {
+	s = this.product.getPriceString() +"\t\t"+ this.product.name + "(\n";
+	for ( FilmDto f:this.films ) {
+	  	s+= "\t\t\t" + f.title + "\n";
+	}
+	s+= "\t\t)\n";
+      }
+      return s;
+    }
+	
+	
     }
 
     public CaddieDto cdto;
@@ -133,6 +150,8 @@ LanguageManagedBean lang = findBean("languageManagedBean");
   }
 	session.caddySizePlus();
 	session.relaodCaddyIds();
+//		     System.out.println(this.toString());
+
 	Message.Info(Lang.getString("caddie-bean-info"));
 	Redirect.redirectTo(Pages.FICHE_FILM + "?id=" + idfilm);
     }
@@ -182,8 +201,26 @@ LanguageManagedBean lang = findBean("languageManagedBean");
 //		}
 		break;
 	}
+//	     System.out.println(this.toString());
 	Message.Info(Lang.getString("caddie-bean-info"));
 	Redirect.redirectTo(Pages.FICHE_PRODUCT + "?id=" + idproduct);
     }
+
+  @Override
+  public String toString() {
+       String s= "-----------------------------\n";
+    s += Lang.getString("films-search-title")+"(€)\t "+Lang.getString("fiche-price")+"\n" ;
+    s+= "-----------------------------\n";
+    for (Product p: getListCaddie()) {
+      s+= p.toString();
+    }
+        s+= "-----------------------------\n";
+    s+= getTotalPrice() + "\tTotal\n";
+        s+= "-----------------------------\n";
+
+    return s;
+  }
+    
+    
 
 }

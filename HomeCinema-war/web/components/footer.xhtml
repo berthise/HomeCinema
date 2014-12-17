@@ -11,39 +11,39 @@
 		    <div class="container">
 			<div class="row">
 			    <div class="footer-elem col-md-4">
-				<h3 class="footer-title"><a href="#{msg['page-films']}.xhtml?tab=top" tabindex="2000">#{msg['search-top10']}</a></h3>
+				<h3 class="footer-title"><a href="#{msg['page-films']}.xhtml?tab=top" tabindex="8000">#{msg['search-top10']}</a></h3>
 				<ul class="footer-list">
-				    <ui:repeat var="o" value="#{listProductsManagedBean.getFooterTopProduct()}">
-					<li><a href="#{msg['page-fiche-product']}.xhtml?id=#{o.id}">#{o.name}</a></li>
+				  <ui:repeat var="o" varStatus="status" value="#{listProductsManagedBean.getFooterTopProduct()}">
+					<li><a href="#{msg['page-fiche-product']}.xhtml?id=#{o.id}"  tabindex="#{status.index + 8010}">#{o.name}</a></li>
 				    </ui:repeat>
 				</ul></div>
 			    <div class="footer-elem col-md-4">
-				<h3 class="footer-title"><a href="#{msg['page-films']}.xhtml?tab=new">#{msg['search-new']}</a></h3>
+				<h3 class="footer-title"><a href="#{msg['page-films']}.xhtml?tab=new"  tabindex="8100">#{msg['search-new']}</a></h3>
 				<ul class="footer-list">
-				    <ui:repeat var="o" value="#{listProductsManagedBean.getFooterNewProduct()}">
-					<li><a href="#{msg['page-fiche-product']}.xhtml?id=#{o.id}">#{o.name}</a></li>
+				    <ui:repeat var="o" varStatus="status" value="#{listProductsManagedBean.getFooterNewProduct()}">
+					<li><a href="#{msg['page-fiche-product']}.xhtml?id=#{o.id}" tabindex="#{status.index + 8110}">#{o.name}</a></li>
 				    </ui:repeat>
 				</ul>
 			    </div>
 			    <div class="footer-elem col-md-4">
 				<h3 class="footer-title" style="color:white">#{msg['apropos']}</h3>
 				<ul class="footer-list">
-				    <li><a href="#">#{msg['menu-mentions-legales']}</a></li>
-				    <li><a href="#{msg['page-contact']}.xhtml">#{msg['contact-title-page']}</a></li>
-				    <li><a href="#{msg['page-sitemap']}.xhtml">#{msg['sitemap-title']}</a></li>
+				    <li><a href="#" tabindex="8200">#{msg['menu-mentions-legales']}</a></li>
+				    <li><a href="#{msg['page-contact']}.xhtml" tabindex="8205">#{msg['contact-title-page']}</a></li>
+				    <li><a href="#{msg['page-sitemap']}.xhtml" tabindex="8210">#{msg['sitemap-title']}</a></li>
 				</ul>
 				<h3 class="footer-title" style="color:white; margin-top: 5px;">#{msg['quick-link']}</h3>
 				<ul class="footer-list">
-				    <li><a href="#{msg['page-index']}.xhtml">#{msg['menu-accueil']}</a></li>
-				    <li><a href="#{msg['page-films']}.xhtml">#{msg['films-all']}</a></li>
-				    <li><a href="#{msg['page-faq']}.xhtml">#{msg['menu-faq']}</a></li>
-				    <li><a href="#{msg['page-demo']}.xhtml">#{msg['menu-demo']}</a></li>
+				    <li><a href="#{msg['page-index']}.xhtml" tabindex="8250">#{msg['menu-accueil']}</a></li>
+				    <li><a href="#{msg['page-films']}.xhtml" tabindex="8255">#{msg['films-all']}</a></li>
+				    <li><a href="#{msg['page-faq']}.xhtml" tabindex="8260">#{msg['menu-faq']}</a></li>
+				    <li><a href="#{msg['page-demo']}.xhtml" tabindex="8265">#{msg['menu-demo']}</a></li>
 				</ul>
 			    </div>
 			</div>
 			<hr />
 		    </div>
-                    <a id="back-to-top" href="#" class="btn btn-sm btn-success btn-lg back-to-top" role="button" title="Remonter en haut de la page" data-toggle="tooltip" data-placement="left">
+                    <a id="back-to-top" href="#" class="btn btn-sm btn-success btn-lg back-to-top" role="button" title="Remonter en haut de la page" data-toggle="tooltip" data-placement="left" tabindex="7999">
                         <span class="glyphicon glyphicon-chevron-up"></span>
                     </a>
 		</footer>

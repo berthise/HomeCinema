@@ -7,18 +7,19 @@
 
         <!-- INTERFACE -->
     <cc:interface>
+              <cc:attribute name="tabidx" type="Integer" default="1100"/>
     </cc:interface>
     
     <!-- IMPLEMENTATION -->
     <cc:implementation>
 	<h:form class="lang">
-	    <h:commandLink style="padding: 0 !important;" disabled="#{languageManagedBean.isFR()}" action="#{languageManagedBean.countryLocaleCodeChanged('fr')}" >
+	  <h:commandLink style="padding: 0 !important;" disabled="#{languageManagedBean.isFR()}" action="#{languageManagedBean.countryLocaleCodeChanged('fr')}" tabindex="#~#{cc.attrs.tabidx}" >
 		<f:actionListener binding="#{listProductsManagedBean.resetAllGenres()}"/>
 		<img class="#{((languageManagedBean.isFR())? '' : 'lang-inactiv')}" src="img/Flag_France.png" title="Français" />
 		</h:commandLink>
 	</h:form>
 	<h:form>
-	    <h:commandLink style="margin-left: 10px; padding: 0 !important;" disabled="#{languageManagedBean.isEN()}" action="#{languageManagedBean.countryLocaleCodeChanged('en')}" >
+	    <h:commandLink style="margin-left: 10px; padding: 0 !important;" disabled="#{languageManagedBean.isEN()}" action="#{languageManagedBean.countryLocaleCodeChanged('en')}" tabindex="#~#{cc.attrs.tabidx+1}" >
 		<f:actionListener binding="#{listProductsManagedBean.resetAllGenres()}"/>
 		<img class="#{((languageManagedBean.isEN())? '' : 'lang-inactiv')}" src="img/Flag_English.png" title="English" />
 	    </h:commandLink>

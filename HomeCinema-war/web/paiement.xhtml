@@ -40,7 +40,10 @@
                     <div class="col-md-6">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h4><i class="glyphicon glyphicon-euro" />#{msg['paiement-title']}</h4>
+                                <h4><i class="glyphicon glyphicon-euro" />#{msg['paiement-title']}
+				
+				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#help_popup" style="float: right" tabindex="100">#{msg['paiment-help']}</button></h4>
+
                             </div>
                             <div class="panel-body">
                                 <h:form role="form" id="paiement">
@@ -48,8 +51,8 @@
                                         <div class="form-group">
                                             <h:outputLabel class="col-xs-5 form-label" for="type">#{msg['paiement-card']} <i class="required">*</i> : </h:outputLabel>
                                             <div class="col-sx-6">
-                                                <h:selectOneRadio id="typeCarte" value="#{paymentManagedBean.pdto.type}" p:required="required" class="payradio">
-                                                    <f:selectItems value="#{paymentManagedBean.cardTypes}" var="currentType"  itemValue="#{currentType}" itemLabel="#{currentType.label}"/>
+					      <h:selectOneRadio id="typeCarte" value="#{paymentManagedBean.pdto.type}" p:required="required" class="payradio" tabindex="10" >
+                                                    <f:selectItems value="#{paymentManagedBean.cardTypes}" var="currentType"  itemValue="#{currentType}" itemLabel="#{currentType.label}" />
                                                 </h:selectOneRadio>
                                             </div>
                                         </div>
@@ -105,6 +108,26 @@
                         </div>
                     </div>
                 </div>
+	      	<div id="help_popup" class="modal fade" style="display: none">
+                    <div class="modal-dialog lg">
+                        <div class="modal-content" style="color: black">
+                            <form>
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">#{msg['fermer']}</span></button>
+                                    <h4 class="modal-title">#{msg['popup-help-pay-title']}</h4>
+                                </div>
+                                <div class="modal-body" style="height: 300px; overflow-y: overlay;">
+                                    <ul>
+				                                                  <h:outputText value="#{msg['popup-help-pay-text']}" escape="false" />
+                                    </ul>
+                                </div>
+                                <div class="modal-footer">
+                                    <a href="" type="button" class="btn btn-default" tabindex="110" data-dismiss="modal">#{msg['fermer']}</a>
+                                </div>
+                            </form>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div><!-- /.mod -->
             </div>
         </section>
         <ui:insert name="footer" >
