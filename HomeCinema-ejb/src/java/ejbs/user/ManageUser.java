@@ -223,6 +223,8 @@ public class ManageUser implements ManageUserRemote {
       List<Long> pids = q.getResultList();
       int pc = 0;
       
+      int numbersize = Integer.toString(nb).length();
+
     try {
 
       for (int i = 1; i <= nb; i++) {
@@ -235,7 +237,12 @@ public class ManageUser implements ManageUserRemote {
 	user.setFirstName(name);
 	user.setState((activate) ? UserStates.Activated : UserStates.Pending);
     
-	user.setNickName(name + String.format("%06d", i));
+		if ( nb == 1 ) {
+		  	user.setNickName(name);
+		} else {
+		
+		  user.setNickName(name + String.format("%0"+numbersize+"d", i));
+		}
 	user.setEmail(user.getNickName() + "@mailquinexistepas.net");
 	
 	if (caddie && i%2 != 0) {
