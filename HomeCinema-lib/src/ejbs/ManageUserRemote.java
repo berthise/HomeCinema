@@ -36,7 +36,7 @@ public interface ManageUserRemote {
     
     public Set<SimpleUserDto> getAllUser();
     
-    public Set<SimpleUserDto> getAllUser(Integer limit);
+    public Set<SimpleUserDto> getAllUser(Integer offset, Integer limit);
     
     public UserDtoNoPw getUser(Long id);
     
@@ -44,8 +44,10 @@ public interface ManageUserRemote {
     
     public void mergeOrSave (UserDtoNoPw udto);
     
-
+    public Long countAllUser();
     
+    public void createNbFictiveUsers(String name, Integer nb, Boolean activate, Boolean caddie) throws SignupEmailException;    
+    public Integer deleteFictiveUsers(String name);
     //public  List<TransactionDto> getTransaction (Long user);
 
     public boolean changePassword(Long id, String oldPassword, String newPassword);

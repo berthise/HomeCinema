@@ -12,6 +12,7 @@ import dtos.TransactionDto;
 import dtos.UserDto;
 import dtos.UserDtoNoPw;
 import ejbs.ManageUserRemote;
+import entities.Caddy;
 import entities.Film;
 import entities.Product;
 import entities.Transaction;
@@ -93,6 +94,8 @@ public class ManageUser implements ManageUserRemote {
 	    return null;
 	}
     }
+    
+   
 
     @Override
     public void activate(Long user, String code) throws ActivatedCodeException {
@@ -206,11 +209,120 @@ public class ManageUser implements ManageUserRemote {
     }
     
     @Override
-    public Set<SimpleUserDto> getAllUser(Integer limit) {
+    public Long countAllUser() {
+      	Query qnb = em.createNativeQuery("select COUNT(u.ID_USER) From USER_ u");
+	Integer nb = (Integer) qnb.getSingleResult();
+	return nb.longValue();
+    }
+    
+     @Override
+     public void createNbFictiveUsers(String name, Integer nb, Boolean activate, Boolean caddie) throws SignupEmailException {
+       String pp = Securite.crypte("password");
+
+      Query q = em.createNativeQuery("select ID_PRODUCT from APP.PRODUCTS");
+      List<Long> pids = q.getResultList();
+      int pc = 0;
+      
+    try {
+
+      for (int i = 1; i <= nb; i++) {
+	//user.setId(null);
+	User user = new User();
+	user.setBirthDate(new Date());
+	user.setAddDate(new Date());
+	user.setPassword(pp);
+	user.setLastName(name);
+	user.setFirstName(name);
+	user.setState((activate) ? UserStates.Activated : UserStates.Pending);
+    
+	user.setNickName(name + String.format("%06d", i));
+	user.setEmail(user.getNickName() + "@mailquinexistepas.net");
+	
+	if (caddie && i%2 != 0) {
+	  user.setCaddy(new Caddy());
+	  for (int z = 0; z < i % 3; z++) {
+	    //Long pid = pids.get((int) (Math.random() * (float) (pids.size())));
+	    Long pid = pids.get(pc++%pids.size());
+
+	    Product p = em.getReference(Product.class, pid);
+	    user.getCaddy().addCaddy(p);
+	  }
+	  em.persist(user.getCaddy());
+	}
+	
+	em.persist(user);
+	
+	/* regulary flush if a lot of user */
+	if ((i%100) == 0)
+	  em.flush();
+
+      }
+      em.flush();
+
+    } catch (PersistenceException ex) {
+      throw new SignupEmailException();
+
+    }
+  }
+         @Override
+    public Integer deleteFictiveUsers(String name) {
+//           String fromcaddy = "delete from APP.CADDIE where FIRST_NAME = '"+name+"'";
+
+      String listuids =  "select ID_USER from APP.USER_ where FIRST_NAME = '"+name+"'";
+      String caddyids = "select CADDY from APP.USER_ where FIRST_NAME = '"+name+"'";
+
+      Query q = em.createNativeQuery(caddyids);
+      List<Long> cids = q.getResultList();
+      String caddies = "";
+      for (Long id: cids) {
+	if ( id != null)
+	  caddies += id + ",";
+      }
+      caddies += "0";
+//      System.out.println("caddies = "+  caddies);
+
+      String deletecaddisproduct = "delete from APP.CADDY_PRODUCTS where CADDY_ID in ("+caddies+")";
+      String deletecaddis = "delete from APP.CADDY where ID in ("+caddies+")";
+      String deleteuserfilms = "delete from APP.USERS_FILMS where USER_ in ("+listuids+")";
+      String deleteuser = "delete from APP.USER_ where FIRST_NAME = '"+name+"'";
+
+      Query qdel;
+	   Integer nb, nbuser;
+	   qdel = em.createNativeQuery(deleteuserfilms);
+	   nb = qdel.executeUpdate();
+//	   System.out.println("deleteuserfilms nb = " + nb);
+
+	   qdel = em.createNativeQuery(deleteuser);
+	   nbuser = qdel.executeUpdate();
+//	   System.out.println("deleteuser nb = " + nbuser);
+
+	   qdel = em.createNativeQuery(deletecaddisproduct);
+	   nb = qdel.executeUpdate();
+//	   System.out.println("deletecaddisproduct nb = " + nb);
+	   qdel = em.createNativeQuery(deletecaddis);
+	   nb = qdel.executeUpdate();
+//	   System.out.println("deletecaddis nb = " + nb);
+
+
+      
+//      for (Long id: uids) {
+//	removeUser(id);
+//	
+//      }
+      return nbuser;
+
+    }
+     
+
+    
+    
+    @Override
+    public Set<SimpleUserDto> getAllUser(Integer offset, Integer limit) {
 	Query q;
 
 	q = em.createQuery("select u From User u ", User.class);
 	q.setMaxResults(limit);
+	q.setFirstResult(offset);
 	List<User> lu = q.getResultList();
 	Set<SimpleUserDto> ludto = new HashSet<>();
 	for (User u : lu) {

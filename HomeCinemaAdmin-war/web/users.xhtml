@@ -23,11 +23,19 @@
                 <h:messages globalOnly="true" infoClass="info" />
             </div>
 	      <h:form>
+		 <div class="row">
+                    <div class="form-group">
+                        <h:outputLabel class="col-md-5 form-label" for="name">offset d'affichage : </h:outputLabel>
+                        <div class="col-md-7">
+			  <h:inputText id="offset" p:pattern="[0-9]{0,6}" class="form-control" value="#{usersManagedBean.offset}"/>
+                        </div>
+                    </div>
+                </div>
 	      	<div class="row">
                     <div class="form-group">
                         <h:outputLabel class="col-md-5 form-label" for="name">limit d'affichage (0=all): </h:outputLabel>
                         <div class="col-md-7">
-			  <h:inputText id="nuserfictif" p:pattern="[0-9]{0,6}" class="form-control" value="#{usersManagedBean.limit}"/>
+			  <h:inputText id="limit" p:pattern="[0-9]{0,6}" class="form-control" value="#{usersManagedBean.limit}"/>
                         </div>
                     </div>
                 </div>
@@ -105,16 +113,22 @@
 		<div class="row">
                     <div class="form-group">
                         <h:outputLabel class="col-md-5 form-label" for="name">activer les utilisateurs fictifs: </h:outputLabel>
-                        <div class="col-md-7">
 			  <h:selectBooleanCheckbox id="activ-fictif" value="#{usersManagedBean.activateFictif}" tabindex="110"/> 
-		     </div>
+                    </div>
+                </div>
+		<div class="row">
+                    <div class="form-group">
+                        <h:outputLabel class="col-md-5 form-label" for="name">ajouter un caddie au utilisateurs fictifs: </h:outputLabel>
+			<h:selectBooleanCheckbox id="caddie-fictif" value="#{usersManagedBean.caddieFictif}" tabindex="120"/> 
                     </div>
                 </div>
 		<div class="row">
                     <div class="col-md-5"></div>
                     <h:commandButton class="btn btn-danger col-md-3" p:type="reset" value="Réinitialiser" />
 
-                    <h:commandButton class="btn btn-primary col-md-3" value="Envoyer" action="#{usersManagedBean.createNbUserFictif()}" />
+                    <h:commandButton class="btn btn-primary col-md-3" value="Create" action="#{usersManagedBean.createNbUserFictif()}" />
+		    
+		    <h:commandButton class="btn btn-primary col-md-3" value="Delete" action="#{usersManagedBean.deleteUserFictif()}" />
                 </div>
 		
 	    </h:form>
